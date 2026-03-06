@@ -1,82 +1,82 @@
-# React Router Development Guide
+# React Router 开发指南
 
-## Commands
+## 命令
 
-- **Build**: `pnpm build` (all packages) or `pnpm run --filter <package> build` (single package)
-- **Test (Jest)**: `pnpm test` (all packages), `pnpm test packages/<package>/` (single package), `pnpm test packages/react-router/__tests__/router/fetchers-test.ts` (single file), or `pnpm test -- -t "action fetch"` (tests matching name)
-- **Integration tests (Playwright)**: `pnpm test:integration --project chromium` (build + test all), `pnpm test:integration:run --project chromium` (test only, all), `pnpm test:integration:run --project chromium integration/middleware-test.ts` (single file), or `pnpm test:integration:run --project chromium -g "middleware"` (tests matching name)
-- **Typecheck**: `pnpm run typecheck`
-- **Lint**: `pnpm run lint`
-- **Docs generation**: `pnpm run docs` (regenerates API docs from JSDoc)
-- **Type generation**: `pnpm run typegen` (Framework Mode only)
-- **Clean**: `pnpm run clean` (git clean -fdX)
+- **构建**：`pnpm build`（所有包）或 `pnpm run --filter <package> build`（单个包）
+- **测试（Jest）**：`pnpm test`（所有包），`pnpm test packages/<package>/`（单个包），`pnpm test packages/react-router/__tests__/router/fetchers-test.ts`（单个文件），或 `pnpm test -- -t "action fetch"`（匹配名称的测试）
+- **集成测试（Playwright）**：`pnpm test:integration --project chromium`（构建 + 测试全部），`pnpm test:integration:run --project chromium`（仅测试，全部），`pnpm test:integration:run --project chromium integration/middleware-test.ts`（单个文件），或 `pnpm test:integration:run --project chromium -g "middleware"`（匹配名称的测试）
+- **类型检查**：`pnpm run typecheck`
+- **代码检查**：`pnpm run lint`
+- **文档生成**：`pnpm run docs`（从 JSDoc 重新生成 API 文档）
+- **类型生成**：`pnpm run typegen`（仅 Framework 模式）
+- **清理**：`pnpm run clean`（git clean -fdX）
 
-## Modes
+## 模式
 
-**Five distinct modes**: Declarative, Data, Framework, RSC Data (unstable), RSC Framework (unstable). **Always identify which mode(s) a feature applies to.**
+**五种不同模式**：声明式、数据、Framework、RSC 数据（不稳定）、RSC Framework（不稳定）。**始终明确功能适用于哪种模式。**
 
-1. **Declarative**: `<BrowserRouter>`, `<Routes>`, `<Route>`
-2. **Data**: `createBrowserRouter()` with `loader`/`action`, `<RouterProvider>`
-3. **Framework**: Vite plugin + `routes.ts` + Route Module API (route exports like `loader`, `action`, `default`) + type generation + SSR/SPA
-4. **RSC Data** (unstable): RSC runtime APIs, manual bundler setup, runtime route config
-5. **RSC Framework** (unstable): Framework Mode with `unstable_reactRouterRSC` Vite plugin
+1. **声明式**：`<BrowserRouter>`、`<Routes>`、`<Route>`
+2. **数据**：使用 `loader`/`action` 的 `createBrowserRouter()`，`<RouterProvider>`
+3. **Framework**：Vite 插件 + `routes.ts` + 路由模块 API（路由导出如 `loader`、`action`、`default`）+ 类型生成 + SSR/SPA
+4. **RSC 数据**（不稳定）：RSC 运行时 API，手动打包器设置，运行时路由配置
+5. **RSC Framework**（不稳定）：Framework 模式 + `unstable_reactRouterRSC` Vite 插件
 
-**RSC mode differences:**
+**RSC 模式差异：**
 
-- **RSC Framework**: `unstable_reactRouterRSC` plugin, `@vitejs/plugin-rsc`, different entry points/format
-- **RSC Data**: Manual bundler, runtime route config typically in `src/routes.ts`, `unstable_RSCRouteConfig`, different runtime APIs, `setupRscTest` in `integration/rsc/`
+- **RSC Framework**：`unstable_reactRouterRSC` 插件，`@vitejs/plugin-rsc`，不同的入口点/格式
+- **RSC 数据**：手动打包器，运行时路由配置通常在 `src/routes.ts` 中，`unstable_RSCRouteConfig`，不同的运行时 API，`integration/rsc/` 中的 `setupRscTest`
 
-## Architecture
+## 架构
 
-- **Monorepo**: pnpm workspace, packages in `packages/`
-- **Key packages**:
-  - `react-router`: Core (all modes) - `lib/components.tsx`, `lib/hooks.tsx`, `lib/router/`, `lib/dom/`, `lib/rsc/`
-  - `@react-router/dev`: Framework tooling - `vite/plugin.ts` (Framework), `vite/rsc/plugin.ts` (RSC Framework), `typegen/`
-  - `react-router-dom`: Re-exports `react-router` (v6→v7 compat)
-  - `@react-router/node`, `@react-router/cloudflare`, `@react-router/express`: Server adapters
-  - `@react-router/serve`: Minimal server for Framework Mode
-  - `@react-router/fs-routes`: File-system routing (`flatRoutes()`)
+- **Monorepo**：pnpm 工作空间，包在 `packages/` 中
+- **核心包**：
+  - `react-router`：核心（所有模式）- `lib/components.tsx`、`lib/hooks.tsx`、`lib/router/`、`lib/dom/`、`lib/rsc/`
+  - `@react-router/dev`：Framework 工具 - `vite/plugin.ts`（Framework）、`vite/rsc/plugin.ts`（RSC Framework）、`typegen/`
+  - `react-router-dom`：重导出 `react-router`（v6→v7 兼容）
+  - `@react-router/node`、`@react-router/cloudflare`、`@react-router/express`：服务器适配器
+  - `@react-router/serve`：Framework 模式的最小化服务器
+  - `@react-router/fs-routes`：文件系统路由（`flatRoutes()`）
 
-## Testing
+## 测试
 
-### Unit Tests (`packages/react-router/__tests__/`)
+### 单元测试（`packages/react-router/__tests__/`）
 
-Use Jest for pure routing logic, pure server runtime behavior, router state, React component behavior. No build required.
-
-```bash
-pnpm test                                                          # All packages
-pnpm test packages/react-router/                                   # Single package
-pnpm test packages/react-router/__tests__/router/fetchers-test.ts  # Single file
-pnpm test -- -t "action fetch"                                     # Tests matching name
-```
-
-### Integration Tests (`integration/`)
-
-Use Playwright for Vite plugin, build pipeline, SSR/hydration, RSC, type generation.
+使用 Jest 测试纯路由逻辑、纯服务器运行时行为、路由器状态、React 组件行为。无需构建。
 
 ```bash
-pnpm test:integration --project chromium                                     # Build + test all
-pnpm test:integration:run --project chromium                                 # Test only, all
-pnpm test:integration:run --project chromium integration/middleware-test.ts  # Single file
-pnpm test:integration:run --project chromium -g "middleware"                 # Tests matching name
+pnpm test                                                          # 所有包
+pnpm test packages/react-router/                                   # 单个包
+pnpm test packages/react-router/__tests__/router/fetchers-test.ts  # 单个文件
+pnpm test -- -t "action fetch"                                     # 匹配名称的测试
 ```
 
-**Project**: Always use `chromium` for integration tests, unless explicitly stated otherwise.
+### 集成测试（`integration/`）
 
-**Rebuild when**: First run, after changing `packages/` (not needed for test-only changes)
+使用 Playwright 测试 Vite 插件、构建管线、SSR/hydration、RSC、类型生成。
 
-**Organization**: Use `createFixture()` → `createAppFixture()` → `PlaywrightFixture`. Templates available: `vite-6-template/`, `rsc-vite-framework/`, etc. Test all applicable modes (iterate over template array when behavior should work across modes). Test both states when introducing future flags (one test with flag on, one with flag off).
+```bash
+pnpm test:integration --project chromium                                     # 构建 + 测试全部
+pnpm test:integration:run --project chromium                                 # 仅测试，全部
+pnpm test:integration:run --project chromium integration/middleware-test.ts  # 单个文件
+pnpm test:integration:run --project chromium -g "middleware"                 # 匹配名称的测试
+```
 
-**RSC testing**:
+**项目**：集成测试始终使用 `chromium`，除非另有明确说明。
 
-- **RSC Framework**: Use `createFixture` with `rsc-vite-framework/` template
-- **RSC Data**: Use `setupRscTest` in `integration/rsc/`
+**重新构建时机**：首次运行时，或更改 `packages/` 后（仅更改测试不需要重新构建）
 
-Test shared behavior across multiple templates (e.g., `["vite-5-template", "rsc-vite-framework"]`). Test RSC-specific features against RSC template.
+**组织方式**：使用 `createFixture()` → `createAppFixture()` → `PlaywrightFixture`。可用模板：`vite-6-template/`、`rsc-vite-framework/` 等。测试所有适用的模式（当行为应跨模式工作时遍历模板数组）。引入 future 标志时测试两种状态（一个测试启用标志，一个测试禁用标志）。
+
+**RSC 测试**：
+
+- **RSC Framework**：使用 `createFixture` 配合 `rsc-vite-framework/` 模板
+- **RSC 数据**：使用 `integration/rsc/` 中的 `setupRscTest`
+
+跨多个模板测试共享行为（例如 `["vite-5-template", "rsc-vite-framework"]`）。针对 RSC 模板测试 RSC 特有的功能。
 
 ## routes.ts
 
-Framework Mode uses `routes.ts` in `app/`. Most tests use `flatRoutes()` for file-system routing:
+Framework 模式使用 `app/` 中的 `routes.ts`。大多数测试使用 `flatRoutes()` 进行文件系统路由：
 
 ```ts
 // app/routes.ts
@@ -86,15 +86,15 @@ import { flatRoutes } from "@react-router/fs-routes";
 export default flatRoutes() satisfies RouteConfig;
 ```
 
-**File-system conventions** (`app/routes/`):
+**文件系统约定**（`app/routes/`）：
 
-- `_index.tsx` → `/` (index route)
+- `_index.tsx` → `/`（索引路由）
 - `about.tsx` → `/about`
-- `blog.$slug.tsx` → `/blog/:slug` (URL param)
-- `settings.profile.tsx` → `/settings/profile` (`.` creates nesting)
-- `_layout.tsx` → pathless layout route
+- `blog.$slug.tsx` → `/blog/:slug`（URL 参数）
+- `settings.profile.tsx` → `/settings/profile`（`.` 创建嵌套）
+- `_layout.tsx` → 无路径布局路由
 
-**Manual config alternative**:
+**手动配置替代方案**：
 
 ```ts
 import { index, route, layout } from "@react-router/dev/routes";
@@ -105,28 +105,28 @@ export default [
 ];
 ```
 
-## Documentation
+## 文档
 
-**Don't edit generated files**: `docs/api/` (from JSDoc), `.react-router/types/` (from typegen)
+**不要编辑生成的文件**：`docs/api/`（来自 JSDoc）、`.react-router/types/`（来自 typegen）
 
-**Mode indicators**: Every doc needs `[MODES: framework, data, declarative]`
+**模式标识**：每个文档都需要 `[MODES: framework, data, declarative]`
 
-**API docs**: Edit JSDoc in `packages/react-router/lib/`, run `pnpm docs`
+**API 文档**：编辑 `packages/react-router/lib/` 中的 JSDoc，运行 `pnpm docs`
 
-**Unstable features**: Prefix `unstable_`, add `unstable: true` to frontmatter, include warning block
+**不稳定功能**：添加 `unstable_` 前缀，在 frontmatter 中添加 `unstable: true`，包含警告块
 
-## Future Flags
+## Future 标志
 
-- **Future flags** (`vX_*`): Stable breaking changes for next major
-- **Unstable flags** (`unstable_*`): Experimental, may change
+- **Future 标志**（`vX_*`）：下一个主要版本的稳定破坏性变更
+- **不稳定标志**（`unstable_*`）：实验性功能，可能更改
 
-Test both states (on/off) for future flags. Don't break existing behavior without a flag.
+测试 future 标志的两种状态（启用/禁用）。没有标志不要破坏现有行为。
 
 ## Changesets
 
-When making changes that affect users, create a changeset at `.changeset/<unique-meaningful-name>.md`. If iterating on a change that hasn't shipped yet, update the existing changeset file instead of creating a new one.
+当进行影响用户的更改时，在 `.changeset/<unique-meaningful-name>.md` 创建一个 changeset。如果在尚未发布的更改上进行迭代，请更新现有的 changeset 文件而不是创建新的。
 
-Format:
+格式：
 
 ```markdown
 ---
@@ -134,27 +134,27 @@ Format:
 "@react-router/dev": minor
 ---
 
-Brief description of the change
+变更的简要描述
 
-- Additional details if needed
+- 如需要可添加额外详情
 ```
 
-## Branching
+## 分支策略
 
-- **`main`**: Latest stable release
-- **`dev`**: Active development (branch from here for code changes)
-- **`v6`**: v6.x maintenance
-- Branch from `main` for docs-only changes
+- **`main`**：最新稳定版本
+- **`dev`**：活跃开发（从此处创建代码更改的分支）
+- **`v6`**：v6.x 维护
+- 仅文档更改从 `main` 创建分支
 
-## Key Files
+## 关键文件
 
-| Purpose           | Location                                                    |
-| ----------------- | ----------------------------------------------------------- |
-| Router            | `packages/react-router/lib/router/router.ts`                |
-| React API         | `packages/react-router/lib/components.tsx`, `lib/hooks.tsx` |
-| Vite plugin       | `packages/react-router-dev/vite/plugin.ts`                  |
-| RSC Vite plugin   | `packages/react-router-dev/vite/rsc/plugin.ts`              |
-| Type generation   | `packages/react-router-dev/typegen/`                        |
-| Unit tests        | `packages/react-router/__tests__/`                          |
-| Integration tests | `integration/`                                              |
-| Decision docs     | `decisions/`                                                |
+| 用途          | 位置                                                        |
+| ------------- | ----------------------------------------------------------- |
+| 路由器        | `packages/react-router/lib/router/router.ts`                |
+| React API     | `packages/react-router/lib/components.tsx`、`lib/hooks.tsx` |
+| Vite 插件     | `packages/react-router-dev/vite/plugin.ts`                  |
+| RSC Vite 插件 | `packages/react-router-dev/vite/rsc/plugin.ts`              |
+| 类型生成      | `packages/react-router-dev/typegen/`                        |
+| 单元测试      | `packages/react-router/__tests__/`                          |
+| 集成测试      | `integration/`                                              |
+| 决策文档      | `decisions/`                                                |

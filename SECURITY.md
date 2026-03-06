@@ -1,31 +1,31 @@
-# Security Policy
+# 安全策略
 
-## Supported Versions
+## 支持的版本
 
-The following versions are currently being supported with security updates:
+以下版本目前正在接受安全更新支持：
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 7.x     | :white_check_mark: |
-| 6.x     | :white_check_mark: |
-| < 6.0   | :x:                |
+| 版本  | 是否支持           |
+| ----- | ------------------ |
+| 7.x   | :white_check_mark: |
+| 6.x   | :white_check_mark: |
+| < 6.0 | :x:                |
 
-## Reporting a Vulnerability
+## 报告漏洞
 
-We take security bugs in React Router seriously. We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
+我们非常重视 React Router 中的安全漏洞。感谢您负责任地披露您的发现，我们将尽一切努力确认您的贡献。
 
-To report a security issue, please use the GitHub Security Advisory [Report a Vulnerability](https://github.com/remix-run/react-router/security/advisories/new) feature.
+要报告安全问题，请使用 GitHub Security Advisory 的[报告漏洞](https://github.com/remix-run/react-router/security/advisories/new)功能。
 
-The React Router team will send a response indicating the next steps in handling your report. After the initial reply to your report, our team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.
+React Router 团队将发送回复，说明处理您报告的后续步骤。在对您的报告做出初步回复后，我们的团队将随时通知您修复和完整公告的进展，并可能要求提供额外的信息或指导。
 
-Generally, the full process will look something like this when we receive a new advisory via Github:
+通常，当我们通过 GitHub 收到新的安全通告时，完整的流程大致如下：
 
-- If the advisory is valid, we'll move it into `Draft` status as we begin our investigation
-- We'll inform common hosting platforms of the vulnerability so they can make any preventative changes on their end even before the vulnerability is fixed/published
-  - If you are a hosting provider and you want to be notified right away, please email us at [hello@remix.run](mailto:hello@remix.run) and we'll get you added
-- We'll publish a new version of React Router with a fix
-- We'll update our own sites with the new version
-- After a period of time, potentially up to a month or so, we'll publish the advisory
-  - This gives application developers time to update their applications to the latest version before we make the details of the advisory public
+- 如果通告有效，我们将在开始调查时将其移至 `Draft`（草稿）状态
+- 我们将通知常见的托管平台该漏洞信息，以便他们在漏洞修复/发布之前就能在其端做出预防性更改
+  - 如果您是托管服务提供商，希望立即收到通知，请发送邮件至 [hello@remix.run](mailto:hello@remix.run)，我们会将您加入通知列表
+- 我们将发布包含修复的 React Router 新版本
+- 我们将使用新版本更新我们自己的网站
+- 经过一段时间（可能长达一个月左右），我们将发布安全通告
+  - 这为应用开发者提供了在我们公开通告详情之前将其应用更新到最新版本的时间
 
-Report security bugs in third-party modules to the person or team maintaining the module. You can also report a vulnerability through the [npm contact form](https://www.npmjs.com/support) by selecting "I'm reporting a security vulnerability".
+请将第三方模块中的安全漏洞报告给维护该模块的个人或团队。您也可以通过 [npm 联系表单](https://www.npmjs.com/support)选择"I'm reporting a security vulnerability"来报告漏洞。

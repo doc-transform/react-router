@@ -1,46 +1,46 @@
-## Our Pledge
+## 我们的承诺
 
-In the interest of fostering an open and welcoming environment, we as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, color, religion, or sexual identity and orientation.
+为了营造一个开放和友好的环境，我们作为成员、贡献者和领导者承诺，让参与我们社区的每个人都能享有无骚扰的体验，无论其年龄、体型、可见或不可见的残障、种族、性别特征、性别认同和表达、经验水平、教育程度、社会经济地位、国籍、个人外表、种族、种姓、肤色、宗教或性取向如何。
 
-We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
+我们承诺以有助于建设一个开放、友好、多元、包容和健康社区的方式行事和互动。
 
-## Our Standards
+## 我们的标准
 
-Examples of behavior that contributes to a positive environment for our community include:
+有助于为社区创造积极环境的行为包括：
 
-- Using welcoming and inclusive language
-- Demonstrating empathy and kindness toward other people
-- Being respectful of differing opinions, viewpoints, and experiences
-- Giving and gracefully accepting constructive feedback
-- Accepting responsibility and apologizing to those affected by our mistakes, and learning from the experience
-- Focusing on what is best not just for us as individuals, but for the overall community
+- 使用友好和包容的语言
+- 对他人展现同理心和善意
+- 尊重不同的观点、看法和经历
+- 给予并优雅地接受建设性反馈
+- 对因我们的错误而受影响的人承担责任并道歉，并从中吸取教训
+- 不仅关注对我们个人最有利的事，还要关注对整个社区最有利的事
 
-Examples of unacceptable behavior include:
+不可接受的行为包括：
 
-- The use of sexualized language or imagery, and unwelcome sexual attention or advances
-- Trolling, insulting or derogatory comments, and personal or political attacks
-- Public or private harassment
-- Publishing others’ private information, such as a physical or email address, without their explicit permission
-- Other conduct which could reasonably be considered inappropriate in a professional setting
+- 使用性暗示的语言或图像，以及不受欢迎的性关注或性骚扰
+- 挑衅、侮辱或贬低性评论，以及人身攻击或政治攻击
+- 公开或私下骚扰
+- 未经他人明确许可，发布他人的私人信息，如物理地址或电子邮箱
+- 其他在专业环境中可被合理认为不当的行为
 
-## Our Responsibilities
+## 我们的责任
 
-Community leaders and project maintainers are responsible for clarifying and enforcing our standards of acceptable behavior and will take appropriate and fair corrective action in response to any behavior that they deem inappropriate, threatening, offensive, or harmful.
+社区领导者和项目维护者有责任明确和执行我们可接受行为的标准，并将针对任何他们认为不当、具有威胁性、冒犯性或有害行为采取适当和公正的纠正措施。
 
-Community leaders have the right and responsibility to remove, edit, or reject comments, commits, code, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
+社区领导者有权利和责任删除、编辑或拒绝与本行为准则不一致的评论、提交、代码、问题和其他贡献，或暂时或永久禁止任何他们认为行为不当、具有威胁性、冒犯性或有害的贡献者。
 
-## Scope
+## 适用范围
 
-This Code of Conduct applies within all community spaces, and also applies when an individual is officially representing the community in public spaces. Examples of representing our community include using an official e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event.
+本行为准则适用于所有社区空间，也适用于个人在公共空间中正式代表社区的情况。代表社区的例子包括使用官方电子邮件地址、通过官方社交媒体账号发帖，或在线上或线下活动中担任指定代表。
 
-## Enforcement
+## 执行
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at [brooks.lybrand@shopify.com](mailto:brooks.lybrand@shopify.com). All complaints will be reviewed and investigated promptly and fairly.
+可以向负责执行的社区领导者报告任何滥用、骚扰或其他不可接受的行为，联系方式为 [brooks.lybrand@shopify.com](mailto:brooks.lybrand@shopify.com)。所有投诉将被及时、公正地审查和调查。
 
-Project maintainers and community leaders are obligated to respect the privacy and security of the reporter of any incident.
+项目维护者和社区领导者有义务尊重事件报告者的隐私和安全。
 
-## Attribution
+## 致谢
 
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/), version 2.1, available at [https://www.contributor-covenant.org/version/2/1/code_of_conduct.html](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html).
+本行为准则改编自 [Contributor Covenant](https://www.contributor-covenant.org/) 2.1 版本，可在 [https://www.contributor-covenant.org/version/2/1/code_of_conduct.html](https://www.contributor-covenant.org/version/2/1/code_of_conduct.html) 查看。
 
-For answers to common questions about this code of conduct, see the FAQ at [https://www.contributor-covenant.org/faq](https://www.contributor-covenant.org/faq). Translations are available at [https://www.contributor-covenant.org/translations](https://www.contributor-covenant.org/translations).
+有关本行为准则的常见问题解答，请参阅 [https://www.contributor-covenant.org/faq](https://www.contributor-covenant.org/faq)。翻译版本可在 [https://www.contributor-covenant.org/translations](https://www.contributor-covenant.org/translations) 查看。
