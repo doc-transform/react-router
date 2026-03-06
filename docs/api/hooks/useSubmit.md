@@ -4,26 +4,13 @@ title: useSubmit
 
 # useSubmit
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useSubmit.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useSubmit.html)
 
-The imperative version of [`<Form>`](../components/Form) that lets you submit a form
-from code instead of a user interaction.
+[`<Form>`](../components/Form) 的命令式版本，允许你从代码中提交表单，而无需用户交互。
 
 ```tsx
 import { useSubmit } from "react-router";
@@ -31,18 +18,19 @@ import { useSubmit } from "react-router";
 function SomeComponent() {
   const submit = useSubmit();
   return (
-    <Form onChange={(event) => submit(event.currentTarget)} />
+    <Form
+      onChange={(event) => submit(event.currentTarget)}
+    />
   );
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useSubmit(): SubmitFunction
+function useSubmit(): SubmitFunction;
 ```
 
-## Returns
+## 返回值
 
-A function that can be called to submit a [`Form`](../components/Form) imperatively.
-
+可调用的函数，用于以命令式方式提交 [`Form`](../components/Form)。

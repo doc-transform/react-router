@@ -1,21 +1,21 @@
 ---
-title: Actions
+title: 操作（Action）
 order: 6
 ---
 
-# Actions
+# 操作（Action）
 
 [MODES: framework]
 
-## Introduction
+## 简介
 
-Data mutations are done through Route actions. When the action completes, all loader data on the page is revalidated to keep your UI in sync with the data without writing any code to do it.
+数据变更通过路由 action 完成。当 action 完成后，页面上所有的 loader 数据都会自动重新验证，使你的 UI 与数据保持同步，无需编写任何额外代码。
 
-Route actions defined with `action` are only called on the server while actions defined with `clientAction` are run in the browser.
+使用 `action` 定义的路由 action 只在服务端调用，而使用 `clientAction` 定义的 action 在浏览器中运行。
 
-## Client Actions
+## 客户端 Action
 
-Client actions only run in the browser and take priority over a server action when both are defined.
+客户端 action 仅在浏览器中运行，当同时定义了客户端 action 和服务端 action 时，客户端 action 优先执行。
 
 ```tsx filename=app/project.tsx
 // route('/projects/:projectId', './project.tsx')
@@ -50,9 +50,9 @@ export default function Project({
 }
 ```
 
-## Server Actions
+## 服务端 Action
 
-Server actions only run on the server and are removed from client bundles.
+服务端 action 仅在服务端运行，会从客户端包中移除。
 
 ```tsx filename=app/project.tsx
 // route('/projects/:projectId', './project.tsx')
@@ -87,11 +87,11 @@ export default function Project({
 }
 ```
 
-## Calling Actions
+## 调用 Action
 
-Actions are called declaratively through `<Form>` and imperatively through `useSubmit` (or `<fetcher.Form>` and `fetcher.submit`) by referencing the route's path and a "post" method.
+Action 可以通过 `<Form>` 声明式调用，也可以通过 `useSubmit`（或 `<fetcher.Form>` 和 `fetcher.submit`）命令式调用，需要引用路由路径并使用 "post" 方法。
 
-### Calling actions with a Form
+### 使用 Form 调用 action
 
 ```tsx
 import { Form } from "react-router";
@@ -106,11 +106,11 @@ function SomeComponent() {
 }
 ```
 
-This will cause a navigation and a new entry will be added to the browser history.
+这将触发导航，并在浏览器历史记录中添加新条目。
 
-### Calling actions with useSubmit
+### 使用 useSubmit 调用 action
 
-You can submit form data to an action imperatively with `useSubmit`.
+你可以使用 `useSubmit` 以命令式方式向 action 提交表单数据。
 
 ```tsx
 import { useCallback } from "react";
@@ -132,11 +132,11 @@ function useQuizTimer() {
 }
 ```
 
-This will cause a navigation and a new entry will be added to the browser history.
+这将触发导航，并在浏览器历史记录中添加新条目。
 
-### Calling actions with a fetcher
+### 使用 fetcher 调用 action
 
-Fetchers allow you to submit data to actions (and loaders) without causing a navigation (no new entries in the browser history).
+Fetcher 允许你向 action（和 loader）提交数据，而不触发导航（浏览器历史记录中不会添加新条目）。
 
 ```tsx
 import { useFetcher } from "react-router";
@@ -156,7 +156,7 @@ function Task() {
 }
 ```
 
-They also have the imperative `submit` method.
+它们也有命令式的 `submit` 方法。
 
 ```tsx
 fetcher.submit(
@@ -165,11 +165,11 @@ fetcher.submit(
 );
 ```
 
-See the [Using Fetchers][fetchers] guide for more information.
+更多信息请参阅[使用 Fetcher][fetchers] 指南。
 
 ---
 
-Next: [Navigating](./navigating)
+下一节：[导航](./navigating)
 
 [fetchers]: ../../how-to/fetchers
 [data]: ../../api/react-router/data

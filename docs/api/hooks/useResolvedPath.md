@@ -5,7 +5,7 @@ title: useResolvedPath
 # useResolvedPath
 
 <!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
+⚠️ ⚠️ IMPORTANT ⚠️ ⚠️
 
 Thank you for helping improve our documentation!
 
@@ -18,19 +18,17 @@ https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/ho
 
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useResolvedPath.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useResolvedPath.html)
 
-Resolves the pathname of the given `to` value against the current
-[`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html). Similar to [`useHref`](../hooks/useHref), but returns a
-[`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) instead of a string.
+根据当前 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 解析给定 `to` 值的路径名。类似于 [`useHref`](../hooks/useHref)，但返回 [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) 对象而非字符串。
 
 ```tsx
 import { useResolvedPath } from "react-router";
 
 function SomeComponent() {
-  // if the user is at /dashboard/profile
+  // 如果用户在 /dashboard/profile
   let path = useResolvedPath("../accounts");
   path.pathname; // "/dashboard/accounts"
   path.search; // ""
@@ -38,7 +36,7 @@ function SomeComponent() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function useResolvedPath(
@@ -51,17 +49,16 @@ function useResolvedPath(
 ): Path {}
 ```
 
-## Params
+## 参数
 
 ### to
 
-The path to resolve
+要解析的路径。
 
 ### options.relative
 
-Defaults to `"route"` so routing is relative to the route tree.                         Set to `"path"` to make relative routing operate against path segments.
+默认为 `"route"`，路由相对于路由树进行解析。设置为 `"path"` 使相对路由基于路径段进行操作。
 
-## Returns
+## 返回值
 
-The resolved [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) object with `pathname`, `search`, and `hash`
-
+包含 `pathname`、`search` 和 `hash` 的解析后的 [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) 对象。

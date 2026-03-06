@@ -4,25 +4,13 @@ title: useAsyncValue
 
 # useAsyncValue
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useAsyncValue.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useAsyncValue.html)
 
-Returns the resolved promise value from the closest [`<Await>`](../components/Await).
+返回最近的 [`<Await>`](../components/Await) 组件的已解析 Promise 值。
 
 ```tsx
 function SomeDescendant() {
@@ -30,19 +18,18 @@ function SomeDescendant() {
   // ...
 }
 
-// somewhere in your app
+// 在应用的某处
 <Await resolve={somePromise}>
   <SomeDescendant />
 </Await>;
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useAsyncValue(): unknown
+function useAsyncValue(): unknown;
 ```
 
-## Returns
+## 返回值
 
-The resolved value from the nearest [`Await`](../components/Await) component
-
+最近的 [`Await`](../components/Await) 组件的已解析值。

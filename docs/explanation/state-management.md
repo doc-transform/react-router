@@ -1,59 +1,59 @@
 ---
-title: State Management
+title: 状态管理
 ---
 
-# State Management
+# 状态管理
 
 [MODES: framework, data]
 
 <br/>
 <br/>
 
-State management in React typically involves maintaining a synchronized cache of server data on the client side. However, when using React Router as your framework, most of the traditional caching solutions become redundant because of how it inherently handles data synchronization.
+React 中的状态管理通常涉及在客户端维护服务器数据的同步缓存。然而，当使用 React Router 作为框架时，由于它内在的数据同步处理方式，大多数传统的缓存解决方案变得多余。
 
-## Understanding State Management in React
+## 理解 React 中的状态管理
 
-In a typical React context, when we refer to "state management", we're primarily discussing how we synchronize server state with the client. A more apt term could be "cache management" because the server is the source of truth and the client state is mostly functioning as a cache.
+在典型的 React 上下文中，当我们提到"状态管理"时，主要是讨论如何将服务器状态与客户端同步。更恰当的术语可能是"缓存管理"，因为服务器是真实来源，而客户端状态主要作为缓存功能。
 
-Popular caching solutions in React include:
+React 中流行的缓存解决方案包括：
 
-- **Redux:** A predictable state container for JavaScript apps.
-- **React Query:** Hooks for fetching, caching, and updating asynchronous data in React.
-- **Apollo:** A comprehensive state management library for JavaScript that integrates with GraphQL.
+- **Redux**：JavaScript 应用的可预测状态容器。
+- **React Query**：用于在 React 中获取、缓存和更新异步数据的 Hooks。
+- **Apollo**：与 GraphQL 集成的全面状态管理库。
 
-In certain scenarios, using these libraries may be warranted. However, with React Router's unique server-focused approach, their utility becomes less prevalent. In fact, most React Router applications forgo them entirely.
+在某些场景下，使用这些库可能是合理的。然而，凭借 React Router 独特的以服务器为中心的方法，它们的实用性变得不那么普遍。事实上，大多数 React Router 应用完全不使用它们。
 
-## How React Router Simplifies State
+## React Router 如何简化状态管理
 
-React Router seamlessly bridges the gap between the backend and frontend via mechanisms like loaders, actions, and forms with automatic synchronization through revalidation. This offers developers the ability to directly use server state within components without managing a cache, the network communication, or data revalidation, making most client-side caching redundant.
+React Router 通过 loader、action 和表单等机制，以及通过重新验证实现的自动同步，无缝连接了后端和前端。这为开发者提供了直接在组件中使用服务器状态的能力，无需管理缓存、网络通信或数据重新验证，使得大多数客户端缓存变得多余。
 
-Here's why using typical React state patterns might be an anti-pattern in React Router:
+以下是为什么使用典型 React 状态模式在 React Router 中可能是反模式的原因：
 
-1. **Network-related State:** If your React state is managing anything related to the network—such as data from loaders, pending form submissions, or navigational states—it's likely that you're managing state that React Router already manages:
-   - **[`useNavigation`][use_navigation]**: This hook gives you access to `navigation.state`, `navigation.formData`, `navigation.location`, etc.
-   - **[`useFetcher`][use_fetcher]**: This facilitates interaction with `fetcher.state`, `fetcher.formData`, `fetcher.data` etc.
-   - **[`loaderData`][loader_data]**: Access the data for a route.
-   - **[`actionData`][action_data]**: Access the data from the latest action.
+1. **网络相关状态**：如果你的 React 状态管理的是与网络相关的任何内容——如来自 loader 的数据、待处理的表单提交或导航状态——那么你可能在管理 React Router 已经管理的状态：
+   - **[`useNavigation`][use_navigation]**：此 hook 让你访问 `navigation.state`、`navigation.formData`、`navigation.location` 等。
+   - **[`useFetcher`][use_fetcher]**：这便于与 `fetcher.state`、`fetcher.formData`、`fetcher.data` 等交互。
+   - **[`loaderData`][loader_data]**：访问路由的数据。
+   - **[`actionData`][action_data]**：访问最新 action 的数据。
 
-2. **Storing Data in React Router:** A lot of data that developers might be tempted to store in React state has a more natural home in React Router, such as:
-   - **URL Search Params:** Parameters within the URL that hold state.
-   - **[Cookies][cookies]:** Small pieces of data stored on the user's device.
-   - **[Server Sessions][sessions]:** Server-managed user sessions.
-   - **Server Caches:** Cached data on the server side for quicker retrieval.
+2. **在 React Router 中存储数据**：开发者可能倾向于存储在 React 状态中的许多数据在 React Router 中有更自然的归宿，例如：
+   - **URL 搜索参数**：URL 中包含状态的参数。
+   - **[Cookies][cookies]**：存储在用户设备上的小段数据。
+   - **[服务器会话][sessions]**：服务器管理的用户会话。
+   - **服务器缓存**：服务端的缓存数据，用于更快的检索。
 
-3. **Performance Considerations:** At times, client state is leveraged to avoid redundant data fetching. With React Router, you can use the [`Cache-Control`][cache_control_header] headers within `loader`s, allowing you to tap into the browser's native cache. However, this approach has its limitations and should be used judiciously. It's usually more beneficial to optimize backend queries or implement a server cache. This is because such changes benefit all users and do away with the need for individual browser caches.
+3. **性能考虑**：有时候，客户端状态被用来避免冗余的数据获取。使用 React Router，你可以在 `loader` 中使用 [`Cache-Control`][cache_control_header] 头，让你利用浏览器的原生缓存。然而，这种方法有其局限性，应谨慎使用。通常更好的做法是优化后端查询或实现服务器缓存。这是因为这些变更对所有用户都有益，并且不需要单独的浏览器缓存。
 
-As a developer transitioning to React Router, it's essential to recognize and embrace its inherent efficiencies rather than applying traditional React patterns. React Router offers a streamlined solution to state management leading to less code, fresh data, and no state synchronization bugs.
+作为迁移到 React Router 的开发者，认识并拥抱其内在的效率至关重要，而不是套用传统的 React 模式。React Router 提供了精简的状态管理解决方案，带来更少的代码、新鲜的数据和没有状态同步 bug。
 
-## Examples
+## 示例
 
-### Network Related State
+### 网络相关状态
 
-For examples on using React Router's internal state to manage network related state, refer to [Pending UI][pending_ui].
+有关使用 React Router 内部状态管理网络相关状态的示例，请参阅[加载中 UI][pending_ui]。
 
-### URL Search Params
+### URL 搜索参数
 
-Consider a UI that lets the user customize between list view or detail view. Your instinct might be to reach for React state:
+考虑一个让用户在列表视图和详情视图之间自定义切换的 UI。你的本能可能是使用 React 状态：
 
 ```tsx bad lines=[2,6,9]
 export function List() {
@@ -62,10 +62,10 @@ export function List() {
     <div>
       <div>
         <button onClick={() => setView("list")}>
-          View as List
+          列表视图
         </button>
         <button onClick={() => setView("details")}>
-          View with Details
+          详情视图
         </button>
       </div>
       {view === "list" ? <ListView /> : <DetailView />}
@@ -74,7 +74,7 @@ export function List() {
 }
 ```
 
-Now consider you want the URL to update when the user changes the view. Note the state synchronization:
+现在考虑你想在用户更改视图时更新 URL。注意状态同步：
 
 ```tsx bad lines=[7,16,24]
 import { useNavigate, useSearchParams } from "react-router";
@@ -95,7 +95,7 @@ export function List() {
             navigate(`?view=list`);
           }}
         >
-          View as List
+          列表视图
         </button>
         <button
           onClick={() => {
@@ -103,7 +103,7 @@ export function List() {
             navigate(`?view=details`);
           }}
         >
-          View with Details
+          详情视图
         </button>
       </div>
       {view === "list" ? <ListView /> : <DetailView />}
@@ -112,7 +112,7 @@ export function List() {
 }
 ```
 
-Instead of synchronizing state, you can simply read and set the state in the URL directly with boring old HTML forms:
+与其同步状态，你可以直接使用普通的 HTML 表单来读取和设置 URL 中的状态：
 
 ```tsx good lines=[5,9-16]
 import { Form, useSearchParams } from "react-router";
@@ -125,10 +125,10 @@ export function List() {
     <div>
       <Form>
         <button name="view" value="list">
-          View as List
+          列表视图
         </button>
         <button name="view" value="details">
-          View with Details
+          详情视图
         </button>
       </Form>
       {view === "list" ? <ListView /> : <DetailView />}
@@ -137,30 +137,30 @@ export function List() {
 }
 ```
 
-### Persistent UI State
+### 持久化 UI 状态
 
-Consider a UI that toggles a sidebar's visibility. We have three ways to handle the state:
+考虑一个切换侧边栏可见性的 UI。我们有三种方式处理状态：
 
-1. React state
-2. Browser local storage
+1. React 状态
+2. 浏览器本地存储
 3. Cookies
 
-In this discussion, we'll break down the trade-offs associated with each method.
+在这个讨论中，我们将分析每种方法的利弊权衡。
 
-#### React State
+#### React 状态
 
-React state provides a simple solution for temporary state storage.
+React 状态提供了一种简单的临时状态存储解决方案。
 
-**Pros**:
+**优点**：
 
-- **Simple**: Easy to implement and understand.
-- **Encapsulated**: State is scoped to the component.
+- **简单**：易于实现和理解。
+- **封装性**：状态的作用域限于组件。
 
-**Cons**:
+**缺点**：
 
-- **Transient**: Doesn't survive page refreshes, returning to the page later, or unmounting and remounting the component.
+- **瞬时性**：不能在页面刷新、稍后返回页面或卸载和重新挂载组件时保留。
 
-**Implementation**:
+**实现**：
 
 ```tsx
 function Sidebar() {
@@ -168,7 +168,7 @@ function Sidebar() {
   return (
     <div>
       <button onClick={() => setIsOpen((open) => !open)}>
-        {isOpen ? "Close" : "Open"}
+        {isOpen ? "关闭" : "打开"}
       </button>
       <aside hidden={!isOpen}>
         <Outlet />
@@ -178,34 +178,34 @@ function Sidebar() {
 }
 ```
 
-#### Local Storage
+#### 本地存储
 
-To persist state beyond the component lifecycle, browser local storage is a step-up. See our doc on [Client Data][client_data] for more advanced examples.
+要在组件生命周期之外持久化状态，浏览器本地存储是一个进阶选择。参见我们关于[客户端数据][client_data]的文档了解更高级的示例。
 
-**Pros**:
+**优点**：
 
-- **Persistent**: Maintains state across page refreshes and component mounts/unmounts.
-- **Encapsulated**: State is scoped to the component.
+- **持久性**：在页面刷新和组件挂载/卸载时保持状态。
+- **封装性**：状态的作用域限于组件。
 
-**Cons**:
+**缺点**：
 
-- **Requires Synchronization**: React components must sync up with local storage to initialize and save the current state.
-- **Server Rendering Limitation**: The [`window`][window_global] and [`localStorage`][local_storage_global] objects are not accessible during server-side rendering, so state must be initialized in the browser with an effect.
-- **UI Flickering**: On initial page loads, the state in local storage may not match what was rendered by the server and the UI will flicker when JavaScript loads.
+- **需要同步**：React 组件必须与本地存储同步以初始化和保存当前状态。
+- **服务端渲染限制**：[`window`][window_global] 和 [`localStorage`][local_storage_global] 对象在服务端渲染期间不可用，因此状态必须在浏览器中通过 effect 初始化。
+- **UI 闪烁**：在初始页面加载时，本地存储中的状态可能与服务器渲染的不一致，当 JavaScript 加载时 UI 会闪烁。
 
-**Implementation**:
+**实现**：
 
 ```tsx
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // synchronize initially
+  // 初始同步
   useLayoutEffect(() => {
     const isOpen = window.localStorage.getItem("sidebar");
     setIsOpen(isOpen);
   }, []);
 
-  // synchronize on change
+  // 变更时同步
   useEffect(() => {
     window.localStorage.setItem("sidebar", isOpen);
   }, [isOpen]);
@@ -213,7 +213,7 @@ function Sidebar() {
   return (
     <div>
       <button onClick={() => setIsOpen((open) => !open)}>
-        {isOpen ? "Close" : "Open"}
+        {isOpen ? "关闭" : "打开"}
       </button>
       <aside hidden={!isOpen}>
         <Outlet />
@@ -223,12 +223,12 @@ function Sidebar() {
 }
 ```
 
-In this approach, state must be initialized within an effect. This is crucial to avoid complications during server-side rendering. Directly initializing the React state from `localStorage` will cause errors since `window.localStorage` is unavailable during server rendering.
+在这种方法中，状态必须在 effect 中初始化。这对于避免服务端渲染期间的问题至关重要。直接从 `localStorage` 初始化 React 状态会导致错误，因为 `window.localStorage` 在服务端渲染期间不可用。
 
 ```tsx bad lines=[4]
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(
-    // error: window is not defined
+    // 错误: window is not defined
     window.localStorage.getItem("sidebar"),
   );
 
@@ -236,34 +236,34 @@ function Sidebar() {
 }
 ```
 
-By initializing the state within an effect, there's potential for a mismatch between the server-rendered state and the state stored in local storage. This discrepancy will lead to brief UI flickering shortly after the page renders and should be avoided.
+通过在 effect 中初始化状态，服务端渲染的状态和本地存储中的状态可能不匹配。这种差异会导致页面渲染后短暂的 UI 闪烁，应该避免。
 
 #### Cookies
 
-Cookies offer a comprehensive solution for this use case. However, this method introduces added preliminary setup before making the state accessible within the component.
+Cookie 为此用例提供了全面的解决方案。然而，此方法在组件中使状态可访问之前需要额外的初始设置。
 
-**Pros**:
+**优点**：
 
-- **Server Rendering**: State is available on the server for rendering and even for server actions.
-- **Single Source of Truth**: Eliminates state synchronization hassles.
-- **Persistence**: Maintains state across page loads and component mounts/unmounts. State can even persist across devices if you switch to a database-backed session.
-- **Progressive Enhancement**: Functions even before JavaScript loads.
+- **服务端渲染**：状态在服务器上可用于渲染，甚至可用于服务器 action。
+- **单一真实来源**：消除了状态同步的麻烦。
+- **持久性**：在页面加载和组件挂载/卸载时保持状态。如果切换到数据库支持的会话，状态甚至可以跨设备持久化。
+- **渐进增强**：即使在 JavaScript 加载之前也能工作。
 
-**Cons**:
+**缺点**：
 
-- **Boilerplate**: Requires more code because of the network.
-- **Exposed**: The state is not encapsulated to a single component, other parts of the app must be aware of the cookie.
+- **样板代码**：由于网络需求，需要更多代码。
+- **暴露性**：状态不封装在单个组件中，应用的其他部分必须了解该 cookie。
 
-**Implementation**:
+**实现**：
 
-First we'll need to create a cookie object:
+首先我们需要创建一个 cookie 对象：
 
 ```tsx
 import { createCookie } from "react-router";
 export const prefs = createCookie("prefs");
 ```
 
-Next we set up the server action and loader to read and write the cookie:
+接下来设置服务器 action 和 loader 来读写 cookie：
 
 ```tsx filename=app/routes/sidebar.tsx
 import { data, Outlet } from "react-router";
@@ -271,7 +271,7 @@ import type { Route } from "./+types/sidebar";
 
 import { prefs } from "./prefs-cookie";
 
-// read the state from the cookie
+// 从 cookie 中读取状态
 export async function loader({
   request,
 }: Route.LoaderArgs) {
@@ -280,7 +280,7 @@ export async function loader({
   return data({ sidebarIsOpen: cookie.sidebarIsOpen });
 }
 
-// write the state to the cookie
+// 将状态写入 cookie
 export async function action({
   request,
 }: Route.ActionArgs) {
@@ -299,14 +299,14 @@ export async function action({
 }
 ```
 
-After the server code is set up, we can use the cookie state in our UI:
+服务器代码设置完成后，我们可以在 UI 中使用 cookie 状态：
 
 ```tsx
 function Sidebar({ loaderData }: Route.ComponentProps) {
   const fetcher = useFetcher();
   let { sidebarIsOpen } = loaderData;
 
-  // use optimistic UI to immediately change the UI state
+  // 使用乐观 UI 来立即改变 UI 状态
   if (fetcher.formData?.has("sidebar")) {
     sidebarIsOpen =
       fetcher.formData.get("sidebar") === "open";
@@ -319,7 +319,7 @@ function Sidebar({ loaderData }: Route.ComponentProps) {
           name="sidebar"
           value={sidebarIsOpen ? "closed" : "open"}
         >
-          {sidebarIsOpen ? "Close" : "Open"}
+          {sidebarIsOpen ? "关闭" : "打开"}
         </button>
       </fetcher.Form>
       <aside hidden={!sidebarIsOpen}>
@@ -330,25 +330,25 @@ function Sidebar({ loaderData }: Route.ComponentProps) {
 }
 ```
 
-While this is certainly more code that touches more of the application to account for the network requests and responses, the UX is greatly improved. Additionally, state comes from a single source of truth without any state synchronization required.
+虽然这确实需要更多的代码来处理网络请求和响应，涉及应用的更多部分，但 UX 大大改善了。此外，状态来自单一真实来源，无需任何状态同步。
 
-In summary, each of the discussed methods offers a unique set of benefits and challenges:
+总结来说，讨论的每种方法都有其独特的优势和挑战：
 
-- **React state**: Offers simple but transient state management.
-- **Local Storage**: Provides persistence but with synchronization requirements and UI flickering.
-- **Cookies**: Delivers robust, persistent state management at the cost of added boilerplate.
+- **React 状态**：提供简单但瞬时的状态管理。
+- **本地存储**：提供持久性，但需要同步且有 UI 闪烁问题。
+- **Cookies**：以额外样板代码为代价，提供健壮的、持久化的状态管理。
 
-None of these are wrong, but if you want to persist the state across visits, cookies offer the best user experience.
+这些都没有错，但如果你想在不同访问之间持久化状态，cookie 提供了最好的用户体验。
 
-### Form Validation and Action Data
+### 表单验证和 Action 数据
 
-Client-side validation can augment the user experience, but similar enhancements can be achieved by leaning more towards server-side processing and letting it handle the complexities.
+客户端验证可以增强用户体验，但通过更多地依赖服务端处理并让它处理复杂性，可以实现类似的增强。
 
-The following example illustrates the inherent complexities of managing network state, coordinating state from the server, and implementing validation redundantly on both the client and server sides. It's just for illustration, so forgive any obvious bugs or problems you find.
+以下示例说明了管理网络状态、协调来自服务器的状态以及在客户端和服务端冗余实现验证的固有复杂性。这仅用于说明，请忽略你发现的任何明显 bug 或问题。
 
 ```tsx bad lines=[2,11,27,38,63]
 export function Signup() {
-  // A multitude of React State declarations
+  // 大量的 React State 声明
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [userName, setUserName] = useState("");
@@ -357,7 +357,7 @@ export function Signup() {
   const [password, setPassword] = useState(null);
   const [passwordError, setPasswordError] = useState("");
 
-  // Replicating server-side logic in the client
+  // 在客户端复制服务端逻辑
   function validateForm() {
     setUserNameError(null);
     setPasswordError(null);
@@ -373,7 +373,7 @@ export function Signup() {
     return Boolean(errors);
   }
 
-  // Manual network interaction handling
+  // 手动处理网络交互
   async function handleSubmit() {
     if (validateForm()) {
       setSubmitting(true);
@@ -384,7 +384,7 @@ export function Signup() {
       const json = await res.json();
       setIsSubmitting(false);
 
-      // Server state synchronization to the client
+      // 将服务器状态同步到客户端
       if (json.errors) {
         if (json.errors.userName) {
           setUserNameError(json.errors.userName);
@@ -409,7 +409,7 @@ export function Signup() {
           name="username"
           value={userName}
           onChange={() => {
-            // Synchronizing form state for the fetch
+            // 为 fetch 同步表单状态
             setUserName(event.target.value);
           }}
         />
@@ -421,7 +421,7 @@ export function Signup() {
           type="password"
           name="password"
           onChange={(event) => {
-            // Synchronizing form state for the fetch
+            // 为 fetch 同步表单状态
             setPassword(event.target.value);
           }}
         />
@@ -429,7 +429,7 @@ export function Signup() {
       </p>
 
       <button disabled={isSubmitting} type="submit">
-        Sign Up
+        注册
       </button>
 
       {isSubmitting ? <BusyIndicator /> : null}
@@ -438,7 +438,7 @@ export function Signup() {
 }
 ```
 
-The backend endpoint, `/api/signup`, also performs validation and sends error feedback. Note that some essential validation, like detecting duplicate usernames, can only be done server-side using information the client doesn't have access to.
+后端端点 `/api/signup` 也执行验证并发送错误反馈。注意一些重要的验证，如检测重复用户名，只能在服务端使用客户端无法访问的信息来完成。
 
 ```tsx bad
 export async function signupHandler(request: Request) {
@@ -451,7 +451,7 @@ export async function signupHandler(request: Request) {
 }
 ```
 
-Now, let's contrast this with a React Router-based implementation. The action remains consistent, but the component is vastly simplified due to the direct utilization of server state via `actionData`, and leveraging the network state that React Router inherently manages.
+现在，让我们将其与基于 React Router 的实现进行对比。action 保持一致，但组件由于直接利用通过 `actionData` 获取的服务器状态，以及利用 React Router 内在管理的网络状态，被大大简化了。
 
 ```tsx filename=app/routes/signup.tsx good lines=[20-22]
 import { useNavigation } from "react-router";
@@ -490,7 +490,7 @@ export function Signup({
       </p>
 
       <button disabled={isSubmitting} type="submit">
-        Sign Up
+        注册
       </button>
 
       {isSubmitting ? <BusyIndicator /> : null}
@@ -499,13 +499,13 @@ export function Signup({
 }
 ```
 
-The extensive state management from our previous example is distilled into just three code lines. We eliminate the necessity for React state, change event listeners, submit handlers, and state management libraries for such network interactions.
+之前示例中大量的状态管理被精简为仅仅三行代码。我们消除了对 React 状态、change 事件监听器、提交处理器和状态管理库的需求，用于此类网络交互。
 
-Direct access to the server state is made possible through `actionData`, and network state through `useNavigation` (or `useFetcher`).
+通过 `actionData` 可以直接访问服务器状态，通过 `useNavigation`（或 `useFetcher`）访问网络状态。
 
-As bonus party trick, the form is functional even before JavaScript loads (see [Progressive Enhancement][progressive_enhancement]). Instead of React Router managing the network operations, the default browser behaviors step in.
+作为额外的妙招，表单甚至在 JavaScript 加载之前就能工作（参见[渐进增强][progressive_enhancement]）。React Router 不再管理网络操作，而是由默认的浏览器行为来接管。
 
-If you ever find yourself entangled in managing and synchronizing state for network operations, React Router likely offers a more elegant solution.
+如果你发现自己陷入了管理和同步网络操作状态的泥潭，React Router 很可能提供了一个更优雅的解决方案。
 
 [use_navigation]: https://api.reactrouter.com/v7/functions/react-router.useNavigation
 [use_fetcher]: https://api.reactrouter.com/v7/functions/react-router.useFetcher

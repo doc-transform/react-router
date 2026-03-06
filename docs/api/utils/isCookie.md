@@ -6,8 +6,8 @@ title: isCookie
 
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.isCookie.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.isCookie.html)
 
-Returns true if an object is a Remix cookie container.
+如果对象是 Remix Cookie 容器则返回 true。

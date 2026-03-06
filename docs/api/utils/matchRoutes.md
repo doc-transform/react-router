@@ -4,68 +4,60 @@ title: matchRoutes
 
 # matchRoutes
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/router/utils.ts
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.matchRoutes.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.matchRoutes.html)
 
-Matches the given routes to a location and returns the match data.
+将给定路由与 location 匹配并返回匹配数据。
 
 ```tsx
 import { matchRoutes } from "react-router";
 
-let routes = [{
-  path: "/",
-  Component: Root,
-  children: [{
-    path: "dashboard",
-    Component: Dashboard,
-  }]
-}];
+let routes = [
+  {
+    path: "/",
+    Component: Root,
+    children: [
+      {
+        path: "dashboard",
+        Component: Dashboard,
+      },
+    ],
+  },
+];
 
 matchRoutes(routes, "/dashboard"); // [rootMatch, dashboardMatch]
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function matchRoutes<
-  RouteObjectType extends AgnosticRouteObject = AgnosticRouteObject,
+  RouteObjectType extends
+    AgnosticRouteObject = AgnosticRouteObject,
 >(
   routes: RouteObjectType[],
   locationArg: Partial<Location> | string,
   basename = "/",
-): AgnosticRouteMatch<string, RouteObjectType>[] | null
+): AgnosticRouteMatch<string, RouteObjectType>[] | null;
 ```
 
-## Params
+## 参数
 
 ### routes
 
-The array of route objects to match against.
+要匹配的路由对象数组。
 
 ### locationArg
 
-The location to match against, either a string path or a partial [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) object
+要匹配的 location，可以是字符串路径或部分 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 对象。
 
 ### basename
 
-Optional base path to strip from the location before matching. Defaults to `/`.
+在匹配前从 location 中去除的可选基础路径。默认为 `/`。
 
-## Returns
+## 返回值
 
-An array of matched routes, or `null` if no matches were found.
-
+匹配路由的数组，如果没有找到匹配则返回 `null`。

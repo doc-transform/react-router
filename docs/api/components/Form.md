@@ -4,41 +4,17 @@ title: Form
 
 # Form
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.Form.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.Form.html)
 
-A progressively enhanced HTML [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form)
-that submits data to actions via [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch),
-activating pending states in [`useNavigation`](../hooks/useNavigation) which enables advanced
-user interfaces beyond a basic HTML [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form).
-After a form's `action` completes, all data on the page is automatically
-revalidated to keep the UI in sync with the data.
+一个渐进增强的 HTML [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) 组件，通过 [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) 向 action 提交数据，在 [`useNavigation`](../hooks/useNavigation) 中激活待定状态，实现超越基础 HTML [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) 的高级用户界面。表单的 `action` 完成后，页面上的所有数据会自动重新验证，保持 UI 与数据同步。
 
-Because it uses the HTML form API, server rendered pages are interactive at a
-basic level before JavaScript loads. Instead of React Router managing the
-submission, the browser manages the submission as well as the pending states
-(like the spinning favicon). After JavaScript loads, React Router takes over
-enabling web application user experiences.
+由于使用了 HTML 表单 API，服务端渲染的页面在 JavaScript 加载前就能在基础级别上进行交互。浏览器会像处理普通 `<form>` 一样管理提交和待定状态（如旋转的 favicon）。JavaScript 加载后，React Router 接管并提供 Web 应用级别的用户体验。
 
-`Form` is most useful for submissions that should also change the URL or
-otherwise add an entry to the browser history stack. For forms that shouldn't
-manipulate the browser [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-stack, use [`<fetcher.Form>`](https://api.reactrouter.com/v7/types/react-router.FetcherWithComponents.html#Form).
+`Form` 最适用于需要更改 URL 或在浏览器历史记录栈中添加新条目的表单提交。对于不需要操作浏览器 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈的表单，请使用 [`<fetcher.Form>`](https://api.reactrouter.com/v7/types/react-router.FetcherWithComponents.html#Form)。
 
 ```tsx
 import { Form } from "react-router";
@@ -57,102 +33,77 @@ function NewEvent() {
 
 ### action
 
-The URL to submit the form data to. If `undefined`, this defaults to the
-closest route in context.
+表单数据提交的目标 URL。如果为 `undefined`，默认为上下文中最近的路由。
 
 ### discover
 
-Defines the form [lazy route discovery](../../explanation/lazy-route-discovery) behavior.
+定义表单的[懒路由发现](../../explanation/lazy-route-discovery)行为。
 
-- **render** — default, discover the route when the form renders
-- **none** — don't eagerly discover, only discover if the form is submitted
+- **render** — 默认值，在表单渲染时发现路由
+- **none** — 不提前发现，仅在表单提交时发现
 
 ```tsx
-<Form /> // default ("render")
+<Form /> // 默认 ("render")
 <Form discover="render" />
 <Form discover="none" />
 ```
 
 ### encType
 
-The encoding type to use for the form submission.
+表单提交使用的编码类型。
 
 ```tsx
-<Form encType="application/x-www-form-urlencoded"/>  // Default
+<Form encType="application/x-www-form-urlencoded"/>  // 默认
 <Form encType="multipart/form-data"/>
 <Form encType="text/plain"/>
 ```
 
 ### fetcherKey
 
-Indicates a specific fetcherKey to use when using `navigate={false}` so you
-can pick up the fetcher's state in a different component in a [`useFetcher`](../hooks/useFetcher).
+指示在使用 `navigate={false}` 时使用特定的 fetcherKey，以便在不同组件中通过 [`useFetcher`](../hooks/useFetcher) 获取 fetcher 的状态。
 
 ### method
 
-The HTTP verb to use when the form is submitted. Supports `"delete"`,
-`"get"`, `"patch"`, `"post"`, and `"put"`.
+表单提交时使用的 HTTP 方法。支持 `"delete"`、`"get"`、`"patch"`、`"post"` 和 `"put"`。
 
-Native [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form)
-only supports `"get"` and `"post"`, avoid the other verbs if you'd like to
-support progressive enhancement
+原生 [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) 仅支持 `"get"` 和 `"post"`，如果你希望支持渐进增强，请避免使用其他方法。
 
 ### navigate
 
-When `false`, skips the navigation and submits via a fetcher internally.
-This is essentially a shorthand for [`useFetcher`](../hooks/useFetcher) + `<fetcher.Form>` where
-you don't care about the resulting data in this component.
+当设为 `false` 时，跳过导航并在内部通过 fetcher 提交。这本质上是 [`useFetcher`](../hooks/useFetcher) + `<fetcher.Form>` 的简写形式，适用于你不关心当前组件中返回数据的场景。
 
 ### onSubmit
 
-A function to call when the form is submitted. If you call
-[`event.preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault)
-then this form will not do anything.
+表单提交时调用的函数。如果你调用了 [`event.preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault)，则该表单不会执行任何操作。
 
 ### preventScrollReset
 
-Prevent the scroll position from resetting to the top of the viewport on
-completion of the navigation when using the
-``<ScrollRestoration>`` component
+使用 `<ScrollRestoration>` 组件时，防止导航完成后滚动位置重置到视口顶部。
 
 ### relative
 
-Determines whether the form action is relative to the route hierarchy or
-the pathname. Use this if you want to opt out of navigating the route
-hierarchy and want to instead route based on slash-delimited URL segments.
-See [`RelativeRoutingType`](https://api.reactrouter.com/v7/types/react-router.RelativeRoutingType.html).
+决定表单 action 是相对于路由层级还是路径名。如果你想退出路由层级导航，转而基于斜杠分隔的 URL 段进行路由，请使用此属性。参见 [`RelativeRoutingType`](https://api.reactrouter.com/v7/types/react-router.RelativeRoutingType.html)。
 
 ### reloadDocument
 
-Forces a full document navigation instead of client side routing and data
-fetch.
+强制使用完整的文档导航，而非客户端路由和数据获取。
 
 ### replace
 
-Replaces the current entry in the browser [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-stack when the form navigates. Use this if you don't want the user to be
-able to click "back" to the page with the form on it.
+当表单导航时，替换浏览器 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈中的当前条目。如果你不希望用户能够点击"后退"回到包含表单的页面，请使用此属性。
 
 ### state
 
-State object to add to the [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-stack entry for this navigation
+添加到此导航的 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈条目的状态对象。
 
 ### viewTransition
 
-Enables a [View Transition](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
-for this navigation. To apply specific styles during the transition, see
-[`useViewTransitionState`](../hooks/useViewTransitionState).
+为此导航启用[视图过渡](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)。要在过渡期间应用特定样式，请参阅 [`useViewTransitionState`](../hooks/useViewTransitionState)。
 
 ### unstable_defaultShouldRevalidate
 
-Specify the default revalidation behavior after this submission
+指定此次提交后的默认重新验证行为。
 
-If no `shouldRevalidate` functions are present on the active routes, then this
-value will be used directly.  Otherwise it will be passed into `shouldRevalidate`
-so the route can make the final determination on revalidation. This can be
-useful when updating search params and you don't want to trigger a revalidation.
+如果当前活跃的路由上没有 `shouldRevalidate` 函数，则直接使用此值。否则会将其传入 `shouldRevalidate`，由路由做最终的重新验证判断。这在更新搜索参数且不想触发重新验证时很有用。
 
-By default (when not specified), loaders will revalidate according to the routers
-standard revalidation behavior.
-
+默认情况下（未指定时），loader 会按照路由器的标准重新验证行为进行重新验证。

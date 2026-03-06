@@ -1,26 +1,26 @@
 ---
-title: Client Data
+title: 客户端数据
 ---
 
-# Client Data
+# 客户端数据
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-You can fetch and mutate data directly in the browser using `clientLoader` and `clientAction` functions.
+你可以使用 `clientLoader` 和 `clientAction` 函数直接在浏览器中获取和修改数据。
 
-These functions are the primary mechanism for data handling when using [SPA mode][spa]. This guide demonstrates common use cases for leveraging client data in Server-Side Rendering (SSR).
+这些函数是使用 [SPA 模式][spa]时处理数据的主要机制。本指南演示了在服务端渲染 (SSR) 中利用客户端数据的常见用例。
 
-## Skip the Server Hop
+## 跳过服务端中转
 
-When using React Router with a Backend-For-Frontend (BFF) architecture, you might want to bypass the React Router server and communicate directly with your backend API. This approach requires proper authentication handling and assumes no CORS restrictions. Here's how to implement this:
+当使用 React Router 的 Backend-For-Frontend (BFF) 架构时，你可能希望绕过 React Router 服务器，直接与后端 API 通信。这种方式需要正确处理认证，并假设没有 CORS 限制。以下是实现方式：
 
-1. Load the data from server `loader` on the document load
-2. Load the data from the `clientLoader` on all subsequent loads
+1. 在文档加载时从服务端 `loader` 加载数据
+2. 在后续所有加载中从 `clientLoader` 加载数据
 
-In this scenario, React Router will _not_ call the `clientLoader` on hydration - and will only call it on subsequent navigations.
+在这种情况下，React Router 在注水时 _不会_ 调用 `clientLoader`——只在后续导航时调用。
 
 ```tsx lines=[4,11]
 export async function loader({
@@ -38,14 +38,14 @@ export async function clientLoader({
 }
 ```
 
-## Fullstack State
+## 全栈状态
 
-Sometimes you need to combine data from both the server and browser (like IndexedDB or browser SDKs) before rendering a component. Here's how to implement this pattern:
+有时你需要在渲染组件之前将服务端和浏览器端（如 IndexedDB 或浏览器 SDK）的数据组合在一起。以下是实现此模式的方式：
 
-1. Load the partial data from server `loader` on the document load
-2. Export a [`HydrateFallback`][hydratefallback] component to render during SSR because we don't yet have a full set of data
-3. Set `clientLoader.hydrate = true`, this instructs React Router to call the clientLoader as part of initial document hydration
-4. Combine the server data with the client data in `clientLoader`
+1. 在文档加载时从服务端 `loader` 加载部分数据
+2. 导出 [`HydrateFallback`][hydratefallback] 组件在 SSR 期间渲染，因为此时还没有完整的数据集
+3. 设置 `clientLoader.hydrate = true`，这指示 React Router 在初始文档注水时调用 clientLoader
+4. 在 `clientLoader` 中将服务端数据与客户端数据合并
 
 ```tsx lines=[4-6,19-20,23,26]
 export async function loader({
@@ -77,21 +77,21 @@ export function HydrateFallback() {
 }
 
 export default function Component({
-  // This will always be the combined set of server + client data
+  // 这将始终是服务端 + 客户端的组合数据集
   loaderData,
 }: Route.ComponentProps) {
   return <>...</>;
 }
 ```
 
-## Choosing Server or Client Data Loading
+## 选择服务端或客户端数据加载
 
-You can mix data loading strategies across your application, choosing between server-only or client-only data loading for each route. Here's how to implement both approaches:
+你可以在应用中混合使用数据加载策略，为每个路由选择仅服务端或仅客户端的数据加载。以下是两种方式的实现：
 
-1. Export a `loader` when you want to use server data
-2. Export `clientLoader` and a `HydrateFallback` when you want to use client data
+1. 当你想使用服务端数据时导出 `loader`
+2. 当你想使用客户端数据时导出 `clientLoader` 和 `HydrateFallback`
 
-A route that only depends on a server loader looks like this:
+仅依赖服务端 loader 的路由如下所示：
 
 ```tsx filename=app/routes/server-data-route.tsx
 export async function loader({
@@ -102,13 +102,13 @@ export async function loader({
 }
 
 export default function Component({
-  loaderData, // (1) - server data
+  loaderData, // (1) - 服务端数据
 }: Route.ComponentProps) {
   return <>...</>;
 }
 ```
 
-A route that only depends on a client loader looks like this.
+仅依赖客户端 loader 的路由如下所示：
 
 ```tsx filename=app/routes/client-data-route.tsx
 export async function clientLoader({
@@ -117,7 +117,7 @@ export async function clientLoader({
   const clientData = await getClientData(request);
   return clientData;
 }
-// Note: you do not have to set this explicitly - it is implied if there is no `loader`
+// 注意：不需要显式设置 - 如果没有 `loader`，这是隐含的
 clientLoader.hydrate = true;
 
 // (2)
@@ -126,22 +126,22 @@ export function HydrateFallback() {
 }
 
 export default function Component({
-  loaderData, // (2) - client data
+  loaderData, // (2) - 客户端数据
 }: Route.ComponentProps) {
   return <>...</>;
 }
 ```
 
-## Client-Side Caching
+## 客户端缓存
 
-You can implement client-side caching (using memory, localStorage, etc.) to optimize server requests. Here's a pattern that demonstrates cache management:
+你可以实现客户端缓存（使用内存、localStorage 等）来优化服务器请求。以下是一个演示缓存管理的模式：
 
-1. Load the data from server `loader` on the document load
-2. Set `clientLoader.hydrate = true` to prime the cache
-3. Load subsequent navigations from the cache via `clientLoader`
-4. Invalidate the cache in your `clientAction`
+1. 在文档加载时从服务端 `loader` 加载数据
+2. 设置 `clientLoader.hydrate = true` 来预填缓存
+3. 通过 `clientLoader` 从缓存加载后续导航的数据
+4. 在 `clientAction` 中使缓存失效
 
-Note that since we are not exporting a `HydrateFallback` component, we will SSR the route component and then run the `clientLoader` on hydration, so it's important that your `loader` and `clientLoader` return the same data on initial load to avoid hydration errors.
+注意，由于我们没有导出 `HydrateFallback` 组件，我们将 SSR 渲染路由组件然后在注水时运行 `clientLoader`，所以你的 `loader` 和 `clientLoader` 在初始加载时返回相同的数据很重要，以避免注水错误。
 
 ```tsx lines=[4,26,32,39,46]
 export async function loader({

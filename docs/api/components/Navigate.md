@@ -4,57 +4,45 @@ title: Navigate
 
 # Navigate
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/components.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.Navigate.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.Navigate.html)
 
-A component-based version of [`useNavigate`](../hooks/useNavigate) to use in a
-[`React.Component` class](https://react.dev/reference/react/Component) where
-hooks cannot be used.
+[`useNavigate`](../hooks/useNavigate) 的组件版本，用于在 [`React.Component` 类](https://react.dev/reference/react/Component)中使用（因为类组件不能使用 Hook）。
 
-It's recommended to avoid using this component in favor of [`useNavigate`](../hooks/useNavigate).
+建议尽量使用 [`useNavigate`](../hooks/useNavigate) 代替此组件。
 
 ```tsx
 <Navigate to="/tasks" />
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function Navigate({ to, replace, state, relative }: NavigateProps): null
+function Navigate({
+  to,
+  replace,
+  state,
+  relative,
+}: NavigateProps): null;
 ```
 
 ## Props
 
 ### relative
 
-How to interpret relative routing in the `to` prop.
-See [`RelativeRoutingType`](https://api.reactrouter.com/v7/types/react-router.RelativeRoutingType.html).
+如何解释 `to` 属性中的相对路由。参见 [`RelativeRoutingType`](https://api.reactrouter.com/v7/types/react-router.RelativeRoutingType.html)。
 
 ### replace
 
-Whether to replace the current entry in the [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-stack
+是否替换 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈中的当前条目。
 
 ### state
 
-State to pass to the new [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) to store in [`history.state`](https://developer.mozilla.org/en-US/docs/Web/API/History/state).
+传递给新 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 并存储在 [`history.state`](https://developer.mozilla.org/en-US/docs/Web/API/History/state) 中的状态。
 
 ### to
 
-The path to navigate to. This can be a string or a [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) object
-
+要导航到的路径。可以是字符串或 [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) 对象。

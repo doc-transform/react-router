@@ -1,35 +1,35 @@
 ---
-title: Route Module
+title: 路由模块
 order: 3
 ---
 
-# Route Module
+# 路由模块
 
 [MODES: framework]
 
-## Introduction
+## 简介
 
-The files referenced in `routes.ts` are called Route Modules.
+`routes.ts` 中引用的文件称为路由模块。
 
 ```tsx filename=app/routes.ts
 route("teams/:teamId", "./team.tsx"),
-//           route module ^^^^^^^^
+//           路由模块 ^^^^^^^^
 ```
 
-Route modules are the foundation of React Router's framework features, they define:
+路由模块是 React Router 框架功能的基础，它们定义了：
 
-- automatic code-splitting
-- data loading
-- actions
-- revalidation
-- error boundaries
-- and more
+- 自动代码拆分
+- 数据加载
+- 操作（Action）
+- 重新验证
+- 错误边界
+- 以及更多
 
-This guide is a quick overview of every route module feature. The rest of the getting started guides will cover these features in more detail.
+本指南是对路由模块所有功能的快速概览。后续的入门指南将更详细地介绍这些功能。
 
-## Component (`default`)
+## Component（`default`）
 
-The `default` export in a route module defines the component that will render when the route matches.
+路由模块中的 `default` 导出定义了当路由匹配时要渲染的组件。
 
 ```tsx filename=app/routes/my-route.tsx
 export default function MyRouteComponent() {
@@ -44,18 +44,18 @@ export default function MyRouteComponent() {
 }
 ```
 
-### Props passed to the Component
+### 传递给组件的 Props
 
-When the component is rendered, it is provided the props defined in `Route.ComponentProps` that React Router will automatically generate for you. These props include:
+当组件渲染时，它会接收 React Router 自动生成的 `Route.ComponentProps` 中定义的 props。这些 props 包括：
 
-1. `loaderData`: The data returned from the `loader` function in this route module
-2. `actionData`: The data returned from the `action` function in this route module
-3. `params`: An object containing the route parameters (if any).
-4. `matches`: An array of all the matches in the current route tree.
+1. `loaderData`：本路由模块中 `loader` 函数返回的数据
+2. `actionData`：本路由模块中 `action` 函数返回的数据
+3. `params`：包含路由参数的对象（如果有的话）
+4. `matches`：当前路由树中所有匹配项的数组
 
-You can use these props in place of hooks like `useLoaderData` or `useParams`. This may be preferable because they will be automatically typed correctly for the route.
+你可以用这些 props 替代 `useLoaderData` 或 `useParams` 等 Hook。这可能更好，因为它们会自动正确地获得路由对应的类型。
 
-### Using props
+### 使用 props
 
 ```tsx filename=app/routes/my-route-with-default-params.tsx
 import type { Route } from "./+types/route-name";
@@ -80,11 +80,9 @@ export default function MyRouteComponent({
 
 ## `middleware`
 
-Route [middleware][middleware] runs sequentially on the server before and after document and
-data requests. This gives you a singular place to do things like logging,
-authentication, and post-processing of responses. The `next` function continues down the chain, and on the leaf route the `next` function executes the loaders/actions for the navigation.
+路由[中间件][middleware]在服务器上按顺序在文档和数据请求前后运行。这为你提供了一个统一的位置来处理日志记录、身份认证和响应后处理等事务。`next` 函数继续沿链路向下执行，在叶子路由上 `next` 函数会执行该导航的 loader/action。
 
-Here's an example middleware to log requests on the server:
+以下是一个在服务器上记录请求日志的中间件示例：
 
 ```tsx filename=root.tsx
 async function loggingMiddleware(
@@ -106,8 +104,7 @@ async function loggingMiddleware(
 export const middleware = [loggingMiddleware];
 ```
 
-Here's an example middleware to check for logged in users and set the user in
-`context` you can then access from loaders:
+以下是一个检查用户登录状态并在 `context` 中设置用户信息的中间件示例，之后你可以在 loader 中访问该用户信息：
 
 ```tsx filename=routes/_auth.tsx
 async function authMiddleware({ request, context }) {
@@ -125,18 +122,18 @@ async function authMiddleware({ request, context }) {
 export const middleware = [authMiddleware];
 ```
 
-<docs-warning>Please make sure you understand [when middleware runs][when-middleware-runs] to make sure your application will behave the way you intend when adding middleware to your routes.</docs-warning>
+<docs-warning>请确保你理解了[中间件何时运行][when-middleware-runs]，以确保你在路由中添加中间件时，应用的行为符合预期。</docs-warning>
 
-See also:
+另请参阅：
 
-- [`middleware` params][middleware-params]
-- [Middleware][middleware]
+- [`middleware` 参数][middleware-params]
+- [中间件][middleware]
 
 ## `clientMiddleware`
 
-This is the client-side equivalent of `middleware` and runs in the browser during client navigations. The only difference from server middleware is that client middleware doesn't return Responses because they're not wrapping an HTTP request on the server.
+这是 `middleware` 的客户端等价物，在客户端导航期间在浏览器中运行。与服务端中间件的唯一区别是，客户端中间件不返回 Response，因为它们不是在服务器上包装 HTTP 请求。
 
-Here's an example middleware to log requests on the client:
+以下是一个在客户端记录请求日志的中间件示例：
 
 ```tsx filename=root.tsx
 async function loggingMiddleware(
@@ -147,25 +144,25 @@ async function loggingMiddleware(
     `${new Date().toISOString()} ${request.method} ${request.url}`,
   );
   const start = performance.now();
-  await next(); // 👈 No Response returned
+  await next(); // 👈 不返回 Response
   const duration = performance.now() - start;
   console.log(
     `${new Date().toISOString()} (${duration}ms)`,
   );
-  // ✅ No need to return anything
+  // ✅ 无需返回任何内容
 }
 
 export const clientMiddleware = [loggingMiddleware];
 ```
 
-See also:
+另请参阅：
 
-- [Middleware][middleware]
-- [Client Data][client-data]
+- [中间件][middleware]
+- [客户端数据][client-data]
 
 ## `loader`
 
-Route loaders provide data to route components before they are rendered. They are only called on the server when server rendering or during the build with pre-rendering.
+路由 loader 在组件渲染之前为路由组件提供数据。在服务端渲染或使用预渲染构建时，它们只在服务端调用。
 
 ```tsx
 export async function loader() {
@@ -177,26 +174,26 @@ export default function MyRoute({ loaderData }) {
 }
 ```
 
-See also:
+另请参阅：
 
-- [`loader` params][loader-params]
+- [`loader` 参数][loader-params]
 
 ## `clientLoader`
 
-Called only in the browser, route client loaders provide data to route components in addition to, or in place of, route loaders.
+仅在浏览器中调用，路由客户端 loader 可以为路由组件提供数据，作为路由 loader 的补充或替代。
 
 ```tsx
 export async function clientLoader({ serverLoader }) {
-  // call the server loader
+  // 调用服务端 loader
   const serverData = await serverLoader();
-  // And/or fetch data on the client
+  // 和/或在客户端获取数据
   const data = getDataFromClient();
-  // Return the data to expose through useLoaderData()
+  // 返回数据，通过 useLoaderData() 暴露
   return data;
 }
 ```
 
-Client loaders can participate in initial page load hydration of server rendered pages by setting the `hydrate` property on the function:
+客户端 loader 可以通过在函数上设置 `hydrate` 属性来参与服务端渲染页面的初始页面加载注水：
 
 ```tsx
 export async function clientLoader() {
@@ -207,32 +204,32 @@ clientLoader.hydrate = true as const;
 
 <docs-info>
 
-By using `as const`, TypeScript will infer that the type for `clientLoader.hydrate` is `true` instead of `boolean`.
-That way, React Router can derive types for `loaderData` based on the value of `clientLoader.hydrate`.
+通过使用 `as const`，TypeScript 会推断 `clientLoader.hydrate` 的类型为 `true` 而非 `boolean`。
+这样，React Router 就可以根据 `clientLoader.hydrate` 的值推导 `loaderData` 的类型。
 
 </docs-info>
 
-See also:
+另请参阅：
 
-- [`clientLoader` params][client-loader-params]
-- [Client Data][client-data]
+- [`clientLoader` 参数][client-loader-params]
+- [客户端数据][client-data]
 
 ## `action`
 
-Route actions allow server-side data mutations with automatic revalidation of all loader data on the page when called from `<Form>`, `useFetcher`, and `useSubmit`.
+路由 action 允许进行服务端数据变更，当通过 `<Form>`、`useFetcher` 和 `useSubmit` 调用时，页面上所有的 loader 数据会自动重新验证。
 
 ```tsx
 // route("/list", "./list.tsx")
 import { Form } from "react-router";
 import { TodoList } from "~/components/TodoList";
 
-// this data will be loaded after the action completes...
+// 这些数据会在 action 完成后自动加载……
 export async function loader() {
   const items = await fakeDb.getItems();
   return { items };
 }
 
-// ...so that the list here is updated automatically
+// ……因此这里的列表会自动更新
 export default function Items({ loaderData }) {
   return (
     <div>
@@ -254,31 +251,31 @@ export async function action({ request }) {
 }
 ```
 
-See also:
+另请参阅：
 
-- [`action` params][action-params]
+- [`action` 参数][action-params]
 
 ## `clientAction`
 
-Like route actions but only called in the browser.
+与路由 action 类似，但仅在浏览器中调用。
 
 ```tsx
 export async function clientAction({ serverAction }) {
   fakeInvalidateClientSideCache();
-  // can still call the server action if needed
+  // 如果需要，仍然可以调用服务端 action
   const data = await serverAction();
   return data;
 }
 ```
 
-See also:
+另请参阅：
 
-- [`clientAction` params][client-action-params]
-- [Client Data][client-data]
+- [`clientAction` 参数][client-action-params]
+- [客户端数据][client-data]
 
 ## `ErrorBoundary`
 
-When other route module APIs throw, the route module `ErrorBoundary` will render instead of the route component.
+当其他路由模块 API 抛出错误时，路由模块的 `ErrorBoundary` 将替代路由组件进行渲染。
 
 ```tsx
 import {
@@ -313,14 +310,14 @@ export function ErrorBoundary() {
 }
 ```
 
-See also:
+另请参阅：
 
 - [`useRouteError`][use-route-error]
 - [`isRouteErrorResponse`][is-route-error-response]
 
 ## `HydrateFallback`
 
-On initial page load, the route component renders only after the client loader is finished. If exported, a `HydrateFallback` can render immediately in place of the route component.
+在初始页面加载时，路由组件仅在客户端 loader 完成后才渲染。如果导出了 `HydrateFallback`，它可以在路由组件位置立即渲染。
 
 ```tsx filename=routes/client-only-route.tsx
 export async function clientLoader() {
@@ -339,7 +336,7 @@ export default function Component({ loaderData }) {
 
 ## `headers`
 
-The route `headers` function defines the HTTP headers to be sent with the response when server rendering.
+路由的 `headers` 函数定义了在服务端渲染时随响应发送的 HTTP 头。
 
 ```tsx
 export function headers() {
@@ -350,13 +347,13 @@ export function headers() {
 }
 ```
 
-See also:
+另请参阅：
 
 - [`Headers`][headers]
 
 ## `handle`
 
-Route handle allows apps to add anything to a route match in `useMatches` to create abstractions (like breadcrumbs, etc.).
+路由 handle 允许应用在 `useMatches` 的路由匹配中添加任何内容，用于创建抽象（如面包屑等）。
 
 ```tsx
 export const handle = {
@@ -364,13 +361,13 @@ export const handle = {
 };
 ```
 
-See also:
+另请参阅：
 
 - [`useMatches`][use-matches]
 
 ## `links`
 
-Route links define [`<link>` element][link-element]s to be rendered in the document `<head>`.
+路由 links 定义要在文档 `<head>` 中渲染的 [`<link>` 元素][link-element]。
 
 ```tsx
 export function links() {
@@ -393,7 +390,7 @@ export function links() {
 }
 ```
 
-All routes links will be aggregated and rendered through the `<Links />` component, usually rendered in your app root:
+所有路由的 links 会被聚合并通过 `<Links />` 组件渲染，通常在应用根组件中：
 
 ```tsx
 import { Links } from "react-router";
@@ -413,13 +410,13 @@ export default function Root() {
 
 ## `meta`
 
-Route meta defines [meta tags][meta-element] to be rendered in the `<Meta />` component, usually placed in the `<head>`.
+路由 meta 定义要在 `<Meta />` 组件中渲染的 [meta 标签][meta-element]，通常放在 `<head>` 中。
 
 <docs-warning>
 
-Since React 19, [using the built-in `<meta>` element](https://react.dev/reference/react-dom/components/meta) is recommended over the use of the route module's `meta` export.
+从 React 19 开始，推荐使用[内置的 `<meta>` 元素](https://react.dev/reference/react-dom/components/meta)，而非路由模块的 `meta` 导出。
 
-Here is an example of how to use it and the `<title>` element:
+以下是使用它和 `<title>` 元素的示例：
 
 ```tsx
 export default function MyRoute() {
@@ -431,7 +428,7 @@ export default function MyRoute() {
         name="description"
         content="This app is the best"
       />
-      {/* The rest of your route content... */}
+      {/* 路由的其余内容... */}
     </div>
   );
 }
@@ -471,18 +468,18 @@ export default function Root() {
 }
 ```
 
-The meta of the last matching route is used, allowing you to override parent routes' meta. It's important to note that the entire meta descriptor array is replaced, not merged. This gives you the flexibility to build your own meta composition logic across pages at different levels.
+最后匹配的路由的 meta 会被使用，允许你覆盖父路由的 meta。需要注意的是，整个 meta 描述符数组是被替换而非合并的。这让你可以灵活地在不同层级的页面之间构建自己的 meta 组合逻辑。
 
-**See also**
+**另请参阅**
 
-- [`meta` params][meta-params]
-- [`meta` function return types][meta-function]
+- [`meta` 参数][meta-params]
+- [`meta` 函数返回类型][meta-function]
 
 ## `shouldRevalidate`
 
-In framework mode with SSR, route loaders are automatically revalidated after all navigations and form submissions (this is different from [Data Mode][data-mode-should-revalidate]). This enables middleware and loaders to share a request context and optimize in different ways than they would in Data Mode.
+在带有 SSR 的框架模式中，路由 loader 会在所有导航和表单提交后自动重新验证（这与[数据模式][data-mode-should-revalidate]不同）。这使得中间件和 loader 可以共享请求上下文，并以不同于数据模式的方式进行优化。
 
-Defining this function allows you to opt out of revalidation for a route loader for navigations and form submissions.
+定义此函数允许你在导航和表单提交时选择退出路由 loader 的重新验证。
 
 ```tsx
 import type { ShouldRevalidateFunctionArgs } from "react-router";
@@ -494,13 +491,13 @@ export function shouldRevalidate(
 }
 ```
 
-When using [SPA Mode][spa-mode], there are no server loaders to call on navigations, so `shouldRevalidate` behaves the same as it does in [Data Mode][data-mode-should-revalidate].
+使用 [SPA 模式][spa-mode]时，没有服务端 loader 可在导航时调用，因此 `shouldRevalidate` 的行为与[数据模式][data-mode-should-revalidate]相同。
 
-[`ShouldRevalidateFunctionArgs` Reference Documentation ↗](https://api.reactrouter.com/v7/interfaces/react-router.ShouldRevalidateFunctionArgs.html)
+[`ShouldRevalidateFunctionArgs` 参考文档 ↗](https://api.reactrouter.com/v7/interfaces/react-router.ShouldRevalidateFunctionArgs.html)
 
 ---
 
-Next: [Rendering Strategies](./rendering)
+下一节：[渲染策略](./rendering)
 
 [middleware-params]: https://api.reactrouter.com/v7/types/react-router.MiddlewareFunction.html
 [middleware]: ../../how-to/middleware

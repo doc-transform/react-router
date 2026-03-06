@@ -1,22 +1,22 @@
 ---
-title: Data Loading
+title: 数据加载
 order: 4
 ---
 
-# Data Loading
+# 数据加载
 
 [MODES: data]
 
-## Providing Data
+## 提供数据
 
-Data is provided to route components from route loaders:
+数据通过路由 loader 提供给路由组件：
 
 ```tsx
 createBrowserRouter([
   {
     path: "/",
     loader: async () => {
-      // return data from here
+      // 从这里返回数据
       return { records: await getSomeRecords() };
     },
     Component: MyRoute,
@@ -24,9 +24,9 @@ createBrowserRouter([
 ]);
 ```
 
-## Accessing Data
+## 访问数据
 
-The data is available in route components with `useLoaderData`.
+在路由组件中通过 `useLoaderData` 访问数据。
 
 ```tsx
 import { useLoaderData } from "react-router";
@@ -37,8 +37,8 @@ function MyRoute() {
 }
 ```
 
-As the user navigates between routes, the loaders are called before the route component is rendered.
+当用户在路由之间导航时，loader 会在路由组件渲染之前被调用。
 
 ---
 
-Next: [Actions](./actions)
+下一节：[操作（Action）](./actions)

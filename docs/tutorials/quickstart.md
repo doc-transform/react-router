@@ -1,46 +1,46 @@
 ---
-title: Quick Start
+title: 快速开始
 order: 1
 ---
 
-# Quick Start
+# 快速开始
 
 [MODES: framework]
 
 <br />
 <br />
 
-This guide will familiarize you with the basic plumbing required to run a React Router app as quickly as possible. While there are many starter templates with different runtimes, deploy targets, and databases, we're going to create a bare-bones project from scratch.
+本指南将带你以最快的速度了解运行 React Router 应用所需的基本配置。虽然有许多使用不同运行时、部署目标和数据库的起手模板，但我们将从零开始创建一个最基础的项目。
 
-## Installation
+## 安装
 
-If you prefer to initialize a batteries-included React Router project, you can use the `create-react-router` CLI to get started with any of our [templates][templates]:
+如果你更喜欢初始化一个开箱即用的 React Router 项目，可以使用 `create-react-router` CLI 配合我们的任何一个[模板][templates]来开始：
 
 ```shellscript nonumber
 npx create-react-router@latest
 ```
 
-However, this guide will explain everything the CLI does to set up your project. Instead of using the CLI, you can follow these steps. If you're just getting started with React Router, we recommend following this guide to understand all the different pieces that make up a React Router app.
+不过，本指南将解释 CLI 为你的项目设置的所有内容。除了使用 CLI，你也可以按照以下步骤操作。如果你刚开始使用 React Router，我们建议跟着本指南走，以了解组成 React Router 应用的各个部分。
 
 ```shellscript nonumber
 mkdir my-react-router-app
 cd my-react-router-app
 npm init -y
 
-# install runtime dependencies
+# 安装运行时依赖
 npm i react-router @react-router/node @react-router/serve isbot react react-dom
 
-# install dev dependencies
+# 安装开发依赖
 npm i -D @react-router/dev vite
 ```
 
-## Vite Config
+## Vite 配置
 
 ```shellscript nonumber
 touch vite.config.js
 ```
 
-Since React Router uses [Vite], you'll need to provide a [Vite config][vite-config] with the React Router Vite plugin. Here's the basic configuration you'll need:
+由于 React Router 使用 [Vite]，你需要提供一个包含 React Router Vite 插件的 [Vite 配置][vite-config]。以下是你需要的基本配置：
 
 ```js filename=vite.config.js
 import { reactRouter } from "@react-router/dev/vite";
@@ -51,14 +51,14 @@ export default defineConfig({
 });
 ```
 
-## The Root Route
+## 根路由
 
 ```shellscript nonumber
 mkdir app
 touch app/root.jsx
 ```
 
-`app/root.jsx` is what we call the "Root Route". It's the root layout of your entire app. Here's the basic set of elements you'll need for any project:
+`app/root.jsx` 就是我们所说的"根路由"。它是整个应用的根布局。以下是任何项目都需要的基本元素集：
 
 ```jsx filename=app/root.jsx
 import { Outlet, Scripts } from "react-router";
@@ -82,47 +82,47 @@ export default function App() {
 }
 ```
 
-## Additional Routes
+## 其他路由
 
 ```shellscript nonumber
 touch app/routes.js
 ```
 
-`app/routes.js` is where you define your routes. This guide focuses on the minimal setup to get a React Router app up and running, so we don't need to define any routes and can just export an empty array:
+`app/routes.js` 是你定义路由的地方。本指南专注于最基本的配置来运行 React Router 应用，所以我们不需要定义任何路由，只需导出一个空数组：
 
 ```js filename=app/routes.js
 export default [];
 ```
 
-The existence of `routes.js` is required to build a React Router app; if you're using React Router, we assume you'll want to do some routing eventually. You can read more about defining routes in our [Routing][routing] guide.
+`routes.js` 文件是构建 React Router 应用所必需的；如果你在使用 React Router，我们假设你最终都会用到路由功能。你可以在[路由][routing]指南中了解更多关于定义路由的内容。
 
-## Build and Run
+## 构建和运行
 
-First, you will need to specify the type as `module` in `package.json` to satisfy ES module requirements for `react-router` and future versions of Vite.
+首先，你需要在 `package.json` 中指定 type 为 `module`，以满足 `react-router` 和未来版本 Vite 的 ES 模块要求。
 
 ```shellscript nonumber
 npm pkg set type="module"
 ```
 
-Next build the app for production:
+接下来为生产环境构建应用：
 
 ```shellscript nonumber
 npx react-router build
 ```
 
-You should now see a `build` folder containing a `server` folder (the server version of your app) and a `client` folder (the browser version) with some build artifacts in them. (This is all [configurable][react-router-config].)
+现在你应该能看到一个 `build` 文件夹，包含一个 `server` 文件夹（应用的服务端版本）和一个 `client` 文件夹（浏览器版本），其中包含一些构建产物。（这些都是[可配置的][react-router-config]。）
 
-👉 **Run the app with `react-router-serve`**
+👉 **使用 `react-router-serve` 运行应用**
 
-Now you can run your app with `react-router-serve`:
+现在你可以使用 `react-router-serve` 运行应用：
 
 ```shellscript nonumber
 npx react-router-serve build/server/index.js
 ```
 
-You should be able to open up [http://localhost:3000][http-localhost-3000] and see the "hello world" page.
+你应该能够打开 [http://localhost:3000][http-localhost-3000] 看到 "hello world" 页面。
 
-Aside from the unholy amount of code in `node_modules`, our React Router app is just four files:
+除了 `node_modules` 中大量的代码外，我们的 React Router 应用只有四个文件：
 
 ```
 ├── app/
@@ -132,30 +132,30 @@ Aside from the unholy amount of code in `node_modules`, our React Router app is 
 └── vite.config.js
 ```
 
-## Bring Your Own Server
+## 自带服务器
 
-The `build/server` directory created by `react-router build` is just a module that you run inside a server like Express, Cloudflare Workers, Netlify, Vercel, Fastly, AWS, Deno, Azure, Fastify, Firebase, ... anywhere.
+`react-router build` 创建的 `build/server` 目录只是一个模块，你可以在任何服务器中运行它，如 Express、Cloudflare Workers、Netlify、Vercel、Fastly、AWS、Deno、Azure、Fastify、Firebase 等等……任何地方都可以。
 
 <docs-info>
 
-You can also use React Router as a Single Page Application with no server. For more information, see our guide on [Single Page Apps][spa].
+你也可以将 React Router 用作不带服务器的单页应用。更多信息请参阅[单页应用][spa]指南。
 
 </docs-info>
 
-If you don't care to set up your own server, you can use `react-router-serve`. It's a simple `express`-based server maintained by the React Router maintainers. However, React Router is specifically designed to run in _any_ JavaScript environment so that you own your stack. It is expected many —if not most— production apps will have their own server.
+如果你不想自己搭建服务器，可以使用 `react-router-serve`。它是由 React Router 维护者维护的一个基于 `express` 的简单服务器。但是，React Router 的设计初衷就是可以在 _任何_ JavaScript 环境中运行，让你掌控自己的技术栈。预计许多（甚至大多数）生产应用都会使用自己的服务器。
 
-Just for kicks, let's stop using `react-router-serve` and use `express` instead.
+为了好玩，让我们停止使用 `react-router-serve`，改用 `express`。
 
-👉 **Install Express, the React Router Express adapter, and [cross-env] for running in production mode**
+👉 **安装 Express、React Router Express 适配器和 [cross-env]（用于在生产模式下运行）**
 
 ```shellscript nonumber
 npm i express @react-router/express cross-env
 
-# not going to use this anymore
+# 不再使用这个了
 npm uninstall @react-router/serve
 ```
 
-👉 **Create an Express server**
+👉 **创建 Express 服务器**
 
 ```shellscript nonumber
 touch server.js
@@ -168,10 +168,10 @@ import express from "express";
 const app = express();
 app.use(express.static("build/client"));
 
-// notice that your app is "just a request handler"
+// 注意你的应用"只是一个请求处理器"
 app.use(
   createRequestHandler({
-    // and the result of `react-router build` is "just a module"
+    // `react-router build` 的结果"只是一个模块"
     build: await import("./build/server/index.js"),
   }),
 );
@@ -181,25 +181,25 @@ app.listen(3000, () => {
 });
 ```
 
-👉 **Run your app with `express`**
+👉 **使用 `express` 运行应用**
 
 ```shellscript nonumber
 node server.js
 ```
 
-Now that you own your server, you can debug your app with whatever tooling your server has. For example, you can inspect your app with Chrome DevTools using the [Node.js inspect flag][inspect]:
+现在你拥有了自己的服务器，可以使用服务器自带的任何工具来调试应用。例如，你可以使用 [Node.js inspect 标志][inspect]通过 Chrome DevTools 检查应用：
 
 ```shellscript nonumber
 node --inspect server.js
 ```
 
-## Development Workflow
+## 开发工作流
 
-Instead of stopping, rebuilding, and starting your server all the time, you can run React Router in development using [Vite in middleware mode][vite-middleware]. This enables instant feedback to changes in your app with React Refresh (Hot Module Replacement) and React Router Hot Data Revalidation.
+你不需要反复停止、重建和启动服务器，而是可以使用 [Vite 中间件模式][vite-middleware]在开发环境中运行 React Router。这通过 React Refresh（热模块替换）和 React Router 热数据重新验证为你的应用变更提供即时反馈。
 
-First, as a convenience, add `dev` and `start` commands in `package.json` that will run your server in development and production modes respectively:
+首先，为方便起见，在 `package.json` 中添加 `dev` 和 `start` 命令，分别用于在开发和生产模式下运行服务器：
 
-👉 **Add a "scripts" entry to `package.json`**
+👉 **在 `package.json` 中添加 "scripts" 条目**
 
 ```jsonc filename=package.json lines=[2-4] nocopy
 {
@@ -211,9 +211,9 @@ First, as a convenience, add `dev` and `start` commands in `package.json` that w
 }
 ```
 
-👉 **Add Vite development middleware to your server**
+👉 **将 Vite 开发中间件添加到服务器**
 
-Vite middleware is not applied if `process.env.NODE_ENV` is set to `"production"`, in which case you'll still be running the regular build output as you did earlier.
+当 `process.env.NODE_ENV` 设为 `"production"` 时不会应用 Vite 中间件，此时你仍然会像之前一样运行常规的构建产物。
 
 ```js filename=server.js lines=[6,13-28]
 import { createRequestHandler } from "@react-router/express";
@@ -250,17 +250,17 @@ app.listen(3000, () => {
 });
 ```
 
-👉 **Start the dev server**
+👉 **启动开发服务器**
 
 ```shellscript nonumber
 npm run dev
 ```
 
-Now you can work on your app with immediate feedback. Give it a try by changing the text in `root.jsx` and watch the changes appear instantly!
+现在你可以获得即时反馈来开发应用了。试试修改 `root.jsx` 中的文字，看看变更是否立即呈现！
 
-## Controlling Server and Browser Entries
+## 控制服务端和浏览器端入口
 
-There are default magic files React Router is using that most apps don't need to mess with, but if you want to customize React Router's entry points to the server and browser you can run `react-router reveal` and they'll get dumped into your project.
+React Router 使用了一些默认的魔法文件，大多数应用不需要修改，但如果你想自定义 React Router 的服务端和浏览器端入口，可以运行 `react-router reveal`，它们会被导出到你的项目中。
 
 ```shellscript nonumber
 npx react-router reveal
@@ -271,21 +271,21 @@ Entry file entry.client created at app/entry.client.tsx.
 Entry file entry.server created at app/entry.server.tsx.
 ```
 
-## Summary
+## 总结
 
-Congrats, you can add React Router to your resume! Summing things up, we've learned:
+恭喜，你可以把 React Router 加到简历上了！总结一下，我们学到了：
 
-- React Router framework mode compiles your app into two things:
-  - A request handler that you add to your own JavaScript server
-  - A pile of static assets in your public directory for the browser
-- You can bring your own server with adapters to deploy anywhere
-- You can set up a development workflow with HMR built-in
+- React Router 框架模式将你的应用编译为两部分：
+  - 一个请求处理器，添加到你自己的 JavaScript 服务器中
+  - 一堆放在 public 目录中供浏览器使用的静态资源
+- 你可以通过适配器自带服务器来部署到任何地方
+- 你可以搭建一个内置 HMR 的开发工作流
 
-In general, React Router is a bit "guts out". It requires a few minutes of boilerplate, but now you own your stack.
+总的来说，React Router 有点"暴露内部机制"。它需要几分钟的样板配置，但这样你就拥有了自己的技术栈。
 
-What's next?
+接下来做什么？
 
-- [Address Book Tutorial][address-book-tutorial]
+- [通讯录教程][address-book-tutorial]
 
 [templates]: ../start/framework/deploying#templates
 [spa]: ../how-to/spa

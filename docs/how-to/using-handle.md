@@ -1,25 +1,25 @@
 ---
-title: Using handle
+title: 使用 handle
 ---
 
-# Using `handle`
+# 使用 `handle`
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-You can build dynamic UI elements like breadcrumbs based on your route hierarchy using the [`useMatches`][use-matches] hook and [`handle`][handle] route exports.
+你可以使用 [`useMatches`][use-matches] hook 和 [`handle`][handle] 路由导出，基于路由层级构建动态 UI 元素（如面包屑导航）。
 
-## Understanding the Basics
+## 理解基础
 
-React Router provides access to all route matches and their data throughout your component tree. This allows routes to contribute metadata through the `handle` export that can be rendered by ancestor components.
+React Router 在组件树中提供了对所有路由匹配及其数据的访问。这允许路由通过 `handle` 导出贡献元数据，由祖先组件进行渲染。
 
-The `useMatches` hook combined with `handle` exports enables routes to contribute to rendering processes higher up the component tree than their actual render point. While we'll use breadcrumbs as an example, this pattern works for any scenario where you need routes to provide additional information to their ancestors.
+`useMatches` hook 与 `handle` 导出结合使用，使路由能够参与其实际渲染位置之上的组件树渲染过程。虽然我们以面包屑为例，但此模式适用于任何需要路由向其祖先提供额外信息的场景。
 
-## Defining Route `handle`s
+## 定义路由 `handle`
 
-We'll use a route structure like the following:
+我们将使用如下路由结构：
 
 ```ts filename=app/routes.ts
 import { route } from "@react-router/dev/routes";
@@ -31,31 +31,29 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-Add a `breadcrumb` property to the "parent" route's `handle` export. You can name this property whatever makes sense for your use case.
+向"parent"路由的 `handle` 导出添加 `breadcrumb` 属性。你可以根据你的用例为此属性命名。
 
 ```tsx filename=app/routes/parent.tsx
 import { Link } from "react-router";
 
 export const handle = {
-  breadcrumb: () => <Link to="/parent">Some Route</Link>,
+  breadcrumb: () => <Link to="/parent">某个路由</Link>,
 };
 ```
 
-You can define breadcrumbs for child routes as well:
+你也可以为子路由定义面包屑：
 
 ```tsx filename=app/routes/child.tsx
 import { Link } from "react-router";
 
 export const handle = {
-  breadcrumb: () => (
-    <Link to="/parent/child">Child Route</Link>
-  ),
+  breadcrumb: () => <Link to="/parent/child">子路由</Link>,
 };
 ```
 
-## Using Route `handle`s
+## 使用路由 `handle`
 
-Use the `useMatches` hook in your root layout or any ancestor component to collect and render the components defined in the `handle` export(s):
+在根布局或任何祖先组件中使用 `useMatches` hook 来收集并渲染 `handle` 导出中定义的组件：
 
 ```tsx filename=app/root.tsx lines=[7,11,22-31]
 import {
@@ -104,11 +102,11 @@ export default function App() {
 }
 ```
 
-The `match` object is passed to each breadcrumb function, giving you access to `match.data` (from loaders) and other route information to create dynamic breadcrumbs based on your route's data.
+`match` 对象被传递给每个面包屑函数，让你可以访问 `match.data`（来自 loader）和其他路由信息，以便根据路由数据创建动态面包屑。
 
-This pattern provides a clean way for routes to contribute metadata that can be consumed and rendered by ancestor components.
+此模式提供了一种简洁的方式，让路由贡献元数据，供祖先组件消费和渲染。
 
-## Additional Resources
+## 其他资源
 
 - [`useMatches`][use-matches]
 - [`handle`][handle]

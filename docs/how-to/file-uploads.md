@@ -1,21 +1,21 @@
 ---
-title: File Uploads
+title: 文件上传
 ---
 
-# File Uploads
+# 文件上传
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-_Thank you to David Adams for [writing an original guide](https://programmingarehard.com/2024/09/06/remix-file-uploads-updated.html/) on which this doc is based. You can refer to it for even more examples._
+_感谢 David Adams [编写了原始指南](https://programmingarehard.com/2024/09/06/remix-file-uploads-updated.html/)，本文档基于该指南。你可以参考它获取更多示例。_
 
-## Basic File Upload
+## 基本文件上传
 
-### 1. Setup some routes
+### 1. 设置路由
 
-You can setup your routes however you like. This example uses the following structure:
+你可以按照自己喜欢的方式设置路由。本示例使用以下结构：
 
 ```ts filename=routes.ts
 import {
@@ -24,30 +24,30 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
-  // ... other routes
+  // ... 其他路由
   route("user/:id", "pages/user-profile.tsx", [
     route("avatar", "api/avatar.tsx"),
   ]),
 ] satisfies RouteConfig;
 ```
 
-### 2. Add the form data parser
+### 2. 添加表单数据解析器
 
-`form-data-parser` is a wrapper around `request.formData()` that provides streaming support for handling file uploads.
+`form-data-parser` 是 `request.formData()` 的封装，提供处理文件上传的流式支持。
 
 ```shellscript
 npm i @remix-run/form-data-parser
 ```
 
-[See the `form-data-parser` docs for more information][form-data-parser]
+[查看 `form-data-parser` 文档了解更多信息][form-data-parser]
 
-### 3. Create a route with an upload action
+### 3. 创建带上传 action 的路由
 
-The `parseFormData` function takes an `uploadHandler` function as an argument. This function will be called for each file upload in the form.
+`parseFormData` 函数接受一个 `uploadHandler` 函数作为参数。该函数将在表单中的每个文件上传时被调用。
 
 <docs-warning>
 
-You must set the form's `enctype` to `multipart/form-data` for file uploads to work.
+你必须将表单的 `enctype` 设置为 `multipart/form-data` 才能使文件上传生效。
 
 </docs-warning>
 
@@ -63,7 +63,7 @@ export async function action({
 }: Route.ActionArgs) {
   const uploadHandler = async (fileUpload: FileUpload) => {
     if (fileUpload.fieldName === "avatar") {
-      // process the upload and return a File
+      // 处理上传并返回一个 File
     }
   };
 
@@ -71,7 +71,7 @@ export async function action({
     request,
     uploadHandler,
   );
-  // 'avatar' has already been processed at this point
+  // 此时 'avatar' 已经被处理完毕
   const file = formData.get("avatar");
 }
 
@@ -79,27 +79,27 @@ export default function Component() {
   return (
     <form method="post" encType="multipart/form-data">
       <input type="file" name="avatar" />
-      <button>Submit</button>
+      <button>提交</button>
     </form>
   );
 }
 ```
 
-## Local Storage Implementation
+## 本地存储实现
 
-### 1. Add the storage package
+### 1. 添加存储包
 
-`file-storage` is a key/value interface for storing [File objects][file] in JavaScript. Similar to how `localStorage` allows you to store key/value pairs of strings in the browser, file-storage allows you to store key/value pairs of files on the server.
+`file-storage` 是一个用于在 JavaScript 中存储 [File 对象][file]的键值接口。类似于 `localStorage` 允许你在浏览器中存储键值对字符串，file-storage 允许你在服务器上存储键值对文件。
 
 ```shellscript
 npm i @remix-run/file-storage
 ```
 
-[See the `file-storage` docs for more information][file-storage]
+[查看 `file-storage` 文档了解更多信息][file-storage]
 
-### 2. Create a storage configuration
+### 2. 创建存储配置
 
-Create a file that exports a `LocalFileStorage` instance to be used by different routes.
+创建一个文件导出 `LocalFileStorage` 实例，供不同路由使用。
 
 ```ts filename=avatar-storage.server.ts
 import { LocalFileStorage } from "@remix-run/file-storage/local";
@@ -113,9 +113,9 @@ export function getStorageKey(userId: string) {
 }
 ```
 
-### 3. Implement the upload handler
+### 3. 实现上传处理器
 
-Update the form's `action` to store files in the `fileStorage` instance.
+更新表单的 `action` 以将文件存储到 `fileStorage` 实例中。
 
 ```tsx filename=pages/user-profile.tsx
 import {
@@ -139,13 +139,13 @@ export async function action({
     ) {
       let storageKey = getStorageKey(params.id);
 
-      // FileUpload objects are not meant to stick around for very long (they are
-      // streaming data from the request.body); store them as soon as possible.
+      // FileUpload 对象不应该长时间保留（它们是从 request.body 中流式读取的数据）；
+      // 请尽快存储它们。
       await fileStorage.set(storageKey, fileUpload);
 
-      // Return a File for the FormData object. This is a LazyFile that knows how
-      // to access the file's content if needed (using e.g. file.stream()) but
-      // waits until it is requested to actually read anything.
+      // 返回一个 File 给 FormData 对象。这是一个 LazyFile，
+      // 它知道如何在需要时访问文件内容（例如使用 file.stream()），
+      // 但会等到被请求时才实际读取任何内容。
       return fileStorage.get(storageKey);
     }
   }
@@ -162,28 +162,28 @@ export default function UserPage({
 }: Route.ComponentProps) {
   return (
     <div>
-      <h1>User {params.id}</h1>
+      <h1>用户 {params.id}</h1>
       <form
         method="post"
-        // The form's enctype must be set to "multipart/form-data" for file uploads
+        // 表单的 enctype 必须设置为 "multipart/form-data" 才能进行文件上传
         encType="multipart/form-data"
       >
         <input type="file" name="avatar" accept="image/*" />
-        <button>Submit</button>
+        <button>提交</button>
       </form>
 
       <img
         src={`/user/${params.id}/avatar`}
-        alt="user avatar"
+        alt="用户头像"
       />
     </div>
   );
 }
 ```
 
-### 4. Add a route to serve the uploaded file
+### 4. 添加路由来提供上传的文件
 
-Create a [resource route][resource-route] that streams the file as a response.
+创建一个[资源路由][resource-route]，将文件作为响应流式传输。
 
 ```tsx filename=api/avatar.tsx
 import {
@@ -197,7 +197,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   const file = await fileStorage.get(storageKey);
 
   if (!file) {
-    throw new Response("User avatar not found", {
+    throw new Response("未找到用户头像", {
       status: 404,
     });
   }

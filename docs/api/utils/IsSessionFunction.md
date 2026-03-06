@@ -6,6 +6,6 @@ title: IsSessionFunction
 
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.IsSessionFunction.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.IsSessionFunction.html)

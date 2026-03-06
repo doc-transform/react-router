@@ -1,44 +1,44 @@
 ---
-title: Race Conditions
+title: 竞态条件
 ---
 
-# Race Conditions
+# 竞态条件
 
 [MODES: framework, data]
 
 <br/>
 <br/>
 
-While impossible to eliminate every possible race condition in your application, React Router automatically handles the most common race conditions found in web user interfaces.
+虽然不可能消除应用中所有可能的竞态条件，React Router 会自动处理 Web 用户界面中最常见的竞态条件。
 
-## Browser Behavior
+## 浏览器行为
 
-React Router's handling of network concurrency is heavily inspired by the behavior of web browsers when processing documents.
+React Router 对网络并发的处理深受 Web 浏览器处理文档行为的启发。
 
-Consider clicking a link to a new document, and then clicking a different link before the new page has finished loading. The browser will:
+想象一下点击一个链接导航到新文档，然后在新页面完成加载之前点击另一个链接。浏览器会：
 
-1. cancel the first request
-2. immediately process the new navigation
+1. 取消第一个请求
+2. 立即处理新的导航
 
-The same behavior applies to form submissions. When a pending form submission is interrupted by a new one, the first is canceled and the new submission is immediately processed.
+同样的行为适用于表单提交。当一个待处理的表单提交被新的提交中断时，第一个被取消，新的提交立即被处理。
 
-## React Router Behavior
+## React Router 行为
 
-Like the browser, interrupted navigations with links and form submissions will cancel in flight data requests and immediately process the new event.
+与浏览器一样，被中断的链接和表单提交的导航会取消正在进行的数据请求，并立即处理新事件。
 
-Fetchers are a bit more nuanced since they are not singleton events like navigation. Fetchers can't interrupt other fetcher instances, but they can interrupt themselves and the behavior is the same as everything else: cancel the interrupted request and immediately process the new one.
+Fetcher 稍微复杂一些，因为它们不是像导航那样的单例事件。Fetcher 不能中断其他 fetcher 实例，但可以中断自身，行为与其他情况相同：取消被中断的请求并立即处理新的请求。
 
-Fetchers do, however, interact with each other when it comes to revalidation. After a fetcher's action request returns to the browser, a revalidation for all page data is sent. This means multiple revalidation requests can be in-flight at the same time. React Router will commit all "fresh" revalidation responses and cancel any stale requests. A stale request is any request that started _earlier_ than one that has returned.
+然而，Fetcher 在重新验证方面确实会相互交互。当 fetcher 的 action 请求返回到浏览器后，会为所有页面数据发送重新验证请求。这意味着多个重新验证请求可以同时在进行中。React Router 会提交所有"新鲜"的重新验证响应并取消任何过期的请求。过期请求是任何在已返回的请求*之前*开始的请求。
 
-This management of the network prevents the most common UI bugs caused by network race conditions.
+这种网络管理防止了由网络竞态条件引起的最常见 UI bug。
 
-Since networks are unpredictable, and your server still processes these cancelled requests, your backend may still experience race conditions and have potential data integrity issues. These risks are the same risks as using default browser behavior with plain HTML `<forms>`, which we consider to be low, and outside the scope of React Router.
+由于网络是不可预测的，而你的服务器仍然会处理这些被取消的请求，你的后端可能仍然会遇到竞态条件和潜在的数据完整性问题。这些风险与使用纯 HTML `<forms>` 的默认浏览器行为的风险相同，我们认为这种风险很低，并且超出了 React Router 的范围。
 
-## Practical Benefits
+## 实际好处
 
-Consider building a type-ahead combobox. As the user types, you send a request to the server. As they type each new character you send a new request. It's important to not show the user results for a value that's not in the text field anymore.
+考虑构建一个输入即搜索的组合框。当用户输入时，你向服务器发送请求。每输入一个新字符你就发送一个新请求。重要的是不要向用户显示与文本框中当前值不匹配的结果。
 
-When using a fetcher, this is automatically managed for you. Consider this pseudo-code:
+使用 fetcher 时，这会自动为你管理。考虑以下伪代码：
 
 ```tsx
 // route("/city-search", "./search-cities.ts")
@@ -54,11 +54,11 @@ export function CitySearchCombobox() {
 
   return (
     <fetcher.Form action="/city-search">
-      <Combobox aria-label="Cities">
+      <Combobox aria-label="城市">
         <ComboboxInput
           name="q"
           onChange={(event) =>
-            // submit the form onChange to get the list of cities
+            // 在 onChange 时提交表单以获取城市列表
             fetcher.submit(event.target.form)
           }
         />
@@ -75,7 +75,7 @@ export function CitySearchCombobox() {
                 ))}
               </ComboboxList>
             ) : (
-              <span>No results found</span>
+              <span>未找到结果</span>
             )}
           </ComboboxPopover>
         ) : null}
@@ -85,4 +85,4 @@ export function CitySearchCombobox() {
 }
 ```
 
-Calls to `fetcher.submit` will cancel pending requests on that fetcher automatically. This ensures you never show the user results for a request for a different input value.
+调用 `fetcher.submit` 会自动取消该 fetcher 上的待处理请求。这确保你永远不会向用户显示来自不同输入值的请求结果。

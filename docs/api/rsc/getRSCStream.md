@@ -5,32 +5,16 @@ unstable: true
 
 # unstable_getRSCStream
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/rsc/html-stream/browser.ts
--->
-
 [MODES: data]
 
 <br />
 <br />
 
-<docs-warning>This API is experimental and subject to breaking changes in 
-minor/patch releases. Please use with caution and pay **very** close attention 
-to release notes for relevant changes.</docs-warning>
+<docs-warning>此 API 是实验性的，可能在次要/补丁版本中发生破坏性变更。请谨慎使用，并**密切**关注发布说明中的相关变更。</docs-warning>
 
-## Summary
+## 概述
 
-Get the prerendered [RSC](https://react.dev/reference/rsc/server-components)
-stream for hydration. Usually passed directly to your
-`react-server-dom-xyz/client`'s `createFromReadableStream`.
+获取预渲染的 [RSC](https://react.dev/reference/rsc/server-components) 流用于注水。通常直接传递给你的 `react-server-dom-xyz/client` 的 `createFromReadableStream`。
 
 ```tsx
 import { startTransition, StrictMode } from "react";
@@ -50,23 +34,20 @@ createFromReadableStream(getRSCStream()).then(
           <RSCHydratedRouter {...props} />
         </StrictMode>,
         {
-          // Options
-        }
+          // 选项
+        },
       );
     });
-  }
+  },
 );
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function getRSCStream(): ReadableStream
+function getRSCStream(): ReadableStream;
 ```
 
-## Returns
+## 返回值
 
-A [`ReadableStream`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)
-that contains the [RSC](https://react.dev/reference/rsc/server-components)
-data for hydration.
-
+包含用于注水的 [RSC](https://react.dev/reference/rsc/server-components) 数据的 [`ReadableStream`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)。

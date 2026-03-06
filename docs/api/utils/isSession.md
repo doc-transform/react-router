@@ -6,8 +6,8 @@ title: isSession
 
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.isSession.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.isSession.html)
 
-Returns true if an object is a React Router session.
+如果对象是 React Router session 则返回 true。

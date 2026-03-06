@@ -4,31 +4,15 @@ title: useViewTransitionState
 
 # useViewTransitionState
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useViewTransitionState.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useViewTransitionState.html)
 
-This hook returns `true` when there is an active [View Transition](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
-to the specified location. This can be used to apply finer-grained styles to
-elements to further customize the view transition. This requires that view
-transitions have been enabled for the given navigation via [`LinkProps.viewTransition`](https://api.reactrouter.com/v7/interfaces/react-router.LinkProps.html#viewTransition)
-(or the `Form`, `submit`, or `navigate` call)
+当存在到指定位置的活跃[视图过渡](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)时，此 Hook 返回 `true`。这可用于为元素应用更精细的样式，以进一步自定义视图过渡。这要求通过 [`LinkProps.viewTransition`](https://api.reactrouter.com/v7/interfaces/react-router.LinkProps.html#viewTransition)（或 `Form`、`submit` 或 `navigate` 调用）为给定导航启用了视图过渡。
 
-## Signature
+## 函数签名
 
 ```tsx
 function useViewTransitionState(
@@ -41,19 +25,16 @@ function useViewTransitionState(
 ) {}
 ```
 
-## Params
+## 参数
 
 ### to
 
-The [`To`](https://api.reactrouter.com/v7/types/react-router.To.html) location to check for an active [View Transition](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API).
+要检查活跃[视图过渡](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)的 [`To`](https://api.reactrouter.com/v7/types/react-router.To.html) 位置。
 
 ### options.relative
 
-The relative routing type to use when resolving the `to` location, defaults to `"route"`. See [`RelativeRoutingType`](https://api.reactrouter.com/v7/types/react-router.RelativeRoutingType.html) for
-more details.
+解析 `to` 位置时使用的相对路由类型，默认为 `"route"`。详见 [`RelativeRoutingType`](https://api.reactrouter.com/v7/types/react-router.RelativeRoutingType.html)。
 
-## Returns
+## 返回值
 
-`true` if there is an active [View Transition](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
-to the specified [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html), otherwise `false`.
-
+如果存在到指定 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 的活跃[视图过渡](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)则返回 `true`，否则返回 `false`。

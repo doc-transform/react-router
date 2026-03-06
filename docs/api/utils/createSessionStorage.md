@@ -7,11 +7,10 @@ hidden: true
 
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createSessionStorage.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createSessionStorage.html)
 
-Creates a SessionStorage object using a SessionIdStorageStrategy.
+使用 SessionIdStorageStrategy 创建一个 SessionStorage 对象。
 
-Note: This is a low-level API that should only be used if none of the
-existing session storage options meet your requirements.
+注意：这是一个低级 API，只有在现有的会话存储选项无法满足你的需求时才应使用。

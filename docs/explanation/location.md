@@ -1,6 +1,6 @@
 ---
-title: Location Object
+title: Location 对象
 hidden: true
 ---
 
-<!-- put some stuff about what it is and how it can be used, probably good opportunity for a couple how-tos as well with scroll restoration, etc -->
+<!-- 关于 Location 对象的说明及其使用方式，可能也是介绍滚动恢复等操作指南的好机会 -->

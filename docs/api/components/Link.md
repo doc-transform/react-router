@@ -4,26 +4,13 @@ title: Link
 
 # Link
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.Link.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.Link.html)
 
-A progressively enhanced [`<a href>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a)
-wrapper to enable navigation with client-side routing.
+一个渐进增强的 [`<a href>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) 封装组件，用于通过客户端路由进行导航。
 
 ```tsx
 import { Link } from "react-router";
@@ -45,13 +32,13 @@ import { Link } from "react-router";
 
 [modes: framework]
 
-Defines the link [lazy route discovery](../../explanation/lazy-route-discovery) behavior.
+定义链接的[懒路由发现](../../explanation/lazy-route-discovery)行为。
 
-- **render** — default, discover the route when the link renders
-- **none** — don't eagerly discover, only discover if the link is clicked
+- **render** — 默认值，在链接渲染时发现路由
+- **none** — 不提前发现，仅在链接被点击时发现
 
 ```tsx
-<Link /> // default ("render")
+<Link /> // 默认 ("render")
 <Link discover="render" />
 <Link discover="none" />
 ```
@@ -60,42 +47,36 @@ Defines the link [lazy route discovery](../../explanation/lazy-route-discovery) 
 
 [modes: framework]
 
-Defines the data and module prefetching behavior for the link.
+定义链接的数据和模块预取行为。
 
 ```tsx
-<Link /> // default
+<Link /> // 默认
 <Link prefetch="none" />
 <Link prefetch="intent" />
 <Link prefetch="render" />
 <Link prefetch="viewport" />
 ```
 
-- **none** — default, no prefetching
-- **intent** — prefetches when the user hovers or focuses the link
-- **render** — prefetches when the link renders
-- **viewport** — prefetches when the link is in the viewport, very useful for mobile
+- **none** — 默认，不预取
+- **intent** — 当用户悬停或聚焦链接时预取
+- **render** — 当链接渲染时预取
+- **viewport** — 当链接进入视口时预取，非常适合移动端
 
-Prefetching is done with HTML [`<link rel="prefetch">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
-tags. They are inserted after the link.
+预取通过 HTML [`<link rel="prefetch">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) 标签实现，它们会插入到链接之后。
 
 ```tsx
 <a href="..." />
 <a href="..." />
-<link rel="prefetch" /> // might conditionally render
+<link rel="prefetch" /> // 可能会条件渲染
 ```
 
-Because of this, if you are using `nav :last-child` you will need to use
-`nav :last-of-type` so the styles don't conditionally fall off your last link
-(and any other similar selectors).
+因此，如果你使用了 `nav :last-child` 选择器，需要改用 `nav :last-of-type`，以避免样式因条件渲染而从最后一个链接上脱落（以及其他类似的选择器）。
 
 ### preventScrollReset
 
 [modes: framework, data]
 
-Prevents the scroll position from being reset to the top of the window when
-the link is clicked and the app is using [`ScrollRestoration`](../components/ScrollRestoration). This only
-prevents new locations resetting scroll to the top, scroll position will be
-restored for back/forward button navigation.
+点击链接时，阻止滚动位置重置到窗口顶部（当应用使用 [`ScrollRestoration`](../components/ScrollRestoration) 时）。这仅阻止新位置重置滚动到顶部，后退/前进按钮导航时滚动位置仍会恢复。
 
 ```tsx
 <Link to="?tab=one" preventScrollReset />
@@ -105,33 +86,26 @@ restored for back/forward button navigation.
 
 [modes: framework, data, declarative]
 
-Defines the relative path behavior for the link.
+定义链接的相对路径行为。
 
 ```tsx
-<Link to=".." /> // default: "route"
+<Link to=".." /> // 默认: "route"
 <Link relative="route" />
 <Link relative="path" />
 ```
 
-Consider a route hierarchy where a parent route pattern is `"blog"` and a child
-route pattern is `"blog/:slug/edit"`.
+假设路由层级中父路由模式为 `"blog"`，子路由模式为 `"blog/:slug/edit"`：
 
-- **route** — default, resolves the link relative to the route pattern. In the
-example above, a relative link of `"..."` will remove both `:slug/edit` segments
-back to `"/blog"`.
-- **path** — relative to the path so `"..."` will only remove one URL segment up
-to `"/blog/:slug"`
+- **route** — 默认值，相对于路由模式解析链接。在上面的例子中，相对链接 `"..."` 会移除 `:slug/edit` 两个段，回到 `"/blog"`。
+- **path** — 相对于路径，因此 `"..."` 只会向上移除一个 URL 段到 `"/blog/:slug"`。
 
-Note that index routes and layout routes do not have paths so they are not
-included in the relative path calculation.
+注意：索引路由和布局路由没有路径，因此不参与相对路径计算。
 
 ### reloadDocument
 
 [modes: framework, data, declarative]
 
-Will use document navigation instead of client side routing when the link is
-clicked: the browser will handle the transition normally (as if it were an
-[`<a href>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a)).
+点击链接时使用文档导航代替客户端路由：浏览器会像处理普通 [`<a href>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) 一样处理过渡。
 
 ```tsx
 <Link to="/logout" reloadDocument />
@@ -141,21 +115,20 @@ clicked: the browser will handle the transition normally (as if it were an
 
 [modes: framework, data, declarative]
 
-Replaces the current entry in the [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-stack instead of pushing a new one onto it.
+替换 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈中的当前条目，而不是推入新条目。
 
 ```tsx
 <Link replace />
 ```
 
 ```
-# with a history stack like this
+# 假设历史栈如下
 A -> B
 
-# normal link click pushes a new entry
+# 普通链接点击会推入新条目
 A -> B -> C
 
-# but with `replace`, B is replaced by C
+# 使用 `replace`，B 会被 C 替换
 A -> C
 ```
 
@@ -163,13 +136,13 @@ A -> C
 
 [modes: framework, data, declarative]
 
-Adds persistent client side routing state to the next location.
+向下一个位置添加持久性的客户端路由状态。
 
 ```tsx
 <Link to="/somewhere/else" state={{ some: "value" }} />
 ```
 
-The location state is accessed from the `location`.
+可以通过 `location` 访问位置状态。
 
 ```tsx
 function SomeComp() {
@@ -178,14 +151,13 @@ function SomeComp() {
 }
 ```
 
-This state is inaccessible on the server as it is implemented on top of
-[`history.state`](https://developer.mozilla.org/en-US/docs/Web/API/History/state)
+此状态在服务端不可访问，因为它是基于 [`history.state`](https://developer.mozilla.org/en-US/docs/Web/API/History/state) 实现的。
 
 ### to
 
 [modes: framework, data, declarative]
 
-Can be a string or a partial [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html):
+可以是字符串或部分 [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html)：
 
 ```tsx
 <Link to="/some/path" />
@@ -203,8 +175,7 @@ Can be a string or a partial [`Path`](https://api.reactrouter.com/v7/interfaces/
 
 [modes: framework, data]
 
-Enables a [View Transition](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
-for this navigation.
+为此导航启用[视图过渡](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)。
 
 ```jsx
 <Link to={to} viewTransition>
@@ -212,73 +183,75 @@ for this navigation.
 </Link>
 ```
 
-To apply specific styles for the transition, see [`useViewTransitionState`](../hooks/useViewTransitionState)
+要在过渡期间应用特定样式，请参阅 [`useViewTransitionState`](../hooks/useViewTransitionState)。
 
 ### unstable_defaultShouldRevalidate
 
 [modes: framework, data, declarative]
 
-Specify the default revalidation behavior for the navigation.
+指定此导航的默认重新验证行为。
 
 ```tsx
-<Link to="/some/path" unstable_defaultShouldRevalidate={false} />
+<Link
+  to="/some/path"
+  unstable_defaultShouldRevalidate={false}
+/>
 ```
 
-If no `shouldRevalidate` functions are present on the active routes, then this
-value will be used directly.  Otherwise it will be passed into `shouldRevalidate`
-so the route can make the final determination on revalidation. This can be
-useful when updating search params and you don't want to trigger a revalidation.
+如果当前活跃的路由上没有 `shouldRevalidate` 函数，则直接使用此值。否则会将其传入 `shouldRevalidate`，由路由做最终的重新验证判断。这在更新搜索参数且不想触发重新验证时很有用。
 
-By default (when not specified), loaders will revalidate according to the routers
-standard revalidation behavior.
+默认情况下（未指定时），loader 会按照路由器的标准重新验证行为进行重新验证。
 
 ### unstable_mask
 
 [modes: framework, data]
 
-Masked path for for this navigation, when you want to navigate the router to
-one location but display a separate location in the URL bar.
+此导航的遮罩路径，当你想让路由导航到一个位置但在 URL 栏中显示另一个位置时使用。
 
-This is useful for contextual navigations such as opening an image in a modal
-on top of a gallery while keeping the underlying gallery active. If a user
-shares the masked URL, or opens the link in a new tab, they will only load
-the masked location without the underlying contextual location.
+这对于上下文导航非常有用，例如在图库上方以模态框打开图片，同时保持底层的图库处于活跃状态。如果用户分享了遮罩后的 URL，或在新标签页中打开链接，他们只会加载遮罩位置，而不会加载底层的上下文位置。
 
-This feature relies on `history.state` and is thus only intended for SPA uses
-and SSR renders will not respect the masking.
+此功能依赖 `history.state`，因此仅适用于 SPA 场景，SSR 渲染不会遵循遮罩。
 
 ```tsx
 // routes/gallery.tsx
-export function clientLoader({ request }: Route.LoaderArgs) {
+export function clientLoader({
+  request,
+}: Route.LoaderArgs) {
   let sp = new URL(request.url).searchParams;
   return {
     images: getImages(),
-    modalImage: sp.has("image") ? getImage(sp.get("image")!) : null,
+    modalImage: sp.has("image")
+      ? getImage(sp.get("image")!)
+      : null,
   };
 }
 
-export default function Gallery({ loaderData }: Route.ComponentProps) {
+export default function Gallery({
+  loaderData,
+}: Route.ComponentProps) {
   return (
     <>
       <GalleryGrid>
-       {loaderData.images.map((image) => (
-         <Link
-           key={image.id}
-           to={`/gallery?image=${image.id}`}
-           unstable_mask={`/images/${image.id}`}
-         >
-           <img src={image.url} alt={image.alt} />
-         </Link>
-       ))}
+        {loaderData.images.map((image) => (
+          <Link
+            key={image.id}
+            to={`/gallery?image=${image.id}`}
+            unstable_mask={`/images/${image.id}`}
+          >
+            <img src={image.url} alt={image.alt} />
+          </Link>
+        ))}
       </GalleryGrid>
 
       {data.modalImage ? (
         <dialog open>
-          <img src={data.modalImage.url} alt={data.modalImage.alt} />
+          <img
+            src={data.modalImage.url}
+            alt={data.modalImage.alt}
+          />
         </dialog>
       ) : null}
     </>
   );
 }
 ```
-

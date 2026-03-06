@@ -4,25 +4,13 @@ title: createStaticRouter
 
 # createStaticRouter
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/server.tsx
--->
-
 [MODES: data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createStaticRouter.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createStaticRouter.html)
 
-Create a static [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) for server-side rendering
+创建用于服务端渲染的静态 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html)。
 
 ```tsx
 export async function handleRequest(request: Request) {
@@ -41,7 +29,7 @@ export async function handleRequest(request: Request) {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function createStaticRouter(
@@ -53,21 +41,20 @@ function createStaticRouter(
 ): DataRouter {}
 ```
 
-## Params
+## 参数
 
 ### routes
 
-The route objects to create a static [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) for
+要创建静态 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) 的路由对象。
 
 ### context
 
-The [`StaticHandlerContext`](https://api.reactrouter.com/v7/interfaces/react-router.StaticHandlerContext.html) returned from [`StaticHandler`](https://api.reactrouter.com/v7/interfaces/react-router.StaticHandler.html)'s `query`
+[`StaticHandler`](https://api.reactrouter.com/v7/interfaces/react-router.StaticHandler.html) 的 `query` 返回的 [`StaticHandlerContext`](https://api.reactrouter.com/v7/interfaces/react-router.StaticHandlerContext.html)。
 
 ### opts.future
 
-Future flags for the static [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html)
+静态 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) 的 future flag。
 
-## Returns
+## 返回值
 
-A static [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) that can be used to render the provided routes
-
+可用于渲染所提供路由的静态 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html)。

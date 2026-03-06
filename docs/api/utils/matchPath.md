@@ -4,50 +4,36 @@ title: matchPath
 
 # matchPath
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/router/utils.ts
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.matchPath.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.matchPath.html)
 
-Performs pattern matching on a URL pathname and returns information about
-the match.
+对 URL pathname 执行模式匹配，并返回匹配信息。
 
-## Signature
+## 函数签名
 
 ```tsx
-function matchPath<ParamKey extends ParamParseKey<Path>, Path extends string>(
+function matchPath<
+  ParamKey extends ParamParseKey<Path>,
+  Path extends string,
+>(
   pattern: PathPattern<Path> | Path,
   pathname: string,
-): PathMatch<ParamKey> | null
+): PathMatch<ParamKey> | null;
 ```
 
-## Params
+## 参数
 
 ### pattern
 
-The pattern to match against the URL pathname. This can be a string or a [`PathPattern`](https://api.reactrouter.com/v7/interfaces/react-router.PathPattern.html) object. If a string is provided, it will be
-treated as a pattern with `caseSensitive` set to `false` and `end` set to
-`true`.
+要与 URL pathname 匹配的模式。可以是字符串或 [`PathPattern`](https://api.reactrouter.com/v7/interfaces/react-router.PathPattern.html) 对象。如果提供字符串，将被视为 `caseSensitive` 设为 `false` 且 `end` 设为 `true` 的模式。
 
 ### pathname
 
-The URL pathname to match against the pattern.
+要与模式匹配的 URL pathname。
 
-## Returns
+## 返回值
 
-A path match object if the pattern matches the pathname,
-or `null` if it does not match.
-
+如果模式匹配 pathname 则返回路径匹配对象，否则返回 `null`。

@@ -4,35 +4,20 @@ title: useNavigationType
 
 # useNavigationType
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useNavigationType.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useNavigationType.html)
 
-Returns the current [`Navigation`](https://api.reactrouter.com/v7/types/react-router.Navigation.html) action which describes how the router
-came to the current [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html), either by a pop, push, or replace on
-the [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) stack.
+返回当前的 [`Navigation`](https://api.reactrouter.com/v7/types/react-router.Navigation.html) action，描述路由器如何到达当前 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html)，可能是通过 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈上的 pop、push 或 replace。
 
-## Signature
+## 函数签名
 
 ```tsx
-function useNavigationType(): NavigationType
+function useNavigationType(): NavigationType;
 ```
 
-## Returns
+## 返回值
 
-The current [`NavigationType`](https://api.reactrouter.com/v7/enums/react-router.NavigationType.html) (`"POP"`, `"PUSH"`, or `"REPLACE"`)
-
+当前的 [`NavigationType`](https://api.reactrouter.com/v7/enums/react-router.NavigationType.html)（`"POP"`、`"PUSH"` 或 `"REPLACE"`）。

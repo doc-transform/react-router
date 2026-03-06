@@ -4,43 +4,30 @@ title: resolvePath
 
 # resolvePath
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/router/utils.ts
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.resolvePath.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.resolvePath.html)
 
-Returns a resolved [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) object relative to the given pathname.
+返回相对于给定 pathname 解析后的 [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) 对象。
 
-## Signature
+## 函数签名
 
 ```tsx
-function resolvePath(to: To, fromPathname = "/"): Path
+function resolvePath(to: To, fromPathname = "/"): Path;
 ```
 
-## Params
+## 参数
 
 ### to
 
-The path to resolve, either a string or a partial [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) object.
+要解析的路径，可以是字符串或部分 [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) 对象。
 
 ### fromPathname
 
-The pathname to resolve the path from. Defaults to `/`.
+从哪个 pathname 解析路径。默认为 `/`。
 
-## Returns
+## 返回值
 
-A [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) object with the resolved pathname, search, and hash.
-
+包含解析后的 pathname、search 和 hash 的 [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html) 对象。

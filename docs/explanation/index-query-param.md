@@ -1,22 +1,22 @@
 ---
-title: Index Query Param
+title: Index 查询参数
 ---
 
-# Index Query Param
+# Index 查询参数
 
 [MODES: framework, data]
 
-## Overview
+## 概述
 
-You may find a wild `?index` appearing in the URL of your app when submitting forms.
+在提交表单时，你可能会发现应用的 URL 中出现了一个奇怪的 `?index`。
 
-Because of nested routes, multiple routes in your route hierarchy can match the URL. Unlike navigations where all matching route [`loader`][loader]s are called to build up the UI, when a [`form`][form_element] is submitted, _only one action is called_.
+由于嵌套路由的存在，路由层级中的多个路由可以匹配同一个 URL。与导航时调用所有匹配路由的 [`loader`][loader] 来构建 UI 不同，当提交 [`form`][form_element] 时，_只会调用一个 action_。
 
-Because index routes share the same URL as their parent, the `?index` param lets you disambiguate between the two.
+因为索引路由与其父路由共享相同的 URL，`?index` 参数让你可以消除两者之间的歧义。
 
-## Understanding Index Routes
+## 理解索引路由
 
-For example, consider the following route structure:
+例如，考虑以下路由结构：
 
 ```ts filename=app/routes.ts
 import {
@@ -33,23 +33,23 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-This creates two routes that match `/projects`:
+这创建了两个匹配 `/projects` 的路由：
 
-- The parent route (`./pages/projects.tsx`)
-- The index route (`./pages/projects/index.tsx`)
+- 父路由（`./pages/projects.tsx`）
+- 索引路由（`./pages/projects/index.tsx`）
 
-## Form Submission Targeting
+## 表单提交目标
 
-For example, consider the following forms:
+例如，考虑以下表单：
 
 ```tsx
 <Form method="post" action="/projects" />
 <Form method="post" action="/projects?index" />
 ```
 
-The `?index` param will submit to the index route; the action without the index param will submit to the parent route.
+`?index` 参数会将表单提交到索引路由；不带 index 参数的 action 会将表单提交到父路由。
 
-When a [`<Form>`][form_component] is rendered in an index route without an [`action`][action], the `?index` param will automatically be appended so that the form posts to the index route. The following form, when submitted, will post to `/projects?index` because it is rendered in the context of the `projects` index route:
+当 [`<Form>`][form_component] 在索引路由中渲染且没有指定 [`action`][action] 时，`?index` 参数会自动附加，使表单提交到索引路由。以下表单在提交时会提交到 `/projects?index`，因为它是在 `projects` 索引路由的上下文中渲染的：
 
 ```tsx filename=app/pages/projects/index.tsx
 function ProjectsIndex() {
@@ -57,9 +57,9 @@ function ProjectsIndex() {
 }
 ```
 
-If you moved the code to the project layout (`./pages/projects.tsx` in this example), it would instead post to `/projects`.
+如果你将代码移到项目布局中（本例中的 `./pages/projects.tsx`），它将提交到 `/projects`。
 
-This applies to `<Form>` and all of its cousins:
+这适用于 `<Form>` 及其所有相关 API：
 
 ```tsx
 function Component() {
@@ -76,7 +76,7 @@ function Component() {
   fetcher.submit({}, { action: "/projects?index" });
   <fetcher.Form action="/projects" />;
   <fetcher.Form action="/projects?index" />;
-  <fetcher.Form />; // defaults to the route in context
+  <fetcher.Form />; // 默认使用当前上下文中的路由
 }
 ```
 

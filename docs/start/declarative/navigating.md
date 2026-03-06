@@ -1,19 +1,19 @@
 ---
-title: Navigating
+title: 导航
 order: 3
 ---
 
-# Navigating
+# 导航
 
 [MODES: declarative]
 
-## Introduction
+## 简介
 
-Users navigate your application with `<Link>`, `<NavLink>`, and `useNavigate`.
+用户通过 `<Link>`、`<NavLink>` 和 `useNavigate` 在你的应用中进行导航。
 
 ## NavLink
 
-This component is for navigation links that need to render an active state.
+此组件用于需要渲染激活状态的导航链接。
 
 ```tsx
 import { NavLink } from "react-router";
@@ -34,7 +34,7 @@ export function MyAppNav() {
 }
 ```
 
-Whenever a `NavLink` is active, it will automatically have an `.active` class name for easy styling with CSS:
+当 `NavLink` 处于激活状态时，它会自动添加 `.active` 类名，方便通过 CSS 设置样式：
 
 ```css
 a.active {
@@ -42,7 +42,7 @@ a.active {
 }
 ```
 
-It also has callback props on `className`, `style`, and `children` with the active state for inline styling or conditional rendering:
+它还提供了 `className`、`style` 和 `children` 上的回调属性，可以获取激活状态，用于内联样式或条件渲染：
 
 ```tsx
 // className
@@ -81,7 +81,7 @@ It also has callback props on `className`, `style`, and `children` with the acti
 
 ## Link
 
-Use `<Link>` when the link doesn't need active styling:
+当链接不需要激活样式时，使用 `<Link>`：
 
 ```tsx
 import { Link } from "react-router";
@@ -98,15 +98,15 @@ export function LoggedOutMessage() {
 
 ## useNavigate
 
-This hook allows the programmer to navigate the user to a new page without the user interacting.
+此 Hook 允许开发者在无需用户交互的情况下，将用户导航到新页面。
 
-For normal navigation, it's best to use `Link` or `NavLink`. They provide a better default user experience like keyboard events, accessibility labeling, "open in new window", right click context menus, etc.
+对于常规导航，最好使用 `Link` 或 `NavLink`。它们提供了更好的默认用户体验，如键盘事件、无障碍标签、"在新窗口中打开"、右键上下文菜单等。
 
-Reserve usage of `useNavigate` to situations where the user is _not_ interacting but you need to navigate, for example:
+仅在用户*没有*交互但你需要导航的场景下使用 `useNavigate`，例如：
 
-- After a form submission completes
-- Logging them out after inactivity
-- Timed UIs like quizzes, etc.
+- 表单提交完成后
+- 因不活跃而将用户登出
+- 有时间限制的 UI（如测验等）
 
 ```tsx
 import { useNavigate } from "react-router";
@@ -130,4 +130,4 @@ export function LoginPage() {
 
 ---
 
-Next: [Url values](./url-values)
+下一节：[URL 值](./url-values)

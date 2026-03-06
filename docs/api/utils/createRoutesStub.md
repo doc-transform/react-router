@@ -6,26 +6,26 @@ title: createRoutesStub
 
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createRoutesStub.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createRoutesStub.html)
 
-## Signature
+## 函数签名
 
 ```tsx
 createRoutesStub(routes, context): undefined
 ```
 
-## Params
+## 参数
 
 ### routes
 
 [modes: framework, data]
 
-_No documentation_
+_无文档_
 
 ### context
 
 [modes: framework, data]
 
-_No documentation_
+_无文档_

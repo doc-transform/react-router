@@ -7,23 +7,23 @@ order: 2
 
 [MODES: framework]
 
-## Summary
+## 概述
 
 <docs-info>
-This file is required
+此文件是必需的
 </docs-info>
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/interfaces/_react-router_dev.routes.RouteConfigEntry.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/interfaces/_react-router_dev.routes.RouteConfigEntry.html)
 
-Configuration file that maps URL patterns to route modules in your application.
+将 URL 模式映射到应用中路由模块的配置文件。
 
-See the [routing guide][routing] for more information.
+详情请参阅[路由指南][routing]。
 
-## Examples
+## 示例
 
-### Basic
+### 基本用法
 
-Configure your routes as an array of objects.
+将路由配置为对象数组。
 
 ```tsx filename=app/routes.ts
 import {
@@ -33,21 +33,21 @@ import {
 
 export default [
   route("some/path", "./some/file.tsx"),
-  // pattern ^           ^ module file
+  // 模式 ^           ^ 模块文件
 ] satisfies RouteConfig;
 ```
 
-You can use the following helpers to create route config entries:
+你可以使用以下辅助函数创建路由配置项：
 
-- [`route`][route] — Helper function for creating a route config entry
-- [`index`][index] — Helper function for creating a route config entry for an index route
-- [`layout`][layout] — Helper function for creating a route config entry for a layout route
-- [`prefix`][prefix] — Helper function for adding a path prefix to a set of routes without needing to introduce a parent route
-- [`relative`][relative] — Creates a set of route config helpers that resolve file paths relative to the given directory. Designed to support splitting route config into multiple files within different directories
+- [`route`][route] — 创建路由配置项的辅助函数
+- [`index`][index] — 创建索引路由配置项的辅助函数
+- [`layout`][layout] — 创建布局路由配置项的辅助函数
+- [`prefix`][prefix] — 为一组路由添加路径前缀而无需引入父路由的辅助函数
+- [`relative`][relative] — 创建一组路由配置辅助函数，相对于给定目录解析文件路径。设计用于支持将路由配置拆分到不同目录的多个文件中
 
-### File-based Routing
+### 文件系统路由
 
-If you prefer to define your routes via file naming conventions rather than configuration, the `@react-router/fs-routes` package provides a [file system routing convention][file-route-conventions]:
+如果你更喜欢通过文件命名约定而非配置来定义路由，`@react-router/fs-routes` 包提供了[文件系统路由约定][file-route-conventions]：
 
 ```ts filename=app/routes.ts
 import { type RouteConfig } from "@react-router/dev/routes";
@@ -56,7 +56,7 @@ import { flatRoutes } from "@react-router/fs-routes";
 export default flatRoutes() satisfies RouteConfig;
 ```
 
-### Route Helpers
+### 路由辅助函数
 
 [routing]: ../../start/framework/routing
 [route]: https://api.reactrouter.com/v7/functions/_react-router_dev.routes.route.html

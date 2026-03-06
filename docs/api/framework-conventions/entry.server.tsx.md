@@ -7,30 +7,30 @@ order: 5
 
 [MODES: framework]
 
-## Summary
+## 概述
 
-This file is the server-side entry point that controls how your React Router application generates HTTP responses on the server.
+此文件是服务端入口，控制 React Router 应用在服务端如何生成 HTTP 响应。
 
-This module should render the markup for the current page using a [`<ServerRouter>`][serverrouter] element with the `context` and `url` for the current request. This markup will (optionally) be re-hydrated once JavaScript loads in the browser using the [client entry module][client-entry].
+此模块应使用 [`<ServerRouter>`][serverrouter] 元素及当前请求的 `context` 和 `url` 来渲染当前页面的标记。JavaScript 在浏览器中加载后，此标记将（可选地）通过[客户端入口模块][client-entry]重新注水。
 
-<docs-info>This file is optional if you are running on Node. If it is not present, a [default implementation][node-streaming-entry-server] will be used.
+<docs-info>如果你在 Node 上运行，此文件是可选的。如果不存在，将使用[默认实现][node-streaming-entry-server]。
 <br/>
 <br/>
-If you are using another runtime (i.e., Cloudflare) then you need to include this file. You can find sample implementations in the [templates repository][templates-repo].</docs-info>
+如果你使用其他运行时（如 Cloudflare），则需要包含此文件。你可以在[模板仓库][templates-repo]中找到示例实现。</docs-info>
 
-## Generating `entry.server.tsx`
+## 生成 `entry.server.tsx`
 
-When running in Node, React Router will handle generating the HTTP Response for you. You can reveal the default entry server file with the following:
+在 Node 环境运行时，React Router 会为你处理 HTTP 响应的生成。你可以通过以下命令显示默认的服务端入口文件：
 
 ```shellscript nonumber
 npx react-router reveal
 ```
 
-## Exports
+## 导出
 
 ### `default`
 
-The `default` export of this module is a function that lets you create the response, including HTTP status, headers, and HTML, giving you full control over the way the markup is generated and sent to the client.
+此模块的 `default` 导出是一个函数，允许你创建响应，包括 HTTP 状态码、响应头和 HTML，让你完全控制标记的生成和发送方式。
 
 ```tsx filename=app/entry.server.tsx
 import { PassThrough } from "node:stream";
@@ -79,12 +79,12 @@ export default function handleRequest(
 
 ### `streamTimeout`
 
-If you are [streaming] responses, you can export an optional `streamTimeout` value (in milliseconds) that will control the amount of time the server will wait for streamed promises to settle before rejecting outstanding promises and closing the stream.
+如果你使用[流式传输][streaming]响应，可以导出一个可选的 `streamTimeout` 值（单位毫秒），用于控制服务器在拒绝未完成的 Promise 并关闭流之前等待流式 Promise 结算的时间。
 
-It's recommended to decouple this value from the timeout in which you abort the React renderer. You should always set the React rendering timeout to a higher value so it has time to stream down the underlying rejections from your `streamTimeout`.
+建议将此值与中止 React 渲染器的超时时间解耦。你应该始终将 React 渲染超时设为更高的值，以便有时间将 `streamTimeout` 产生的拒绝流式传输下去。
 
 ```tsx lines=[1-2,13-15]
-// Reject all pending promises from handler functions after 10 seconds
+// 10 秒后拒绝处理函数中所有待处理的 Promise
 export const streamTimeout = 10000;
 
 export default function handleRequest(...) {
@@ -96,8 +96,7 @@ export default function handleRequest(...) {
       { /* ... */ }
     );
 
-    // Abort the streaming render pass after 11 seconds to allow the rejected
-    // boundaries to be flushed
+    // 11 秒后中止流式渲染，以允许被拒绝的边界被刷新
     setTimeout(abort, streamTimeout + 1000);
   });
 }
@@ -105,7 +104,7 @@ export default function handleRequest(...) {
 
 ### `handleDataRequest`
 
-You can export an optional `handleDataRequest` function that will allow you to modify the response of a data request. These are the requests that do not render HTML, but rather return the `loader` and `action` data to the browser once client-side hydration has occurred.
+你可以导出一个可选的 `handleDataRequest` 函数，允许你修改数据请求的响应。这些请求不渲染 HTML，而是在客户端注水完成后将 `loader` 和 `action` 数据返回给浏览器。
 
 ```tsx
 export function handleDataRequest(
@@ -123,7 +122,7 @@ export function handleDataRequest(
 
 ### `handleError`
 
-By default, React Router will log encountered server-side errors to the console. If you'd like more control over the logging, or would like to also report these errors to an external service, then you can export an optional `handleError` function which will give you control (and will disable the built-in error logging).
+默认情况下，React Router 会将遇到的服务端错误记录到控制台。如果你想更精细地控制日志记录，或者还想将这些错误上报到外部服务，可以导出一个可选的 `handleError` 函数（这将禁用内置的错误日志记录）。
 
 ```tsx
 export function handleError(
@@ -141,19 +140,19 @@ export function handleError(
 }
 ```
 
-_Note that you generally want to avoid logging when the request was aborted, since React Router's cancellation and race-condition handling can cause a lot of requests to be aborted._
+_注意：通常你需要避免在请求被中止时记录日志，因为 React Router 的取消和竞态条件处理可能会导致大量请求被中止。_
 
-**Streaming Rendering Errors**
+**流式渲染错误**
 
-When you are streaming your HTML responses via [`renderToPipeableStream`][rendertopipeablestream] or [`renderToReadableStream`][rendertoreadablestream], your own `handleError` implementation will only handle errors encountered during the initial shell render. If you encounter a rendering error during subsequent streamed rendering you will need to handle these errors manually since the React Router server has already sent the Response by that point.
+当你通过 [`renderToPipeableStream`][rendertopipeablestream] 或 [`renderToReadableStream`][rendertoreadablestream] 流式传输 HTML 响应时，你自定义的 `handleError` 实现只会处理初始 shell 渲染期间遇到的错误。如果在后续的流式渲染中遇到渲染错误，你需要手动处理这些错误，因为此时 React Router 服务器已经发送了响应。
 
-For `renderToPipeableStream`, you can handle these errors in the `onError` callback function. You will need to toggle a boolean in `onShellReady` so you know if the error was a shell rendering error (and can be ignored) or an async
+对于 `renderToPipeableStream`，你可以在 `onError` 回调函数中处理这些错误。你需要在 `onShellReady` 中切换一个布尔值，以便知道错误是 shell 渲染错误（可以忽略）还是异步错误。
 
-For an example, please refer to the default [`entry.server.tsx`][node-streaming-entry-server] for Node.
+具体示例请参阅 Node 的默认 [`entry.server.tsx`][node-streaming-entry-server]。
 
-**Thrown Responses**
+**抛出的 Response**
 
-Note that this does not handle thrown `Response` instances from your `loader`/`action` functions. The intention of this handler is to find bugs in your code which result in unexpected thrown errors. If you are detecting a scenario and throwing a 401/404/etc. `Response` in your `loader`/`action` then it's an expected flow that is handled by your code. If you also wish to log, or send those to an external service, that should be done at the time you throw the response.
+注意：这不会处理从 `loader`/`action` 函数中抛出的 `Response` 实例。此处理器的目的是发现代码中导致意外抛出错误的 bug。如果你在 `loader`/`action` 中检测到某种情况并抛出 401/404 等 `Response`，这是由你的代码处理的预期流程。如果你也想记录日志或将其发送到外部服务，应在抛出响应时完成。
 
 [client-entry]: ./entry.client.tsx
 [serverrouter]: ../framework-routers/ServerRouter

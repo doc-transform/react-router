@@ -4,35 +4,20 @@ title: useMatches
 
 # useMatches
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useMatches.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useMatches.html)
 
-Returns the active route matches, useful for accessing `loaderData` for
-parent/child routes or the route [`handle`](../../start/framework/route-module#handle)
-property
+返回当前激活的路由匹配项，用于访问父/子路由的 `loaderData` 或路由的 [`handle`](../../start/framework/route-module#handle) 属性。
 
-## Signature
+## 函数签名
 
 ```tsx
-function useMatches(): UIMatch[]
+function useMatches(): UIMatch[];
 ```
 
-## Returns
+## 返回值
 
-An array of [UI matches](https://api.reactrouter.com/v7/interfaces/react-router.UIMatch.html) for the current route hierarchy
-
+当前路由层级的 [UI 匹配项](https://api.reactrouter.com/v7/interfaces/react-router.UIMatch.html) 数组。

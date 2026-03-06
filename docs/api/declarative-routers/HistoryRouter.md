@@ -5,38 +5,20 @@ unstable: true
 
 # unstable_HistoryRouter
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: declarative]
 
 <br />
 <br />
 
-<docs-warning>This API is experimental and subject to breaking changes in 
-minor/patch releases. Please use with caution and pay **very** close attention 
-to release notes for relevant changes.</docs-warning>
+<docs-warning>此 API 是实验性的，可能在次要/补丁版本中发生破坏性变更。请谨慎使用，并**密切**关注发布说明中的相关变更。</docs-warning>
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.unstable_HistoryRouter.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.unstable_HistoryRouter.html)
 
-A declarative [`<Router>`](../declarative-routers/Router) that accepts a pre-instantiated
-`history` object.
-It's important to note that using your own `history` object is highly discouraged
-and may add two versions of the `history` library to your bundles unless you use
-the same version of the `history` library that React Router uses internally.
+接受预实例化的 `history` 对象的声明式 [`<Router>`](../declarative-routers/Router)。需要注意，强烈不建议使用自己的 `history` 对象，除非你使用与 React Router 内部相同版本的 `history` 库，否则可能会在你的包中包含两个版本的 `history` 库。
 
-## Signature
+## 函数签名
 
 ```tsx
 function HistoryRouter({
@@ -44,35 +26,29 @@ function HistoryRouter({
   children,
   history,
   unstable_useTransitions,
-}: HistoryRouterProps)
+}: HistoryRouterProps);
 ```
 
 ## Props
 
 ### basename
 
-Application basename
+应用的基础路径。
 
 ### children
 
-``<Route>`` components describing your route configuration
+描述路由配置的 `<Route>` 组件。
 
 ### history
 
-A `History` implementation for use by the router
+供路由器使用的 `History` 实现。
 
 ### unstable_useTransitions
 
-Control whether router state updates are internally wrapped in
-[`React.startTransition`](https://react.dev/reference/react/startTransition).
+控制路由器状态更新是否在内部包裹在 [`React.startTransition`](https://react.dev/reference/react/startTransition) 中。
 
-- When left `undefined`, all router state updates are wrapped in
-  `React.startTransition`
-- When set to `true`, [`Link`](../components/Link) and [`Form`](../components/Form) navigations will be wrapped
-  in `React.startTransition` and all router state updates are wrapped in
-  `React.startTransition`
-- When set to `false`, the router will not leverage `React.startTransition`
-  on any navigations or state changes.
+- 当设置为 `undefined` 时，所有路由器状态更新都会被包裹在 `React.startTransition` 中。
+- 当设置为 `true` 时，[`Link`](../components/Link) 和 [`Form`](../components/Form) 导航会被包裹在 `React.startTransition` 中，所有路由器状态更新都会被包裹在 `React.startTransition` 中。
+- 当设置为 `false` 时，路由器不会在任何导航或状态变化上使用 `React.startTransition`。
 
-For more information, please see the [docs](https://reactrouter.com/explanation/react-transitions).
-
+更多信息请参阅[文档](https://reactrouter.com/explanation/react-transitions)。

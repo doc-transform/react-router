@@ -4,27 +4,13 @@ title: useLoaderData
 
 # useLoaderData
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useLoaderData.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useLoaderData.html)
 
-Returns the data from the closest route
-[`loader`](../../start/framework/route-module#loader) or
-[`clientLoader`](../../start/framework/route-module#clientloader).
+返回最近路由的 [`loader`](../../start/framework/route-module#loader) 或 [`clientLoader`](../../start/framework/route-module#clientloader) 返回的数据。
 
 ```tsx
 import { useLoaderData } from "react-router";
@@ -39,13 +25,12 @@ export default function Invoices() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useLoaderData<T = any>(): SerializeFrom<T>
+function useLoaderData<T = any>(): SerializeFrom<T>;
 ```
 
-## Returns
+## 返回值
 
-The data returned from the route's [`loader`](../../start/framework/route-module#loader) or [`clientLoader`](../../start/framework/route-module#clientloader) function
-
+路由的 [`loader`](../../start/framework/route-module#loader) 或 [`clientLoader`](../../start/framework/route-module#clientloader) 函数返回的数据。

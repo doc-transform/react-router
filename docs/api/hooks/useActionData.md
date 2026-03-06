@@ -4,27 +4,13 @@ title: useActionData
 
 # useActionData
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useActionData.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useActionData.html)
 
-Returns the [`action`](../../start/framework/route-module#action) data from
-the most recent `POST` navigation form submission or `undefined` if there
-hasn't been one.
+返回最近一次 `POST` 导航表单提交的 [`action`](../../start/framework/route-module#action) 数据，如果没有提交过则返回 `undefined`。
 
 ```tsx
 import { Form, useActionData } from "react-router";
@@ -46,15 +32,14 @@ export default function Invoices() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useActionData<T = any>(): SerializeFrom<T> | undefined
+function useActionData<T = any>():
+  | SerializeFrom<T>
+  | undefined;
 ```
 
-## Returns
+## 返回值
 
-The data returned from the route's [`action`](../../start/framework/route-module#action)
-function, or `undefined` if no [`action`](../../start/framework/route-module#action)
-has been called
-
+路由 [`action`](../../start/framework/route-module#action) 函数返回的数据，如果没有调用过 [`action`](../../start/framework/route-module#action) 则返回 `undefined`。

@@ -5,30 +5,16 @@ unstable: true
 
 # unstable_createCallServer
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/rsc/browser.tsx
--->
-
 [MODES: data]
 
 <br />
 <br />
 
-<docs-warning>This API is experimental and subject to breaking changes in 
-minor/patch releases. Please use with caution and pay **very** close attention 
-to release notes for relevant changes.</docs-warning>
+<docs-warning>此 API 是实验性的，可能在次要/补丁版本中发生破坏性变更。请谨慎使用，并**密切**关注发布说明中的相关变更。</docs-warning>
 
-## Summary
+## 概述
 
-Create a React `callServer` implementation for React Router.
+为 React Router 创建 React `callServer` 实现。
 
 ```tsx
 import {
@@ -44,11 +30,11 @@ setServerCallback(
     createFromReadableStream,
     createTemporaryReferenceSet,
     encodeReply,
-  })
+  }),
 );
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function createCallServer({
@@ -61,29 +47,27 @@ function createCallServer({
   createTemporaryReferenceSet: () => unknown;
   encodeReply: EncodeReplyFunction;
   fetch?: (request: Request) => Promise<Response>;
-})
+});
 ```
 
-## Params
+## 参数
 
 ### opts.createFromReadableStream
 
-Your `react-server-dom-xyz/client`'s `createFromReadableStream`. Used to decode payloads from the server.
+你的 `react-server-dom-xyz/client` 的 `createFromReadableStream`。用于解码来自服务器的载荷。
 
 ### opts.createTemporaryReferenceSet
 
-A function that creates a temporary reference set for the [RSC](https://react.dev/reference/rsc/server-components)
-payload.
+创建 [RSC](https://react.dev/reference/rsc/server-components) 载荷临时引用集的函数。
 
 ### opts.encodeReply
 
-Your `react-server-dom-xyz/client`'s `encodeReply`. Used when sending payloads to the server.
+你的 `react-server-dom-xyz/client` 的 `encodeReply`。在向服务器发送载荷时使用。
 
 ### opts.fetch
 
-Optional [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) implementation. Defaults to global [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch).
+可选的 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 实现。默认为全局 [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch)。
 
-## Returns
+## 返回值
 
-A function that can be used to call server actions.
-
+可用于调用 server action 的函数。

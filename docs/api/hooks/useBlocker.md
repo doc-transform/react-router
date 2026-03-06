@@ -5,7 +5,7 @@ title: useBlocker
 # useBlocker
 
 <!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
+⚠️ ⚠️ IMPORTANT ⚠️ ⚠️
 
 Thank you for helping improve our documentation!
 
@@ -18,64 +18,56 @@ https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/ho
 
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useBlocker.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useBlocker.html)
 
-Allow the application to block navigations within the SPA and present the
-user a confirmation dialog to confirm the navigation. Mostly used to avoid
-using half-filled form data. This does not handle hard-reloads or
-cross-origin navigations.
+允许应用阻止 SPA 内的导航，并向用户展示确认对话框来确认导航。主要用于避免丢失半填写的表单数据。此功能不处理强制刷新或跨域导航。
 
-The [`Blocker`](https://api.reactrouter.com/v7/types/react-router.Blocker.html) object returned by the hook has the following properties:
+Hook 返回的 [`Blocker`](https://api.reactrouter.com/v7/types/react-router.Blocker.html) 对象具有以下属性：
 
 - **`state`**
-  - `unblocked` - the blocker is idle and has not prevented any navigation
-  - `blocked` - the blocker has prevented a navigation
-  - `proceeding` - the blocker is proceeding through from a blocked navigation
+  - `unblocked` — 拦截器处于空闲状态，未阻止任何导航
+  - `blocked` — 拦截器已阻止一次导航
+  - `proceeding` — 拦截器正在从被阻止的导航中继续前进
 - **`location`**
-  - When in a `blocked` state, this represents the [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) to which
-    we blocked a navigation. When in a `proceeding` state, this is the
-    location being navigated to after a `blocker.proceed()` call.
+  - 处于 `blocked` 状态时，表示被阻止导航的目标 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html)。处于 `proceeding` 状态时，表示调用 `blocker.proceed()` 后正在导航到的位置。
 - **`proceed()`**
-  - When in a `blocked` state, you may call `blocker.proceed()` to proceed to
-    the blocked location.
+  - 处于 `blocked` 状态时，可以调用 `blocker.proceed()` 继续前往被阻止的位置。
 - **`reset()`**
-  - When in a `blocked` state, you may call `blocker.reset()` to return the
-    blocker to an `unblocked` state and leave the user at the current
-    location.
+  - 处于 `blocked` 状态时，可以调用 `blocker.reset()` 将拦截器重置为 `unblocked` 状态，让用户留在当前位置。
 
 ```tsx
-// Boolean version
+// 布尔值版本
 let blocker = useBlocker(value !== "");
 
-// Function version
+// 函数版本
 let blocker = useBlocker(
   ({ currentLocation, nextLocation, historyAction }) =>
     value !== "" &&
-    currentLocation.pathname !== nextLocation.pathname
+    currentLocation.pathname !== nextLocation.pathname,
 );
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useBlocker(shouldBlock: boolean | BlockerFunction): Blocker
+function useBlocker(
+  shouldBlock: boolean | BlockerFunction,
+): Blocker;
 ```
 
-## Params
+## 参数
 
 ### shouldBlock
 
-Either a boolean or a function returning a boolean which indicates whether the navigation should be blocked. The function format
-receives a single object parameter containing the `currentLocation`,
-`nextLocation`, and `historyAction` of the potential navigation.
+布尔值或返回布尔值的函数，指示是否应阻止导航。函数形式接收一个包含 `currentLocation`、`nextLocation` 和 `historyAction` 的对象参数。
 
-## Returns
+## 返回值
 
-A [`Blocker`](https://api.reactrouter.com/v7/types/react-router.Blocker.html) object with state and reset functionality
+包含状态和重置功能的 [`Blocker`](https://api.reactrouter.com/v7/types/react-router.Blocker.html) 对象。
 
-## Examples
+## 示例
 
 ```tsx
 import { useCallback, useState } from "react";
@@ -86,7 +78,7 @@ export function ImportantForm() {
 
   const shouldBlock = useCallback<BlockerFunction>(
     () => value !== "",
-    [value]
+    [value],
   );
   const blocker = useBlocker(shouldBlock);
 
@@ -139,4 +131,3 @@ export function ImportantForm() {
   );
 }
 ```
-

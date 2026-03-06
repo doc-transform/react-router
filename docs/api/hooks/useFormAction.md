@@ -4,43 +4,29 @@ title: useFormAction
 
 # useFormAction
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useFormAction.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useFormAction.html)
 
-Resolves the URL to the closest route in the component hierarchy instead of
-the current URL of the app.
+解析 URL 到组件层级中最近的路由，而不是应用的当前 URL。
 
-This is used internally by [`Form`](../components/Form) to resolve the `action` to the closest
-route, but can be used generically as well.
+[`Form`](../components/Form) 内部使用此 Hook 来解析 `action` 到最近的路由，但也可以通用使用。
 
 ```tsx
 import { useFormAction } from "react-router";
 
 function SomeComponent() {
-  // closest route URL
+  // 最近的路由 URL
   let action = useFormAction();
 
-  // closest route URL + "destroy"
+  // 最近的路由 URL + "destroy"
   let destroyAction = useFormAction("destroy");
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function useFormAction(
@@ -53,17 +39,16 @@ function useFormAction(
 ): string {}
 ```
 
-## Params
+## 参数
 
 ### action
 
-The action to append to the closest route URL. Defaults to the closest route URL.
+要追加到最近路由 URL 的 action。默认为最近的路由 URL。
 
 ### options.relative
 
-The relative routing type to use when resolving the action. Defaults to `"route"`.
+解析 action 时使用的相对路由类型。默认为 `"route"`。
 
-## Returns
+## 返回值
 
-The resolved action URL.
-
+解析后的 action URL。

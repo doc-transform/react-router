@@ -4,25 +4,13 @@ title: useHref
 
 # useHref
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useHref.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useHref.html)
 
-Resolves a URL against the current [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html).
+根据当前 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 解析 URL。
 
 ```tsx
 import { useHref } from "react-router";
@@ -33,7 +21,7 @@ function SomeComponent() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function useHref(
@@ -46,18 +34,16 @@ function useHref(
 ): string {}
 ```
 
-## Params
+## 参数
 
 ### to
 
-The path to resolve
+要解析的路径。
 
 ### options.relative
 
-Defaults to `"route"` so routing is relative to the route tree.
-Set to `"path"` to make relative routing operate against path segments.
+默认为 `"route"`，路由相对于路由树进行解析。设置为 `"path"` 使相对路由基于路径段进行操作。
 
-## Returns
+## 返回值
 
-The resolved href string
-
+解析后的 href 字符串。

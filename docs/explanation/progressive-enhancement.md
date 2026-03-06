@@ -1,85 +1,85 @@
 ---
-title: Progressive Enhancement
+title: 渐进增强
 ---
 
-# Progressive Enhancement
+# 渐进增强
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-> Progressive enhancement is a strategy in web design that puts emphasis on web content first, allowing everyone to access the basic content and functionality of a web page, whilst users with additional browser features or faster Internet access receive the enhanced version instead.
+> 渐进增强是一种 Web 设计策略，优先关注 Web 内容本身，让每个人都能访问网页的基本内容和功能，同时拥有更多浏览器特性或更快网速的用户则能获得增强版本。
 >
-> <cite>- [Wikipedia][wikipedia]</cite>
+> <cite>- [维基百科][wikipedia]</cite>
 
-When using React Router with Server-Side Rendering (the default in framework mode), you can automatically leverage the benefits of progressive enhancement.
+当使用 React Router 配合服务端渲染（框架模式中的默认方式）时，你可以自动利用渐进增强的好处。
 
-## Why Progressive Enhancement Matters
+## 渐进增强为何重要
 
-Coined in 2003 by Steven Champeon & Nick Finck, the phrase emerged during a time of varied CSS and JavaScript support across different browsers, with many users actually browsing the web with JavaScript disabled.
+"渐进增强"一词由 Steven Champeon 和 Nick Finck 在 2003 年提出，当时不同浏览器对 CSS 和 JavaScript 的支持参差不齐，许多用户实际上在禁用 JavaScript 的状态下浏览网页。
 
-Today, we are fortunate to develop for a much more consistent web and where the majority of users have JavaScript enabled.
+今天，我们很幸运地在一个更加一致的 Web 上开发，大多数用户都启用了 JavaScript。
 
-However, we still believe in the core principles of progressive enhancement in React Router. It leads to fast and resilient apps with simple development workflows.
+然而，我们仍然坚信 React Router 中渐进增强的核心原则。它能带来快速且健壮的应用，以及简单的开发工作流。
 
-**Performance**: While it's easy to think that only 5% of your users have slow connections, the reality is that 100% of your users have slow connections 5% of the time.
+**性能**：虽然很容易认为只有 5% 的用户有慢速连接，但现实是 100% 的用户在 5% 的时间里都有慢速连接。
 
-**Resilience**: Everybody has JavaScript disabled until it's loaded.
+**健壮性**：在 JavaScript 加载完成之前，每个人都处于 JavaScript 禁用状态。
 
-**Simplicity**: Building your apps in a progressively enhanced way with React Router is actually simpler than building a traditional SPA.
+**简洁性**：使用 React Router 以渐进增强方式构建应用，实际上比构建传统 SPA 更简单。
 
-## Performance
+## 性能
 
-Server rendering allows your app to do more things in parallel than a typical [Single Page App (SPA)][spa], making the initial loading experience and subsequent navigations faster.
+服务端渲染允许你的应用比典型的[单页应用 (SPA)][spa] 并行处理更多事情，使初始加载体验和后续导航更快。
 
-Typical SPAs send a blank document and only start doing work when JavaScript has loaded:
+典型的 SPA 发送一个空白文档，只有在 JavaScript 加载完成后才开始工作：
 
 ```
 HTML        |---|
 JavaScript      |---------|
 Data                      |---------------|
-                            page rendered 👆
+                            页面渲染完成 👆
 ```
 
-A React Router app can start doing work the moment the request hits the server and stream the response so that the browser can start downloading JavaScript, other assets, and data in parallel:
+React Router 应用可以在请求到达服务器的那一刻就开始工作，并流式传输响应，这样浏览器可以并行开始下载 JavaScript、其他资源和数据：
 
 ```
-               👇 first byte
+               👇 首字节
 HTML        |---|-----------|
 JavaScript      |---------|
 Data        |---------------|
-              page rendered 👆
+              页面渲染完成 👆
 ```
 
-## Resilience and Accessibility
+## 健壮性和可访问性
 
-While your users probably don't browse the web with JavaScript disabled, everybody uses the websites without JavaScript before it finishes loading. React Router embraces progressive enhancement by building on top of HTML, allowing you to build your app in a way that works without JavaScript, and then layer on JavaScript to enhance the experience.
+虽然你的用户可能不会在禁用 JavaScript 的状态下浏览网页，但在 JavaScript 加载完成之前，每个人都在不使用 JavaScript 的情况下使用网站。React Router 通过在 HTML 之上构建来拥抱渐进增强，允许你以无需 JavaScript 即可工作的方式构建应用，然后在其上叠加 JavaScript 来增强体验。
 
-The simplest case is a `<Link to="/account">`. These render an `<a href="/account">` tag that works without JavaScript. When JavaScript loads, React Router will intercept clicks and handle the navigation with client side routing. This gives you more control over the UX instead of just spinning favicons in the browser tab--but it works either way.
+最简单的例子是 `<Link to="/account">`。这些渲染为 `<a href="/account">` 标签，无需 JavaScript 即可工作。当 JavaScript 加载后，React Router 会拦截点击并使用客户端路由处理导航。这让你对 UX 有更多控制，而不是只看浏览器标签页中的旋转图标——但两种方式都能工作。
 
-Now consider a simple add to cart button:
+现在考虑一个简单的添加到购物车按钮：
 
 ```tsx
 export function AddToCart({ id }) {
   return (
     <Form method="post" action="/add-to-cart">
       <input type="hidden" name="id" value={id} />
-      <button type="submit">Add To Cart</button>
+      <button type="submit">添加到购物车</button>
     </Form>
   );
 }
 ```
 
-Whether JavaScript has loaded or not doesn't matter, this button will add the product to the cart.
+无论 JavaScript 是否已加载都没关系，这个按钮都会将产品添加到购物车。
 
-When JavaScript loads, React Router will intercept the form submission and handle it client side. This allows you to add your own pending UI, or other client side behavior.
+当 JavaScript 加载后，React Router 会拦截表单提交并在客户端处理。这允许你添加自己的加载中 UI 或其他客户端行为。
 
-## Simplicity
+## 简洁性
 
-When you start to rely on basic features of the web like HTML and URLs, you will find that you reach for client side state and state management much less.
+当你开始依赖 Web 的基本特性如 HTML 和 URL 时，你会发现你对客户端状态和状态管理的需求大大减少。
 
-Consider the button from before, with no fundamental change to the code, we can pepper in some client side behavior:
+考虑之前的按钮，对代码没有根本性改变，我们可以添加一些客户端行为：
 
 ```tsx lines=[1,4,7,10-12,14]
 import { useFetcher } from "react-router";
@@ -92,24 +92,24 @@ export function AddToCart({ id }) {
       <input name="id" value={id} />
       <button type="submit">
         {fetcher.state === "submitting"
-          ? "Adding..."
-          : "Add To Cart"}
+          ? "添加中..."
+          : "添加到购物车"}
       </button>
     </fetcher.Form>
   );
 }
 ```
 
-This feature continues to work the very same as it did before when JavaScript is loading, but once JavaScript loads:
+当 JavaScript 正在加载时，此功能与之前的工作方式完全相同，但一旦 JavaScript 加载完成：
 
-- `useFetcher` no longer causes a navigation like `<Form>` does, so the user can stay on the same page and keep shopping
-- The app code determines the pending UI instead of spinning favicons in the browser
+- `useFetcher` 不再像 `<Form>` 那样导致页面导航，因此用户可以停留在同一页面继续购物
+- 应用代码决定加载中的 UI，而不是浏览器标签页中的旋转图标
 
-It's not about building it two different ways–once for JavaScript and once without–it's about building it in iterations. Start with the simplest version of the feature and ship it; then iterate to an enhanced user experience.
+这不是以两种不同方式构建——一种用于 JavaScript，一种不用——而是迭代式构建。从功能的最简版本开始并发布；然后迭代到增强的用户体验。
 
-Not only will the user get a progressively enhanced experience, but the app developer gets to "progressively enhance" the UI without changing the fundamental design of the feature.
+用户不仅获得了渐进增强的体验，应用开发者也可以在不改变功能基本设计的情况下"渐进增强"UI。
 
-Another example where progressive enhancement leads to simplicity is with the URL. When you start with a URL, you don't need to worry about client side state management. You can just use the URL as the source of truth for the UI.
+另一个渐进增强带来简洁性的例子是 URL。当你从 URL 开始时，你不需要担心客户端状态管理。你可以直接使用 URL 作为 UI 的真实来源。
 
 ```tsx
 export function SearchBox() {
@@ -122,7 +122,7 @@ export function SearchBox() {
 }
 ```
 
-This component doesn't need any state management. It just renders a form that submits to `/search`. When JavaScript loads, React Router will intercept the form submission and handle it client side. Here's the next iteration:
+这个组件不需要任何状态管理。它只是渲染一个提交到 `/search` 的表单。当 JavaScript 加载后，React Router 会拦截表单提交并在客户端处理。以下是下一个迭代：
 
 ```tsx lines=[1,4-6,11]
 import { useNavigation } from "react-router";
@@ -141,9 +141,9 @@ export function SearchBox() {
 }
 ```
 
-No fundamental change in architecture, simply a progressive enhancement for both the user and the code.
+架构没有根本性改变，只是对用户和代码的渐进增强。
 
-See also: [State Management][state_management]
+另请参阅：[状态管理][state_management]
 
 [wikipedia]: https://en.wikipedia.org/wiki/Progressive_enhancement
 [spa]: ../how-to/spa

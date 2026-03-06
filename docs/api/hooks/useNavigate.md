@@ -4,42 +4,28 @@ title: useNavigate
 
 # useNavigate
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useNavigate.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useNavigate.html)
 
-Returns a function that lets you navigate programmatically in the browser in
-response to user interactions or effects.
+返回一个函数，允许你在浏览器中以编程方式响应用户交互或副作用进行导航。
 
-It's often better to use [`redirect`](../utils/redirect) in [`action`](../../start/framework/route-module#action)/[`loader`](../../start/framework/route-module#loader)
-functions than this hook.
+通常在 [`action`](../../start/framework/route-module#action)/[`loader`](../../start/framework/route-module#loader) 函数中使用 [`redirect`](../utils/redirect) 比使用此 Hook 更好。
 
-The returned function signature is `navigate(to, options?)`/`navigate(delta)` where:
+返回的函数签名为 `navigate(to, options?)`/`navigate(delta)`，其中：
 
-* `to` can be a string path, a [`To`](https://api.reactrouter.com/v7/types/react-router.To.html) object, or a number (delta)
-* `options` contains options for modifying the navigation
-  * These options work in all modes (Framework, Data, and Declarative):
-    * `relative`: `"route"` or `"path"` to control relative routing logic
-    * `replace`: Replace the current entry in the [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) stack
-    * `state`: Optional [`history.state`](https://developer.mozilla.org/en-US/docs/Web/API/History/state) to include with the new [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html)
-  * These options only work in Framework and Data modes:
-    * `flushSync`: Wrap the DOM updates in [`ReactDom.flushSync`](https://react.dev/reference/react-dom/flushSync)
-    * `preventScrollReset`: Do not scroll back to the top of the page after navigation
-    * `viewTransition`: Enable [`document.startViewTransition`](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition) for this navigation
+- `to` 可以是字符串路径、[`To`](https://api.reactrouter.com/v7/types/react-router.To.html) 对象或数字（delta）
+- `options` 包含修改导航行为的选项
+  - 以下选项在所有模式（框架、数据和声明式）中都有效：
+    - `relative`：`"route"` 或 `"path"`，控制相对路由逻辑
+    - `replace`：替换 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈中的当前条目
+    - `state`：可选的 [`history.state`](https://developer.mozilla.org/en-US/docs/Web/API/History/state)，包含在新的 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 中
+  - 以下选项仅在框架模式和数据模式中有效：
+    - `flushSync`：将 DOM 更新包裹在 [`ReactDom.flushSync`](https://react.dev/reference/react-dom/flushSync) 中
+    - `preventScrollReset`：导航后不将滚动位置重置到页面顶部
+    - `viewTransition`：为此导航启用 [`document.startViewTransition`](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition)
 
 ```tsx
 import { useNavigate } from "react-router";
@@ -47,35 +33,33 @@ import { useNavigate } from "react-router";
 function SomeComponent() {
   let navigate = useNavigate();
   return (
-    <button onClick={() => navigate(-1)}>
-      Go Back
-    </button>
+    <button onClick={() => navigate(-1)}>Go Back</button>
   );
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useNavigate(): NavigateFunction
+function useNavigate(): NavigateFunction;
 ```
 
-## Returns
+## 返回值
 
-A navigate function for programmatic navigation
+用于编程式导航的 navigate 函数。
 
-## Examples
+## 示例
 
-### Navigate to another path
+### 导航到另一个路径
 
 ```tsx
 navigate("/some/route");
 navigate("/some/route?search=param");
 ```
 
-### Navigate with a [`To`](https://api.reactrouter.com/v7/types/react-router.To.html) object
+### 使用 [`To`](https://api.reactrouter.com/v7/types/react-router.To.html) 对象导航
 
-All properties are optional.
+所有属性都是可选的。
 
 ```tsx
 navigate({
@@ -86,79 +70,58 @@ navigate({
 });
 ```
 
-If you use `state`, that will be available on the [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) object on
-the next page. Access it with `useLocation().state` (see [`useLocation`](../hooks/useLocation)).
+如果使用了 `state`，它将在下一个页面的 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 对象上可用。通过 `useLocation().state` 访问（参见 [`useLocation`](../hooks/useLocation)）。
 
-### Navigate back or forward in the history stack
+### 在历史栈中前进或后退
 
 ```tsx
-// back
-// often used to close modals
+// 后退
+// 常用于关闭模态框
 navigate(-1);
 
-// forward
-// often used in a multistep wizard workflows
+// 前进
+// 常用于多步骤向导流程
 navigate(1);
 ```
 
-Be cautious with `navigate(number)`. If your application can load up to a
-route that has a button that tries to navigate forward/back, there may not be
-a `[`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-entry to go back or forward to, or it can go somewhere you don't expect
-(like a different domain).
+使用 `navigate(number)` 时要谨慎。如果你的应用可以直接加载到某个路由，而该路由有一个尝试前进/后退导航的按钮，可能没有 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 条目可以前进或后退，或者可能导航到你意想不到的地方（如另一个域名）。
 
-Only use this if you're sure they will have an entry in the [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-stack to navigate to.
+只有在你确定用户在 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈中有可导航的条目时才使用此方法。
 
-### Replace the current entry in the history stack
+### 替换历史栈中的当前条目
 
-This will remove the current entry in the [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-stack, replacing it with a new one, similar to a server side redirect.
+这将移除 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈中的当前条目，用新条目替换它，类似于服务端重定向。
 
 ```tsx
 navigate("/some/route", { replace: true });
 ```
 
-### Prevent Scroll Reset
+### 阻止滚动重置
 
 [MODES: framework, data]
 
 <br/>
 <br/>
 
-To prevent [`<ScrollRestoration>`](../components/ScrollRestoration) from resetting
-the scroll position, use the `preventScrollReset` option.
+要阻止 [`<ScrollRestoration>`](../components/ScrollRestoration) 重置滚动位置，请使用 `preventScrollReset` 选项。
 
 ```tsx
 navigate("?some-tab=1", { preventScrollReset: true });
 ```
 
-For example, if you have a tab interface connected to search params in the
-middle of a page, and you don't want it to scroll to the top when a tab is
-clicked.
+例如，如果你在页面中间有一个与搜索参数关联的标签页界面，当点击标签时，你不希望它滚动到页面顶部。
 
-### Return Type Augmentation
+### 返回类型增强
 
-Internally, `useNavigate` uses a separate implementation when you are in
-Declarative mode versus Data/Framework mode - the primary difference being
-that the latter is able to return a stable reference that does not change
-identity across navigations. The implementation in Data/Framework mode also
-returns a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-that resolves when the navigation is completed. This means the return type of
-`useNavigate` is `void | Promise<void>`. This is accurate, but can lead to
-some red squigglies based on the union in the return value:
+`useNavigate` 在声明式模式和数据/框架模式下内部使用不同的实现 — 主要区别在于后者能够返回一个在导航之间不会改变引用标识的稳定引用。数据/框架模式的实现还会返回一个在导航完成后解析的 [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)。这意味着 `useNavigate` 的返回类型是 `void | Promise<void>`。这虽然准确，但可能由于返回值的联合类型导致一些类型错误提示：
 
-- If you're using `typescript-eslint`, you may see errors from
-  [`@typescript-eslint/no-floating-promises`](https://typescript-eslint.io/rules/no-floating-promises)
-- In Framework/Data mode, `React.use(navigate())` will show a false-positive
-  `Argument of type 'void | Promise<void>' is not assignable to parameter of
-  type 'Usable<void>'` error
+- 如果你使用 `typescript-eslint`，可能会看到来自 [`@typescript-eslint/no-floating-promises`](https://typescript-eslint.io/rules/no-floating-promises) 的错误
+- 在框架/数据模式下，`React.use(navigate())` 会显示误报的 `Argument of type 'void | Promise<void>' is not assignable to parameter of type 'Usable<void>'` 错误
 
-The easiest way to work around these issues is to augment the type based on the
-router you're using:
+解决这些问题最简单的方法是根据你使用的路由器增强类型：
 
 ```ts
-// If using <BrowserRouter>
+// 如果使用 <BrowserRouter>
 declare module "react-router" {
   interface NavigateFunction {
     (to: To, options?: NavigateOptions): void;
@@ -166,7 +129,7 @@ declare module "react-router" {
   }
 }
 
-// If using <RouterProvider> or Framework mode
+// 如果使用 <RouterProvider> 或框架模式
 declare module "react-router" {
   interface NavigateFunction {
     (to: To, options?: NavigateOptions): Promise<void>;
@@ -174,4 +137,3 @@ declare module "react-router" {
   }
 }
 ```
-

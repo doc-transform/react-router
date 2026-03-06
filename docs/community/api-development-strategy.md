@@ -1,44 +1,44 @@
 ---
-title: API Development Strategy
+title: API 开发策略
 ---
 
-# API Development Strategy
+# API 开发策略
 
-React Router is foundational to your application. We want to make sure that upgrading to new major versions is as smooth as possible while still allowing us to adjust and enhance the behavior and API as the React ecosystem advances.
+React Router 是你应用的基础。我们希望确保升级到新的主版本尽可能平滑，同时仍允许我们随着 React 生态系统的发展调整和增强行为和 API。
 
-Our strategy and motivations are discussed in more detail in our [Future Flags][future-flags-blog-post] blog post and our [Open Governance Model][governance].
+我们的策略和动机在 [Future Flags][future-flags-blog-post] 博客文章和[开放治理模型][governance]中有更详细的讨论。
 
 ## Future Flags
 
-When an API changes in a breaking way, it is introduced in a future flag. This allows you to opt-in to one change a time before it becomes the default in the next major version.
+当 API 以破坏性方式更改时，它会通过 future flag 引入。这允许你在它成为下一个主版本的默认行为之前，一次选择加入一个变更。
 
-- Without enabling the future flag, nothing changes about your app
-- Enabling the flag changes the behavior for that feature
+- 不启用 future flag，你的应用不会有任何变化
+- 启用该 flag 会改变该功能的行为
 
-All current future flags are documented in the [Future Flags Guide](../upgrading/future) to help you stay up-to-date.
+所有当前的 future flags 都记录在 [Future Flags 指南](../upgrading/future)中，帮助你保持最新。
 
-## Unstable Flags
+## 不稳定标志
 
-Unstable flags are for features still being designed and developed and made available to our users to help us get it right.
+不稳定标志（Unstable Flags）用于仍在设计和开发中的功能，提供给我们的用户以帮助我们做出正确的决定。
 
-Unstable flags are not recommended for production:
+不建议在生产环境中使用不稳定标志：
 
-- they will change without warning and without upgrade paths
-- they will have bugs
-- they aren't documented
-- they may be scrapped completely
+- 它们会在没有警告和升级路径的情况下更改
+- 它们会有 bug
+- 它们没有文档
+- 它们可能会被完全废弃
 
-When you opt-in to an unstable flag you are becoming a contributor to the project, rather than a user. We appreciate your help, but please be aware of the new role!
+当你选择加入不稳定标志时，你实际上成为了项目的贡献者，而非用户。我们感谢你的帮助，但请注意你的新角色！
 
-Because unstable flags are experimental and not guaranteed to stick around, we ship them in SemVer patch releases because they're not new _stable_/_documented_ APIs. When an unstable flag stabilizes into a Future Flag, that will be released in a SemVer minor release and will be properly documented and added to the [Future Flags Guide](../upgrading/future).
+因为不稳定标志是实验性的，不保证会保留，我们在语义版本 (SemVer) 补丁版本中发布它们，因为它们不是新的*稳定*/_有文档的_ API。当不稳定标志稳定为 Future Flag 时，将在 SemVer 次要版本中发布，并会被正式记录并添加到 [Future Flags 指南](../upgrading/future)中。
 
-To learn about current unstable flags, keep an eye on the [CHANGELOG](../start/changelog).
+要了解当前的不稳定标志，请关注[变更日志](../start/changelog)。
 
-### Example New Feature Flow
+### 新功能流程示例
 
-The decision flow for a new feature looks something like this:
+新功能的决策流程大致如下：
 
-<img width="400" src="https://reactrouter.com/_docs/feature-flowchart.png" alt="Flowchart of the decision process for how to introduce a new feature" />
+<img width="400" src="https://reactrouter.com/_docs/feature-flowchart.png" alt="新功能引入决策流程图" />
 
 [future-flags-blog-post]: https://remix.run/blog/future-flags
 [governance]: https://github.com/remix-run/react-router/blob/main/GOVERNANCE.md#new-feature-process

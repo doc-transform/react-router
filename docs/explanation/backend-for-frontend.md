@@ -1,21 +1,21 @@
 ---
-title: Backend For Frontend
+title: 前端的后端（BFF）
 ---
 
-# Backend For Frontend
+# 前端的后端（BFF）
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-While React Router can serve as your fullstack application, it also fits perfectly into the "Backend for Frontend" architecture.
+虽然 React Router 可以作为你的全栈应用，但它也完美适配"前端的后端"（Backend for Frontend）架构。
 
-The BFF strategy employs a web server with a job scoped to serving the frontend web app and connecting it to the services it needs: your database, mailer, job queues, existing backend APIs (REST, GraphQL), etc. Instead of your UI integrating directly from the browser to these services, it connects to the BFF, and the BFF connects to your services.
+BFF 策略采用一个 Web 服务器，其职责范围限于为前端 Web 应用提供服务，并将其连接到所需的服务：数据库、邮件服务、任务队列、现有的后端 API（REST、GraphQL）等。你的 UI 不是从浏览器直接与这些服务集成，而是连接到 BFF，由 BFF 连接到你的服务。
 
-Mature apps already have a lot of backend application code in Ruby, Elixir, PHP, etc., and there's no reason to justify migrating it all to a server-side JavaScript runtime just to get the benefits of React Router. Instead, you can use your React Router app as a backend for your frontend.
+成熟的应用已经在 Ruby、Elixir、PHP 等语言中有大量后端应用代码，没有理由仅仅为了获得 React Router 的好处就将所有代码迁移到服务端 JavaScript 运行时。相反，你可以将 React Router 应用用作前端的后端。
 
-You can use `fetch` right from your loaders and actions to your backend.
+你可以直接在 loader 和 action 中使用 `fetch` 来调用你的后端。
 
 ```tsx lines=[7,13,17]
 import escapeHtml from "escape-html";
@@ -41,10 +41,10 @@ export async function loader() {
 }
 ```
 
-There are several benefits of this approach vs. fetching directly from the browser. The highlighted lines above show how you can:
+与直接从浏览器获取数据相比，这种方法有几个好处。上面高亮的行展示了你可以如何：
 
-1. Simplify third-party integrations and keep tokens and secrets out of client bundles
-2. Prune the data down to send less kB over the network, speeding up your app significantly
-3. Move a lot of code from browser bundles to the server, like `escapeHtml`, which speeds up your app. Additionally, moving code to the server usually makes your code easier to maintain since server-side code doesn't have to worry about UI states for async operations
+1. 简化第三方集成，将令牌和密钥保留在客户端包之外
+2. 精简数据，通过网络发送更少的 kB，显著加速你的应用
+3. 将大量代码从浏览器包移到服务器，如 `escapeHtml`，从而加速你的应用。此外，将代码移到服务器通常会使代码更易于维护，因为服务端代码不需要担心异步操作的 UI 状态
 
-Again, React Router can be used as your only server by talking directly to the database and other services with server-side JavaScript APIs, but it also works perfectly as a backend for your frontend. Go ahead and keep your existing API server for application logic and let React Router connect the UI to it.
+再次说明，React Router 可以通过使用服务端 JavaScript API 直接与数据库和其他服务通信来作为你唯一的服务器，但它也完美地作为前端的后端工作。继续保留你现有的 API 服务器处理应用逻辑，让 React Router 将 UI 与之连接起来。

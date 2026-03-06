@@ -1,12 +1,12 @@
 ---
-title: Navigating
+title: 导航
 order: 6
 ---
 
-# Navigating
+# 导航
 
-Navigating in Data Mode is the same as Framework Mode, please see the [Navigating](../framework/navigating) guide for more information.
+数据模式中的导航与框架模式相同，更多信息请参阅[导航](../framework/navigating)指南。
 
 ---
 
-Next: [Pending UI](./pending-ui)
+下一节：[待定 UI](./pending-ui)

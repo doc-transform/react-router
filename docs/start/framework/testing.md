@@ -1,17 +1,17 @@
 ---
-title: Testing
+title: 测试
 order: 9
 ---
 
-# Testing
+# 测试
 
 [MODES: framework, data]
 
-## Introduction
+## 简介
 
-When components use things like `useLoaderData`, `<Link>`, etc, they are required to be rendered in context of a React Router app. The `createRoutesStub` function creates that context to test components in isolation.
+当组件使用 `useLoaderData`、`<Link>` 等时，它们需要在 React Router 应用的上下文中渲染。`createRoutesStub` 函数可以创建该上下文，以便在隔离环境中测试组件。
 
-Consider a login form component that relies on `useActionData`
+考虑一个依赖 `useActionData` 的登录表单组件：
 
 ```tsx
 import { useActionData } from "react-router";
@@ -37,7 +37,7 @@ export function LoginForm() {
 }
 ```
 
-We can test this component with `createRoutesStub`. It takes an array of objects that resemble route modules with loaders, actions, and components.
+我们可以使用 `createRoutesStub` 来测试此组件。它接受一个类似路由模块的对象数组，包含 loader、action 和组件。
 
 ```tsx
 import { createRoutesStub } from "react-router";
@@ -68,21 +68,21 @@ test("LoginForm renders error messages", async () => {
     },
   ]);
 
-  // render the app stub at "/login"
+  // 在 "/login" 处渲染应用 stub
   render(<Stub initialEntries={["/login"]} />);
 
-  // simulate interactions
+  // 模拟交互
   userEvent.click(screen.getByText("Login"));
   await waitFor(() => screen.findByText(USER_MESSAGE));
   await waitFor(() => screen.findByText(PASSWORD_MESSAGE));
 });
 ```
 
-## Using with Framework Mode Types
+## 在框架模式类型中使用
 
-It's important to note that `createRoutesStub` is designed for _unit_ testing of reusable components in your application that rely on on contextual router information (i.e., `loaderData`, `actionData`, `matches`). These components usually obtain this information via the hooks (`useLoaderData`, `useActionData`, `useMatches`) or via props passed down from the ancestor route component. We **strongly** recommend limiting your usage of `createRoutesStub` to unit testing of these types of reusable components.
+需要注意的是，`createRoutesStub` 是为应用中依赖路由上下文信息（如 `loaderData`、`actionData`、`matches`）的可复用组件的*单元*测试而设计的。这些组件通常通过 Hook（`useLoaderData`、`useActionData`、`useMatches`）或通过从祖先路由组件传递的 props 来获取这些信息。我们**强烈**建议将 `createRoutesStub` 的使用限制在这类可复用组件的单元测试中。
 
-`createRoutesStub` is _not designed_ for (and is arguably incompatible with) direct testing of Route components using the [`Route.\*`](../../explanation/type-safety) types available in Framework Mode. This is because the `Route.*` types are derived from your actual application - including the real `loader`/`action` functions as well as the structure of your route tree structure (which defines the `matches` type). When you use `createRoutesStub`, you are providing stubbed values for `loaderData`, `actionData`, and even your `matches` based on the route tree you pass to `createRoutesStub`. Therefore, the types won't align with the `Route.*` types and you'll get type issues trying to use a route component in a route stub.
+`createRoutesStub` 并*非*为直接测试使用框架模式中 [`Route.*`](../../explanation/type-safety) 类型的路由组件而设计（且可以说是不兼容的）。这是因为 `Route.*` 类型源自你的实际应用——包括真实的 `loader`/`action` 函数以及路由树结构（定义了 `matches` 类型）。当你使用 `createRoutesStub` 时，你提供的是基于传递给 `createRoutesStub` 的路由树的 `loaderData`、`actionData` 甚至 `matches` 的桩值。因此，类型不会与 `Route.*` 类型对齐，你在路由 stub 中使用路由组件时会遇到类型问题。
 
 ```tsx filename=routes/login.tsx
 export default function Login({
@@ -100,7 +100,7 @@ test("LoginRoute renders error messages", async () => {
     {
       path: "/login",
       Component: LoginRoute,
-      // ^ ❌ Types of property 'matches' are incompatible.
+      // ^ ❌ 'matches' 属性的类型不兼容。
       action() {
         /*...*/
       },
@@ -111,19 +111,19 @@ test("LoginRoute renders error messages", async () => {
 });
 ```
 
-These type errors are generally accurate if you try to setup your tests like this. As long as your stubbed `loader`/`action` functions match your real implementations, then the types for `loaderData`/`actionData` will be correct, but if they differ your types will be lying to you.
+如果你像这样设置测试，这些类型错误通常是准确的。只要你的桩 `loader`/`action` 函数与真实实现匹配，`loaderData`/`actionData` 的类型就是正确的，但如果不匹配，类型就会误导你。
 
-`matches` is more complicated since you don't usually stub out all of the ancestor routes. In this example, there is no `root` route so `matches` will only contain your test route, while it will contain the root route and any other ancestors at runtime. There's no great way to automatically align the typegen types with the runtime types in your test.
+`matches` 更复杂，因为你通常不会桩化所有祖先路由。在这个例子中，没有 `root` 路由，所以 `matches` 只包含你的测试路由，而在运行时它会包含根路由和其他所有祖先路由。目前没有很好的方法自动对齐测试中的类型生成类型与运行时类型。
 
-Therefore, if you need to test Route level components, we recommend you do that via an Integration/E2E test (Playwright, Cypress, etc.) against a running application because you're venturing out of unit testing territory when testing your route as a whole.
+因此，如果你需要测试路由级组件，我们建议通过集成/E2E 测试（Playwright、Cypress 等）在运行的应用上进行测试，因为当你整体测试路由时，已经超出了单元测试的范畴。
 
-If you _need_ to write a unit test against the route, you can add a `@ts-expect-error` comment in your test to silence the TypeScript error:
+如果你*必须*编写路由的单元测试，可以在测试中添加 `@ts-expect-error` 注释来消除 TypeScript 错误：
 
 ```tsx
 const Stub = createRoutesStub([
   {
     path: "/login",
-    // @ts-expect-error: `matches` won't align between test code and app code
+    // @ts-expect-error: `matches` 在测试代码和应用代码之间不会对齐
     Component: LoginRoute,
     action() {
       /*...*/

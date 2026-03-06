@@ -4,29 +4,13 @@ title: useRouteError
 
 # useRouteError
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useRouteError.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useRouteError.html)
 
-Accesses the error thrown during an
-[`action`](../../start/framework/route-module#action),
-[`loader`](../../start/framework/route-module#loader),
-or component render to be used in a route module
-[`ErrorBoundary`](../../start/framework/route-module#errorboundary).
+访问在 [`action`](../../start/framework/route-module#action)、[`loader`](../../start/framework/route-module#loader) 或组件渲染期间抛出的错误，用于路由模块的 [`ErrorBoundary`](../../start/framework/route-module#errorboundary) 中。
 
 ```tsx
 export function ErrorBoundary() {
@@ -35,14 +19,12 @@ export function ErrorBoundary() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useRouteError(): unknown
+function useRouteError(): unknown;
 ```
 
-## Returns
+## 返回值
 
-The error that was thrown during route [loading](../../start/framework/route-module#loader),
-[`action`](../../start/framework/route-module#action) execution, or rendering
-
+在路由[加载](../../start/framework/route-module#loader)、[`action`](../../start/framework/route-module#action) 执行或渲染期间抛出的错误。

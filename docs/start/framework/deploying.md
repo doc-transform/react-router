@@ -1,26 +1,26 @@
 ---
-title: Deploying
+title: 部署
 order: 10
 ---
 
-# Deploying
+# 部署
 
 [MODES: framework]
 
-## Introduction
+## 简介
 
-React Router can be deployed two ways:
+React Router 可以通过两种方式部署：
 
-- Fullstack Hosting
-- Static Hosting
+- 全栈托管
+- 静态托管
 
-The official [React Router templates](https://github.com/remix-run/react-router-templates) can help you bootstrap an application or be used as a reference for your own application.
+官方 [React Router 模板](https://github.com/remix-run/react-router-templates) 可以帮助你快速搭建应用，也可以作为你自己应用的参考。
 
-When deploying to static hosting, you can deploy React Router the same as any other single page application with React.
+部署到静态托管时，你可以像部署其他使用 React 的单页应用一样部署 React Router。
 
-## Templates
+## 模板
 
-After running the `create-react-router` command, make sure to follow the instructions in the README.
+运行 `create-react-router` 命令后，请务必按照 README 中的说明操作。
 
 ### Node.js with Docker
 
@@ -28,10 +28,10 @@ After running the `create-react-router` command, make sure to follow the instruc
 npx create-react-router@latest --template remix-run/react-router-templates/default
 ```
 
-- Server Rendering
+- 服务端渲染
 - Tailwind CSS
 
-The containerized application can be deployed to any platform that supports Docker, including:
+容器化的应用可以部署到任何支持 Docker 的平台，包括：
 
 - AWS ECS
 - Google Cloud Run
@@ -40,17 +40,17 @@ The containerized application can be deployed to any platform that supports Dock
 - Fly.io
 - Railway
 
-### Node with Docker (Custom Server)
+### Node with Docker（自定义服务器）
 
 ```
 npx create-react-router@latest --template remix-run/react-router-templates/node-custom-server
 ```
 
-- Server Rendering
+- 服务端渲染
 - Tailwind CSS
-- Custom express server for more control
+- 自定义 express 服务器，提供更多控制权
 
-The containerized application can be deployed to any platform that supports Docker, including:
+容器化的应用可以部署到任何支持 Docker 的平台，包括：
 
 - AWS ECS
 - Google Cloud Run
@@ -59,18 +59,18 @@ The containerized application can be deployed to any platform that supports Dock
 - Fly.io
 - Railway
 
-### Node with Docker and Postgres
+### Node with Docker 和 Postgres
 
 ```
 npx create-react-router@latest --template remix-run/react-router-templates/node-postgres
 ```
 
-- Server Rendering
-- Postgres Database with Drizzle
+- 服务端渲染
+- Postgres 数据库（使用 Drizzle）
 - Tailwind CSS
-- Custom express server for more control
+- 自定义 express 服务器，提供更多控制权
 
-The containerized application can be deployed to any platform that supports Docker, including:
+容器化的应用可以部署到任何支持 Docker 的平台，包括：
 
 - AWS ECS
 - Google Cloud Run
@@ -81,16 +81,16 @@ The containerized application can be deployed to any platform that supports Dock
 
 ### Vercel
 
-Vercel maintains their own template for React Router. Checkout the [Vercel Guide](https://vercel.com/templates/react-router/react-router-boilerplate) for more information.
+Vercel 维护着自己的 React Router 模板。更多信息请查看 [Vercel 指南](https://vercel.com/templates/react-router/react-router-boilerplate)。
 
 ### Cloudflare Workers
 
-Cloudflare maintains their own template for React Router. Checkout the [Cloudflare Guide](https://developers.cloudflare.com/workers/framework-guides/web-apps/react-router/) for more information.
+Cloudflare 维护着自己的 React Router 模板。更多信息请查看 [Cloudflare 指南](https://developers.cloudflare.com/workers/framework-guides/web-apps/react-router/)。
 
 ### Netlify
 
-Netlify maintains their own template for React Router. Checkout the [Netlify Guide](https://docs.netlify.com/build/frameworks/framework-setup-guides/react-router/) for more information.
+Netlify 维护着自己的 React Router 模板。更多信息请查看 [Netlify 指南](https://docs.netlify.com/build/frameworks/framework-setup-guides/react-router/)。
 
 ### EdgeOne Pages
 
-EdgeOne Pages maintains their own template for React Router. Checkout the [EdgeOne Pages Guide](https://pages.edgeone.ai/document/framework-react-router) for more information.
+EdgeOne Pages 维护着自己的 React Router 模板。更多信息请查看 [EdgeOne Pages 指南](https://pages.edgeone.ai/document/framework-react-router)。

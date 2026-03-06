@@ -4,28 +4,13 @@ title: useNavigation
 
 # useNavigation
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useNavigation.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useNavigation.html)
 
-Returns the current [`Navigation`](https://api.reactrouter.com/v7/types/react-router.Navigation.html), defaulting to an "idle" navigation
-when no navigation is in progress. You can use this to render pending UI
-(like a global spinner) or read [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData)
-from a form navigation.
+返回当前的 [`Navigation`](https://api.reactrouter.com/v7/types/react-router.Navigation.html)，当没有导航进行时默认为"idle"状态。你可以用它来渲染待定 UI（如全局加载指示器）或从表单导航中读取 [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData)。
 
 ```tsx
 import { useNavigation } from "react-router";
@@ -34,17 +19,16 @@ function SomeComponent() {
   let navigation = useNavigation();
   navigation.state;
   navigation.formData;
-  // etc.
+  // 等等
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useNavigation(): Navigation
+function useNavigation(): Navigation;
 ```
 
-## Returns
+## 返回值
 
-The current [`Navigation`](https://api.reactrouter.com/v7/types/react-router.Navigation.html) object
-
+当前的 [`Navigation`](https://api.reactrouter.com/v7/types/react-router.Navigation.html) 对象。

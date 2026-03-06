@@ -4,28 +4,13 @@ title: Links
 
 # Links
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/ssr/components.tsx
--->
-
 [MODES: framework]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.Links.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.Links.html)
 
-Renders all the [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
-tags created by the route module's [`links`](../../start/framework/route-module#links)
-export. You should render it inside the [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head)
-of your document.
+渲染所有由路由模块 [`links`](../../start/framework/route-module#links) 导出创建的 [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) 标签。你应该在文档的 [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) 中渲染它。
 
 ```tsx
 import { Links } from "react-router";
@@ -42,23 +27,21 @@ export default function Root() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function Links({ nonce, crossOrigin }: LinksProps): React.JSX.Element
+function Links({
+  nonce,
+  crossOrigin,
+}: LinksProps): React.JSX.Element;
 ```
 
 ## Props
 
 ### nonce
 
-A [`nonce`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce)
-attribute to render on the [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
-element
+渲染在 [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) 元素上的 [`nonce`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce) 属性。
 
 ### crossOrigin
 
-A [`crossOrigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)
-attribute to render on the [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
-element
-
+渲染在 [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) 元素上的 [`crossOrigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) 属性。

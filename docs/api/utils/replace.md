@@ -4,29 +4,13 @@ title: replace
 
 # replace
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/router/utils.ts
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.replace.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.replace.html)
 
-A redirect [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
-that will perform a [`history.replaceState`](https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState)
-instead of a [`history.pushState`](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState)
-for client-side navigation redirects. Sets the status code and the [`Location`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location)
-header. Defaults to [`302 Found`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302).
+重定向 [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)，对于客户端导航重定向，会执行 [`history.replaceState`](https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState) 而非 [`history.pushState`](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState)。设置状态码和 [`Location`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location) 响应头。默认为 [`302 Found`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302)。
 
 ```tsx
 import { replace } from "react-router";
@@ -36,19 +20,16 @@ export async function loader() {
 }
 ```
 
-## Params
+## 参数
 
 ### url
 
-The URL to redirect to.
+要重定向到的 URL。
 
 ### init
 
-The status code or a `ResponseInit` object to be included in the response.
+要包含在响应中的状态码或 `ResponseInit` 对象。
 
-## Returns
+## 返回值
 
-A [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
-object with the redirect status and [`Location`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location)
-header.
-
+带有重定向状态和 [`Location`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location) 响应头的 [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) 对象。

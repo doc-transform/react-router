@@ -6,22 +6,22 @@ title: createPath
 
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createPath.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createPath.html)
 
-Creates a string URL path from the given pathname, search, and hash components.
+从给定的 pathname、search 和 hash 组件创建字符串 URL 路径。
 
-## Signature
+## 函数签名
 
 ```tsx
 createPath(__namedParameters): string
 ```
 
-## Params
+## 参数
 
 ### \_\_namedParameters
 
 [modes: framework, data, declarative]
 
-_No documentation_
+_无文档_

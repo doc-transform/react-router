@@ -1,23 +1,23 @@
 ---
-title: Rendering Strategies
+title: 渲染策略
 order: 4
 ---
 
-# Rendering Strategies
+# 渲染策略
 
 [MODES: framework]
 
-## Introduction
+## 简介
 
-There are three rendering strategies in React Router:
+React Router 提供三种渲染策略：
 
-- Client Side Rendering
-- Server Side Rendering
-- Static Pre-rendering
+- 客户端渲染
+- 服务端渲染
+- 静态预渲染
 
-## Client Side Rendering
+## 客户端渲染
 
-Routes are always client side rendered as the user navigates around the app. If you're looking to build a Single Page App, disable server rendering:
+当用户在应用中导航时，路由始终以客户端渲染方式呈现。如果你想构建单页应用（SPA），可以禁用服务端渲染：
 
 ```ts filename=react-router.config.ts
 import type { Config } from "@react-router/dev/config";
@@ -27,7 +27,7 @@ export default {
 } satisfies Config;
 ```
 
-## Server Side Rendering
+## 服务端渲染
 
 ```ts filename=react-router.config.ts
 import type { Config } from "@react-router/dev/config";
@@ -37,23 +37,23 @@ export default {
 } satisfies Config;
 ```
 
-Server side rendering requires a deployment that supports it. Though it's a global setting, individual routes can still be statically pre-rendered. Routes can also use client data loading with `clientLoader` to avoid server rendering/fetching for their portion of the UI.
+服务端渲染需要支持它的部署环境。虽然这是全局设置，但单独的路由仍然可以进行静态预渲染。路由还可以使用 `clientLoader` 进行客户端数据加载，以避免其 UI 部分的服务端渲染/请求。
 
-## Static Pre-rendering
+## 静态预渲染
 
 ```ts filename=react-router.config.ts
 import type { Config } from "@react-router/dev/config";
 
 export default {
-  // return a list of URLs to prerender at build time
+  // 返回要在构建时预渲染的 URL 列表
   async prerender() {
     return ["/", "/about", "/contact"];
   },
 } satisfies Config;
 ```
 
-Pre-rendering is a build-time operation that generates static HTML and client navigation data payloads for a list of URLs. This is useful for SEO and performance, especially for deployments without server rendering. When pre-rendering, route module loaders are used to fetch data at build time.
+预渲染是一种构建时操作，为一组 URL 生成静态 HTML 和客户端导航数据。这对 SEO 和性能很有帮助，尤其适用于没有服务端渲染的部署。预渲染时，路由模块的 loader 用于在构建时获取数据。
 
 ---
 
-Next: [Data Loading](./data-loading)
+下一节：[数据加载](./data-loading)

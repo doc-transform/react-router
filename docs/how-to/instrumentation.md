@@ -1,73 +1,71 @@
 ---
-title: Instrumentation
+title: 可观测性
 unstable: true
 ---
 
-# Instrumentation
+# 可观测性
 
 [MODES: framework, data]
 
 <br/>
 <br/>
 
-<docs-warning>The instrumentation APIs are experimental and subject to breaking changes in
-minor/patch releases. Please use with caution and pay **very** close attention
-to release notes for relevant changes.</docs-warning>
+<docs-warning>可观测性 API 是实验性的，可能在次要/补丁版本中发生破坏性变更。请谨慎使用，并**密切**关注发布说明中的相关变更。</docs-warning>
 
-Instrumentation allows you to add logging, error reporting, and performance tracing to your React Router application without modifying your actual route handlers. This enables comprehensive observability solutions for production applications on both the server and client.
+可观测性（Instrumentation）允许你在不修改实际路由处理器的情况下，为 React Router 应用添加日志记录、错误上报和性能追踪。这使得你可以在服务端和客户端为生产应用实现全面的可观测性方案。
 
-## Overview
+## 概述
 
-With the React Router Instrumentation APIs, you provide "wrapper" functions that execute around your request handlers, router operations, route middlewares, and/or route handlers. This allows you to:
+通过 React Router Instrumentation API，你提供在请求处理器、路由器操作、路由中间件和/或路由处理器周围执行的"包装"函数。这允许你：
 
-- Monitor application performance
-- Add logging
-- Integrate with observability platforms (Sentry, DataDog, New Relic, etc.)
-- Implement OpenTelemetry tracing
-- Track user behavior and navigation patterns
+- 监控应用性能
+- 添加日志记录
+- 集成可观测性平台（Sentry、DataDog、New Relic 等）
+- 实现 OpenTelemetry 追踪
+- 追踪用户行为和导航模式
 
-A key design principle is that instrumentation is **read-only** - you can observe what's happening but cannot modify runtime application behavior by modifying the arguments passed to, or data returned from your route handlers.
+一个关键的设计原则是 instrumentation 是**只读的** —— 你可以观察正在发生的事情，但不能通过修改传递给路由处理器的参数或从中返回的数据来修改运行时应用行为。
 
 <docs-info>
-As with any instrumentation approach, adding additional code execution at runtime may alter the performance characteristics compared to an uninstrumented application. Keep this in mind and perform appropriate testing and/or leverage conditional instrumentation to avoid a negative UX impact in production.
+与任何 instrumentation 方法一样，在运行时添加额外的代码执行可能会改变与未添加 instrumentation 的应用相比的性能特征。请牢记这一点，并进行适当的测试和/或利用条件 instrumentation 来避免对生产环境的用户体验产生负面影响。
 </docs-info>
 
-## Quick Start (Framework Mode)
+## 快速开始（框架模式）
 
 [modes: framework]
 
-### 1. Server-side Instrumentation
+### 1. 服务端 Instrumentation
 
-Add instrumentations to your `entry.server.tsx`:
+在 `entry.server.tsx` 中添加 instrumentation：
 
 ```tsx filename=app/entry.server.tsx
 export const unstable_instrumentations = [
   {
-    // Instrument the server handler
+    // 对服务端处理器进行 instrument
     handler(handler) {
       handler.instrument({
         async request(handleRequest, { request }) {
           let url = `${request.method} ${request.url}`;
-          console.log(`Request start: ${url}`);
+          console.log(`请求开始: ${url}`);
           await handleRequest();
-          console.log(`Request end: ${url}`);
+          console.log(`请求结束: ${url}`);
         },
       });
     },
 
-    // Instrument individual routes
+    // 对各个路由进行 instrument
     route(route) {
-      // Skip instrumentation for specific routes if needed
+      // 如果需要，跳过特定路由的 instrumentation
       if (route.id === "root") return;
 
       route.instrument({
         async loader(callLoader, { request }) {
           let url = `${request.method} ${request.url}`;
-          console.log(`Loader start: ${url} - ${route.id}`);
+          console.log(`Loader 开始: ${url} - ${route.id}`);
           await callLoader();
-          console.log(`Loader end: ${url} - ${route.id}`);
+          console.log(`Loader 结束: ${url} - ${route.id}`);
         },
-        // Other available instrumentations:
+        // 其他可用的 instrumentation：
         // async action() { /* ... */ },
         // async middleware() { /* ... */ },
         // async lazy() { /* ... */ },
@@ -77,13 +75,13 @@ export const unstable_instrumentations = [
 ];
 
 export default function handleRequest(/* ... */) {
-  // Your existing handleRequest implementation
+  // 你现有的 handleRequest 实现
 }
 ```
 
-### 2. Client-side Instrumentation
+### 2. 客户端 Instrumentation
 
-Add instrumentations to your `entry.client.tsx`:
+在 `entry.client.tsx` 中添加 instrumentation：
 
 ```tsx filename=app/entry.client.tsx
 import { startTransition, StrictMode } from "react";
@@ -92,42 +90,42 @@ import { HydratedRouter } from "react-router/dom";
 
 const unstable_instrumentations = [
   {
-    // Instrument router operations
+    // 对路由器操作进行 instrument
     router(router) {
       router.instrument({
-        // Instrument navigations
+        // 对导航进行 instrument
         async navigate(callNavigate, { currentUrl, to }) {
           let nav = `${currentUrl} → ${to}`;
-          console.log(`Navigation start: ${nav}`);
+          console.log(`导航开始: ${nav}`);
           await callNavigate();
-          console.log(`Navigation end: ${nav}`);
+          console.log(`导航结束: ${nav}`);
         },
-        // Instrument fetcher calls
+        // 对 fetcher 调用进行 instrument
         async fetch(
           callFetch,
           { href, currentUrl, fetcherKey },
         ) {
           let fetch = `${fetcherKey} → ${href}`;
-          console.log(`Fetcher start: ${fetch}`);
+          console.log(`Fetcher 开始: ${fetch}`);
           await callFetch();
-          console.log(`Fetcher end: ${fetch}`);
+          console.log(`Fetcher 结束: ${fetch}`);
         },
       });
     },
 
-    // Instrument individual routes (same as server-side)
+    // 对各个路由进行 instrument（与服务端相同）
     route(route) {
-      // Skip instrumentation for specific routes if needed
+      // 如果需要，跳过特定路由的 instrumentation
       if (route.id === "root") return;
 
       route.instrument({
         async loader(callLoader, { request }) {
           let url = `${request.method} ${request.url}`;
-          console.log(`Loader start: ${url} - ${route.id}`);
+          console.log(`Loader 开始: ${url} - ${route.id}`);
           await callLoader();
-          console.log(`Loader end: ${url} - ${route.id}`);
+          console.log(`Loader 结束: ${url} - ${route.id}`);
         },
-        // Other available instrumentations:
+        // 其他可用的 instrumentation：
         // async action() { /* ... */ },
         // async middleware() { /* ... */ },
         // async lazy() { /* ... */ },
@@ -150,11 +148,11 @@ startTransition(() => {
 });
 ```
 
-## Quick Start (Data Mode)
+## 快速开始（数据模式）
 
 [modes: data]
 
-In Data Mode, you add instrumentations when creating your router:
+在数据模式中，创建路由器时添加 instrumentation：
 
 ```tsx
 import {
@@ -164,42 +162,42 @@ import {
 
 const unstable_instrumentations = [
   {
-    // Instrument router operations
+    // 对路由器操作进行 instrument
     router(router) {
       router.instrument({
-        // Instrument navigations
+        // 对导航进行 instrument
         async navigate(callNavigate, { currentUrl, to }) {
           let nav = `${currentUrl} → ${to}`;
-          console.log(`Navigation start: ${nav}`);
+          console.log(`导航开始: ${nav}`);
           await callNavigate();
-          console.log(`Navigation end: ${nav}`);
+          console.log(`导航结束: ${nav}`);
         },
-        // Instrument fetcher calls
+        // 对 fetcher 调用进行 instrument
         async fetch(
           callFetch,
           { href, currentUrl, fetcherKey },
         ) {
           let fetch = `${fetcherKey} → ${href}`;
-          console.log(`Fetcher start: ${fetch}`);
+          console.log(`Fetcher 开始: ${fetch}`);
           await callFetch();
-          console.log(`Fetcher end: ${fetch}`);
+          console.log(`Fetcher 结束: ${fetch}`);
         },
       });
     },
 
-    // Instrument individual routes (same as server-side)
+    // 对各个路由进行 instrument（与服务端相同）
     route(route) {
-      // Skip instrumentation for specific routes if needed
+      // 如果需要，跳过特定路由的 instrumentation
       if (route.id === "root") return;
 
       route.instrument({
         async loader(callLoader, { request }) {
           let url = `${request.method} ${request.url}`;
-          console.log(`Loader start: ${url} - ${route.id}`);
+          console.log(`Loader 开始: ${url} - ${route.id}`);
           await callLoader();
-          console.log(`Loader end: ${url} - ${route.id}`);
+          console.log(`Loader 结束: ${url} - ${route.id}`);
         },
-        // Other available instrumentations:
+        // 其他可用的 instrumentation：
         // async action() { /* ... */ },
         // async middleware() { /* ... */ },
         // async lazy() { /* ... */ },
@@ -217,17 +215,17 @@ function App() {
 }
 ```
 
-## Core Concepts
+## 核心概念
 
-### Instrumentation Levels
+### Instrumentation 层级
 
-There are different levels at which you can instrument your application. Each instrumentation function receives a second "info" parameter containing relevant contextual information for the specific aspect being instrumented.
+你可以在不同层级对应用进行 instrument。每个 instrumentation 函数接收第二个"info"参数，包含被 instrument 的特定方面的相关上下文信息。
 
-#### 1. Handler Level (Server)
+#### 1. 处理器层级（服务端）
 
 [modes: framework]
 
-Instruments the top-level request handler that processes all requests to your server:
+对处理所有服务器请求的顶级请求处理器进行 instrument：
 
 ```tsx filename=entry.server.tsx
 export const unstable_instrumentations = [
@@ -235,7 +233,7 @@ export const unstable_instrumentations = [
     handler(handler) {
       handler.instrument({
         async request(handleRequest, { request, context }) {
-          // Runs around ALL requests to your app
+          // 在应用的所有请求周围运行
           await handleRequest();
         },
       });
@@ -244,11 +242,11 @@ export const unstable_instrumentations = [
 ];
 ```
 
-#### 2. Router Level (Client)
+#### 2. 路由器层级（客户端）
 
 [modes: framework,data]
 
-Instruments client-side router operations like navigations and fetcher calls:
+对客户端路由器操作（如导航和 fetcher 调用）进行 instrument：
 
 ```tsx
 export const unstable_instrumentations = [
@@ -256,14 +254,14 @@ export const unstable_instrumentations = [
     router(router) {
       router.instrument({
         async navigate(callNavigate, { to, currentUrl }) {
-          // Runs around navigation operations
+          // 在导航操作周围运行
           await callNavigate();
         },
         async fetch(
           callFetch,
           { href, currentUrl, fetcherKey },
         ) {
-          // Runs around fetcher operations
+          // 在 fetcher 操作周围运行
           await callFetch();
         },
       });
@@ -271,22 +269,22 @@ export const unstable_instrumentations = [
   },
 ];
 
-// Framework Mode (entry.client.tsx)
+// 框架模式 (entry.client.tsx)
 <HydratedRouter
   unstable_instrumentations={unstable_instrumentations}
 />;
 
-// Data Mode
+// 数据模式
 const router = createBrowserRouter(routes, {
   unstable_instrumentations,
 });
 ```
 
-#### 3. Route Level (Server + Client)
+#### 3. 路由层级（服务端 + 客户端）
 
 [modes: framework,data]
 
-Instruments individual route handlers:
+对各个路由处理器进行 instrument：
 
 ```tsx
 const unstable_instrumentations = [
@@ -297,25 +295,25 @@ const unstable_instrumentations = [
           callLoader,
           { params, request, context, unstable_pattern },
         ) {
-          // Runs around loader execution
+          // 在 loader 执行周围运行
           await callLoader();
         },
         async action(
           callAction,
           { params, request, context, unstable_pattern },
         ) {
-          // Runs around action execution
+          // 在 action 执行周围运行
           await callAction();
         },
         async middleware(
           callMiddleware,
           { params, request, context, unstable_pattern },
         ) {
-          // Runs around middleware execution
+          // 在中间件执行周围运行
           await callMiddleware();
         },
         async lazy(callLazy) {
-          // Runs around lazy route loading
+          // 在懒加载路由加载周围运行
           await callLazy();
         },
       });
@@ -324,21 +322,21 @@ const unstable_instrumentations = [
 ];
 ```
 
-### Read-only Design
+### 只读设计
 
-Instrumentations are designed to be **observational only**. You cannot:
+Instrumentation 被设计为**仅用于观察**。你不能：
 
-- Modify arguments passed to handlers
-- Change return values from handlers
-- Alter application behavior
+- 修改传递给处理器的参数
+- 更改处理器的返回值
+- 改变应用行为
 
-This ensures that instrumentation is safe to add to production applications and cannot introduce bugs in your route logic.
+这确保了 instrumentation 可以安全地添加到生产应用中，不会在路由逻辑中引入 bug。
 
-### Error Handling
+### 错误处理
 
-To ensure that instrumentation code doesn't impact the runtime application, errors are caught internally and prevented from propagating outward. This design choice shows up in 2 aspects.
+为了确保 instrumentation 代码不会影响运行时应用，错误会在内部被捕获并阻止向外传播。这个设计选择体现在两个方面。
 
-First, if a "handler" function (loader, action, request handler, navigation, etc.) throws an error, that error will not bubble out of the `callHandler` function invoked from your instrumentation. Instead, the `callHandler` function returns a discriminated union result of type `{ type: "success", error: undefined } | { type: "error", error: unknown }`. This ensures your entire instrumentation function runs without needing any try/catch/finally logic to handle application errors.
+首先，如果"处理器"函数（loader、action、请求处理器、导航等）抛出错误，该错误不会从你的 instrumentation 中调用的 `callHandler` 函数冒出。相反，`callHandler` 函数返回一个类型为 `{ type: "success", error: undefined } | { type: "error", error: unknown }` 的可区分联合结果。这确保你的整个 instrumentation 函数可以在不需要任何 try/catch/finally 逻辑来处理应用错误的情况下运行。
 
 ```tsx
 export const unstable_instrumentations = [
@@ -349,9 +347,9 @@ export const unstable_instrumentations = [
           let { status, error } = await callLoader();
 
           if (status === "error") {
-            // error case - `error` is defined
+            // 错误情况 - `error` 有值
           } else {
-            // success case - `error` is undefined
+            // 成功情况 - `error` 为 undefined
           }
         },
       });
@@ -360,21 +358,19 @@ export const unstable_instrumentations = [
 ];
 ```
 
-Second, if your instrumentation function throws an error, React Router will gracefully swallow that so that it does not bubble outward and impact other instrumentations or application behavior. In both of these examples, the handlers and all other instrumentation functions will still run:
+其次，如果你的 instrumentation 函数抛出错误，React Router 会优雅地吞掉该错误，使其不会向外冒泡影响其他 instrumentation 或应用行为。在以下两个示例中，处理器和所有其他 instrumentation 函数仍然会运行：
 
 ```tsx
 export const unstable_instrumentations = [
   {
     route(route) {
       route.instrument({
-        // Throwing before calling the handler - RR will
-        // catch the error and still call the loader
+        // 在调用处理器之前抛出 - RR 将捕获错误并仍然调用 loader
         async loader(callLoader) {
           somethingThatThrows();
           await callLoader();
         },
-        // Throwing after calling the handler - RR will
-        // catch the error internally
+        // 在调用处理器之后抛出 - RR 将在内部捕获错误
         async action(callAction) {
           await callAction();
           somethingThatThrows();
@@ -385,9 +381,9 @@ export const unstable_instrumentations = [
 ];
 ```
 
-### Composition
+### 组合
 
-You can compose multiple instrumentations by providing an array:
+你可以通过提供数组来组合多个 instrumentation：
 
 ```tsx
 export const unstable_instrumentations = [
@@ -397,11 +393,11 @@ export const unstable_instrumentations = [
 ];
 ```
 
-Each instrumentation wraps the previous one, creating a nested execution chain.
+每个 instrumentation 包装前一个，创建嵌套的执行链。
 
-### Conditional Instrumentation
+### 条件 Instrumentation
 
-You can enable instrumentation conditionally based on environment or other factors:
+你可以根据环境或其他因素有条件地启用 instrumentation：
 
 ```tsx
 export const unstable_instrumentations =
@@ -411,14 +407,14 @@ export const unstable_instrumentations =
 ```
 
 ```tsx
-// Or conditionally within an instrumentation
+// 或在 instrumentation 内部条件判断
 export const unstable_instrumentations = [
   {
     route(route) {
-      // Only instrument specific routes
+      // 只对特定路由进行 instrument
       if (!route.id?.startsWith("routes/admin")) return;
 
-      // Or, only instrument if a query parameter is present
+      // 或者只在存在查询参数时进行 instrument
       let sp = new URL(request.url).searchParams;
       if (!sp.has("DEBUG")) return;
 
@@ -432,21 +428,21 @@ export const unstable_instrumentations = [
 ];
 ```
 
-## Common Patterns
+## 常见模式
 
-### Request logging (server)
+### 请求日志（服务端）
 
 ```tsx
 const logging: unstable_ServerInstrumentation = {
   handler({ instrument }) {
     instrument({
       request: (fn, { request }) =>
-        log(`request ${request.url}`, fn),
+        log(`请求 ${request.url}`, fn),
     });
   },
   route({ instrument, id }) {
     instrument({
-      middleware: (fn) => log(` middleware (${id})`, fn),
+      middleware: (fn) => log(` 中间件 (${id})`, fn),
       loader: (fn) => log(`  loader (${id})`, fn),
       action: (fn) => log(`  action (${id})`, fn),
     });
@@ -466,7 +462,7 @@ async function log(
 export const unstable_instrumentations = [logging];
 ```
 
-### OpenTelemetry Integration
+### OpenTelemetry 集成
 
 ```tsx
 import { trace, SpanStatusCode } from "@opentelemetry/api";
@@ -477,14 +473,14 @@ const otel: unstable_ServerInstrumentation = {
   handler({ instrument }) {
     instrument({
       request: (fn, { request }) =>
-        otelSpan(`request`, { url: request.url }, fn),
+        otelSpan(`请求`, { url: request.url }, fn),
     });
   },
   route({ instrument, id }) {
     instrument({
       middleware: (fn, { unstable_pattern }) =>
         otelSpan(
-          "middleware",
+          "中间件",
           { routeId: id, pattern: unstable_pattern },
           fn,
         ),
@@ -528,21 +524,21 @@ async function otelSpan(
 export const unstable_instrumentations = [otel];
 ```
 
-### Client-side Performance Tracking
+### 客户端性能追踪
 
 ```tsx
 const windowPerf: unstable_ClientInstrumentation = {
   router({ instrument }) {
     instrument({
       navigate: (fn, { to, currentUrl }) =>
-        measure(`navigation:${currentUrl}->${to}`, fn),
+        measure(`导航:${currentUrl}->${to}`, fn),
       fetch: (fn, { href }) =>
         measure(`fetcher:${href}`, fn),
     });
   },
   route({ instrument, id }) {
     instrument({
-      middleware: (fn) => measure(`middleware:${id}`, fn),
+      middleware: (fn) => measure(`中间件:${id}`, fn),
       loader: (fn) => measure(`loader:${id}`, fn),
       action: (fn) => measure(`action:${id}`, fn),
     });

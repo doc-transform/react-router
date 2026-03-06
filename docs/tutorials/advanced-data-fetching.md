@@ -1,10 +1,10 @@
 ---
-title: Advanced Data Fetching
+title: 高级数据获取
 hidden: true
 ---
 
-# Advanced Data Fetching
+# 高级数据获取
 
 <docs-warning>
-  This document is a work in progress. There's not much to see here (yet).
+  此文档正在编写中，暂时还没有太多内容。
 </docs-warning>

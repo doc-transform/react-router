@@ -1,30 +1,30 @@
 ---
-title: Route Module Type Safety
+title: 路由模块类型安全
 ---
 
-# Route Module Type Safety
+# 路由模块类型安全
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-React Router generates route-specific types to power type inference for URL params, loader data, and more.
-This guide will help you set it up if you didn't start with a template.
+React Router 生成特定于路由的类型，以支持 URL 参数、loader 数据等的类型推断。
+本指南将帮助你在未使用模板创建项目时进行设置。
 
-To learn more about how type safety works in React Router, check out [Type Safety Explanation](../explanation/type-safety).
+要了解更多关于 React Router 中类型安全工作原理的信息，请查看[类型安全说明](../explanation/type-safety)。
 
-## 1. Add `.react-router/` to `.gitignore`
+## 1. 将 `.react-router/` 添加到 `.gitignore`
 
-React Router generates types into a `.react-router/` directory at the root of your app. This directory is fully managed by React Router and should be gitignore'd.
+React Router 将类型生成到应用根目录下的 `.react-router/` 目录中。该目录完全由 React Router 管理，应该加入 gitignore。
 
 ```txt
 .react-router/
 ```
 
-## 2. Include the generated types in tsconfig
+## 2. 在 tsconfig 中包含生成的类型
 
-Edit your tsconfig to get TypeScript to use the generated types. Additionally, `rootDirs` needs to be configured so the types can be imported as relative siblings to route modules.
+编辑 tsconfig 让 TypeScript 使用生成的类型。此外，需要配置 `rootDirs`，以便这些类型可以作为路由模块的相对兄弟模块进行导入。
 
 ```json filename=tsconfig.json
 {
@@ -35,12 +35,12 @@ Edit your tsconfig to get TypeScript to use the generated types. Additionally, `
 }
 ```
 
-If you are using multiple `tsconfig` files for your app, you'll need to make these changes in whichever one `include`s your app directory.
-For example, the [`node-custom-server` template](https://github.com/remix-run/react-router-templates/tree/390fcec476dd336c810280479688fe893da38713/node-custom-server) contains `tsconfig.json`, `tsconfig.node.json`, and `tsconfig.vite.json`. Since `tsconfig.vite.json` is the one that [includes the app directory](https://github.com/remix-run/react-router-templates/blob/390fcec476dd336c810280479688fe893da38713/node-custom-server/tsconfig.vite.json#L4-L6), that's the one that sets up `.react-router/types` for route module type safety.
+如果你的应用使用了多个 `tsconfig` 文件，需要在包含你的 app 目录的那个文件中进行这些更改。
+例如，[`node-custom-server` 模板](https://github.com/remix-run/react-router-templates/tree/390fcec476dd336c810280479688fe893da38713/node-custom-server)包含 `tsconfig.json`、`tsconfig.node.json` 和 `tsconfig.vite.json`。由于 `tsconfig.vite.json` 是[包含 app 目录](https://github.com/remix-run/react-router-templates/blob/390fcec476dd336c810280479688fe893da38713/node-custom-server/tsconfig.vite.json#L4-L6)的那个，所以应该在它里面设置 `.react-router/types` 以实现路由模块类型安全。
 
-## 3. Generate types before type checking
+## 3. 在类型检查前生成类型
 
-If you want to run type checking as its own command — for example, as part of your Continuous Integration pipeline — you'll need to make sure to generate types _before_ running typechecking:
+如果你想将类型检查作为独立命令运行——例如作为持续集成管道的一部分——你需要确保在运行类型检查 _之前_ 生成类型：
 
 ```json
 {
@@ -50,30 +50,30 @@ If you want to run type checking as its own command — for example, as part of 
 }
 ```
 
-## 4. Typing `AppLoadContext`
+## 4. 定义 `AppLoadContext` 类型
 
-## Extending app `Context` types
+## 扩展应用 `Context` 类型
 
-To define your app's `context` type, add the following in a `.ts` or `.d.ts` file within your project:
+要定义应用的 `context` 类型，请在项目中的 `.ts` 或 `.d.ts` 文件中添加以下内容：
 
 ```typescript
 import "react-router";
 declare module "react-router" {
   interface AppLoadContext {
-    // add context properties here
+    // 在这里添加 context 属性
   }
 }
 ```
 
-## 5. Type-only auto-imports (optional)
+## 5. 仅类型自动导入（可选）
 
-When auto-importing the `Route` type helper, TypeScript will generate:
+当自动导入 `Route` 类型辅助器时，TypeScript 会生成：
 
 ```ts filename=app/routes/my-route.tsx
 import { Route } from "./+types/my-route";
 ```
 
-But if you enable [verbatimModuleSyntax](https://www.typescriptlang.org/tsconfig/#verbatimModuleSyntax):
+但如果你启用了 [verbatimModuleSyntax](https://www.typescriptlang.org/tsconfig/#verbatimModuleSyntax)：
 
 ```json filename=tsconfig.json
 {
@@ -83,18 +83,18 @@ But if you enable [verbatimModuleSyntax](https://www.typescriptlang.org/tsconfig
 }
 ```
 
-Then, you will get the `type` modifier for the import automatically as well:
+那么导入会自动添加 `type` 修饰符：
 
 ```ts filename=app/routes/my-route.tsx
 import type { Route } from "./+types/my-route";
 //     ^^^^
 ```
 
-This helps tools like bundlers to detect type-only module that can be safely excluded from the bundle.
+这有助于打包工具等工具检测可以安全排除在包外的仅类型模块。
 
-## Conclusion
+## 总结
 
-React Router's Vite plugin should be automatically generating types into `.react-router/types/` anytime you edit your route config (`routes.ts`).
-That means all you need to do is run `react-router dev` (or your custom dev server) to get to up-to-date types in your routes.
+React Router 的 Vite 插件应该会在你编辑路由配置（`routes.ts`）时自动将类型生成到 `.react-router/types/` 目录。
+这意味着你只需要运行 `react-router dev`（或你的自定义开发服务器）就能获取路由中最新的类型。
 
-Check out our [Type Safety Explanation](../explanation/type-safety) for an example of how to pull in those types into your routes.
+查看我们的[类型安全说明](../explanation/type-safety)了解如何将这些类型引入到路由中的示例。

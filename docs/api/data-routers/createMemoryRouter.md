@@ -4,51 +4,36 @@ title: createMemoryRouter
 
 # createMemoryRouter
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/components.tsx
--->
-
 [MODES: data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createMemoryRouter.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createMemoryRouter.html)
 
-Create a new [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) that manages the application path using an
-in-memory [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-stack. Useful for non-browser environments without a DOM API.
+创建一个使用内存 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 栈管理应用路径的 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html)。适用于没有 DOM API 的非浏览器环境。
 
-## Signature
+## 函数签名
 
 ```tsx
 function createMemoryRouter(
   routes: RouteObject[],
   opts?: MemoryRouterOpts,
-): DataRouter
+): DataRouter;
 ```
 
-## Params
+## 参数
 
 ### routes
 
-Application routes
+应用路由。
 
 ### opts.basename
 
-Basename path for the application.
+应用的基础路径。
 
 ### opts.dataStrategy
 
-Override the default data strategy of running loaders in parallel -
-see the [docs](../../how-to/data-strategy) for more information.
+覆盖默认的并行运行 loader 的数据策略 — 详情请参阅[文档](../../how-to/data-strategy)。
 
 ```tsx
 let router = createBrowserRouter(routes, {
@@ -76,70 +61,67 @@ let router = createBrowserRouter(routes, {
 
 ### opts.future
 
-Future flags to enable for the router.
+路由器的 future flag。
 
 ### opts.getContext
 
-A function that returns an [`RouterContextProvider`](../utils/RouterContextProvider) instance
-which is provided as the `context` argument to client [`action`](../../start/data/route-object#action)s,
-[`loader`](../../start/data/route-object#loader)s and [middleware](../../how-to/middleware).
-This function is called to generate a fresh `context` instance on each
-navigation or fetcher call.
+返回 [`RouterContextProvider`](../utils/RouterContextProvider) 实例的函数，作为客户端 [`action`](../../start/data/route-object#action)、[`loader`](../../start/data/route-object#loader) 和[中间件](../../how-to/middleware)的 `context` 参数提供。每次导航或 fetcher 调用都会调用此函数生成新的 `context` 实例。
 
 ### opts.hydrationData
 
-Hydration data to initialize the router with if you have already performed
-data loading on the server.
+用于初始化路由器的注水数据，适用于已在服务端完成数据加载的场景。
 
 ### opts.initialEntries
 
-Initial entries in the in-memory history stack
+内存历史栈中的初始条目。
 
 ### opts.initialIndex
 
-Index of `initialEntries` the application should initialize to
+应用应初始化到的 `initialEntries` 索引。
 
 ### opts.unstable_instrumentations
 
-Array of instrumentation objects allowing you to instrument the router and
-individual routes prior to router initialization (and on any subsequently
-added routes via `route.lazy` or `patchRoutesOnNavigation`).  This is
-mostly useful for observability such as wrapping navigations, fetches,
-as well as route loaders/actions/middlewares with logging and/or performance
-tracing.  See the [docs](../../how-to/instrumentation) for more information.
+插桩对象数组，允许你在路由器初始化之前（以及通过 `route.lazy` 或 `patchRoutesOnNavigation` 后续添加的路由上）对路由器和单个路由进行插桩。这主要用于可观测性，例如用日志记录和/或性能追踪包裹导航、fetch 以及路由的 loader/action/中间件。详情请参阅[文档](../../how-to/instrumentation)。
 
 ```tsx
 let router = createBrowserRouter(routes, {
-  unstable_instrumentations: [logging]
+  unstable_instrumentations: [logging],
 });
-
 
 let logging = {
   router({ instrument }) {
     instrument({
-      navigate: (impl, info) => logExecution(`navigate ${info.to}`, impl),
-      fetch: (impl, info) => logExecution(`fetch ${info.to}`, impl)
+      navigate: (impl, info) =>
+        logExecution(`navigate ${info.to}`, impl),
+      fetch: (impl, info) =>
+        logExecution(`fetch ${info.to}`, impl),
     });
   },
   route({ instrument, id }) {
     instrument({
-      middleware: (impl, info) => logExecution(
-        `middleware ${info.request.url} (route ${id})`,
-        impl
-      ),
-      loader: (impl, info) => logExecution(
-        `loader ${info.request.url} (route ${id})`,
-        impl
-      ),
-      action: (impl, info) => logExecution(
-        `action ${info.request.url} (route ${id})`,
-        impl
-      ),
-    })
-  }
+      middleware: (impl, info) =>
+        logExecution(
+          `middleware ${info.request.url} (route ${id})`,
+          impl,
+        ),
+      loader: (impl, info) =>
+        logExecution(
+          `loader ${info.request.url} (route ${id})`,
+          impl,
+        ),
+      action: (impl, info) =>
+        logExecution(
+          `action ${info.request.url} (route ${id})`,
+          impl,
+        ),
+    });
+  },
 };
 
-async function logExecution(label: string, impl: () => Promise<void>) {
+async function logExecution(
+  label: string,
+  impl: () => Promise<void>,
+) {
   let start = performance.now();
   console.log(`start ${label}`);
   await impl();
@@ -150,9 +132,8 @@ async function logExecution(label: string, impl: () => Promise<void>) {
 
 ### opts.patchRoutesOnNavigation
 
-Lazily define portions of the route tree on navigations.
+在导航时延迟定义路由树的部分内容。
 
-## Returns
+## 返回值
 
-An initialized [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) to pass to [`<RouterProvider>`](../data-routers/RouterProvider)
-
+初始化后的 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html)，传递给 [`<RouterProvider>`](../data-routers/RouterProvider)。

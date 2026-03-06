@@ -1,21 +1,21 @@
 ---
-title: Resource Routes
+title: 资源路由
 ---
 
-# Resource Routes
+# 资源路由
 
 [MODES: framework, data]
 
 <br/>
 <br/>
 
-When server rendering, routes can serve "resources" instead of rendering components, like images, PDFs, JSON payloads, webhooks, etc.
+在服务端渲染时，路由可以提供"资源"而不是渲染组件，例如图片、PDF、JSON 数据、webhook 等。
 
-## Defining a Resource Route
+## 定义资源路由
 
-A route becomes a resource route by convention when its module exports a loader or action but does not export a default component.
+按照约定，当路由模块导出了 loader 或 action 但没有导出默认组件时，该路由就成为资源路由。
 
-Consider a route that serves a PDF instead of UI:
+考虑一个提供 PDF 而非 UI 的路由：
 
 ```ts
 route("/reports/pdf/:id", "pdf-report.ts");
@@ -36,86 +36,80 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 ```
 
-Note there is no default export. That makes this route a resource route.
+注意这里没有默认导出。这使得该路由成为资源路由。
 
-## Linking to Resource Routes
+## 链接到资源路由
 
-When linking to resource routes, use `<a>` or `<Link reloadDocument>`, otherwise React Router will attempt to use client side routing and fetching the payload (you'll get a helpful error message if you make this mistake).
+链接到资源路由时，请使用 `<a>` 或 `<Link reloadDocument>`，否则 React Router 将尝试使用客户端路由并获取载荷（如果你犯了这个错误，会收到一个有用的错误消息）。
 
 ```tsx
 <Link reloadDocument to="/reports/pdf/123">
-  View as PDF
+  查看 PDF
 </Link>
 ```
 
-## Handling different request methods
+## 处理不同的请求方法
 
-GET requests are handled by the `loader`, while POST, PUT, PATCH, and DELETE are handled by the `action`:
+GET 请求由 `loader` 处理，而 POST、PUT、PATCH 和 DELETE 由 `action` 处理：
 
 ```tsx
 import type { Route } from "./+types/resource";
 
 export function loader(_: Route.LoaderArgs) {
-  return Response.json({ message: "I handle GET" });
+  return Response.json({ message: "我处理 GET 请求" });
 }
 
 export function action(_: Route.ActionArgs) {
   return Response.json({
-    message: "I handle everything else",
+    message: "我处理其他所有请求",
   });
 }
 ```
 
-## Return Types
+## 返回类型
 
-Resource Routes are flexible when it comes to the return type - you can return [`Response`][Response] instances or [`data()`][data] objects. A good general rule of thumb when deciding which type to use is:
+资源路由在返回类型方面很灵活——你可以返回 [`Response`][Response] 实例或 [`data()`][data] 对象。决定使用哪种类型时，一个好的经验法则是：
 
-- If you're using resource routes intended for external consumption, return `Response` instances
-  - Keeps the resulting response encoding explicit in your code rather than having to wonder how React Router might convert `data() -> Response` under the hood
-- If you're accessing resource routes from [fetchers][fetcher] or [`<Form>`][form] submissions, return `data()`
-  - Keeps things consistent with the loaders/actions in your UI routes
-  - Allows you to stream promises down to your UI through `data()`/[`Await`][await]
+- 如果你的资源路由用于外部消费，返回 `Response` 实例
+  - 保持结果响应编码在代码中是显式的，而不必猜测 React Router 内部如何将 `data() -> Response` 转换
+- 如果你通过 [fetcher][fetcher] 或 [`<Form>`][form] 提交来访问资源路由，返回 `data()`
+  - 与 UI 路由中的 loader/action 保持一致
+  - 允许你通过 `data()`/[`Await`][await] 将 promise 流式传输到 UI
 
-## Error Handling
+## 错误处理
 
-Throwing an `Error` from Resource route (or anything other than a `Response`/`data()`) will trigger [`handleError`][handleError] and result in a 500 HTTP Response:
+从资源路由抛出 `Error`（或除 `Response`/`data()` 之外的任何内容）将触发 [`handleError`][handleError] 并返回 500 HTTP 响应：
 
 ```tsx
 export function action() {
   let db = await getDb();
   if (!db) {
-    // Fatal error - return a 500 response and trigger `handleError`
-    throw new Error("Could not connect to DB");
+    // 致命错误 - 返回 500 响应并触发 `handleError`
+    throw new Error("无法连接到数据库");
   }
   // ...
 }
 ```
 
-If a resource route generates a `Response` (via `new Response()` or `data()`), it is considered a successful execution and will not trigger `handleError` because the API has successfully produced a Response for the HTTP request. This applies to thrown responses as well as returned responses with a 4xx/5xx status code. This behavior aligns with `fetch()` which does not return a rejected promise on 4xx/5xx Responses.
+如果资源路由生成了 `Response`（通过 `new Response()` 或 `data()`），则被视为成功执行，不会触发 `handleError`，因为 API 已经成功为 HTTP 请求生成了 Response。这适用于抛出的响应以及带有 4xx/5xx 状态码的返回响应。此行为与 `fetch()` 一致，后者不会对 4xx/5xx 响应返回被拒绝的 promise。
 
 ```tsx
 export function action() {
-  // Non-fatal error - don't trigger `handleError`:
-  throw new Response(
-    { error: "Unauthorized" },
-    { status: 401 },
-  );
+  // 非致命错误 - 不触发 `handleError`：
+  throw new Response({ error: "未授权" }, { status: 401 });
 
-  // These 3 are equivalent to the above
-  return new Response(
-    { error: "Unauthorized" },
-    { status: 401 },
-  );
+  // 以下 3 种写法与上面等效
+  return new Response({ error: "未授权" }, { status: 401 });
 
-  throw data({ error: "Unauthorized" }, { status: 401 });
+  throw data({ error: "未授权" }, { status: 401 });
 
-  return data({ error: "Unauthorized" }, { status: 401 });
+  return data({ error: "未授权" }, { status: 401 });
 }
 ```
 
-### Error Boundaries
+### 错误边界
 
-[Error Boundaries][error-boundary] are only applicable when a resource route is accessed from a UI, such as from a [`fetcher`][fetcher] call or a [`<Form>`][form] submission. If you `throw` from your resource route in these cases, it will bubble to the nearest `ErrorBoundary` in the UI.
+[错误边界][error-boundary]仅在从 UI 访问资源路由时适用，例如从 [`fetcher`][fetcher] 调用或 [`<Form>`][form] 提交。如果你在这些情况下从资源路由 `throw`，错误将冒泡到 UI 中最近的 `ErrorBoundary`。
 
 [handleError]: ../api/framework-conventions/entry.server.tsx#handleerror
 [data]: ../api/utils/data

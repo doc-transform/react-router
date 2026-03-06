@@ -4,30 +4,15 @@ title: useParams
 
 # useParams
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useParams.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useParams.html)
 
-Returns an object of key/value-pairs of the dynamic params from the current
-URL that were matched by the routes. Child routes inherit all params from
-their parent routes.
+返回当前 URL 中由路由匹配的动态参数的键/值对对象。子路由会继承其父路由的所有参数。
 
-Assuming a route pattern like `/posts/:postId` is matched by `/posts/123`
-then `params.postId` will be `"123"`.
+假设路由模式为 `/posts/:postId`，匹配 URL `/posts/123`，则 `params.postId` 的值为 `"123"`。
 
 ```tsx
 import { useParams } from "react-router";
@@ -38,31 +23,35 @@ function SomeComponent() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function useParams<
-  ParamsOrKey extends string | Record<string, string | undefined> = string,
+  ParamsOrKey extends
+    | string
+    | Record<string, string | undefined> = string,
 >(): Readonly<
-  [ParamsOrKey] extends [string] ? Params<ParamsOrKey> : Partial<ParamsOrKey>
->
+  [ParamsOrKey] extends [string]
+    ? Params<ParamsOrKey>
+    : Partial<ParamsOrKey>
+>;
 ```
 
-## Returns
+## 返回值
 
-An object containing the dynamic route parameters
+包含动态路由参数的对象。
 
-## Examples
+## 示例
 
-### Basic Usage
+### 基本用法
 
 ```tsx
 import { useParams } from "react-router";
 
-// given a route like:
+// 声明式路由：
 <Route path="/posts/:postId" element={<Post />} />;
 
-// or a data route like:
+// 或数据路由：
 createBrowserRouter([
   {
     path: "/posts/:postId",
@@ -70,11 +59,11 @@ createBrowserRouter([
   },
 ]);
 
-// or in routes.ts
+// 或在 routes.ts 中：
 route("/posts/:postId", "routes/post.tsx");
 ```
 
-Access the params in a component:
+在组件中访问参数：
 
 ```tsx
 import { useParams } from "react-router";
@@ -85,15 +74,15 @@ export default function Post() {
 }
 ```
 
-### Multiple Params
+### 多个参数
 
-Patterns can have multiple params:
+路径模式可以包含多个参数：
 
 ```tsx
 "/posts/:postId/comments/:commentId";
 ```
 
-All will be available in the params object:
+所有参数都可以在 params 对象中获取：
 
 ```tsx
 import { useParams } from "react-router";
@@ -108,15 +97,15 @@ export default function Post() {
 }
 ```
 
-### Catchall Params
+### 通配符参数
 
-Catchall params are defined with `*`:
+通配符参数使用 `*` 定义：
 
 ```tsx
 "/files/*";
 ```
 
-The matched value will be available in the params object as follows:
+匹配的值可以在 params 对象中以如下方式获取：
 
 ```tsx
 import { useParams } from "react-router";
@@ -128,7 +117,7 @@ export default function File() {
 }
 ```
 
-You can destructure the catchall param:
+你可以解构通配符参数：
 
 ```tsx
 export default function File() {
@@ -136,4 +125,3 @@ export default function File() {
   console.log(catchall);
 }
 ```
-

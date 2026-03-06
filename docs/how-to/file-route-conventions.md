@@ -1,25 +1,25 @@
 ---
-title: File Route Conventions
+title: 文件路由约定
 ---
 
-# File Route Conventions
+# 文件路由约定
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-The `@react-router/fs-routes` package enables file-convention based route config.
+`@react-router/fs-routes` 包启用基于文件约定的路由配置。
 
-## Setting up
+## 设置
 
-First install the `@react-router/fs-routes` package:
+首先安装 `@react-router/fs-routes` 包：
 
 ```shellscript nonumber
 npm i @react-router/fs-routes
 ```
 
-Then use it to provide route config in your `app/routes.ts` file:
+然后在 `app/routes.ts` 文件中使用它来提供路由配置：
 
 ```tsx filename=app/routes.ts
 import { type RouteConfig } from "@react-router/dev/routes";
@@ -28,8 +28,7 @@ import { flatRoutes } from "@react-router/fs-routes";
 export default flatRoutes() satisfies RouteConfig;
 ```
 
-Any modules in the `app/routes` directory will become routes in your application by default.
-The `ignoredRouteFiles` option allows you to specify files that should not be included as routes:
+默认情况下，`app/routes` 目录中的所有模块都将成为你应用中的路由。`ignoredRouteFiles` 选项允许你指定不应作为路由包含的文件：
 
 ```tsx filename=app/routes.ts
 import { type RouteConfig } from "@react-router/dev/routes";
@@ -40,7 +39,7 @@ export default flatRoutes({
 }) satisfies RouteConfig;
 ```
 
-This will look for routes in the `app/routes` directory by default, but this can be configured via the `rootDirectory` option which is relative to your app directory:
+默认情况下会在 `app/routes` 目录中查找路由，但这可以通过 `rootDirectory` 选项进行配置，该选项相对于你的 app 目录：
 
 ```tsx filename=app/routes.ts
 import { type RouteConfig } from "@react-router/dev/routes";
@@ -51,11 +50,11 @@ export default flatRoutes({
 }) satisfies RouteConfig;
 ```
 
-The rest of this guide will assume you're using the default `app/routes` directory.
+本指南的其余部分将假设你使用默认的 `app/routes` 目录。
 
-## Basic Routes
+## 基本路由
 
-The filename maps to the route's URL pathname, except for `_index.tsx` which is the [index route][index_route] for the [root route][root_route]. You can use `.js`, `.jsx`, `.ts` or `.tsx` file extensions.
+文件名映射到路由的 URL 路径名，除了 `_index.tsx` 是[根路由][root_route]的[索引路由][index_route]。你可以使用 `.js`、`.jsx`、`.ts` 或 `.tsx` 文件扩展名。
 
 ```text lines=[3-4]
 app/
@@ -65,16 +64,16 @@ app/
 └── root.tsx
 ```
 
-| URL      | Matched Routes          |
+| URL      | 匹配的路由              |
 | -------- | ----------------------- |
 | `/`      | `app/routes/_index.tsx` |
 | `/about` | `app/routes/about.tsx`  |
 
-Note that these routes will be rendered in the outlet of `app/root.tsx` because of [nested routing][nested_routing].
+注意，由于[嵌套路由][nested_routing]，这些路由将在 `app/root.tsx` 的 outlet 中渲染。
 
-## Dot Delimiters
+## 点分隔符
 
-Adding a `.` to a route filename will create a `/` in the URL.
+在路由文件名中添加 `.` 会在 URL 中创建 `/`。
 
 ```text lines=[5-7]
  app/
@@ -87,7 +86,7 @@ Adding a `.` to a route filename will create a `/` in the URL.
 └── root.tsx
 ```
 
-| URL                        | Matched Route                            |
+| URL                        | 匹配的路由                               |
 | -------------------------- | ---------------------------------------- |
 | `/`                        | `app/routes/_index.tsx`                  |
 | `/about`                   | `app/routes/about.tsx`                   |
@@ -95,11 +94,11 @@ Adding a `.` to a route filename will create a `/` in the URL.
 | `/concerts/salt-lake-city` | `app/routes/concerts.salt-lake-city.tsx` |
 | `/concerts/san-diego`      | `app/routes/concerts.san-diego.tsx`      |
 
-The dot delimiter also creates nesting, see the [nesting section][nested_routes] for more information.
+点分隔符也会创建嵌套，更多信息请参阅[嵌套部分][nested_routes]。
 
-## Dynamic Segments
+## 动态段
 
-Usually your URLs aren't static but data-driven. Dynamic segments allow you to match segments of the URL and use that value in your code. You create them with the `$` prefix.
+通常你的 URL 不是静态的，而是数据驱动的。动态段允许你匹配 URL 的某些段并在代码中使用该值。你可以用 `$` 前缀来创建它们。
 
 ```text lines=[5]
  app/
@@ -111,7 +110,7 @@ Usually your URLs aren't static but data-driven. Dynamic segments allow you to m
 └── root.tsx
 ```
 
-| URL                        | Matched Route                      |
+| URL                        | 匹配的路由                         |
 | -------------------------- | ---------------------------------- |
 | `/`                        | `app/routes/_index.tsx`            |
 | `/about`                   | `app/routes/about.tsx`             |
@@ -119,7 +118,7 @@ Usually your URLs aren't static but data-driven. Dynamic segments allow you to m
 | `/concerts/salt-lake-city` | `app/routes/concerts.$city.tsx`    |
 | `/concerts/san-diego`      | `app/routes/concerts.$city.tsx`    |
 
-The value will be parsed from the URL and passed to various APIs. We call these values "URL Parameters". The most useful places to access the URL params are in [loaders] and [actions].
+该值将从 URL 中解析并传递给各种 API。我们称这些值为"URL 参数"。访问 URL 参数最有用的地方是在 [loader][loaders] 和 [action][actions] 中。
 
 ```tsx
 export async function loader({ params }) {
@@ -127,9 +126,9 @@ export async function loader({ params }) {
 }
 ```
 
-You'll note the property name on the `params` object maps directly to the name of your file: `$city.tsx` becomes `params.city`.
+你会注意到 `params` 对象上的属性名直接映射到你的文件名：`$city.tsx` 变成 `params.city`。
 
-Routes can have multiple dynamic segments, like `concerts.$city.$date`, both are accessed on the params object by name:
+路由可以有多个动态段，如 `concerts.$city.$date`，两者都通过名称在 params 对象上访问：
 
 ```tsx
 export async function loader({ params }) {
@@ -140,13 +139,13 @@ export async function loader({ params }) {
 }
 ```
 
-See the [routing guide][routing_guide] for more information.
+更多信息请参阅[路由指南][routing_guide]。
 
-## Nested Routes
+## 嵌套路由
 
-Nested Routing is the general idea of coupling segments of the URL to component hierarchy and data. You can read more about it in the [Routing Guide][nested_routing].
+嵌套路由是将 URL 段与组件层级和数据耦合的一般概念。你可以在[路由指南][nested_routing]中了解更多。
 
-You create nested routes with [dot delimiters][dot_delimiters]. If the filename before the `.` matches another route filename, it automatically becomes a child route to the matching parent. Consider these routes:
+你可以使用[点分隔符][dot_delimiters]创建嵌套路由。如果 `.` 之前的文件名与另一个路由文件名匹配，它会自动成为匹配父路由的子路由。考虑这些路由：
 
 ```text lines=[5-8]
  app/
@@ -160,9 +159,9 @@ You create nested routes with [dot delimiters][dot_delimiters]. If the filename 
 └── root.tsx
 ```
 
-All the routes that start with `app/routes/concerts.` will be child routes of `app/routes/concerts.tsx` and render inside the [parent route's outlet][nested_routing].
+所有以 `app/routes/concerts.` 开头的路由将成为 `app/routes/concerts.tsx` 的子路由，并在[父路由的 outlet][nested_routing] 中渲染。
 
-| URL                        | Matched Route                      | Layout                    |
+| URL                        | 匹配的路由                         | 布局                      |
 | -------------------------- | ---------------------------------- | ------------------------- |
 | `/`                        | `app/routes/_index.tsx`            | `app/root.tsx`            |
 | `/about`                   | `app/routes/about.tsx`             | `app/root.tsx`            |
@@ -170,9 +169,9 @@ All the routes that start with `app/routes/concerts.` will be child routes of `a
 | `/concerts/trending`       | `app/routes/concerts.trending.tsx` | `app/routes/concerts.tsx` |
 | `/concerts/salt-lake-city` | `app/routes/concerts.$city.tsx`    | `app/routes/concerts.tsx` |
 
-Note you typically want to add an index route when you add nested routes so that something renders inside the parent's outlet when users visit the parent URL directly.
+注意，当添加嵌套路由时，你通常需要添加一个索引路由，这样当用户直接访问父 URL 时，父路由的 outlet 中会渲染一些内容。
 
-For example, if the URL is `/concerts/salt-lake-city` then the UI hierarchy will look like this:
+例如，如果 URL 是 `/concerts/salt-lake-city`，UI 层级将如下所示：
 
 ```tsx
 <Root>
@@ -182,9 +181,9 @@ For example, if the URL is `/concerts/salt-lake-city` then the UI hierarchy will
 </Root>
 ```
 
-## Nested URLs without Layout Nesting
+## 无布局嵌套的嵌套 URL
 
-Sometimes you want the URL to be nested, but you don't want the automatic layout nesting. You can opt out of nesting with a trailing underscore on the parent segment:
+有时你希望 URL 是嵌套的，但不想要自动的布局嵌套。你可以在父段末尾添加下划线来退出嵌套：
 
 ```text lines=[8]
  app/
@@ -198,7 +197,7 @@ Sometimes you want the URL to be nested, but you don't want the automatic layout
 └── root.tsx
 ```
 
-| URL                        | Matched Route                      | Layout                    |
+| URL                        | 匹配的路由                         | 布局                      |
 | -------------------------- | ---------------------------------- | ------------------------- |
 | `/`                        | `app/routes/_index.tsx`            | `app/root.tsx`            |
 | `/about`                   | `app/routes/about.tsx`             | `app/root.tsx`            |
@@ -206,15 +205,15 @@ Sometimes you want the URL to be nested, but you don't want the automatic layout
 | `/concerts/trending`       | `app/routes/concerts.trending.tsx` | `app/routes/concerts.tsx` |
 | `/concerts/salt-lake-city` | `app/routes/concerts.$city.tsx`    | `app/routes/concerts.tsx` |
 
-Note that `/concerts/mine` does not nest with `app/routes/concerts.tsx` anymore, but `app/root.tsx`. The `trailing_` underscore creates a path segment, but it does not create layout nesting.
+注意 `/concerts/mine` 不再嵌套在 `app/routes/concerts.tsx` 中，而是嵌套在 `app/root.tsx` 中。`trailing_` 下划线创建了一个路径段，但不会创建布局嵌套。
 
-Think of the `trailing_` underscore as the long bit at the end of your parent's signature, writing you out of the will, removing the segment that follows from the layout nesting.
+可以把 `trailing_` 下划线想象成你父母签名末尾的长笔画，把你从遗嘱中除名，将后面的段从布局嵌套中移除。
 
-## Nested Layouts without Nested URLs
+## 无嵌套 URL 的嵌套布局
 
-We call these <a name="pathless-routes"><b>Pathless Routes</b></a>
+我们称这些为 <a name="pathless-routes"><b>无路径路由</b></a>
 
-Sometimes you want to share a layout with a group of routes without adding any path segments to the URL. A common example is a set of authentication routes that have a different header/footer than the public pages or the logged in app experience. You can do this with a `_leading` underscore.
+有时你想让一组路由共享一个布局，但不想在 URL 中添加任何路径段。一个常见的例子是一组认证路由，它们有与公共页面或登录后应用体验不同的页眉/页脚。你可以使用 `_leading` 下划线来实现这一点。
 
 ```text lines=[3-5]
  app/
@@ -228,7 +227,7 @@ Sometimes you want to share a layout with a group of routes without adding any p
 └── root.tsx
 ```
 
-| URL                        | Matched Route                   | Layout                    |
+| URL                        | 匹配的路由                      | 布局                      |
 | -------------------------- | ------------------------------- | ------------------------- |
 | `/`                        | `app/routes/_index.tsx`         | `app/root.tsx`            |
 | `/login`                   | `app/routes/_auth.login.tsx`    | `app/routes/_auth.tsx`    |
@@ -236,11 +235,11 @@ Sometimes you want to share a layout with a group of routes without adding any p
 | `/concerts`                | `app/routes/concerts.tsx`       | `app/routes/concerts.tsx` |
 | `/concerts/salt-lake-city` | `app/routes/concerts.$city.tsx` | `app/routes/concerts.tsx` |
 
-Think of the `_leading` underscore as a blanket you're pulling over the filename, hiding the filename from the URL.
+可以把 `_leading` 下划线想象成你拉在文件名上的一条毯子，将文件名从 URL 中隐藏起来。
 
-## Optional Segments
+## 可选段
 
-Wrapping a route segment in parentheses will make the segment optional.
+用括号包裹路由段会使该段变为可选的。
 
 ```text lines=[3-5]
  app/
@@ -251,7 +250,7 @@ Wrapping a route segment in parentheses will make the segment optional.
 └── root.tsx
 ```
 
-| URL                        | Matched Route                       |
+| URL                        | 匹配的路由                          |
 | -------------------------- | ----------------------------------- |
 | `/`                        | `app/routes/($lang)._index.tsx`     |
 | `/categories`              | `app/routes/($lang).categories.tsx` |
@@ -261,11 +260,11 @@ Wrapping a route segment in parentheses will make the segment optional.
 | `/en/american-flag-speedo` | `app/routes/($lang).$productId.tsx` |
 | `/fr/american-flag-speedo` | `app/routes/($lang).$productId.tsx` |
 
-You may wonder why `/american-flag-speedo` is matching the `($lang)._index.tsx` route instead of `($lang).$productId.tsx`. This is because when you have an optional dynamic param segment followed by another dynamic param, it cannot reliably be determined if a single-segment URL such as `/american-flag-speedo` should match `/:lang` `/:productId`. Optional segments match eagerly and thus it will match `/:lang`. If you have this type of setup it's recommended to look at `params.lang` in the `($lang)._index.tsx` loader and redirect to `/:lang/american-flag-speedo` for the current/default language if `params.lang` is not a valid language code.
+你可能会疑惑为什么 `/american-flag-speedo` 匹配了 `($lang)._index.tsx` 路由而不是 `($lang).$productId.tsx`。这是因为当你有一个可选动态参数段后面跟着另一个动态参数时，无法可靠地确定像 `/american-flag-speedo` 这样的单段 URL 应该匹配 `/:lang` 还是 `/:productId`。可选段会贪婪匹配，因此它将匹配 `/:lang`。如果你有这种设置，建议在 `($lang)._index.tsx` 的 loader 中检查 `params.lang`，如果 `params.lang` 不是有效的语言代码，则重定向到 `/:lang/american-flag-speedo`（使用当前/默认语言）。
 
-## Splat Routes
+## 通配路由
 
-While [dynamic segments][dynamic_segments] match a single path segment (the stuff between two `/` in a URL), a splat route will match the rest of a URL, including the slashes.
+[动态段][dynamic_segments]匹配 URL 中两个 `/` 之间的单个路径段，而通配路由将匹配 URL 的其余部分，包括斜杠。
 
 ```text lines=[4,6]
  app/
@@ -277,7 +276,7 @@ While [dynamic segments][dynamic_segments] match a single path segment (the stuf
 └── root.tsx
 ```
 
-| URL                                          | Matched Route            |
+| URL                                          | 匹配的路由               |
 | -------------------------------------------- | ------------------------ |
 | `/`                                          | `app/routes/_index.tsx`  |
 | `/about`                                     | `app/routes/about.tsx`   |
@@ -287,7 +286,7 @@ While [dynamic segments][dynamic_segments] match a single path segment (the stuf
 | `/files/talks/react-conf_final.pdf`          | `app/routes/files.$.tsx` |
 | `/files/talks/react-conf-FINAL-MAY_2024.pdf` | `app/routes/files.$.tsx` |
 
-Similar to dynamic route parameters, you can access the value of the matched path on the splat route's `params` with the `"*"` key.
+类似于动态路由参数，你可以通过通配路由 `params` 上的 `"*"` 键访问匹配路径的值。
 
 ```tsx filename=app/routes/files.$.tsx
 export async function loader({ params }) {
@@ -296,17 +295,17 @@ export async function loader({ params }) {
 }
 ```
 
-## Catch-all Route
+## 兜底路由
 
-To create a route that will match any requests that don't match other defined routes (such as a 404 page), create a file named `$.tsx` within your routes directory:
+要创建一个匹配所有不匹配其他已定义路由请求的路由（如 404 页面），在 routes 目录中创建名为 `$.tsx` 的文件：
 
-| URL                            | Matched Route           |
+| URL                            | 匹配的路由              |
 | ------------------------------ | ----------------------- |
 | `/`                            | `app/routes/_index.tsx` |
 | `/about`                       | `app/routes/about.tsx`  |
 | `/any-invalid-path-will-match` | `app/routes/$.tsx`      |
 
-By default the matched route will return a 200 response, so be sure to modify your catchall route to return a 404 instead:
+默认情况下匹配的路由会返回 200 响应，因此请确保修改你的兜底路由以返回 404：
 
 ```tsx filename=app/routes/$.tsx
 export async function loader() {
@@ -314,11 +313,11 @@ export async function loader() {
 }
 ```
 
-## Escaping Special Characters
+## 转义特殊字符
 
-If you want one of the special characters used for these route conventions to actually be a part of the URL, you can escape the conventions with `[]` characters. This can be especially helpful for [resource routes][resource_routes] that include an extension in the URL.
+如果你想让这些路由约定使用的特殊字符实际上成为 URL 的一部分，可以用 `[]` 字符来转义约定。这对于在 URL 中包含扩展名的[资源路由][resource_routes]特别有用。
 
-| Filename                            | URL                 |
+| 文件名                              | URL                 |
 | ----------------------------------- | ------------------- |
 | `app/routes/sitemap[.]xml.tsx`      | `/sitemap.xml`      |
 | `app/routes/[sitemap.xml].tsx`      | `/sitemap.xml`      |
@@ -327,13 +326,13 @@ If you want one of the special characters used for these route conventions to ac
 | `app/routes/[[so-weird]].tsx`       | `/[so-weird]`       |
 | `app/routes/reports.$id[.pdf].ts`   | `/reports/123.pdf`  |
 
-## Folders for Organization
+## 用文件夹组织
 
-Routes can also be folders with a `route.tsx` file inside defining the route module. The rest of the files in the folder will not become routes. This allows you to organize your code closer to the routes that use them instead of repeating the feature names across other folders.
+路由也可以是包含 `route.tsx` 文件的文件夹，该文件定义路由模块。文件夹中的其他文件不会成为路由。这允许你将代码组织在使用它们的路由附近，而不是在其他文件夹中重复功能名称。
 
-The files inside a folder have no meaning for the route paths, the route path is completely defined by the folder name.
+文件夹内的文件对路由路径没有意义，路由路径完全由文件夹名称决定。
 
-Consider these routes:
+考虑这些路由：
 
 ```text
  app/
@@ -348,7 +347,7 @@ Consider these routes:
 └── root.tsx
 ```
 
-Some, or all of them can be folders holding their own `route` module inside.
+其中一些或全部可以是包含自己 `route` 模块的文件夹。
 
 ```text
 app/
@@ -385,14 +384,14 @@ app/
 └── root.tsx
 ```
 
-Note that when you turn a route module into a folder, the route module becomes `folder/route.tsx`, all other modules in the folder will not become routes. For example:
+注意，当你将路由模块转换为文件夹时，路由模块变为 `folder/route.tsx`，文件夹中的所有其他模块不会成为路由。例如：
 
 ```
-# these are the same route:
+# 以下是相同的路由：
 app/routes/app.tsx
 app/routes/app/route.tsx
 
-# as are these
+# 以下也是：
 app/routes/app._index.tsx
 app/routes/app._index/route.tsx
 ```

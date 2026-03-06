@@ -1,4 +1,4 @@
 ---
-title: RSC (Unstable)
-order: 7
+title: React Server Components
+order: 9
 ---

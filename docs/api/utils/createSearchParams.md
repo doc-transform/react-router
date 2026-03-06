@@ -6,18 +6,15 @@ title: createSearchParams
 
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createSearchParams.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createSearchParams.html)
 
-Creates a URLSearchParams object using the given initializer.
+使用给定的初始化器创建一个 URLSearchParams 对象。
 
-This is identical to `new URLSearchParams(init)` except it also
-supports arrays as values in the object form of the initializer
-instead of just strings. This is convenient when you need multiple
-values for a given key, but don't want to use an array initializer.
+这与 `new URLSearchParams(init)` 完全相同，不同之处在于它还支持在初始化器的对象形式中使用数组作为值，而不仅仅是字符串。当你需要给定键有多个值但不想使用数组初始化器时，这非常方便。
 
-For example, instead of:
+例如，替代以下写法：
 
 ```tsx
 let searchParams = new URLSearchParams([
@@ -26,7 +23,7 @@ let searchParams = new URLSearchParams([
 ]);
 ```
 
-you can do:
+你可以这样做：
 
 ```
 let searchParams = createSearchParams({
@@ -34,16 +31,16 @@ let searchParams = createSearchParams({
 });
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 createSearchParams(init): URLSearchParams
 ```
 
-## Params
+## 参数
 
 ### init
 
 [modes: framework, data, declarative]
 
-_No documentation_
+_无文档_

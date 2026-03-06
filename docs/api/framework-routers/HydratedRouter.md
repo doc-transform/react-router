@@ -4,51 +4,29 @@ title: HydratedRouter
 
 # HydratedRouter
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom-export/hydrated-router.tsx
--->
-
 [MODES: framework]
 
-## Summary
+## 概述
 
-Framework-mode router component to be used to hydrate a router from a
-[`ServerRouter`](../framework-routers/ServerRouter). See [`entry.client.tsx`](../framework-conventions/entry.client.tsx).
+框架模式路由器组件，用于从 [`ServerRouter`](../framework-routers/ServerRouter) 注水路由器。参见 [`entry.client.tsx`](../framework-conventions/entry.client.tsx)。
 
-## Signature
+## 函数签名
 
 ```tsx
-function HydratedRouter(props: HydratedRouterProps)
+function HydratedRouter(props: HydratedRouterProps);
 ```
 
 ## Props
 
 ### getContext
 
-Context factory function to be passed through to [`createBrowserRouter`](../data-routers/createBrowserRouter).
-This function will be called to create a fresh `context` instance on each
-navigation/fetch and made available to
-[`clientAction`](../../start/framework/route-module#clientAction)/[`clientLoader`](../../start/framework/route-module#clientLoader)
-functions.
+上下文工厂函数，传递给 [`createBrowserRouter`](../data-routers/createBrowserRouter)。此函数会在每次导航/fetch 时调用以创建新的 `context` 实例，并提供给 [`clientAction`](../../start/framework/route-module#clientAction)/[`clientLoader`](../../start/framework/route-module#clientLoader) 函数。
 
 ### onError
 
-An error handler function that will be called for any middleware, loader, action,
-or render errors that are encountered in your application.  This is useful for
-logging or reporting errors instead of in the `ErrorBoundary` because it's not
-subject to re-rendering and will only run one time per error.
+错误处理函数，会在应用中遇到的任何中间件、loader、action 或渲染错误时调用。这对于记录日志或上报错误很有用，因为它不受重新渲染的影响，每个错误只运行一次。
 
-The `errorInfo` parameter is passed along from
-[`componentDidCatch`](https://react.dev/reference/react/Component#componentdidcatch)
-and is only present for render errors.
+`errorInfo` 参数来自 [`componentDidCatch`](https://react.dev/reference/react/Component#componentdidcatch)，仅在渲染错误时存在。
 
 ```tsx
 <HydratedRouter onError=(error, info) => {
@@ -57,4 +35,3 @@ and is only present for render errors.
   reportToErrorService(error, location, errorInfo);
 }} />
 ```
-

@@ -1,20 +1,20 @@
 ---
-title: URL Values
+title: URL 值
 ---
 
-# URL Values
+# URL 值
 
 [MODES: declarative]
 
-## Route Params
+## 路由参数
 
-Route params are the parsed values from a dynamic segment.
+路由参数是从动态路径段中解析出的值。
 
 ```tsx
 <Route path="/concerts/:city" element={<City />} />
 ```
 
-In this case, `:city` is the dynamic segment. The parsed value for that city will be available from `useParams`
+在这个例子中，`:city` 是动态段。解析后的城市值可以通过 `useParams` 获取。
 
 ```tsx
 import { useParams } from "react-router";
@@ -26,9 +26,9 @@ function City() {
 }
 ```
 
-## URL Search Params
+## URL 搜索参数
 
-Search params are the values after a `?` in the URL. They are accessible from `useSearchParams`, which returns an instance of [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+搜索参数是 URL 中 `?` 之后的值。可以通过 `useSearchParams` 访问，它返回一个 [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) 实例。
 
 ```tsx
 function SearchResults() {
@@ -44,9 +44,9 @@ function SearchResults() {
 }
 ```
 
-## Location Object
+## Location 对象
 
-React Router creates a custom `location` object with some useful information on it accessible with `useLocation`.
+React Router 创建了一个自定义的 `location` 对象，包含一些有用的信息，可以通过 `useLocation` 访问。
 
 ```tsx
 function useAnalytics() {

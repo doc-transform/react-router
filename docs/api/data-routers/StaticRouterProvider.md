@@ -4,26 +4,13 @@ title: StaticRouterProvider
 
 # StaticRouterProvider
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/server.tsx
--->
-
 [MODES: data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.StaticRouterProvider.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.StaticRouterProvider.html)
 
-A [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) that may not navigate to any other [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html).
-This is useful on the server where there is no stateful UI.
+一个不会导航到其他 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 的 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html)。适用于没有有状态 UI 的服务端。
 
 ```tsx
 export async function handleRequest(request: Request) {
@@ -42,7 +29,7 @@ export async function handleRequest(request: Request) {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function StaticRouterProvider({
@@ -50,27 +37,23 @@ function StaticRouterProvider({
   router,
   hydrate = true,
   nonce,
-}: StaticRouterProviderProps)
+}: StaticRouterProviderProps);
 ```
 
 ## Props
 
 ### context
 
-The [`StaticHandlerContext`](https://api.reactrouter.com/v7/interfaces/react-router.StaticHandlerContext.html) returned from [`StaticHandler`](https://api.reactrouter.com/v7/interfaces/react-router.StaticHandler.html)'s
-`query`
+[`StaticHandler`](https://api.reactrouter.com/v7/interfaces/react-router.StaticHandler.html) 的 `query` 返回的 [`StaticHandlerContext`](https://api.reactrouter.com/v7/interfaces/react-router.StaticHandlerContext.html)。
 
 ### hydrate
 
-Whether to hydrate the router on the client (default `true`)
+是否在客户端注水路由器（默认 `true`）。
 
 ### nonce
 
-The [`nonce`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce)
-to use for the hydration [`<script>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script)
-tag
+用于注水 [`<script>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) 标签的 [`nonce`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce)。
 
 ### router
 
-The static [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) from [`createStaticRouter`](../data-routers/createStaticRouter)
-
+来自 [`createStaticRouter`](../data-routers/createStaticRouter) 的静态 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html)。

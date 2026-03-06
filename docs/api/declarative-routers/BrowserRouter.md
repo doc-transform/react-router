@@ -4,28 +4,15 @@ title: BrowserRouter
 
 # BrowserRouter
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.BrowserRouter.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.BrowserRouter.html)
 
-A declarative [`<Router>`](../declarative-routers/Router) using the browser [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History)
-API for client-side routing.
+使用浏览器 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) API 进行客户端路由的声明式 [`<Router>`](../declarative-routers/Router)。
 
-## Signature
+## 函数签名
 
 ```tsx
 function BrowserRouter({
@@ -33,36 +20,29 @@ function BrowserRouter({
   children,
   unstable_useTransitions,
   window,
-}: BrowserRouterProps)
+}: BrowserRouterProps);
 ```
 
 ## Props
 
 ### basename
 
-Application basename
+应用的基础路径。
 
 ### children
 
-``<Route>`` components describing your route configuration
+描述路由配置的 `<Route>` 组件。
 
 ### unstable_useTransitions
 
-Control whether router state updates are internally wrapped in
-[`React.startTransition`](https://react.dev/reference/react/startTransition).
+控制路由器状态更新是否在内部包裹在 [`React.startTransition`](https://react.dev/reference/react/startTransition) 中。
 
-- When left `undefined`, all router state updates are wrapped in
-  `React.startTransition`
-- When set to `true`, [`Link`](../components/Link) and [`Form`](../components/Form) navigations will be wrapped
-  in `React.startTransition` and all router state updates are wrapped in
-  `React.startTransition`
-- When set to `false`, the router will not leverage `React.startTransition`
-  on any navigations or state changes.
+- 当值为 `undefined` 时，所有路由器状态更新都包裹在 `React.startTransition` 中
+- 当设为 `true` 时，[`Link`](../components/Link) 和 [`Form`](../components/Form) 导航会包裹在 `React.startTransition` 中，所有路由器状态更新也会包裹
+- 当设为 `false` 时，路由器不会在任何导航或状态变化中使用 `React.startTransition`
 
-For more information, please see the [docs](https://reactrouter.com/explanation/react-transitions).
+更多信息请参阅[文档](https://reactrouter.com/explanation/react-transitions)。
 
 ### window
 
-[`Window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) object
-override. Defaults to the global `window` instance
-
+[`Window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) 对象覆盖。默认为全局 `window` 实例。

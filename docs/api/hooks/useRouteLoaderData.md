@@ -4,31 +4,17 @@ title: useRouteLoaderData
 
 # useRouteLoaderData
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useRouteLoaderData.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useRouteLoaderData.html)
 
-Returns the [`loader`](../../start/framework/route-module#loader) data for a
-given route by route ID.
+通过路由 ID 返回指定路由的 [`loader`](../../start/framework/route-module#loader) 数据。
 
-Route IDs are created automatically. They are simply the path of the route file
-relative to the app folder without the extension.
+路由 ID 是自动创建的，它们就是路由文件相对于 app 文件夹的路径（不含扩展名）。
 
-| Route Filename               | Route ID               |
+| 路由文件名                   | 路由 ID                |
 | ---------------------------- | ---------------------- |
 | `app/root.tsx`               | `"root"`               |
 | `app/routes/teams.tsx`       | `"routes/teams"`       |
@@ -41,27 +27,25 @@ function SomeComponent() {
   const { user } = useRouteLoaderData("root");
 }
 
-// You can also specify your own route ID's manually in your routes.ts file:
-route("/", "containers/app.tsx", { id: "app" })
+// 你也可以在 routes.ts 文件中手动指定路由 ID：
+route("/", "containers/app.tsx", { id: "app" });
 useRouteLoaderData("app");
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function useRouteLoaderData<T = any>(
   routeId: string,
-): SerializeFrom<T> | undefined
+): SerializeFrom<T> | undefined;
 ```
 
-## Params
+## 参数
 
 ### routeId
 
-The ID of the route to return loader data from
+要返回 loader 数据的路由 ID。
 
-## Returns
+## 返回值
 
-The data returned from the specified route's [`loader`](../../start/framework/route-module#loader)
-function, or `undefined` if not found
-
+指定路由的 [`loader`](../../start/framework/route-module#loader) 函数返回的数据，如果未找到则返回 `undefined`。

@@ -6,11 +6,11 @@ title: href
 
 [MODES: framework]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.href.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.href.html)
 
-Returns a resolved URL path for the specified route.
+返回指定路由的已解析 URL 路径。
 
 ```tsx
 const h = href("/:lang?/about", { lang: "en" })

@@ -4,34 +4,20 @@ title: useInRouterContext
 
 # useInRouterContext
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useInRouterContext.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useInRouterContext.html)
 
-Returns `true` if this component is a descendant of a [`Router`](../declarative-routers/Router), useful
-to ensure a component is used within a [`Router`](../declarative-routers/Router).
+如果此组件是 [`Router`](../declarative-routers/Router) 的后代则返回 `true`，用于确保组件在 [`Router`](../declarative-routers/Router) 内使用。
 
-## Signature
+## 函数签名
 
 ```tsx
-function useInRouterContext(): boolean
+function useInRouterContext(): boolean;
 ```
 
-## Returns
+## 返回值
 
-Whether the component is within a [`Router`](../declarative-routers/Router) context
-
+组件是否在 [`Router`](../declarative-routers/Router) 上下文内。

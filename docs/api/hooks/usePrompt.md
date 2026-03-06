@@ -5,44 +5,26 @@ unstable: true
 
 # unstable_usePrompt
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data]
 
 <br />
 <br />
 
-<docs-warning>This API is experimental and subject to breaking changes in 
-minor/patch releases. Please use with caution and pay **very** close attention 
-to release notes for relevant changes.</docs-warning>
+<docs-warning>此 API 是实验性的，可能在次要/补丁版本中发生破坏性变更。请谨慎使用，并**密切**关注发布说明中的相关变更。</docs-warning>
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.unstable_usePrompt.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.unstable_usePrompt.html)
 
-Wrapper around [`useBlocker`](../hooks/useBlocker) to show a [`window.confirm`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm)
-prompt to users instead of building a custom UI with [`useBlocker`](../hooks/useBlocker).
+[`useBlocker`](../hooks/useBlocker) 的封装，向用户显示 [`window.confirm`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm) 提示，而无需使用 [`useBlocker`](../hooks/useBlocker) 构建自定义 UI。
 
-The `unstable_` flag will not be removed because this technique has a lot of
-rough edges and behaves very differently (and incorrectly sometimes) across
-browsers if users click addition back/forward navigations while the
-confirmation is open. Use at your own risk.
+`unstable_` 前缀不会被移除，因为此技术存在很多粗糙的边界情况，如果用户在确认对话框打开时点击额外的后退/前进导航，在不同浏览器中的表现差异很大（有时不正确）。使用时风险自负。
 
 ```tsx
 function ImportantForm() {
   let [value, setValue] = React.useState("");
 
-  // Block navigating elsewhere when data has been entered into the input
+  // 当输入框中有数据时，阻止导航到其他页面
   unstable_usePrompt({
     message: "Are you sure?",
     when: ({ currentLocation, nextLocation }) =>
@@ -66,7 +48,7 @@ function ImportantForm() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function usePrompt({
@@ -75,21 +57,19 @@ function usePrompt({
 }: {
   when: boolean | BlockerFunction;
   message: string;
-}): void
+}): void;
 ```
 
-## Params
+## 参数
 
 ### options.message
 
-The message to show in the confirmation dialog.
+确认对话框中显示的消息。
 
 ### options.when
 
-A boolean or a function that returns a boolean indicating whether to block the navigation. If a function is provided, it will receive an
-object with `currentLocation` and `nextLocation` properties.
+布尔值或返回布尔值的函数，指示是否阻止导航。如果提供函数，它会接收一个包含 `currentLocation` 和 `nextLocation` 属性的对象。
 
-## Returns
+## 返回值
 
-No return value.
-
+无返回值。

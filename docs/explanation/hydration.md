@@ -1,14 +1,14 @@
 ---
-title: Hydration
+title: 注水
 hidden: true
 ---
 
-There are a few nuances worth noting around the behavior of `HydrateFallback`:
+关于 `HydrateFallback` 的行为有一些值得注意的细微差别：
 
-- It is only relevant on initial document request and hydration, and will not be rendered on any subsequent client-side navigations
-- It is only relevant when you are also setting [`clientLoader.hydrate=true`][hydrate-true] on a given route
-- It is also relevant if you do have a `clientLoader` without a server `loader`, as this implies `clientLoader.hydrate=true` since there is otherwise no loader data at all to return from `useLoaderData`
-  - Even if you do not specify a `HydrateFallback` in this case, React Router will not render your route component and will bubble up to any ancestor `HydrateFallback` component
-  - This is to ensure that `useLoaderData` remains "happy-path"
-  - Without a server `loader`, `useLoaderData` would return `undefined` in any rendered route components
-- You cannot render an `<Outlet/>` in a `HydrateFallback` because children routes can't be guaranteed to operate correctly since their ancestor loader data may not yet be available if they are running `clientLoader` functions on hydration (i.e., use cases such as `useRouteLoaderData()` or `useMatches()`)
+- 它只与初始文档请求和注水相关，在后续的客户端导航中不会被渲染
+- 只有在给定路由上同时设置了 [`clientLoader.hydrate=true`][hydrate-true] 时才相关
+- 如果你有 `clientLoader` 但没有服务端 `loader`，它也是相关的，因为这意味着 `clientLoader.hydrate=true`，因为否则 `useLoaderData` 没有任何 loader 数据可以返回
+  - 即使在这种情况下你没有指定 `HydrateFallback`，React Router 也不会渲染你的路由组件，而是会冒泡到任何祖先的 `HydrateFallback` 组件
+  - 这是为了确保 `useLoaderData` 保持"正常路径"
+  - 没有服务端 `loader` 时，`useLoaderData` 将在任何渲染的路由组件中返回 `undefined`
+- 你不能在 `HydrateFallback` 中渲染 `<Outlet/>`，因为如果子路由的祖先 loader 数据尚不可用（即它们在注水时运行 `clientLoader` 函数的用例，如 `useRouteLoaderData()` 或 `useMatches()`），子路由无法保证正常工作

@@ -7,13 +7,13 @@ order: 1
 
 [MODES: framework]
 
-## Summary
+## 概述
 
 <docs-info>
-This file is required
+此文件是必需的
 </docs-info>
 
-The "root" route (`app/root.tsx`) is the only _required_ route in your React Router application because it is the parent to all routes and is in charge of rendering the root `<html>` document.
+"根"路由（`app/root.tsx`）是 React Router 应用中唯一*必需的*路由，因为它是所有路由的父级，负责渲染根 `<html>` 文档。
 
 ```tsx filename=app/root.tsx
 import { Outlet, Scripts } from "react-router";
@@ -35,9 +35,9 @@ export default function App() {
 }
 ```
 
-## Components to Render
+## 需要渲染的组件
 
-Because the root route manages your document, it is the proper place to render a handful of "document-level" components React Router provides. These components are to be used once inside your root route and they include everything React Router figured out or built in order for your page to render properly.
+由于根路由管理你的文档，它是渲染 React Router 提供的一些"文档级"组件的合适位置。这些组件在根路由中只使用一次，它们包含了 React Router 为正确渲染页面所计算或构建的所有内容。
 
 ```tsx filename=app/root.tsx
 import {
@@ -57,15 +57,15 @@ export default function App() {
         />
       </head>
       <body>
-        {/* Child routes render here */}
+        {/* 子路由在这里渲染 */}
         <Outlet />
 
-        {/* Manages scroll position for client-side transitions */}
-        {/* If you use a nonce-based content security policy for scripts, you must provide the `nonce` prop. Otherwise, omit the nonce prop as shown here. */}
+        {/* 管理客户端过渡的滚动位置 */}
+        {/* 如果你使用基于 nonce 的内容安全策略来控制脚本，必须提供 `nonce` prop。否则，如此处所示省略 nonce prop。 */}
         <ScrollRestoration />
 
-        {/* Script tags go here */}
-        {/* If you use a nonce-based content security policy for scripts, you must provide the `nonce` prop. Otherwise, omit the nonce prop as shown here. */}
+        {/* Script 标签放在这里 */}
+        {/* 如果你使用基于 nonce 的内容安全策略来控制脚本，必须提供 `nonce` prop。否则，如此处所示省略 nonce prop。 */}
         <Scripts />
       </body>
     </html>
@@ -73,7 +73,7 @@ export default function App() {
 }
 ```
 
-If you are not on React 19 or choosing not to use React's [`<link>`][react-link], [`<title>`][react-title], and [`<meta>`][react-meta] components, and instead relying on React Router's [`links`][react-router-links] and [`meta`][react-router-meta] exports, you need to add the following to your root route:
+如果你没有使用 React 19，或者选择不使用 React 的 [`<link>`][react-link]、[`<title>`][react-title] 和 [`<meta>`][react-meta] 组件，而是依赖 React Router 的 [`links`][react-router-links] 和 [`meta`][react-router-meta] 导出，则需要在根路由中添加以下内容：
 
 ```tsx filename=app/root.tsx
 import { Links, Meta } from "react-router";
@@ -82,10 +82,10 @@ export default function App() {
   return (
     <html lang="en">
       <head>
-        {/* All `meta` exports on all routes will render here */}
+        {/* 所有路由的 `meta` 导出将在这里渲染 */}
         <Meta />
 
-        {/* All `link` exports on all routes will render here */}
+        {/* 所有路由的 `link` 导出将在这里渲染 */}
         <Links />
       </head>
       <body>
@@ -98,16 +98,16 @@ export default function App() {
 }
 ```
 
-## Layout Export
+## Layout 导出
 
-The root route supports all [route module exports][route-module].
+根路由支持所有[路由模块导出][route-module]。
 
-The root route also supports an additional optional `Layout` export. The `Layout` component serves 2 purposes:
+根路由还支持一个额外的可选 `Layout` 导出。`Layout` 组件有两个用途：
 
-1. Avoid duplicating your document's "app shell" across your root component, `HydrateFallback`, and `ErrorBoundary`
-2. Prevent React from re-mounting your app shell elements when switching between the root component/`HydrateFallback`/`ErrorBoundary` which can cause a FOUC if React removes and re-adds `<link rel="stylesheet">` tags from your `<Links>` component.
+1. 避免在根组件、`HydrateFallback` 和 `ErrorBoundary` 之间重复"应用外壳"
+2. 防止 React 在根组件/`HydrateFallback`/`ErrorBoundary` 之间切换时重新挂载应用外壳元素，否则如果 React 移除并重新添加 `<Links>` 组件中的 `<link rel="stylesheet">` 标签，可能导致 FOUC（无样式内容闪烁）
 
-`Layout` takes a single `children` prop, which is the `default` export (e.g. `App`), `HydrateFallback`, or `ErrorBoundary`.
+`Layout` 接收单个 `children` prop，即 `default` 导出（如 `App`）、`HydrateFallback` 或 `ErrorBoundary`。
 
 ```tsx filename=app/root.tsx
 export function Layout({ children }) {
@@ -123,7 +123,7 @@ export function Layout({ children }) {
         <Links />
       </head>
       <body>
-        {/* children will be the root Component, ErrorBoundary, or HydrateFallback */}
+        {/* children 将是根 Component、ErrorBoundary 或 HydrateFallback */}
         {children}
         <Scripts />
         <ScrollRestoration />
@@ -139,13 +139,13 @@ export default function App() {
 export function ErrorBoundary() {}
 ```
 
-**A note on `useLoaderData`in the `Layout` Component**
+**关于在 `Layout` 组件中使用 `useLoaderData` 的说明**
 
-`useLoaderData` is not permitted to be used in `ErrorBoundary` components because it is intended for the happy-path route rendering, and its typings have a built-in assumption that the `loader` ran successfully and returned something. That assumption doesn't hold in an `ErrorBoundary` because it could have been the `loader` that threw and triggered the boundary! In order to access loader data in `ErrorBoundary`'s, you can use `useRouteLoaderData` which accounts for the loader data potentially being `undefined`.
+`useLoaderData` 不允许在 `ErrorBoundary` 组件中使用，因为它是为正常路由渲染设计的，其类型内置了 `loader` 成功运行并返回数据的假设。在 `ErrorBoundary` 中这个假设不成立，因为可能正是 `loader` 抛出错误触发了边界！要在 `ErrorBoundary` 中访问 loader 数据，可以使用 `useRouteLoaderData`，它考虑了 loader 数据可能为 `undefined` 的情况。
 
-Because your `Layout` component is used in both success and error flows, this same restriction holds. If you need to fork logic in your `Layout` depending on if it was a successful request or not, you can use `useRouteLoaderData("root")` and `useRouteError()`.
+由于你的 `Layout` 组件同时用于成功和错误流程，同样的限制也适用。如果你需要在 `Layout` 中根据请求是否成功来分叉逻辑，可以使用 `useRouteLoaderData("root")` 和 `useRouteError()`。
 
-<docs-warn>Because your `<Layout>` component is used for rendering the `ErrorBoundary`, you should be _very defensive_ to ensure that you can render your `ErrorBoundary` without encountering any render errors. If your `Layout` throws another error trying to render the boundary, then it can't be used and your UI will fall back to the very minimal built-in default `ErrorBoundary`.</docs-warn>
+<docs-warn>由于你的 `<Layout>` 组件用于渲染 `ErrorBoundary`，你应该*非常谨慎*以确保能够渲染 `ErrorBoundary` 而不遇到任何渲染错误。如果你的 `Layout` 在尝试渲染边界时抛出另一个错误，则无法使用它，你的 UI 将回退到非常简陋的内置默认 `ErrorBoundary`。</docs-warn>
 
 ```tsx filename=app/root.tsx lines=[6-7,19-29,32-34]
 export function Layout({

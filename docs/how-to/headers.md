@@ -1,17 +1,17 @@
 ---
-title: HTTP Headers
+title: HTTP 响应头
 ---
 
-# HTTP Headers
+# HTTP 响应头
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-Headers are primarily defined with the route module `headers` export. You can also set headers in `entry.server.tsx`.
+响应头主要通过路由模块的 `headers` 导出来定义。你也可以在 `entry.server.tsx` 中设置响应头。
 
-## From Route Modules
+## 从路由模块
 
 ```tsx filename=some-route.tsx
 import { Route } from "./+types/some-route";
@@ -26,13 +26,13 @@ export function headers(_: Route.HeadersArgs) {
 }
 ```
 
-You can return either a [`Headers`](https://developer.mozilla.org/en-US/docs/Web/API/Headers) instance or `HeadersInit`.
+你可以返回 [`Headers`](https://developer.mozilla.org/en-US/docs/Web/API/Headers) 实例或 `HeadersInit`。
 
-## From loaders and actions
+## 从 loader 和 action
 
-When the header is dependent on loader data, loaders and actions can also set headers.
+当响应头依赖于 loader 数据时，loader 和 action 也可以设置响应头。
 
-### 1. Wrap your return value in `data`
+### 1. 将返回值包裹在 `data` 中
 
 ```tsx lines=[1,8]
 import { data } from "react-router";
@@ -50,9 +50,9 @@ export async function loader({ params }: LoaderArgs) {
 }
 ```
 
-### 2. Return from `headers` export
+### 2. 从 `headers` 导出返回
 
-Headers from loaders and actions are not sent automatically. You must explicitly return them from the `headers` export.
+来自 loader 和 action 的响应头不会自动发送。你必须在 `headers` 导出中显式返回它们。
 
 ```tsx
 function hasAnyHeaders(headers: Headers): boolean {
@@ -69,11 +69,11 @@ export function headers({
 }
 ```
 
-One notable exception is `Set-Cookie` headers, which are automatically preserved from `headers`, `loader`, and `action` in parent routes, even without exporting `headers` from the child route.
+一个值得注意的例外是 `Set-Cookie` 响应头，它会从父路由的 `headers`、`loader` 和 `action` 中自动保留，即使子路由没有导出 `headers`。
 
-## Merging with parent headers
+## 与父路由响应头合并
 
-Consider these nested routes
+考虑这些嵌套路由：
 
 ```ts filename=routes.ts
 route("pages", "pages-layout-with-nav.tsx", [
@@ -81,13 +81,13 @@ route("pages", "pages-layout-with-nav.tsx", [
 ]);
 ```
 
-If both route modules want to set headers, the headers from the deepest matching route will be sent.
+如果两个路由模块都想设置响应头，将发送最深层匹配路由的响应头。
 
-When you need to keep both the parent and the child headers, you need to merge them in the child route.
+当你需要同时保留父级和子级的响应头时，需要在子路由中合并它们。
 
-### Appending
+### 追加
 
-The easiest way is to simply append to the parent headers. This avoids overwriting a header the parent may have set and both are important.
+最简单的方式是直接追加到父级响应头。这样可以避免覆盖父级可能设置的重要响应头。
 
 ```tsx
 export function headers({ parentHeaders }: HeadersArgs) {
@@ -98,9 +98,9 @@ export function headers({ parentHeaders }: HeadersArgs) {
 }
 ```
 
-### Setting
+### 设置
 
-Sometimes it's important to overwrite the parent header. Do this with `set` instead of `append`:
+有时覆盖父级响应头很重要。使用 `set` 而不是 `append`：
 
 ```tsx
 export function headers({ parentHeaders }: HeadersArgs) {
@@ -112,11 +112,11 @@ export function headers({ parentHeaders }: HeadersArgs) {
 }
 ```
 
-You can avoid the need to merge headers by only defining headers in "leaf routes" (index routes and child routes without children) and not in parent routes.
+你可以通过只在"叶子路由"（索引路由和没有子路由的子路由）中定义响应头，而不在父路由中定义，来避免合并响应头的需求。
 
-## From `entry.server.tsx`
+## 从 `entry.server.tsx`
 
-The `handleRequest` export receives the headers from the route module as an argument. You can append global headers here.
+`handleRequest` 导出会接收来自路由模块的响应头作为参数。你可以在这里追加全局响应头。
 
 ```tsx
 export default async function handleRequest(
@@ -126,7 +126,7 @@ export default async function handleRequest(
   routerContext,
   loadContext,
 ) {
-  // set, append global headers
+  // 设置、追加全局响应头
   responseHeaders.set(
     "X-App-Version",
     routerContext.manifest.version,
@@ -139,7 +139,7 @@ export default async function handleRequest(
 }
 ```
 
-If you don't have an `entry.server.tsx` run the `reveal` command:
+如果你没有 `entry.server.tsx`，运行 `reveal` 命令：
 
 ```shellscript nonumber
 react-router reveal

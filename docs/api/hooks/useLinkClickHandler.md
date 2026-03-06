@@ -4,29 +4,15 @@ title: useLinkClickHandler
 
 # useLinkClickHandler
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useLinkClickHandler.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useLinkClickHandler.html)
 
-Handles the click behavior for router [`<Link>`](../components/Link) components.This
-is useful if you need to create custom [`<Link>`](../components/Link) components with
-the same click behavior we use in our exported [`<Link>`](../components/Link).
+处理路由 [`<Link>`](../components/Link) 组件的点击行为。当你需要创建具有与我们导出的 [`<Link>`](../components/Link) 相同点击行为的自定义 [`<Link>`](../components/Link) 组件时，这非常有用。
 
-## Signature
+## 函数签名
 
 ```tsx
 function useLinkClickHandler<E extends Element = HTMLAnchorElement>(
@@ -55,52 +41,48 @@ function useLinkClickHandler<E extends Element = HTMLAnchorElement>(
 ): (event: React.MouseEvent<E, MouseEvent>) => void {}
 ```
 
-## Params
+## 参数
 
 ### to
 
-The URL to navigate to, can be a string or a partial [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html).
+要导航到的 URL，可以是字符串或部分 [`Path`](https://api.reactrouter.com/v7/interfaces/react-router.Path.html)。
 
 ### options.preventScrollReset
 
-Whether to prevent the scroll position from being reset to the top of the viewport on completion of the navigation when
-using the [`ScrollRestoration`](../components/ScrollRestoration) component. Defaults to `false`.
+在使用 [`ScrollRestoration`](../components/ScrollRestoration) 组件时，是否阻止导航完成后滚动位置重置到视口顶部。默认为 `false`。
 
 ### options.relative
 
-The [relative routing type](https://api.reactrouter.com/v7/types/react-router.RelativeRoutingType.html) to use for the link. Defaults to `"route"`.
+链接使用的[相对路由类型](https://api.reactrouter.com/v7/types/react-router.RelativeRoutingType.html)。默认为 `"route"`。
 
 ### options.replace
 
-Whether to replace the current [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) entry instead of pushing a new one. Defaults to `false`.
+是否替换当前的 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 条目而不是推入新条目。默认为 `false`。
 
 ### options.state
 
-The state to add to the [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) entry for this navigation. Defaults to `undefined`.
+要添加到此导航的 [`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) 条目的状态。默认为 `undefined`。
 
 ### options.target
 
-The target attribute for the link. Defaults to `undefined`.
+链接的 target 属性。默认为 `undefined`。
 
 ### options.viewTransition
 
-Enables a [View Transition](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) for this navigation. To apply specific styles during the transition, see
-[`useViewTransitionState`](../hooks/useViewTransitionState). Defaults to `false`.
+为此导航启用[视图过渡](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)。要在过渡期间应用特定样式，请参阅 [`useViewTransitionState`](../hooks/useViewTransitionState)。默认为 `false`。
 
 ### options.unstable_defaultShouldRevalidate
 
-Specify the default revalidation behavior for the navigation. Defaults to `true`.
+指定导航的默认重新验证行为。默认为 `true`。
 
 ### options.unstable_mask
 
-Masked location to display in the browser instead of the router location. Defaults to `undefined`.
+在浏览器中显示的遮罩位置，替代路由器位置。默认为 `undefined`。
 
 ### options.unstable_useTransitions
 
-Wraps the navigation in [`React.startTransition`](https://react.dev/reference/react/startTransition)
-for concurrent rendering. Defaults to `false`.
+将导航包裹在 [`React.startTransition`](https://react.dev/reference/react/startTransition) 中以支持并发渲染。默认为 `false`。
 
-## Returns
+## 返回值
 
-A click handler function that can be used in a custom [`Link`](../components/Link) component.
-
+可在自定义 [`Link`](../components/Link) 组件中使用的点击处理函数。

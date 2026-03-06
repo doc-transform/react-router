@@ -1,57 +1,57 @@
 ---
-title: .client modules
+title: .client 模块
 ---
 
-# `.client` modules
+# `.client` 模块
 
 [MODES: framework]
 
-## Summary
+## 概述
 
-You may have a file or dependency that uses module side effects in the browser. You can use `*.client.ts` on file names or nest files within `.client` directories to force them out of server bundles.
+你可能有在浏览器中使用模块副作用的文件或依赖。你可以在文件名上使用 `*.client.ts` 或将文件放在 `.client` 目录中，以强制将它们排除在服务端包之外。
 
 ```ts filename=feature-check.client.ts
-// this would break the server
+// 这会破坏服务端
 export const supportsVibrationAPI =
   "vibrate" in window.navigator;
 ```
 
-Note that values exported from this module will all be `undefined` on the server, so the only places to use them are in [`useEffect`][use_effect] and user events like click handlers.
+注意，从此模块导出的值在服务端上都是 `undefined`，因此唯一可以使用它们的地方是在 [`useEffect`][use_effect] 和用户事件（如点击处理器）中。
 
 ```ts
 import { supportsVibrationAPI } from "./feature-check.client.ts";
 
 console.log(supportsVibrationAPI);
-// server: undefined
-// client: true | false
+// 服务端: undefined
+// 客户端: true | false
 ```
 
 <docs-info>
 
-If you need more sophisticated control over what is included in the client/server bundles, check out the [`vite-env-only` plugin](https://github.com/pcattori/vite-env-only).
+如果你需要更精细地控制客户端/服务端包中包含的内容，请查看 [`vite-env-only` 插件](https://github.com/pcattori/vite-env-only)。
 
 </docs-info>
 
-## Usage Patterns
+## 使用模式
 
-### Individual Files
+### 单个文件
 
-Mark individual files as client-only by adding `.client` to the filename:
+通过在文件名中添加 `.client` 将单个文件标记为仅客户端：
 
 ```txt
 app/
-├── utils.client.ts        👈 client-only file
+├── utils.client.ts        👈 仅客户端文件
 ├── feature-detection.client.ts
 └── root.tsx
 ```
 
-### Client Directories
+### 客户端目录
 
-Mark entire directories as client-only by using `.client` in the directory name:
+通过在目录名中使用 `.client` 将整个目录标记为仅客户端：
 
 ```txt
 app/
-├── .client/               👈 entire directory is client-only
+├── .client/               👈 整个目录为仅客户端
 │   ├── analytics.ts
 │   ├── feature-detection.ts
 │   └── browser-utils.ts
@@ -59,9 +59,9 @@ app/
 └── root.tsx
 ```
 
-## Examples
+## 示例
 
-### Browser Feature Detection
+### 浏览器特性检测
 
 ```ts filename=app/utils/browser.client.ts
 export const canUseDOM = typeof window !== "undefined";
@@ -72,10 +72,10 @@ export const supportsVibrationAPI =
   "vibrate" in window.navigator;
 ```
 
-### Client-Only Libraries
+### 仅客户端库
 
 ```ts filename=app/analytics.client.ts
-// This would break on the server
+// 这在服务端会报错
 import { track } from "some-browser-only-analytics-lib";
 
 export function trackEvent(eventName: string, data: any) {
@@ -83,7 +83,7 @@ export function trackEvent(eventName: string, data: any) {
 }
 ```
 
-### Using Client Modules
+### 使用客户端模块
 
 ```tsx filename=app/routes/dashboard.tsx
 import { useEffect } from "react";
@@ -96,12 +96,12 @@ import { trackEvent } from "../analytics.client.ts";
 
 export default function Dashboard() {
   useEffect(() => {
-    // These values are undefined on the server
+    // 这些值在服务端上为 undefined
     if (canUseDOM && supportsVibrationAPI) {
       console.log("Device supports vibration");
     }
 
-    // Safe localStorage usage
+    // 安全的 localStorage 使用
     const savedTheme =
       supportsLocalStorage.getItem("theme");
     if (savedTheme) {

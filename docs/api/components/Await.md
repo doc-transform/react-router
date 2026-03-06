@@ -4,36 +4,26 @@ title: Await
 
 # Await
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/components.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.Await.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.Await.html)
 
-Used to render promise values with automatic error handling.
+用于渲染 Promise 值并自动处理错误。
 
-**Note:** `<Await>` expects to be rendered inside a [`<React.Suspense>`](https://react.dev/reference/react/Suspense)
+**注意：** `<Await>` 需要在 [`<React.Suspense>`](https://react.dev/reference/react/Suspense) 内部渲染。
 
 ```tsx
 import { Await, useLoaderData } from "react-router";
 
 export async function loader() {
-  // not awaited
+  // 未 await
   const reviews = getReviews();
-  // awaited (blocks the transition)
-  const book = await fetch("/api/book").then((res) => res.json());
+  // 已 await（阻塞过渡）
+  const book = await fetch("/api/book").then((res) =>
+    res.json(),
+  );
   return { book, reviews };
 }
 
@@ -59,21 +49,21 @@ function Book() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function Await<Resolve>({
   children,
   errorElement,
   resolve,
-}: AwaitProps<Resolve>)
+}: AwaitProps<Resolve>);
 ```
 
 ## Props
 
 ### children
 
-When using a function, the resolved value is provided as the parameter.
+使用函数时，已解析的值会作为参数传入。
 
 ```tsx [2]
 <Await resolve={reviewsPromise}>
@@ -81,13 +71,12 @@ When using a function, the resolved value is provided as the parameter.
 </Await>
 ```
 
-When using React elements, [`useAsyncValue`](../hooks/useAsyncValue) will provide the
-resolved value:
+使用 React 元素时，[`useAsyncValue`](../hooks/useAsyncValue) 会提供已解析的值：
 
 ```tsx [2]
 <Await resolve={reviewsPromise}>
   <Reviews />
-</Await>
+</Await>;
 
 function Reviews() {
   const resolvedReviews = useAsyncValue();
@@ -97,8 +86,7 @@ function Reviews() {
 
 ### errorElement
 
-The error element renders instead of the `children` when the [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-rejects.
+当 [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 被拒绝时，渲染此错误元素替代 `children`。
 
 ```tsx
 <Await
@@ -109,8 +97,7 @@ rejects.
 </Await>
 ```
 
-To provide a more contextual error, you can use the [`useAsyncError`](../hooks/useAsyncError) in a
-child component
+要提供更具上下文的错误信息，可以在子组件中使用 [`useAsyncError`](../hooks/useAsyncError)：
 
 ```tsx
 <Await
@@ -118,7 +105,7 @@ child component
   resolve={reviewsPromise}
 >
   <Reviews />
-</Await>
+</Await>;
 
 function ReviewsError() {
   const error = useAsyncError();
@@ -126,32 +113,28 @@ function ReviewsError() {
 }
 ```
 
-If you do not provide an `errorElement`, the rejected value will bubble up
-to the nearest route-level [`ErrorBoundary`](../../start/framework/route-module#errorboundary)
-and be accessible via the [`useRouteError`](../hooks/useRouteError) hook.
+如果未提供 `errorElement`，被拒绝的值将冒泡到最近的路由级 [`ErrorBoundary`](../../start/framework/route-module#errorboundary)，可通过 [`useRouteError`](../hooks/useRouteError) Hook 访问。
 
 ### resolve
 
-Takes a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-returned from a [`loader`](../../start/framework/route-module#loader) to be
-resolved and rendered.
+接收从 [`loader`](../../start/framework/route-module#loader) 返回的 [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)，用于解析和渲染。
 
 ```tsx
 import { Await, useLoaderData } from "react-router";
 
 export async function loader() {
-  let reviews = getReviews(); // not awaited
+  let reviews = getReviews(); // 未 await
   let book = await getBook();
   return {
     book,
-    reviews, // this is a promise
+    reviews, // 这是一个 Promise
   };
 }
 
 export default function Book() {
   const {
     book,
-    reviews, // this is the same promise
+    reviews, // 这是同一个 Promise
   } = useLoaderData();
 
   return (
@@ -160,7 +143,7 @@ export default function Book() {
       <p>{book.description}</p>
       <React.Suspense fallback={<ReviewsSkeleton />}>
         <Await
-          // and is the promise we pass to Await
+          // 传递给 Await 的 Promise
           resolve={reviews}
         >
           <Reviews />
@@ -170,4 +153,3 @@ export default function Book() {
   );
 }
 ```
-

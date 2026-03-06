@@ -1,47 +1,47 @@
 ---
-title: Framework Adoption from RouterProvider
+title: 从 RouterProvider 迁移到框架模式
 order: 5
 ---
 
-# Framework Adoption from RouterProvider
+# 从 RouterProvider 迁移到框架模式
 
-If you are not using `<RouterProvider>` please see [Framework Adoption from Component Routes][upgrade-component-routes] instead.
+如果你没有使用 `<RouterProvider>`，请参阅[从组件路由迁移到框架模式][upgrade-component-routes]。
 
-The React Router Vite plugin adds framework features to React Router. This guide will help you adopt the plugin in your app. If you run into any issues, please reach out for help on [Twitter](https://x.com/remix_run) or [Discord](https://rmx.as/discord).
+React Router Vite 插件为 React Router 增加了框架功能。本指南将帮助你在应用中采用该插件。如果你遇到任何问题，请通过 [Twitter](https://x.com/remix_run) 或 [Discord](https://rmx.as/discord) 寻求帮助。
 
-## Features
+## 功能
 
-The Vite plugin adds:
+Vite 插件增加了以下功能：
 
-- Route loaders, actions, and automatic data revalidation
-- Type-safe Routes Modules
-- Automatic route code-splitting
-- Automatic scroll restoration across navigations
-- Optional Static pre-rendering
-- Optional Server rendering
+- 路由 loader、action 和自动数据重新验证
+- 类型安全的路由模块
+- 自动路由代码拆分
+- 跨导航的自动滚动恢复
+- 可选的静态预渲染
+- 可选的服务端渲染
 
-The initial setup requires the most work. However, once complete, you can adopt new features incrementally.
+初始设置需要的工作量最大。不过一旦完成，你可以逐步采用新功能。
 
-## Prerequisites
+## 前提条件
 
-To use the Vite plugin, your project requires:
+使用 Vite 插件要求你的项目满足：
 
-- Node.js 20+ (if using Node as your runtime)
+- Node.js 20+（如果使用 Node 作为运行时）
 - Vite 5+
 
-## 1. Move route definitions into route modules
+## 1. 将路由定义移入路由模块
 
-The React Router Vite plugin renders its own `RouterProvider`, so you can't render an existing `RouterProvider` within it. Instead, you will need to format all of your route definitions to match the [Route Module API][route-modules].
+React Router Vite 插件会渲染自己的 `RouterProvider`，因此你不能在其中渲染现有的 `RouterProvider`。你需要将所有路由定义格式化为符合[路由模块 API][route-modules] 的格式。
 
-This step will take the longest, however there are several benefits to doing this regardless of adopting the React Router Vite plugin:
+这一步花费的时间最长，但不管是否采用 React Router Vite 插件，这样做都有几个好处：
 
-- Route modules will be lazy loaded, decreasing the initial bundle size of your app
-- Route definitions will be uniform, simplifying your app's architecture
-- Moving to route modules is incremental, you can migrate one route at a time
+- 路由模块会被懒加载，减小应用的初始包体积
+- 路由定义将统一规范，简化应用架构
+- 迁移到路由模块是渐进式的，你可以每次迁移一个路由
 
-**👉 Move your route definitions into route modules**
+**👉 将路由定义移入路由模块**
 
-Export each piece of your route definition as a separate named export, following the [Route Module API][route-modules].
+将路由定义的每个部分作为单独的命名导出，遵循[路由模块 API][route-modules]。
 
 ```tsx filename=src/routes/about.tsx
 export async function clientLoader() {
@@ -55,12 +55,12 @@ export default function About() {
   return <div>{data.title}</div>;
 }
 
-// clientAction, ErrorBoundary, etc.
+// clientAction、ErrorBoundary 等
 ```
 
-**👉 Create a convert function**
+**👉 创建转换函数**
 
-Create a helper function to convert route module definitions into the format expected by your data router:
+创建一个辅助函数，将路由模块定义转换为数据路由所期望的格式：
 
 ```tsx filename=src/main.tsx
 function convert(m: any) {
@@ -79,46 +79,46 @@ function convert(m: any) {
 }
 ```
 
-**👉 Lazy load and convert your route modules**
+**👉 懒加载并转换路由模块**
 
-Instead of importing your route modules directly, lazy load and convert them to the format expected by your data router.
+不再直接导入路由模块，而是懒加载并转换它们为数据路由所期望的格式。
 
-Not only does your route definition now conform to the Route Module API, but you also get the benefits of code-splitting your routes.
+这样不仅路由定义符合了路由模块 API，还获得了路由代码拆分的好处。
 
 ```diff filename=src/main.tsx
 let router = createBrowserRouter([
-  // ... other routes
+  // ... 其他路由
   {
     path: "about",
 -   loader: aboutLoader,
 -   Component: About,
 +   lazy: () => import("./routes/about").then(convert),
   },
-  // ... other routes
+  // ... 其他路由
 ]);
 ```
 
-Repeat this process for each route in your app.
+对应用中的每个路由重复此过程。
 
-## 2. Install the Vite plugin
+## 2. 安装 Vite 插件
 
-Once all of your route definitions are converted to route modules, you can adopt the React Router Vite plugin.
+当所有路由定义都转换为路由模块后，你就可以采用 React Router Vite 插件了。
 
-**👉 Install the React Router Vite plugin**
+**👉 安装 React Router Vite 插件**
 
 ```shellscript nonumber
 npm install -D @react-router/dev
 ```
 
-**👉 Install a runtime adapter**
+**👉 安装运行时适配器**
 
-We will assume you are using Node as your runtime.
+这里假设你使用 Node 作为运行时。
 
 ```shellscript nonumber
 npm install @react-router/node
 ```
 
-**👉 Swap out the React plugin for React Router**
+**👉 将 React 插件替换为 React Router**
 
 ```diff filename=vite.config.ts
 -import react from '@vitejs/plugin-react'
@@ -134,11 +134,11 @@ export default defineConfig({
 });
 ```
 
-## 3. Add the React Router config
+## 3. 添加 React Router 配置
 
-**👉 Create a `react-router.config.ts` file**
+**👉 创建 `react-router.config.ts` 文件**
 
-Add the following to the root of your project. In this config you can tell React Router about your project, like where to find the app directory and to not use SSR (server-side rendering) for now.
+在项目根目录添加以下文件。在这个配置中，你可以告诉 React Router 关于你项目的信息，比如应用目录的位置以及暂时不使用 SSR（服务端渲染）。
 
 ```shellscript nonumber
 touch react-router.config.ts
@@ -153,13 +153,13 @@ export default {
 } satisfies Config;
 ```
 
-## 4. Add the Root entry point
+## 4. 添加根入口点
 
-In a typical Vite app, the `index.html` file is the entry point for bundling. The React Router Vite plugin moves the entry point to a `root.tsx` file so you can use React to render the shell of your app instead of static HTML, and eventually upgrade to Server Rendering if you want.
+在典型的 Vite 应用中，`index.html` 文件是打包的入口点。React Router Vite 插件将入口点移到 `root.tsx` 文件，这样你就可以使用 React 来渲染应用的外壳，而不是静态 HTML，并且以后可以升级到服务端渲染。
 
-**👉 Move your existing `index.html` to `root.tsx`**
+**👉 将现有的 `index.html` 移至 `root.tsx`**
 
-For example, if your current `index.html` looks like this:
+例如，如果你当前的 `index.html` 如下所示：
 
 ```html filename=index.html
 <!DOCTYPE html>
@@ -179,7 +179,7 @@ For example, if your current `index.html` looks like this:
 </html>
 ```
 
-You would move that markup into `src/root.tsx` and delete `index.html`:
+你需要将这些标记移到 `src/root.tsx` 中，并删除 `index.html`：
 
 ```shellscript nonumber
 touch src/root.tsx
@@ -225,11 +225,11 @@ export default function Root() {
 }
 ```
 
-**👉 Move everything above `RouterProvider` to `root.tsx`**
+**👉 将 `RouterProvider` 上层的内容移到 `root.tsx`**
 
-Any global styles, context providers, etc. should be moved into `root.tsx` so they can be shared across all routes.
+所有全局样式、context provider 等应移到 `root.tsx` 中，以便在所有路由间共享。
 
-For example, if your `App.tsx` looks like this:
+例如，如果你的 `App.tsx` 如下所示：
 
 ```tsx filename=src/App.tsx
 import "./index.css";
@@ -245,12 +245,12 @@ export default function App() {
 }
 ```
 
-You would move everything above the `RouterProvider` into `root.tsx`.
+你需要将 `RouterProvider` 上面的所有内容移到 `root.tsx` 中。
 
 ```diff filename=src/root.tsx
 +import "./index.css";
 
-// ... other imports and Layout
+// ... 其他导入和 Layout
 
 export default function Root() {
   return (
@@ -263,15 +263,15 @@ export default function Root() {
 }
 ```
 
-## 5. Add client entry module (optional)
+## 5. 添加客户端入口模块（可选）
 
-In the typical Vite app the `index.html` file points to `src/main.tsx` as the client entry point. React Router uses a file named `src/entry.client.tsx` instead.
+在典型的 Vite 应用中，`index.html` 文件指向 `src/main.tsx` 作为客户端入口点。React Router 使用名为 `src/entry.client.tsx` 的文件。
 
-If no `entry.client.tsx` exists, the React Router Vite plugin will use a default, hidden one.
+如果不存在 `entry.client.tsx`，React Router Vite 插件会使用一个默认的隐藏入口。
 
-**👉 Make `src/entry.client.tsx` your entry point**
+**👉 将 `src/entry.client.tsx` 设为入口点**
 
-If your current `src/main.tsx` looks like this:
+如果你当前的 `src/main.tsx` 如下所示：
 
 ```tsx filename=src/main.tsx
 import React from "react";
@@ -280,7 +280,7 @@ import { BrowserRouter } from "react-router";
 import App from "./App";
 
 const router = createBrowserRouter([
-  // ... route definitions
+  // ... 路由定义
 ]);
 
 ReactDOM.createRoot(
@@ -292,7 +292,7 @@ ReactDOM.createRoot(
 );
 ```
 
-You would rename it to `entry.client.tsx` and change it to this:
+你需要将其重命名为 `entry.client.tsx` 并修改为：
 
 ```tsx filename=src/entry.client.tsx
 import React from "react";
@@ -307,21 +307,21 @@ ReactDOM.hydrateRoot(
 );
 ```
 
-- Use `hydrateRoot` instead of `createRoot`
-- Render a `<HydratedRouter>` instead of your `<App/>` component
-- Note: We are no longer creating the routes and manually passing them to `<RouterProvider />`. We will migrate our route definitions in the next step.
+- 使用 `hydrateRoot` 代替 `createRoot`
+- 渲染 `<HydratedRouter>` 代替 `<App/>` 组件
+- 注意：我们不再创建路由并手动传递给 `<RouterProvider />`。我们将在下一步中迁移路由定义。
 
-## 6. Migrate your routes
+## 6. 迁移路由
 
-The React Router Vite plugin uses a `routes.ts` file to configure your routes. The format will be pretty similar to the definitions of your data router.
+React Router Vite 插件使用 `routes.ts` 文件来配置路由。格式与数据路由的定义非常相似。
 
-**👉 Move definitions to a `routes.ts` file**
+**👉 将路由定义移到 `routes.ts` 文件**
 
 ```shellscript nonumber
 touch src/routes.ts src/catchall.tsx
 ```
 
-Move your route definitions to `routes.ts`. Note that the schemas don't match exactly, so you will get type errors; we'll fix this next.
+将路由定义移到 `routes.ts` 中。注意格式不完全匹配，你会遇到类型错误；我们接下来会修复。
 
 ```diff filename=src/routes.ts
 +import type { RouteConfig } from "@react-router/dev/routes";
@@ -357,7 +357,7 @@ Move your route definitions to `routes.ts`. Note that the schemas don't match ex
 +] satisfies RouteConfig;
 ```
 
-**👉 Replace the `lazy` loader with a `file` loader**
+**👉 将 `lazy` 加载替换为 `file` 加载**
 
 ```diff filename=src/routes.ts
 export default [
@@ -393,13 +393,13 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-[View our guide on configuring routes][configuring-routes] to learn more about the `routes.ts` file and helper functions to further simplify the route definitions.
+查看我们的[路由配置指南][configuring-routes]了解更多关于 `routes.ts` 文件以及辅助函数的信息，以进一步简化路由定义。
 
-## 7. Boot the app
+## 7. 启动应用
 
-At this point you should be fully migrated to the React Router Vite plugin. Go ahead and update your `dev` script and run the app to make sure everything is working.
+此时你应该已经完全迁移到 React Router Vite 插件了。请更新 `dev` 脚本并运行应用，确保一切正常。
 
-**👉 Add `dev` script and run the app**
+**👉 添加 `dev` 脚本并运行应用**
 
 ```json filename=package.json
 "scripts": {
@@ -407,23 +407,23 @@ At this point you should be fully migrated to the React Router Vite plugin. Go a
 }
 ```
 
-Now make sure you can boot your app at this point before moving on:
+在继续下一步之前，确保应用能正常启动：
 
 ```shellscript
 npm run dev
 ```
 
-You will probably want to add `.react-router/` to your `.gitignore` file to avoid tracking unnecessary files in your repository.
+你可能还想将 `.react-router/` 添加到 `.gitignore` 文件中，以避免在仓库中跟踪不必要的文件。
 
 ```txt
 .react-router/
 ```
 
-You can checkout [Type Safety][type-safety] to learn how to fully setup and use autogenerated type safety for params, loader data, and more.
+你可以查看[类型安全][type-safety]了解如何完整设置和使用自动生成的类型安全，包括参数、loader 数据等。
 
-## Enable SSR and/or Pre-rendering
+## 启用 SSR 和/或预渲染
 
-If you want to enable server rendering and static pre-rendering, you can do so with the `ssr` and `prerender` options in the bundler plugin. For SSR you'll need to also deploy the server build to a server.
+如果你想启用服务端渲染和静态预渲染，可以在打包器插件中使用 `ssr` 和 `prerender` 选项。对于 SSR，你还需要将服务端构建产物部署到服务器上。
 
 ```ts filename=react-router.config.ts
 import type { Config } from "@react-router/dev/config";

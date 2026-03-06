@@ -1,25 +1,25 @@
 ---
-title: Navigation Blocking
+title: 导航拦截
 ---
 
-# Navigation Blocking
+# 导航拦截
 
 [MODES: framework, data]
 
 <br/>
 <br/>
 
-When users are in the middle of a workflow, like filling out an important form, you may want to prevent them from navigating away from the page.
+当用户正在执行某个工作流程（如填写重要表单）时，你可能希望阻止他们离开页面。
 
-This example will show:
+本示例将展示：
 
-- Setting up a route with a form and action called with a fetcher
-- Blocking navigation when the form is dirty
-- Showing a confirmation when the user tries to leave the page
+- 设置一个带有表单和通过 fetcher 调用的 action 的路由
+- 当表单有修改时阻止导航
+- 当用户尝试离开页面时显示确认提示
 
-## 1. Set up a route with a form
+## 1. 设置带有表单的路由
 
-Add a route with the form, we'll use a "contact" route for this example:
+添加一个带有表单的路由，我们将使用"联系"路由作为示例：
 
 ```ts filename=routes.ts
 import {
@@ -34,7 +34,7 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-Add the form to the contact route module:
+将表单添加到联系路由模块：
 
 ```tsx filename=routes/contact.tsx
 import { useFetcher } from "react-router";
@@ -65,7 +65,7 @@ export default function Contact() {
       </p>
       <p>
         <button type="submit">
-          {fetcher.state === "idle" ? "Send" : "Sending..."}
+          {fetcher.state === "idle" ? "发送" : "发送中..."}
         </button>
       </p>
     </fetcher.Form>
@@ -73,9 +73,9 @@ export default function Contact() {
 }
 ```
 
-## 2. Add dirty state and onChange handler
+## 2. 添加脏状态和 onChange 处理器
 
-To track the dirty state of the form, we'll use a single boolean and a quick form onChange handler. You may want to track the dirty state differently but this works for this guide.
+为了跟踪表单的脏状态，我们使用一个布尔值和一个简单的表单 onChange 处理器。你可能需要用不同方式跟踪脏状态，但这对本指南来说足够了。
 
 ```tsx filename=routes/contact.tsx lines=[2,8-12]
 export default function Contact() {
@@ -91,13 +91,13 @@ export default function Contact() {
         setIsDirty(Boolean(email || message));
       }}
     >
-      {/* existing code */}
+      {/* 已有代码 */}
     </fetcher.Form>
   );
 }
 ```
 
-## 3. Block navigation when the form is dirty
+## 3. 当表单有修改时阻止导航
 
 ```tsx filename=routes/contact.tsx lines=[1,6-8]
 import { useBlocker } from "react-router";
@@ -109,15 +109,15 @@ export default function Contact() {
     useCallback(() => isDirty, [isDirty]),
   );
 
-  // ... existing code
+  // ... 已有代码
 }
 ```
 
-While this will now block a navigation, there's no way for the user to confirm it.
+虽然现在可以阻止导航了，但用户没有办法确认。
 
-## 4. Show confirmation UI
+## 4. 显示确认 UI
 
-This uses a simple div, but you may want to use a modal dialog.
+这里使用简单的 div，但你可能想用模态对话框。
 
 ```tsx filename=routes/contact.tsx lines=[19-41]
 export default function Contact() {
@@ -136,23 +136,23 @@ export default function Contact() {
         setIsDirty(Boolean(email || message));
       }}
     >
-      {/* existing code */}
+      {/* 已有代码 */}
 
       {blocker.state === "blocked" && (
         <div>
-          <p>Wait! You didn't send the message yet:</p>
+          <p>等等！你还没有发送消息：</p>
           <p>
             <button
               type="button"
               onClick={() => blocker.proceed()}
             >
-              Leave
+              离开
             </button>{" "}
             <button
               type="button"
               onClick={() => blocker.reset()}
             >
-              Stay here
+              留在这里
             </button>
           </p>
         </div>
@@ -162,11 +162,11 @@ export default function Contact() {
 }
 ```
 
-If the user clicks "leave" then `blocker.proceed()` will proceed with the navigation. If they click "stay here" then `blocker.reset()` will clear the blocker and keep them on the current page.
+如果用户点击"离开"，`blocker.proceed()` 将继续导航。如果点击"留在这里"，`blocker.reset()` 将清除阻止器并让他们留在当前页面。
 
-## 5. Reset the blocker when the action resolves
+## 5. 当 action 完成时重置阻止器
 
-If the user doesn't click either "leave" or "stay here", then submits the form, the blocker will still be active. Let's reset the blocker when the action resolves with an effect.
+如果用户没有点击"离开"或"留在这里"，而是提交了表单，阻止器仍然会处于活动状态。让我们在 action 完成时通过 effect 重置阻止器。
 
 ```tsx filename=routes/contact.tsx
 useEffect(() => {
@@ -178,29 +178,29 @@ useEffect(() => {
 }, [fetcher.data]);
 ```
 
-## 6. Clear the form when the action resolves
+## 6. 当 action 完成时清除表单
 
-While unrelated to navigation blocking, let's clear the form when the action resolves with a ref.
+虽然与导航拦截无关，让我们在 action 完成时通过 ref 清除表单。
 
 ```tsx
 let formRef = useRef<HTMLFormElement>(null);
 
-// put it on the form
+// 将它放在表单上
 <fetcher.Form
   ref={formRef}
   method="post"
   onChange={(event) => {
-    // ... existing code
+    // ... 已有代码
   }}
 >
-  {/* existing code */}
+  {/* 已有代码 */}
 </fetcher.Form>;
 ```
 
 ```tsx
 useEffect(() => {
   if (fetcher.data?.ok) {
-    // clear the form in the effect
+    // 在 effect 中清除表单
     formRef.current?.reset();
     if (blocker.state === "blocked") {
       blocker.reset();
@@ -209,13 +209,13 @@ useEffect(() => {
 }, [fetcher.data]);
 ```
 
-Alternatively, if a navigation is currently blocked, instead of resetting the blocker, you can proceed through to the blocked navigation.
+另外，如果当前导航被阻止，你可以选择继续被阻止的导航，而不是重置阻止器。
 
 ```tsx
 useEffect(() => {
   if (fetcher.data?.ok) {
     if (blocker.state === "blocked") {
-      // proceed with the blocked navigation
+      // 继续被阻止的导航
       blocker.proceed();
     } else {
       formRef.current?.reset();
@@ -224,10 +224,10 @@ useEffect(() => {
 }, [fetcher.data]);
 ```
 
-In this case the user flow is:
+在这种情况下，用户流程是：
 
-- User fills out the form
-- User forgets to click "send" and clicks a link instead
-- The navigation is blocked, and the confirmation message is shown
-- Instead of clicking "leave" or "stay here", the user submits the form
-- The user is taken to the requested page
+- 用户填写表单
+- 用户忘记点击"发送"，转而点击了一个链接
+- 导航被阻止，确认消息显示
+- 用户没有点击"离开"或"留在这里"，而是提交了表单
+- 用户被带到请求的页面

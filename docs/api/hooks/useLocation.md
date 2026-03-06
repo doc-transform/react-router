@@ -4,26 +4,13 @@ title: useLocation
 
 # useLocation
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useLocation.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useLocation.html)
 
-Returns the current [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html). This can be useful if you'd like to
-perform some side effect whenever it changes.
+返回当前的 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html)。当你需要在位置变化时执行某些副作用时，这非常有用。
 
 ```tsx
 import * as React from 'react'
@@ -43,13 +30,12 @@ function SomeComponent() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useLocation(): Location
+function useLocation(): Location;
 ```
 
-## Returns
+## 返回值
 
-The current [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) object
-
+当前的 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 对象。

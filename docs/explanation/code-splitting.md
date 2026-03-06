@@ -1,19 +1,19 @@
 ---
-title: Automatic Code Splitting
+title: 自动代码分割
 ---
 
-# Automatic Code Splitting
+# 自动代码分割
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-When using React Router's framework features, your application is automatically code split to improve the performance of initial load times when users visit your application.
+使用 React Router 的框架功能时，你的应用会自动进行代码分割，以提高用户访问应用时的初始加载性能。
 
-## Code Splitting by Route
+## 按路由代码分割
 
-Consider this simple route config:
+考虑以下简单的路由配置：
 
 ```tsx filename=app/routes.ts
 import {
@@ -27,15 +27,15 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-Instead of bundling all routes into a single giant build, the modules referenced (`contact.tsx` and `about.tsx`) become entry points to the bundler.
+引用的模块（`contact.tsx` 和 `about.tsx`）不会被打包成一个巨大的构建产物，而是成为打包工具的入口点。
 
-Because these entry points are coupled to URL segments, React Router knows just from a URL which bundles are needed in the browser, and more importantly, which are not.
+因为这些入口点与 URL 段耦合，React Router 仅通过 URL 就知道浏览器中需要哪些包，更重要的是，哪些是不需要的。
 
-If the user visits `"/about"` then the bundles for `about.tsx` will be loaded but not `contact.tsx`. This drastically reduces the JavaScript footprint for initial page loads and speeds up your application.
+如果用户访问 `"/about"`，则 `about.tsx` 的包将被加载，但 `contact.tsx` 不会。这大大减少了初始页面加载的 JavaScript 体积，加速了你的应用。
 
-## Removal of Server Code
+## 移除服务端代码
 
-Any server-only [Route Module APIs][route-module] will be removed from the bundles. Consider this route module:
+任何仅限服务端的[路由模块 API][route-module] 将从包中移除。考虑以下路由模块：
 
 ```tsx
 export async function loader() {
@@ -56,6 +56,6 @@ export default function Component({ loaderData }) {
 }
 ```
 
-After building for the browser, only the `Component` will still be in the bundle, so you can use server-only code in the other module exports.
+为浏览器构建后，只有 `Component` 仍会存在于包中，因此你可以在其他模块导出中使用仅限服务端的代码。
 
 [route-module]: ../../start/framework/route-module

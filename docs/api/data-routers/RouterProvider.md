@@ -4,26 +4,13 @@ title: RouterProvider
 
 # RouterProvider
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/components.tsx
--->
-
 [MODES: data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.RouterProvider.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.RouterProvider.html)
 
-Render the UI for the given [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html). This component should
-typically be at the top of an app's element tree.
+渲染给定 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) 的 UI。此组件通常位于应用元素树的顶层。
 
 ```tsx
 import { createBrowserRouter } from "react-router";
@@ -32,17 +19,13 @@ import { createRoot } from "react-dom/client";
 
 const router = createBrowserRouter(routes);
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <RouterProvider router={router} />,
 );
 ```
 
-<docs-info>Please note that this component is exported both from
-`react-router` and `react-router/dom` with the only difference being that the
-latter automatically wires up `react-dom`'s [`flushSync`](https://react.dev/reference/react-dom/flushSync)
-implementation. You _almost always_ want to use the version from
-`react-router/dom` unless you're running in a non-DOM environment.</docs-info>
+<docs-info>请注意此组件同时从 `react-router` 和 `react-router/dom` 导出，唯一的区别是后者自动接入了 `react-dom` 的 [`flushSync`](https://react.dev/reference/react-dom/flushSync) 实现。除非你在非 DOM 环境中运行，否则几乎总是应该使用 `react-router/dom` 的版本。</docs-info>
 
-## Signature
+## 函数签名
 
 ```tsx
 function RouterProvider({
@@ -50,31 +33,25 @@ function RouterProvider({
   flushSync: reactDomFlushSyncImpl,
   onError,
   unstable_useTransitions,
-}: RouterProviderProps): React.ReactElement
+}: RouterProviderProps): React.ReactElement;
 ```
 
 ## Props
 
 ### flushSync
 
-The [`ReactDOM.flushSync`](https://react.dev/reference/react-dom/flushSync)
-implementation to use for flushing updates.
+[`ReactDOM.flushSync`](https://react.dev/reference/react-dom/flushSync) 的实现，用于刷新更新。
 
-You usually don't have to worry about this:
-- The `RouterProvider` exported from `react-router/dom` handles this internally for you
-- If you are rendering in a non-DOM environment, you can import
-  `RouterProvider` from `react-router` and ignore this prop
+通常你不需要关心这个：
+
+- 从 `react-router/dom` 导出的 `RouterProvider` 会在内部为你处理
+- 如果你在非 DOM 环境中渲染，可以从 `react-router` 导入 `RouterProvider` 并忽略此 prop
 
 ### onError
 
-An error handler function that will be called for any middleware, loader, action,
-or render errors that are encountered in your application.  This is useful for
-logging or reporting errors instead of in the `ErrorBoundary` because it's not
-subject to re-rendering and will only run one time per error.
+错误处理函数，会在应用中遇到的任何中间件、loader、action 或渲染错误时调用。这对于记录日志或上报错误很有用，因为它不受重新渲染的影响，每个错误只运行一次，比在 `ErrorBoundary` 中处理更可靠。
 
-The `errorInfo` parameter is passed along from
-[`componentDidCatch`](https://react.dev/reference/react/Component#componentdidcatch)
-and is only present for render errors.
+`errorInfo` 参数来自 [`componentDidCatch`](https://react.dev/reference/react/Component#componentdidcatch)，仅在渲染错误时存在。
 
 ```tsx
 <RouterProvider onError=(error, info) => {
@@ -86,24 +63,15 @@ and is only present for render errors.
 
 ### router
 
-The [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) instance to use for navigation and data fetching.
+用于导航和数据获取的 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html) 实例。
 
 ### unstable_useTransitions
 
-Control whether router state updates are internally wrapped in
-[`React.startTransition`](https://react.dev/reference/react/startTransition).
+控制路由器状态更新是否在内部包裹在 [`React.startTransition`](https://react.dev/reference/react/startTransition) 中。
 
-- When left `undefined`, all state updates are wrapped in
-  `React.startTransition`
-  - This can lead to buggy behaviors if you are wrapping your own
-    navigations/fetchers in `startTransition`.
-- When set to `true`, [`Link`](../components/Link) and [`Form`](../components/Form) navigations will be wrapped
-  in `React.startTransition` and router state changes will be wrapped in
-  `React.startTransition` and also sent through
-  [`useOptimistic`](https://react.dev/reference/react/useOptimistic) to
-  surface mid-navigation router state changes to the UI.
-- When set to `false`, the router will not leverage `React.startTransition` or
-  `React.useOptimistic` on any navigations or state changes.
+- 当值为 `undefined` 时，所有状态更新都包裹在 `React.startTransition` 中
+  - 如果你自己将导航/fetcher 包裹在 `startTransition` 中，这可能导致异常行为。
+- 当设为 `true` 时，[`Link`](../components/Link) 和 [`Form`](../components/Form) 导航会包裹在 `React.startTransition` 中，路由器状态变化也会包裹在 `React.startTransition` 中并通过 [`useOptimistic`](https://react.dev/reference/react/useOptimistic) 将导航中的路由器状态变化展示给 UI。
+- 当设为 `false` 时，路由器不会在任何导航或状态变化中使用 `React.startTransition` 或 `React.useOptimistic`。
 
-For more information, please see the [docs](https://reactrouter.com/explanation/react-transitions).
-
+更多信息请参阅[文档](https://reactrouter.com/explanation/react-transitions)。

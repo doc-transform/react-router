@@ -5,30 +5,16 @@ unstable: true
 
 # unstable_RSCHydratedRouter
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/rsc/browser.tsx
--->
-
 [MODES: data]
 
 <br />
 <br />
 
-<docs-warning>This API is experimental and subject to breaking changes in 
-minor/patch releases. Please use with caution and pay **very** close attention 
-to release notes for relevant changes.</docs-warning>
+<docs-warning>此 API 是实验性的，可能在次要/补丁版本中发生破坏性变更。请谨慎使用，并**密切**关注发布说明中的相关变更。</docs-warning>
 
-## Summary
+## 概述
 
-Hydrates a server rendered [`unstable_RSCPayload`](https://api.reactrouter.com/v7/types/react-router.unstable_RSCPayload.html) in the browser.
+在浏览器中注水服务端渲染的 [`unstable_RSCPayload`](https://api.reactrouter.com/v7/types/react-router.unstable_RSCPayload.html)。
 
 ```tsx
 import { startTransition, StrictMode } from "react";
@@ -45,7 +31,9 @@ createFromReadableStream(getRSCStream()).then((payload) =>
       document,
       <StrictMode>
         <RSCHydratedRouter
-          createFromReadableStream={createFromReadableStream}
+          createFromReadableStream={
+            createFromReadableStream
+          }
           payload={payload}
         />
       </StrictMode>,
@@ -55,7 +43,7 @@ createFromReadableStream(getRSCStream()).then((payload) =>
 );
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function RSCHydratedRouter({
@@ -64,34 +52,27 @@ function RSCHydratedRouter({
   payload,
   routeDiscovery = "eager",
   getContext,
-}: RSCHydratedRouterProps)
+}: RSCHydratedRouterProps);
 ```
 
 ## Props
 
 ### createFromReadableStream
 
-Your `react-server-dom-xyz/client`'s `createFromReadableStream` function,
-used to decode payloads from the server.
+你的 `react-server-dom-xyz/client` 的 `createFromReadableStream` 函数，用于解码来自服务器的载荷。
 
 ### fetch
 
-Optional fetch implementation. Defaults to global [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch).
+可选的 fetch 实现。默认为全局 [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch)。
 
 ### getContext
 
-A function that returns an [`RouterContextProvider`](../utils/RouterContextProvider) instance
-which is provided as the `context` argument to client [`action`](../../start/data/route-object#action)s,
-[`loader`](../../start/data/route-object#loader)s and [middleware](../../how-to/middleware).
-This function is called to generate a fresh `context` instance on each
-navigation or fetcher call.
+返回 [`RouterContextProvider`](../utils/RouterContextProvider) 实例的函数，作为客户端 [`action`](../../start/data/route-object#action)、[`loader`](../../start/data/route-object#loader) 和[中间件](../../how-to/middleware)的 `context` 参数提供。每次导航或 fetcher 调用都会调用此函数生成新的 `context` 实例。
 
 ### payload
 
-The decoded [`unstable_RSCPayload`](https://api.reactrouter.com/v7/types/react-router.unstable_RSCPayload.html) to hydrate.
+要注水的已解码 [`unstable_RSCPayload`](https://api.reactrouter.com/v7/types/react-router.unstable_RSCPayload.html)。
 
 ### routeDiscovery
 
-`"eager"` or `"lazy"` - Determines if links are eagerly discovered, or
-delayed until clicked.
-
+`"eager"` 或 `"lazy"` - 决定链接是立即发现还是延迟到点击时发现。

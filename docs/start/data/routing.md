@@ -1,15 +1,15 @@
 ---
-title: Routing
+title: 路由
 order: 2
 ---
 
-# Routing
+# 路由
 
 [MODES: data]
 
-## Configuring Routes
+## 配置路由
 
-Routes are configured as the first argument to `createBrowserRouter`. At a minimum, you need a path and component:
+路由作为 `createBrowserRouter` 的第一个参数进行配置。至少需要一个路径和组件：
 
 ```tsx
 import { createBrowserRouter } from "react-router";
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
 ]);
 ```
 
-Here is a larger sample route config:
+以下是一个更完整的路由配置示例：
 
 ```ts filename=app/routes.ts
 createBrowserRouter([
@@ -54,9 +54,9 @@ createBrowserRouter([
 ]);
 ```
 
-## Route Objects
+## 路由对象
 
-Route objects define the behavior of a route beyond just the path and component, like data loading and actions. We'll go into more detail in the [Route Object guide](./route-object), but here's a quick example of a loader.
+路由对象不仅定义了路径和组件，还定义了路由的其他行为，如数据加载和操作。我们将在[路由对象指南](./route-object)中详细介绍，这里先看一个 loader 的简单示例。
 
 ```tsx filename=app/team.tsx
 import {
@@ -81,9 +81,9 @@ function Team() {
 }
 ```
 
-## Nested Routes
+## 嵌套路由
 
-Routes can be nested inside parent routes through `children`.
+路由可以通过 `children` 嵌套在父路由中。
 
 ```ts filename=app/routes.ts
 createBrowserRouter([
@@ -98,9 +98,9 @@ createBrowserRouter([
 ]);
 ```
 
-The path of the parent is automatically included in the child, so this config creates both `"/dashboard"` and `"/dashboard/settings"` URLs.
+父路由的路径会自动包含在子路由中，因此上面的配置同时创建了 `"/dashboard"` 和 `"/dashboard/settings"` 两个 URL。
 
-Child routes are rendered through the `<Outlet/>` in the parent route.
+子路由通过父路由中的 `<Outlet/>` 进行渲染。
 
 ```tsx filename=app/dashboard.tsx
 import { Outlet } from "react-router";
@@ -109,21 +109,21 @@ export default function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
-      {/* will either be <Home> or <Settings> */}
+      {/* 这里渲染的是 <Home> 或 <Settings> */}
       <Outlet />
     </div>
   );
 }
 ```
 
-## Layout Routes
+## 布局路由
 
-Omitting the `path` in a route creates new [Nested Routes](#nested-routes) for its children without adding any segments to the URL.
+省略路由的 `path` 会为其子路由创建新的[嵌套路由](#嵌套路由)层级，而不向 URL 添加任何路径段。
 
 ```tsx lines=[3,16]
 createBrowserRouter([
   {
-    // no path on this parent route, just the component
+    // 这个父路由没有 path，只有组件
     Component: MarketingLayout,
     children: [
       { index: true, Component: Home },
@@ -136,7 +136,7 @@ createBrowserRouter([
     children: [
       { index: true, Component: ProjectsHome },
       {
-        // again, no path, just a component for the layout
+        // 同样没有 path，只有布局组件
         Component: ProjectLayout,
         children: [
           { path: ":pid", Component: Project },
@@ -148,32 +148,32 @@ createBrowserRouter([
 ]);
 ```
 
-Note that:
+注意：
 
-- `Home` and `Contact` will be rendered into the `MarketingLayout` outlet
-- `Project` and `EditProject` will be rendered into the `ProjectLayout` outlet while `ProjectsHome` will not.
+- `Home` 和 `Contact` 会渲染到 `MarketingLayout` 的 outlet 中
+- `Project` 和 `EditProject` 会渲染到 `ProjectLayout` 的 outlet 中，而 `ProjectsHome` 不会。
 
-## Index Routes
+## 索引路由
 
-Index routes are defined by setting `index: true` on a route object without a path.
+索引路由通过在没有 path 的路由对象上设置 `index: true` 来定义。
 
 ```ts
 { index: true, Component: Home }
 ```
 
-Index routes render into their parent's [Outlet][outlet] at their parent's URL (like a default child route).
+索引路由在父路由的 URL 处渲染到父路由的 [Outlet][outlet] 中（类似于默认子路由）。
 
 ```ts lines=[4,5,10,11]
 import { createBrowserRouter } from "react-router";
 
 createBrowserRouter([
-  // renders at "/"
+  // 在 "/" 处渲染
   { index: true, Component: Home },
   {
     Component: Dashboard,
     path: "/dashboard",
     children: [
-      // renders at "/dashboard"
+      // 在 "/dashboard" 处渲染
       { index: true, Component: DashboardHome },
       { path: "settings", Component: DashboardSettings },
     ],
@@ -181,16 +181,16 @@ createBrowserRouter([
 ]);
 ```
 
-Note that index routes can't have children.
+注意：索引路由不能有子路由。
 
-## Prefix Route
+## 前缀路由
 
-A route with just a path and no component creates a group of routes with a path prefix.
+只有 path 而没有组件的路由会创建一组带有路径前缀的路由。
 
 ```tsx lines=[3]
 createBrowserRouter([
   {
-    // no component, just a path
+    // 没有组件，只有路径
     path: "/projects",
     children: [
       { index: true, Component: ProjectsHome },
@@ -201,17 +201,17 @@ createBrowserRouter([
 ]);
 ```
 
-This creates the routes `/projects`, `/projects/:pid`, and `/projects/:pid/edit` without introducing a layout component.
+这样会创建 `/projects`、`/projects/:pid` 和 `/projects/:pid/edit` 路由，而不引入布局组件。
 
-## Dynamic Segments
+## 动态路径段
 
-If a path segment starts with `:` then it becomes a "dynamic segment". When the route matches the URL, the dynamic segment will be parsed from the URL and provided as `params` to other router APIs.
+如果路径段以 `:` 开头，则它会成为"动态段"。当路由匹配 URL 时，动态段会从 URL 中解析出来，并作为 `params` 提供给其他路由 API。
 
 ```ts lines=[2]
 {
   path: "teams/:teamId",
   loader: async ({ params }) => {
-    // params are available in loaders/actions
+    // params 在 loader/action 中可用
     let team = await fetchTeam(params.teamId);
     return { name: team.name };
   },
@@ -223,13 +223,13 @@ If a path segment starts with `:` then it becomes a "dynamic segment". When the 
 import { useParams } from "react-router";
 
 function Team() {
-  // params are available in components through useParams
+  // params 在组件中通过 useParams 获取
   let params = useParams();
   // ...
 }
 ```
 
-You can have multiple dynamic segments in one route path:
+一个路由路径中可以有多个动态段：
 
 ```ts
 {
@@ -237,9 +237,9 @@ You can have multiple dynamic segments in one route path:
 }
 ```
 
-## Optional Segments
+## 可选路径段
 
-You can make a route segment optional by adding a `?` to the end of the segment.
+你可以在路径段末尾添加 `?` 使其成为可选的。
 
 ```ts
 {
@@ -247,7 +247,7 @@ You can make a route segment optional by adding a `?` to the end of the segment.
 }
 ```
 
-You can have optional static segments, too:
+静态路径段也可以是可选的：
 
 ```ts
 {
@@ -255,20 +255,20 @@ You can have optional static segments, too:
 }
 ```
 
-## Splats
+## 通配符
 
-Also known as "catchall" and "star" segments. If a route path pattern ends with `/*` then it will match any characters following the `/`, including other `/` characters.
+也称为"全匹配"和"星号"路径段。如果路由路径模式以 `/*` 结尾，它将匹配 `/` 之后的任何字符，包括其他 `/` 字符。
 
 ```ts
 {
   path: "files/*";
   loader: async ({ params }) => {
-    params["*"]; // will contain the remaining URL after files/
+    params["*"]; // 包含 files/ 之后的剩余 URL
   };
 }
 ```
 
-You can destructure the `*`, you just have to assign it a new name. A common name is `splat`:
+你可以解构 `*`，但需要给它一个新名称。常用的名称是 `splat`：
 
 ```tsx
 const { "*": splat } = params;
@@ -276,6 +276,6 @@ const { "*": splat } = params;
 
 ---
 
-Next: [Route Object](./route-object)
+下一节：[路由对象](./route-object)
 
 [outlet]: https://api.reactrouter.com/v7/functions/react-router.Outlet.html

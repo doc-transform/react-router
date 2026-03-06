@@ -4,25 +4,13 @@ title: generatePath
 
 # generatePath
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/router/utils.ts
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.generatePath.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.generatePath.html)
 
-Returns a path with params interpolated.
+返回一个插入参数后的路径。
 
 ```tsx
 import { generatePath } from "react-router";
@@ -30,7 +18,7 @@ import { generatePath } from "react-router";
 generatePath("/users/:id", { id: "123" }); // "/users/123"
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function generatePath<Path extends string>(
@@ -41,17 +29,16 @@ function generatePath<Path extends string>(
 ): string {}
 ```
 
-## Params
+## 参数
 
 ### originalPath
 
-The original path to generate.
+要生成的原始路径。
 
 ### params
 
-The parameters to interpolate into the path.
+要插入到路径中的参数。
 
-## Returns
+## 返回值
 
-The generated path with parameters interpolated.
-
+插入参数后生成的路径。

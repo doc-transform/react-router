@@ -4,26 +4,13 @@ title: Outlet
 
 # Outlet
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/components.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.Outlet.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.Outlet.html)
 
-Renders the matching child route of a parent route or nothing if no child
-route matches.
+渲染父路由的匹配子路由，如果没有匹配的子路由则不渲染任何内容。
 
 ```tsx
 import { Outlet } from "react-router";
@@ -38,22 +25,22 @@ export default function SomeParent() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function Outlet(props: OutletProps): React.ReactElement | null
+function Outlet(
+  props: OutletProps,
+): React.ReactElement | null;
 ```
 
 ## Props
 
 ### context
 
-Provides a context value to the element tree below the outlet. Use when
-the parent route needs to provide values to child routes.
+为 outlet 下方的元素树提供上下文值。当父路由需要向子路由传递值时使用。
 
 ```tsx
 <Outlet context={myContextValue} />
 ```
 
-Access the context with [`useOutletContext`](../hooks/useOutletContext).
-
+通过 [`useOutletContext`](../hooks/useOutletContext) 访问上下文。

@@ -1,19 +1,19 @@
 ---
-title: Future Flags
+title: Future Flag 与废弃项
 order: 1
 ---
 
-# Future Flags and Deprecations
+# Future Flag 与废弃项
 
-This guide walks you through the process of adopting future flags in your React Router app. By following this strategy, you will be able to upgrade to the next major version of React Router with minimal changes. To read more about future flags see [API Development Strategy](../community/api-development-strategy).
+本指南将引导你在 React Router 应用中采用 future flag。按照这个策略，你可以在最少的改动下升级到 React Router 的下一个主版本。要了解更多关于 future flag 的信息，请参阅 [API 开发策略](../community/api-development-strategy)。
 
-We highly recommend you make a commit after each step and ship it instead of doing everything all at once. Most flags can be adopted in any order, with exceptions noted below.
+我们强烈建议你在每一步完成后提交代码并部署，而不是一次性完成所有更改。大多数 flag 可以按任意顺序采用，特殊情况会在下方注明。
 
-## Update to latest v7.x
+## 更新到最新的 v7.x
 
-First update to the latest minor version of v7.x to have the latest future flags. You may see a number of deprecation warnings as you upgrade, which we'll cover below.
+首先更新到 v7.x 的最新小版本，以获取最新的 future flag。升级过程中你可能会看到一些废弃警告，我们将在下面逐一介绍。
 
-👉 Update to latest v7
+👉 更新到最新的 v7
 
 ```sh
 npm install react-router@7 @react-router/{dev,node,etc.}@7
@@ -26,11 +26,11 @@ npm install react-router@7 @react-router/{dev,node,etc.}@7
 <br/>
 <br/>
 
-**Background**
+**背景**
 
-Middleware allows you to run code before and after the [`Response`][Response] generation for the matched path. This enables common patterns like authentication, logging, error handling, and data preprocessing in a reusable way. Please see the [docs](../how-to/middleware) for more information.
+中间件允许你在匹配路径的 [`Response`][Response] 生成前后运行代码。这使得身份认证、日志记录、错误处理和数据预处理等常见模式可以被复用。更多信息请参阅[文档](../how-to/middleware)。
 
-👉 **Enable the Flag**
+👉 **启用该 Flag**
 
 ```ts filename=react-router.config.ts
 import type { Config } from "@react-router/dev/config";
@@ -42,11 +42,11 @@ export default {
 } satisfies Config;
 ```
 
-**Update your Code**
+**更新你的代码**
 
-If you're using `react-router-serve`, then you should not need to make any updates to your code.
+如果你使用的是 `react-router-serve`，则不需要对代码做任何更新。
 
-You should only need to update your code if you are using the `context` parameter in `loader` and `action` functions. This only applies if you have a custom server with a `getLoadContext` function. Please see the docs on the middleware [`getLoadContext` changes](../how-to/middleware#changes-to-getloadcontextapploadcontext) and the instructions to [migrate to the new API](../how-to/middleware#migration-from-apploadcontext).
+只有当你在 `loader` 和 `action` 函数中使用了 `context` 参数时才需要更新代码。这仅适用于拥有自定义服务器且使用了 `getLoadContext` 函数的情况。请参阅中间件 [`getLoadContext` 变更](../how-to/middleware#changes-to-getloadcontextapploadcontext)的文档以及[迁移到新 API](../how-to/middleware#migration-from-apploadcontext) 的说明。
 
 ## `future.v8_splitRouteModules`
 
@@ -55,13 +55,13 @@ You should only need to update your code if you are using the `context` paramete
 <br/>
 <br/>
 
-**Background**
+**背景**
 
-This feature enables splitting client-side route exports (`clientLoader`, `clientAction`, `clientMiddleware`, `HydrateFallback`) into separate chunks that can be loaded independently from the route component. This allows these exports to be fetched and executed while the component code is still downloading, improving performance for client-side data loading.
+此功能支持将客户端路由导出（`clientLoader`、`clientAction`、`clientMiddleware`、`HydrateFallback`）拆分为可独立加载的单独代码块。这允许这些导出在组件代码仍在下载时就被获取和执行，从而提升客户端数据加载的性能。
 
-This can be set to `true` for opt-in behavior, or `"enforce"` to require all routes to be splittable (which will cause build failures for routes that cannot be split due to shared code).
+可以设置为 `true` 启用该行为，或设置为 `"enforce"` 要求所有路由都可拆分（对于因共享代码而无法拆分的路由，构建将会失败）。
 
-👉 **Enable the Flag**
+👉 **启用该 Flag**
 
 ```ts filename=react-router.config.ts
 import type { Config } from "@react-router/dev/config";
@@ -73,9 +73,9 @@ export default {
 } satisfies Config;
 ```
 
-**Update your Code**
+**更新你的代码**
 
-No code changes are required. This is an optimization feature that works automatically once enabled.
+无需任何代码改动。这是一项优化功能，启用后自动生效。
 
 ## `future.v8_viteEnvironmentApi`
 
@@ -84,11 +84,11 @@ No code changes are required. This is an optimization feature that works automat
 <br/>
 <br/>
 
-**Background**
+**背景**
 
-This enables support for the experimental Vite Environment API, which provides a more flexible and powerful way to configure Vite environments. This is only available when using Vite 6+.
+此功能启用对实验性 Vite Environment API 的支持，它提供了更灵活和强大的 Vite 环境配置方式。仅在使用 Vite 6+ 时可用。
 
-👉 **Enable the Flag**
+👉 **启用该 Flag**
 
 ```ts filename=react-router.config.ts
 import type { Config } from "@react-router/dev/config";
@@ -100,9 +100,9 @@ export default {
 } satisfies Config;
 ```
 
-**Update your Code**
+**更新你的代码**
 
-No code changes are required unless you have custom Vite configuration that needs to be updated for the [Environment API][vite-environment]. Most users won't need to make any changes.
+除非你有需要为 [Environment API][vite-environment] 更新的自定义 Vite 配置，否则不需要任何代码改动。大多数用户无需做任何更改。
 
 [Response]: https://developer.mozilla.org/en-US/docs/Web/API/Response
 [vite-environment]: https://vite.dev/guide/api-environment

@@ -4,30 +4,15 @@ title: useFetcher
 
 # useFetcher
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useFetcher.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useFetcher.html)
 
-Useful for creating complex, dynamic user interfaces that require multiple,
-concurrent data interactions without causing a navigation.
+用于创建复杂的动态用户界面，这些界面需要多个并发的数据交互，但不触发导航。
 
-Fetchers track their own, independent state and can be used to load data, submit
-forms, and generally interact with [`action`](../../start/framework/route-module#action)
-and [`loader`](../../start/framework/route-module#loader) functions.
+Fetcher 跟踪自己独立的状态，可用于加载数据、提交表单，以及与 [`action`](../../start/framework/route-module#action) 和 [`loader`](../../start/framework/route-module#loader) 函数进行交互。
 
 ```tsx
 import { useFetcher } from "react-router"
@@ -35,29 +20,29 @@ import { useFetcher } from "react-router"
 function SomeComponent() {
   let fetcher = useFetcher()
 
-  // states are available on the fetcher
+  // fetcher 上有各种状态
   fetcher.state // "idle" | "loading" | "submitting"
-  fetcher.data // the data returned from the action or loader
+  fetcher.data // action 或 loader 返回的数据
 
-  // render a form
+  // 渲染表单
   <fetcher.Form method="post" />
 
-  // load data
+  // 加载数据
   fetcher.load("/some/route")
 
-  // submit data
+  // 提交数据
   fetcher.submit(someFormRef, { method: "post" })
   fetcher.submit(someData, {
     method: "post",
     encType: "application/json"
   })
 
-  // reset fetcher
+  // 重置 fetcher
   fetcher.reset()
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function useFetcher<T = any>({
@@ -67,31 +52,28 @@ function useFetcher<T = any>({
 } = ): FetcherWithComponents<SerializeFrom<T>> {}
 ```
 
-## Params
+## 参数
 
 ### options.key
 
-A unique key to identify the fetcher. 
+用于标识 fetcher 的唯一 key。
 
-By default, `useFetcher` generates a unique fetcher scoped to that component.
-If you want to identify a fetcher with your own key such that you can access
-it from elsewhere in your app, you can do that with the `key` option:
+默认情况下，`useFetcher` 会生成一个仅限于该组件的唯一 fetcher。如果你想用自己的 key 标识一个 fetcher，以便在应用的其他地方访问它，可以使用 `key` 选项：
 
 ```tsx
 function SomeComp() {
-  let fetcher = useFetcher({ key: "my-key" })
+  let fetcher = useFetcher({ key: "my-key" });
   // ...
 }
 
-// Somewhere else
+// 在其他地方
 function AnotherComp() {
-  // this will be the same fetcher, sharing the state across the app
+  // 这将是同一个 fetcher，在应用中共享状态
   let fetcher = useFetcher({ key: "my-key" });
   // ...
 }
 ```
 
-## Returns
+## 返回值
 
-A [`FetcherWithComponents`](https://api.reactrouter.com/v7/types/react-router.FetcherWithComponents.html) object that contains the fetcher's state, data, and components for submitting forms and loading data.
-
+一个 [`FetcherWithComponents`](https://api.reactrouter.com/v7/types/react-router.FetcherWithComponents.html) 对象，包含 fetcher 的状态、数据，以及用于提交表单和加载数据的组件。

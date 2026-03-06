@@ -6,12 +6,10 @@ title: createMemorySessionStorage
 
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createMemorySessionStorage.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createMemorySessionStorage.html)
 
-Creates and returns a simple in-memory SessionStorage object, mostly useful
-for testing and as a reference implementation.
+创建并返回一个简单的内存 SessionStorage 对象，主要用于测试和作为参考实现。
 
-Note: This storage does not scale beyond a single process, so it is not
-suitable for most production scenarios.
+注意：此存储无法扩展到单个进程之外，因此不适合大多数生产场景。

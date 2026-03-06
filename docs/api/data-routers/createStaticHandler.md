@@ -4,25 +4,13 @@ title: createStaticHandler
 
 # createStaticHandler
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/server.tsx
--->
-
 [MODES: data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createStaticHandler.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createStaticHandler.html)
 
-Create a static handler to perform server-side data loading
+创建静态处理器以执行服务端数据加载。
 
 ```tsx
 export async function handleRequest(request: Request) {
@@ -41,31 +29,29 @@ export async function handleRequest(request: Request) {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function createStaticHandler(
   routes: RouteObject[],
   opts?: CreateStaticHandlerOptions,
-)
+);
 ```
 
-## Params
+## 参数
 
 ### routes
 
-The [route objects](https://api.reactrouter.com/v7/types/react-router.RouteObject.html) to create a static handler for
+要创建静态处理器的[路由对象](https://api.reactrouter.com/v7/types/react-router.RouteObject.html)。
 
 ### opts.basename
 
-The base URL for the static handler (default: `/`)
+静态处理器的基础 URL（默认：`/`）。
 
 ### opts.future
 
-Future flags for the static handler
+静态处理器的 future flag。
 
-## Returns
+## 返回值
 
-A static handler that can be used to query data for the provided
-routes
-
+可用于查询所提供路由数据的静态处理器。

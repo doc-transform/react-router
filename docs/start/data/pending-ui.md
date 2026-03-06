@@ -1,12 +1,12 @@
 ---
-title: Pending UI
+title: 待定 UI
 order: 7
 ---
 
-# Pending UI
+# 待定 UI
 
-Pending UI is the same as Framework Mode, please see the [Pending UI](../framework/pending-ui) guide for more information.
+待定 UI 与框架模式相同，更多信息请参阅[待定 UI](../framework/pending-ui) 指南。
 
 ---
 
-Next: [Custom Framework](./custom)
+下一节：[自定义框架](./custom)

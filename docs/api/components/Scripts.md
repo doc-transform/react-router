@@ -4,31 +4,15 @@ title: Scripts
 
 # Scripts
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/ssr/components.tsx
--->
-
 [MODES: framework]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.Scripts.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.Scripts.html)
 
-Renders the client runtime of your app. It should be rendered inside the
-[`<body>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body)
- of the document.
+渲染应用的客户端运行时。应在文档的 [`<body>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body) 中渲染。
 
-If server rendering, you can omit `<Scripts/>` and the app will work as a
-traditional web app without JavaScript, relying solely on HTML and browser
-behaviors.
+如果使用服务端渲染，你可以省略 `<Scripts/>`，应用将作为传统的无 JavaScript Web 应用运行，仅依赖 HTML 和浏览器行为。
 
 ```tsx
 import { Scripts } from "react-router";
@@ -45,17 +29,16 @@ export default function Root() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function Scripts(scriptProps: ScriptsProps): React.JSX.Element | null
+function Scripts(
+  scriptProps: ScriptsProps,
+): React.JSX.Element | null;
 ```
 
 ## Props
 
 ### scriptProps
 
-Additional props to spread onto the [`<script>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) tags, such as [`crossOrigin`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement/crossOrigin),
-[`nonce`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce),
-etc.
-
+扩展到 [`<script>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) 标签上的额外 props，如 [`crossOrigin`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement/crossOrigin)、[`nonce`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce) 等。

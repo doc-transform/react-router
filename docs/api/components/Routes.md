@@ -4,28 +4,13 @@ title: Routes
 
 # Routes
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/components.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.Routes.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.Routes.html)
 
-Renders a branch of [`<Route>`s](../components/Route) that best matches the current
-location. Note that these routes do not participate in [data loading](../../start/framework/route-module#loader),
-[`action`](../../start/framework/route-module#action), code splitting, or
-any other [route module](../../start/framework/route-module) features.
+渲染与当前位置最佳匹配的 [`<Route>`](../components/Route) 分支。注意：这些路由不参与[数据加载](../../start/framework/route-module#loader)、[`action`](../../start/framework/route-module#action)、代码拆分或任何其他[路由模块](../../start/framework/route-module)功能。
 
 ```tsx
 import { Route, Routes } from "react-router";
@@ -34,25 +19,24 @@ import { Route, Routes } from "react-router";
   <Route index element={<StepOne />} />
   <Route path="step-2" element={<StepTwo />} />
   <Route path="step-3" element={<StepThree />} />
-</Routes>
+</Routes>;
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function Routes({
   children,
   location,
-}: RoutesProps): React.ReactElement | null
+}: RoutesProps): React.ReactElement | null;
 ```
 
 ## Props
 
 ### children
 
-Nested [`Route`](../components/Route) elements
+嵌套的 [`Route`](../components/Route) 元素。
 
 ### location
 
-The [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) to match against. Defaults to the current location.
-
+要匹配的 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html)。默认为当前位置。

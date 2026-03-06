@@ -1,60 +1,59 @@
 ---
-title: .server modules
+title: .server 模块
 ---
 
-# `.server` modules
+# `.server` 模块
 
 [MODES: framework]
 
-## Summary
+## 概述
 
-Server-only modules that are excluded from client bundles and only run on the server.
+仅限服务端的模块，从客户端包中排除，只在服务端运行。
 
 ```ts filename=auth.server.ts
-// This would expose secrets on the client if not exported from a server-only module
+// 如果不是从仅服务端模块导出，这将在客户端暴露密钥
 export const JWT_SECRET = process.env.JWT_SECRET;
 
 export function validateToken(token: string) {
-  // Server-only authentication logic
+  // 仅服务端的认证逻辑
 }
 ```
 
-`.server` modules are a good way to explicitly mark entire modules as server-only. The build will fail if any code in a `.server` file or `.server` directory accidentally ends up in the client module graph.
+`.server` 模块是将整个模块明确标记为仅限服务端的好方法。如果 `.server` 文件或 `.server` 目录中的任何代码意外出现在客户端模块图中，构建将会失败。
 
 <docs-warning>
 
-Route modules should not be marked as `.server` or `.client` as they have special handling and need to be referenced in both server and client module graphs. Attempting to do so will cause build errors.
+路由模块不应被标记为 `.server` 或 `.client`，因为它们有特殊处理，需要在服务端和客户端模块图中都被引用。尝试这样做会导致构建错误。
 
 </docs-warning>
 
 <docs-info>
 
-If you need more sophisticated control over what is included in the client/server bundles, check out the [`vite-env-only` plugin](https://github.com/pcattori/vite-env-only).
+如果你需要更精细地控制客户端/服务端包中包含的内容，请查看 [`vite-env-only` 插件](https://github.com/pcattori/vite-env-only)。
 
 </docs-info>
 
+## 使用模式
 
-## Usage Patterns
+### 单个文件
 
-### Individual Files
-
-Mark individual files as server-only by adding `.server` to the filename:
+通过在文件名中添加 `.server` 将单个文件标记为仅服务端：
 
 ```txt
 app/
-├── auth.server.ts         👈 server-only file
+├── auth.server.ts         👈 仅服务端文件
 ├── database.server.ts
 ├── email.server.ts
 └── root.tsx
 ```
 
-### Server Directories
+### 服务端目录
 
-Mark entire directories as server-only by using `.server` in the directory name:
+通过在目录名中使用 `.server` 将整个目录标记为仅服务端：
 
 ```txt
 app/
-├── .server/               👈 entire directory is server-only
+├── .server/               👈 整个目录为仅服务端
 │   ├── auth.ts
 │   ├── database.ts
 │   └── email.ts
@@ -62,14 +61,14 @@ app/
 └── root.tsx
 ```
 
-## Examples
+## 示例
 
-### Database Connection
+### 数据库连接
 
 ```ts filename=app/utils/db.server.ts
 import { PrismaClient } from "@prisma/client";
 
-// This would expose database credentials on the client
+// 这会在客户端暴露数据库凭据
 const db = new PrismaClient({
   datasources: {
     db: {
@@ -81,7 +80,7 @@ const db = new PrismaClient({
 export { db };
 ```
 
-### Authentication Utilities
+### 认证工具
 
 ```ts filename=app/utils/auth.server.ts
 import jwt from "jsonwebtoken";
@@ -95,7 +94,7 @@ export function hashPassword(password: string) {
 
 export function verifyPassword(
   password: string,
-  hash: string
+  hash: string,
 ) {
   return bcrypt.compare(password, hash);
 }
@@ -113,7 +112,7 @@ export function verifyToken(token: string) {
 }
 ```
 
-### Using Server Modules
+### 使用服务端模块
 
 ```tsx filename=app/routes/login.tsx
 import type { ActionFunctionArgs } from "react-router";
@@ -131,7 +130,7 @@ export async function action({
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  // Server-only operations
+  // 仅服务端操作
   const hashedPassword = await hashPassword(password);
   const user = await db.user.create({
     data: { email, password: hashedPassword },

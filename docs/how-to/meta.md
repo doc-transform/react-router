@@ -1,14 +1,14 @@
 ---
-title: Meta Tags and SEO
+title: Meta 标签与 SEO
 hidden: true
 ---
 
-[copy pasted from route module doc]
+[从路由模块文档复制]
 
-By default, meta descriptors will render a [`<meta>` tag][meta-element] in most cases. The two exceptions are:
+默认情况下，meta 描述符在大多数情况下会渲染一个 [`<meta>` 标签][meta-element]。有两个例外：
 
-- `{ title }` renders a `<title>` tag
-- `{ "script:ld+json" }` renders a `<script type="application/ld+json">` tag, and its value should be a serializable object that is stringified and injected into the tag.
+- `{ title }` 渲染一个 `<title>` 标签
+- `{ "script:ld+json" }` 渲染一个 `<script type="application/ld+json">` 标签，其值应该是一个可序列化的对象，会被字符串化并注入到标签中。
 
 ```tsx
 export function meta() {
@@ -25,7 +25,7 @@ export function meta() {
 }
 ```
 
-A meta descriptor can also render a [`<link>` tag][link-element] by setting the `tagName` property to `"link"`. This is useful for `<link>` tags associated with SEO like `canonical` URLs. For asset links like stylesheets and favicons, you should use the [`links` export][links] instead.
+meta 描述符还可以通过将 `tagName` 属性设置为 `"link"` 来渲染 [`<link>` 标签][link-element]。这对于与 SEO 相关的 `<link>` 标签（如 `canonical` URL）很有用。对于样式表和 favicon 等资源链接，你应该使用 [`links` 导出][links]。
 
 ```tsx
 export function meta() {

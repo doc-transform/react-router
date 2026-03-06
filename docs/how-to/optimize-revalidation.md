@@ -1,12 +1,12 @@
 ---
-title: Revalidation Optimization
+title: 重新验证优化
 hidden: true
 ---
 
-[copy pasted]
+[复制粘贴]
 
-During client-side transitions, React Router will optimize reloading of routes that are already rendering, like not reloading layout routes that aren't changing. In other cases, like form submissions or search param changes, React Router doesn't know which routes need to be reloaded, so it reloads them all to be safe. This ensures your UI always stays in sync with the state on your server.
+在客户端过渡期间，React Router 会优化已经在渲染的路由的重新加载，例如不重新加载没有变化的布局路由。在其他情况下，如表单提交或搜索参数变更，React Router 不知道哪些路由需要重新加载，因此为了安全起见会重新加载所有路由。这确保了你的 UI 始终与服务器上的状态保持同步。
 
-This function lets apps further optimize by returning `false` when React Router is about to reload a route. If you define this function on a route module, React Router will defer to your function on every navigation and every revalidation after an action is called. Again, this makes it possible for your UI to get out of sync with your server if you do it wrong, so be careful.
+此函数允许应用在 React Router 即将重新加载某个路由时返回 `false` 来进一步优化。如果你在路由模块上定义了此函数，React Router 将在每次导航和 action 调用后的每次重新验证时都参考你的函数。同样，如果操作不当，可能会导致 UI 与服务器不同步，因此请谨慎使用。
 
-`fetcher.load` calls also revalidate, but because they load a specific URL, they don't have to worry about route param or URL search param revalidations. `fetcher.load`'s only revalidate by default after action submissions and explicit revalidation requests via [`useRevalidator`][use-revalidator].
+`fetcher.load` 调用也会触发重新验证，但因为它们加载的是特定 URL，所以不需要担心路由参数或 URL 搜索参数的重新验证。`fetcher.load` 默认只在 action 提交和通过 [`useRevalidator`][use-revalidator] 进行的显式重新验证请求后才重新验证。

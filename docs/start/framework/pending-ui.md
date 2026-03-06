@@ -1,19 +1,19 @@
 ---
-title: Pending UI
+title: 待定 UI
 order: 7
 ---
 
-# Pending UI
+# 待定 UI
 
 [MODES: framework]
 
-## Introduction
+## 简介
 
-When the user navigates to a new route, or submits data to an action, the UI should immediately respond to the user's actions with a pending or optimistic state. Application code is responsible for this.
+当用户导航到新路由或向 action 提交数据时，UI 应该立即通过待定或乐观状态响应用户的操作。应用代码负责处理这些状态。
 
-## Global Pending Navigation
+## 全局待定导航
 
-When the user navigates to a new url, the loaders for the next page are awaited before the next page renders. You can get the pending state from `useNavigation`.
+当用户导航到新 URL 时，下一个页面的 loader 会在页面渲染前等待完成。你可以通过 `useNavigation` 获取待定状态。
 
 ```tsx
 import { useNavigation } from "react-router";
@@ -33,9 +33,9 @@ export default function Root() {
 }
 ```
 
-## Local Pending Navigation
+## 局部待定导航
 
-Pending indicators can also be localized to the link. NavLink's children, className, and style props can be functions that receive the pending state.
+待定指示器也可以局部化到链接上。NavLink 的 children、className 和 style 属性可以是接收待定状态的函数。
 
 ```tsx
 import { NavLink } from "react-router";
@@ -61,9 +61,9 @@ function Navbar() {
 }
 ```
 
-## Pending Form Submission
+## 待定表单提交
 
-When a form is submitted, the UI should immediately respond to the user's actions with a pending state. This is easiest to do with a [fetcher][use_fetcher] form because it has its own independent state (whereas normal forms cause a global navigation).
+当表单提交时，UI 应该立即以待定状态响应用户的操作。使用 [fetcher][use_fetcher] 表单最容易实现，因为它有自己独立的状态（而普通表单会触发全局导航）。
 
 ```tsx filename=app/project.tsx lines=[10-12]
 import { useFetcher } from "react-router";
@@ -84,7 +84,7 @@ function NewProjectForm() {
 }
 ```
 
-For non-fetcher form submissions, pending states are available on `useNavigation`.
+对于非 fetcher 表单提交，待定状态可以通过 `useNavigation` 获取。
 
 ```tsx filename=app/projects/new.tsx
 import { useNavigation, Form } from "react-router";
@@ -105,9 +105,9 @@ function NewProjectForm() {
 }
 ```
 
-## Optimistic UI
+## 乐观 UI
 
-When the future state of the UI is known by the form submission data, an optimistic UI can be implemented for instant UX.
+当 UI 的未来状态可以通过表单提交数据预知时，可以实现乐观 UI 以获得即时的用户体验。
 
 ```tsx filename=app/project.tsx lines=[4-7]
 function Task({ task }) {
@@ -137,6 +137,6 @@ function Task({ task }) {
 
 ---
 
-Next: [Testing](./testing)
+下一节：[测试](./testing)
 
 [use_fetcher]: https://api.reactrouter.com/v7/functions/react-router.useFetcher.html

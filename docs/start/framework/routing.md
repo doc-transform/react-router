@@ -1,15 +1,15 @@
 ---
-title: Routing
+title: 路由
 order: 2
 ---
 
-# Routing
+# 路由
 
 [MODES: framework]
 
-## Configuring Routes
+## 配置路由
 
-Routes are configured in `app/routes.ts`. Each route has two required parts: a URL pattern to match the URL, and a file path to the route module that defines its behavior.
+路由在 `app/routes.ts` 中配置。每个路由有两个必需部分：用于匹配 URL 的 URL 模式，以及定义路由行为的路由模块文件路径。
 
 ```ts filename=app/routes.ts
 import {
@@ -19,11 +19,11 @@ import {
 
 export default [
   route("some/path", "./some/file.tsx"),
-  // pattern ^           ^ module file
+  // 模式 ^           ^ 模块文件
 ] satisfies RouteConfig;
 ```
 
-Here is a larger sample route config:
+以下是一个更完整的路由配置示例：
 
 ```ts filename=app/routes.ts
 import {
@@ -51,7 +51,7 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-If you prefer to define your routes via file naming conventions rather than configuration, the `@react-router/fs-routes` package provides a [file system routing convention][file-route-conventions]. You can even combine different routing conventions if you like:
+如果你更喜欢通过文件命名约定而非配置来定义路由，`@react-router/fs-routes` 包提供了[文件系统路由约定][file-route-conventions]。你甚至可以混合使用不同的路由约定：
 
 ```ts filename=app/routes.ts
 import {
@@ -67,28 +67,28 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-## Route Modules
+## 路由模块
 
-The files referenced in `routes.ts` define each route's behavior:
+`routes.ts` 中引用的文件定义了每个路由的行为：
 
 ```tsx filename=app/routes.ts
 route("teams/:teamId", "./team.tsx"),
-//           route module ^^^^^^^^
+//           路由模块 ^^^^^^^^
 ```
 
-Here's a sample route module:
+以下是一个路由模块示例：
 
 ```tsx filename=app/team.tsx
-// provides type safety/inference
+// 提供类型安全/推断
 import type { Route } from "./+types/team";
 
-// provides `loaderData` to the component
+// 为组件提供 `loaderData`
 export async function loader({ params }: Route.LoaderArgs) {
   let team = await fetchTeam(params.teamId);
   return { name: team.name };
 }
 
-// renders after the loader is done
+// 在 loader 完成后渲染
 export default function Component({
   loaderData,
 }: Route.ComponentProps) {
@@ -96,11 +96,11 @@ export default function Component({
 }
 ```
 
-Route modules have more features like actions, headers, and error boundaries, but they will be covered in the next guide: [Route Modules](./route-module)
+路由模块还有更多功能，如 action、headers 和错误边界，这些将在下一个指南中介绍：[路由模块](./route-module)。
 
-## Nested Routes
+## 嵌套路由
 
-Routes can be nested inside parent routes.
+路由可以嵌套在父路由中。
 
 ```ts filename=app/routes.ts
 import {
@@ -110,18 +110,18 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
-  // parent route
+  // 父路由
   route("dashboard", "./dashboard.tsx", [
-    // child routes
+    // 子路由
     index("./home.tsx"),
     route("settings", "./settings.tsx"),
   ]),
 ] satisfies RouteConfig;
 ```
 
-The path of the parent is automatically included in the child, so this config creates both `"/dashboard"` and `"/dashboard/settings"` URLs.
+父路由的路径会自动包含在子路由中，因此上面的配置同时创建了 `"/dashboard"` 和 `"/dashboard/settings"` 两个 URL。
 
-Child routes are rendered through the `<Outlet/>` in the parent route.
+子路由通过父路由中的 `<Outlet/>` 进行渲染。
 
 ```tsx filename=app/dashboard.tsx
 import { Outlet } from "react-router";
@@ -130,20 +130,20 @@ export default function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
-      {/* will either be home.tsx or settings.tsx */}
+      {/* 这里渲染的是 home.tsx 或 settings.tsx */}
       <Outlet />
     </div>
   );
 }
 ```
 
-## Root Route
+## 根路由
 
-Every route in `routes.ts` is nested inside the special `app/root.tsx` module.
+`routes.ts` 中的每个路由都嵌套在特殊的 `app/root.tsx` 模块内。
 
-## Layout Routes
+## 布局路由
 
-Using `layout`, layout routes create new nesting for their children, but they don't add any segments to the URL. It's like the root route but they can be added at any level.
+使用 `layout`，布局路由为其子路由创建新的嵌套层级，但不向 URL 添加任何路径段。它类似于根路由，但可以添加在任何层级。
 
 ```tsx filename=app/routes.ts lines=[10,16]
 import {
@@ -169,18 +169,18 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-Note that:
+注意：
 
-- `home.tsx` and `contact.tsx` will be rendered into the `marketing/layout.tsx` outlet without creating any new URL paths
-- `project.tsx` and `edit-project.tsx` will be rendered into the `projects/project-layout.tsx` outlet at `/projects/:pid` and `/projects/:pid/edit` while `projects/home.tsx` will not.
+- `home.tsx` 和 `contact.tsx` 会渲染到 `marketing/layout.tsx` 的 outlet 中，且不会创建新的 URL 路径
+- `project.tsx` 和 `edit-project.tsx` 会在 `/projects/:pid` 和 `/projects/:pid/edit` 处渲染到 `projects/project-layout.tsx` 的 outlet 中，而 `projects/home.tsx` 不会。
 
-## Index Routes
+## 索引路由
 
 ```ts
 index(componentFile),
 ```
 
-Index routes render into their parent's [Outlet][outlet] at their parent's URL (like a default child route).
+索引路由在父路由的 URL 处渲染到父路由的 [Outlet][outlet] 中（类似于默认子路由）。
 
 ```ts filename=app/routes.ts
 import {
@@ -190,21 +190,21 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
-  // renders into the root.tsx Outlet at /
+  // 在 / 处渲染到 root.tsx 的 Outlet 中
   index("./home.tsx"),
   route("dashboard", "./dashboard.tsx", [
-    // renders into the dashboard.tsx Outlet at /dashboard
+    // 在 /dashboard 处渲染到 dashboard.tsx 的 Outlet 中
     index("./dashboard-home.tsx"),
     route("settings", "./dashboard-settings.tsx"),
   ]),
 ] satisfies RouteConfig;
 ```
 
-Note that index routes can't have children.
+注意：索引路由不能有子路由。
 
-## Route Prefixes
+## 路由前缀
 
-Using `prefix`, you can add a path prefix to a set of routes without needing to introduce a parent route.
+使用 `prefix`，你可以为一组路由添加路径前缀，而无需引入父路由。
 
 ```tsx filename=app/routes.ts lines=[14]
 import {
@@ -230,27 +230,27 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-Note that this does not introduce a new route into the route tree. Instead, it merely modifies the paths of its children.
+注意：这不会在路由树中引入新的路由，而只是修改其子路由的路径。
 
-For example, these two sets of routes are equivalent:
+例如，以下两组路由是等价的：
 
 ```ts filename=app/routes.ts
-// This usage of `prefix`...
+// 使用 `prefix`...
 prefix("parent", [
   route("child1", "./child1.tsx"),
   route("child2", "./child2.tsx"),
 ])
 
-// ...is equivalent to this:
+// ...等价于：
 [
   route("parent/child1", "./child1.tsx"),
   route("parent/child2", "./child2.tsx"),
 ]
 ```
 
-## Dynamic Segments
+## 动态路径段
 
-If a path segment starts with `:` then it becomes a "dynamic segment". When the route matches the URL, the dynamic segment will be parsed from the URL and provided as `params` to other router APIs.
+如果路径段以 `:` 开头，则它会成为"动态段"。当路由匹配 URL 时，动态段会从 URL 中解析出来，并作为 `params` 提供给其他路由 API。
 
 ```ts filename=app/routes.ts
 route("teams/:teamId", "./team.tsx"),
@@ -271,7 +271,7 @@ export default function Component({
 }
 ```
 
-You can have multiple dynamic segments in one route path:
+一个路由路径中可以有多个动态段：
 
 ```ts filename=app/routes.ts
 route("c/:categoryId/p/:productId", "./product.tsx"),
@@ -285,23 +285,23 @@ async function loader({ params }: LoaderArgs) {
 }
 ```
 
-## Optional Segments
+## 可选路径段
 
-You can make a route segment optional by adding a `?` to the end of the segment.
+你可以在路径段末尾添加 `?` 使其成为可选的。
 
 ```ts filename=app/routes.ts
 route(":lang?/categories", "./categories.tsx"),
 ```
 
-You can have optional static segments, too:
+静态路径段也可以是可选的：
 
 ```ts filename=app/routes.ts
 route("users/:userId/edit?", "./user.tsx");
 ```
 
-## Splats
+## 通配符
 
-Also known as "catchall" and "star" segments. If a route path pattern ends with `/*` then it will match any characters following the `/`, including other `/` characters.
+也称为"全匹配"和"星号"路径段。如果路由路径模式以 `/*` 结尾，它将匹配 `/` 之后的任何字符，包括其他 `/` 字符。
 
 ```ts filename=app/routes.ts
 route("files/*", "./files.tsx"),
@@ -309,20 +309,20 @@ route("files/*", "./files.tsx"),
 
 ```tsx filename=app/files.tsx
 export async function loader({ params }: Route.LoaderArgs) {
-  // params["*"] will contain the remaining URL after files/
+  // params["*"] 包含 files/ 之后的剩余 URL
 }
 ```
 
-You can destructure the `*`, you just have to assign it a new name. A common name is `splat`:
+你可以解构 `*`，但需要给它一个新名称。常用的名称是 `splat`：
 
 ```tsx
 const { "*": splat } = params;
 ```
 
-You can also use a splat to catch requests that don't match any route:
+你也可以使用通配符来捕获不匹配任何路由的请求：
 
 ```ts filename=app/routes.ts
-route("*", "./catchall.tsx"); // catchall route,
+route("*", "./catchall.tsx"); // 全匹配路由
 ```
 
 ```tsx filename=app/catchall.tsx
@@ -331,9 +331,9 @@ export function loader() {
 }
 ```
 
-## Component Routes
+## 组件路由
 
-You can also use components that match the URL to elements anywhere in the component tree:
+你也可以在组件树的任何位置使用将 URL 匹配到元素的组件：
 
 ```tsx
 import { Routes, Route } from "react-router";
@@ -352,11 +352,11 @@ function Wizard() {
 }
 ```
 
-Note that these routes do not participate in data loading, actions, code splitting, or any other route module features, so their use cases are more limited than those of the route module.
+注意：这些路由不参与数据加载、action、代码拆分或任何其他路由模块功能，因此它们的使用场景比路由模块更有限。
 
 ---
 
-Next: [Route Module](./route-module)
+下一节：[路由模块](./route-module)
 
 [file-route-conventions]: ../../how-to/file-route-conventions
 [outlet]: https://api.reactrouter.com/v7/functions/react-router.Outlet.html

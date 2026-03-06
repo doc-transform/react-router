@@ -1,23 +1,23 @@
 ---
-title: Picking a Mode
+title: 选择模式
 order: 1
 ---
 
-# Picking a Mode
+# 选择模式
 
-React Router is a multi-strategy router for React. There are three primary ways, or "modes", to use it in your app. Across the docs you'll see these icons indicating which mode the content is relevant to:
+React Router 是一个面向 React 的多策略路由器。它有三种主要的使用方式，即"模式"。在文档中你会看到以下图标，表示相应内容适用于哪种模式：
 
 [MODES: framework, data, declarative]
 
 <p></p>
 
-The features available in each mode are additive, so moving from Declarative to Data to Framework simply adds more features at the cost of architectural control. So pick your mode based on how much control or how much help you want from React Router.
+每种模式提供的功能是累加式的，从声明式模式到数据模式再到框架模式，功能逐步增多，但相应地你对架构的控制权会减少。因此，请根据你希望从 React Router 获得多少控制权或多少帮助来选择合适的模式。
 
-The mode depends on which "top level" router API you're using:
+使用哪种模式取决于你使用的"顶层"路由 API：
 
-## Declarative
+## 声明式模式
 
-Declarative mode enables basic routing features like matching URLs to components, navigating around the app, and providing active states with APIs like `<Link>`, `useNavigate`, and `useLocation`.
+声明式模式提供基本的路由功能，如将 URL 匹配到组件、在应用中导航，以及通过 `<Link>`、`useNavigate` 和 `useLocation` 等 API 提供激活状态。
 
 ```tsx
 import { BrowserRouter } from "react-router";
@@ -29,9 +29,9 @@ ReactDOM.createRoot(root).render(
 );
 ```
 
-## Data
+## 数据模式
 
-By moving route configuration outside of React rendering, Data Mode adds data loading, actions, pending states and more with APIs like `loader`, `action`, and `useFetcher`.
+将路由配置移到 React 渲染之外后，数据模式增加了数据加载、操作（action）、待定状态等功能，提供了 `loader`、`action` 和 `useFetcher` 等 API。
 
 ```tsx
 import {
@@ -52,15 +52,15 @@ ReactDOM.createRoot(root).render(
 );
 ```
 
-## Framework
+## 框架模式
 
-Framework Mode wraps Data Mode with a Vite plugin to add the full React Router experience with:
+框架模式在数据模式的基础上封装了一个 Vite 插件，提供完整的 React Router 体验，包括：
 
-- type-safe `href`
-- type-safe Route Module API
-- intelligent code splitting
-- SPA, SSR, and static rendering strategies
-- and more
+- 类型安全的 `href`
+- 类型安全的路由模块 API
+- 智能代码拆分
+- SPA、SSR 和静态渲染策略
+- 以及更多功能
 
 ```ts filename=routes.ts
 import { index, route } from "@react-router/dev/routes";
@@ -71,7 +71,7 @@ export default [
 ];
 ```
 
-You'll then have access to the Route Module API with type-safe params, loaderData, code splitting, SPA/SSR/SSG strategies, and more.
+之后你就可以使用路由模块 API，享受类型安全的参数、loaderData、代码拆分、SPA/SSR/SSG 策略等功能。
 
 ```ts filename=product.tsx
 import { Route } from "./+types/product.tsx";
@@ -88,114 +88,114 @@ export default function Product({
 }
 ```
 
-## Decision Advice
+## 选择建议
 
-Every mode supports any architecture and deployment target, so the question isn't really about if you want SSR, SPA, etc. It's about how much you want to do yourself.
+每种模式都支持任何架构和部署目标，所以问题的关键不在于你是否需要 SSR、SPA 等，而在于你想自己掌控多少。
 
-**Use Framework Mode if you:**
+**如果你符合以下情况，请使用框架模式：**
 
-- are too new to have an opinion
-- are considering Next.js, Solid Start, SvelteKit, Astro, TanStack Start, etc. and want to compare
-- just want to build something with React
-- might want to server render, might not
-- are coming from Remix (React Router v7 is the "next version" after Remix v2)
-- are migrating from Next.js
+- 刚入门还没有形成自己的偏好
+- 正在考虑 Next.js、Solid Start、SvelteKit、Astro、TanStack Start 等方案，想做对比
+- 只想用 React 构建应用
+- 可能需要服务端渲染，也可能不需要
+- 从 Remix 迁移过来（React Router v7 是 Remix v2 之后的"下一个版本"）
+- 从 Next.js 迁移过来
 
-[→ Get Started with Framework Mode](./framework/installation).
+[→ 开始使用框架模式](./framework/installation)
 
-**Use Data Mode if you:**
+**如果你符合以下情况，请使用数据模式：**
 
-- want data features but also want to have control over bundling, data, and server abstractions
-- started a data router in v6.4 and are happy with it
+- 需要数据功能，但也想自己控制打包、数据和服务端抽象
+- 在 v6.4 中已经开始使用数据路由并且很满意
 
-[→ Get Started with Data Mode](./data/custom).
+[→ 开始使用数据模式](./data/custom)
 
-**Use Declarative Mode if you:**
+**如果你符合以下情况，请使用声明式模式：**
 
-- want to use React Router as simply as possible
-- are coming from v6 and are happy with the `<BrowserRouter>`
-- have a data layer that either skips pending states (like local first, background data replication/sync) or has its own abstractions for them
-- are coming from Create React App (you may want to consider framework mode though)
+- 想尽可能简单地使用 React Router
+- 从 v6 迁移过来，对 `<BrowserRouter>` 感到满意
+- 已有数据层，要么不需要待定状态（如本地优先、后台数据复制/同步），要么已有自己的抽象方案
+- 从 Create React App 迁移过来（不过你可能需要考虑框架模式）
 
-[→ Get Started with Declarative Mode](./declarative/installation).
+[→ 开始使用声明式模式](./declarative/installation)
 
-## API + Mode Availability Table
+## API 与模式可用性对照表
 
-This is mostly for the LLMs, but knock yourself out:
+这张表主要是给 LLM 参考的，不过你也可以自行查阅：
 
-| API                            | Framework | Data | Declarative |
-| ------------------------------ | --------- | ---- | ----------- |
-| Await                          | ✅        | ✅   |             |
-| Form                           | ✅        | ✅   |
-| Link                           | ✅        | ✅   | ✅          |
-| `<Link discover>`              | ✅        |      |             |
-| `<Link prefetch>`              | ✅        |      |             |
-| `<Link preventScrollReset>`    | ✅        | ✅   |             |
-| Links                          | ✅        |      |             |
-| Meta                           | ✅        |      |             |
-| NavLink                        | ✅        | ✅   | ✅          |
-| `<NavLink discover>`           | ✅        |      |             |
-| `<NavLink prefetch>`           | ✅        |      |             |
-| `<NavLink preventScrollReset>` | ✅        | ✅   |             |
-| NavLink `isPending`            | ✅        | ✅   |             |
-| Navigate                       | ✅        | ✅   | ✅          |
-| Outlet                         | ✅        | ✅   | ✅          |
-| PrefetchPageLinks              | ✅        |      |             |
-| Route                          | ✅        | ✅   | ✅          |
-| Routes                         | ✅        | ✅   | ✅          |
-| Scripts                        | ✅        |      |             |
-| ScrollRestoration              | ✅        | ✅   |             |
-| ServerRouter                   | ✅        |      |             |
-| usePrompt                      | ✅        | ✅   |             |
-| useActionData                  | ✅        | ✅   |             |
-| useAsyncError                  | ✅        | ✅   |             |
-| useAsyncValue                  | ✅        | ✅   |             |
-| useBeforeUnload                | ✅        | ✅   | ✅          |
-| useBlocker                     | ✅        | ✅   |             |
-| useFetcher                     | ✅        | ✅   |             |
-| useFetchers                    | ✅        | ✅   |             |
-| useFormAction                  | ✅        | ✅   |             |
-| useHref                        | ✅        | ✅   | ✅          |
-| useInRouterContext             | ✅        | ✅   | ✅          |
-| useLinkClickHandler            | ✅        | ✅   | ✅          |
-| useLoaderData                  | ✅        | ✅   |             |
-| useLocation                    | ✅        | ✅   | ✅          |
-| useMatch                       | ✅        | ✅   | ✅          |
-| useMatches                     | ✅        | ✅   |             |
-| useNavigate                    | ✅        | ✅   | ✅          |
-| useNavigation                  | ✅        | ✅   |             |
-| useNavigationType              | ✅        | ✅   | ✅          |
-| useOutlet                      | ✅        | ✅   | ✅          |
-| useOutletContext               | ✅        | ✅   | ✅          |
-| useParams                      | ✅        | ✅   | ✅          |
-| useResolvedPath                | ✅        | ✅   | ✅          |
-| useRevalidator                 | ✅        | ✅   |             |
-| useRouteError                  | ✅        | ✅   |             |
-| useRouteLoaderData             | ✅        | ✅   |             |
-| useRoutes                      | ✅        | ✅   | ✅          |
-| useSearchParams                | ✅        | ✅   | ✅          |
-| useSubmit                      | ✅        | ✅   |             |
-| useViewTransitionState         | ✅        | ✅   |             |
-| isCookieFunction               | ✅        | ✅   |             |
-| isSessionFunction              | ✅        | ✅   |             |
-| createCookie                   | ✅        | ✅   |             |
-| createCookieSessionStorage     | ✅        | ✅   |             |
-| createMemorySessionStorage     | ✅        | ✅   |             |
-| createPath                     | ✅        | ✅   | ✅          |
-| createRoutesFromElements       |           | ✅   |             |
-| createRoutesStub               | ✅        | ✅   |             |
-| createSearchParams             | ✅        | ✅   | ✅          |
-| data                           | ✅        | ✅   |             |
-| generatePath                   | ✅        | ✅   | ✅          |
-| href                           | ✅        |      |             |
-| isCookie                       | ✅        | ✅   |             |
-| isRouteErrorResponse           | ✅        | ✅   |             |
-| isSession                      | ✅        | ✅   |             |
-| matchPath                      | ✅        | ✅   | ✅          |
-| matchRoutes                    | ✅        | ✅   | ✅          |
-| parsePath                      | ✅        | ✅   | ✅          |
-| redirect                       | ✅        | ✅   |             |
-| redirectDocument               | ✅        | ✅   |             |
-| renderMatches                  | ✅        | ✅   | ✅          |
-| replace                        | ✅        | ✅   |             |
-| resolvePath                    | ✅        | ✅   | ✅          |
+| API                            | 框架模式 | 数据模式 | 声明式模式 |
+| ------------------------------ | -------- | -------- | ---------- |
+| Await                          | ✅       | ✅       |            |
+| Form                           | ✅       | ✅       |            |
+| Link                           | ✅       | ✅       | ✅         |
+| `<Link discover>`              | ✅       |          |            |
+| `<Link prefetch>`              | ✅       |          |            |
+| `<Link preventScrollReset>`    | ✅       | ✅       |            |
+| Links                          | ✅       |          |            |
+| Meta                           | ✅       |          |            |
+| NavLink                        | ✅       | ✅       | ✅         |
+| `<NavLink discover>`           | ✅       |          |            |
+| `<NavLink prefetch>`           | ✅       |          |            |
+| `<NavLink preventScrollReset>` | ✅       | ✅       |            |
+| NavLink `isPending`            | ✅       | ✅       |            |
+| Navigate                       | ✅       | ✅       | ✅         |
+| Outlet                         | ✅       | ✅       | ✅         |
+| PrefetchPageLinks              | ✅       |          |            |
+| Route                          | ✅       | ✅       | ✅         |
+| Routes                         | ✅       | ✅       | ✅         |
+| Scripts                        | ✅       |          |            |
+| ScrollRestoration              | ✅       | ✅       |            |
+| ServerRouter                   | ✅       |          |            |
+| usePrompt                      | ✅       | ✅       |            |
+| useActionData                  | ✅       | ✅       |            |
+| useAsyncError                  | ✅       | ✅       |            |
+| useAsyncValue                  | ✅       | ✅       |            |
+| useBeforeUnload                | ✅       | ✅       | ✅         |
+| useBlocker                     | ✅       | ✅       |            |
+| useFetcher                     | ✅       | ✅       |            |
+| useFetchers                    | ✅       | ✅       |            |
+| useFormAction                  | ✅       | ✅       |            |
+| useHref                        | ✅       | ✅       | ✅         |
+| useInRouterContext             | ✅       | ✅       | ✅         |
+| useLinkClickHandler            | ✅       | ✅       | ✅         |
+| useLoaderData                  | ✅       | ✅       |            |
+| useLocation                    | ✅       | ✅       | ✅         |
+| useMatch                       | ✅       | ✅       | ✅         |
+| useMatches                     | ✅       | ✅       |            |
+| useNavigate                    | ✅       | ✅       | ✅         |
+| useNavigation                  | ✅       | ✅       |            |
+| useNavigationType              | ✅       | ✅       | ✅         |
+| useOutlet                      | ✅       | ✅       | ✅         |
+| useOutletContext               | ✅       | ✅       | ✅         |
+| useParams                      | ✅       | ✅       | ✅         |
+| useResolvedPath                | ✅       | ✅       | ✅         |
+| useRevalidator                 | ✅       | ✅       |            |
+| useRouteError                  | ✅       | ✅       |            |
+| useRouteLoaderData             | ✅       | ✅       |            |
+| useRoutes                      | ✅       | ✅       | ✅         |
+| useSearchParams                | ✅       | ✅       | ✅         |
+| useSubmit                      | ✅       | ✅       |            |
+| useViewTransitionState         | ✅       | ✅       |            |
+| isCookieFunction               | ✅       | ✅       |            |
+| isSessionFunction              | ✅       | ✅       |            |
+| createCookie                   | ✅       | ✅       |            |
+| createCookieSessionStorage     | ✅       | ✅       |            |
+| createMemorySessionStorage     | ✅       | ✅       |            |
+| createPath                     | ✅       | ✅       | ✅         |
+| createRoutesFromElements       |          | ✅       |            |
+| createRoutesStub               | ✅       | ✅       |            |
+| createSearchParams             | ✅       | ✅       | ✅         |
+| data                           | ✅       | ✅       |            |
+| generatePath                   | ✅       | ✅       | ✅         |
+| href                           | ✅       |          |            |
+| isCookie                       | ✅       | ✅       |            |
+| isRouteErrorResponse           | ✅       | ✅       |            |
+| isSession                      | ✅       | ✅       |            |
+| matchPath                      | ✅       | ✅       | ✅         |
+| matchRoutes                    | ✅       | ✅       | ✅         |
+| parsePath                      | ✅       | ✅       | ✅         |
+| redirect                       | ✅       | ✅       |            |
+| redirectDocument               | ✅       | ✅       |            |
+| renderMatches                  | ✅       | ✅       | ✅         |
+| replace                        | ✅       | ✅       |            |
+| resolvePath                    | ✅       | ✅       | ✅         |

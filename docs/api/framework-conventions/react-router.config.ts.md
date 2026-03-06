@@ -7,15 +7,15 @@ order: 3
 
 [MODES: framework]
 
-## Summary
+## 概述
 
 <docs-info>
-This file is optional
+此文件是可选的
 </docs-info>
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/types/_react-router_dev.config.Config.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/types/_react-router_dev.config.Config.html)
 
-React Router framework configuration file that lets you customize aspects of your React Router application like server-side rendering, directory locations, and build settings.
+React Router 框架配置文件，允许你自定义 React Router 应用的各个方面，如服务端渲染、目录位置和构建设置。
 
 ```tsx filename=react-router.config.ts
 import type { Config } from "@react-router/dev/config";
@@ -28,11 +28,11 @@ export default {
 } satisfies Config;
 ```
 
-## Options
+## 选项
 
 ### `allowedActionOrigins`
 
-An array of allowed origin hosts for action submissions to UI routes (does not apply to resource routes). Supports micromatch glob patterns (`*` to match one segment, `**` to match multiple).
+允许向 UI 路由提交 action 的来源主机数组（不适用于资源路由）。支持 micromatch glob 模式（`*` 匹配一个段，`**` 匹配多个段）。
 
 ```tsx filename=react-router.config.ts
 export default {
@@ -44,7 +44,7 @@ export default {
 } satisfies Config;
 ```
 
-If you need to set this value at runtime, you can do in by setting the value on the server build in your custom server. For example, when using `express`:
+如果你需要在运行时设置此值，可以在自定义服务器的 server build 上设置。例如使用 `express` 时：
 
 ```ts
 import express from "express";
@@ -71,7 +71,7 @@ app.use(createRequestHandler({ build: getBuild }));
 
 ### `appDirectory`
 
-The path to the `app` directory, relative to the root directory. Defaults to `"app"`.
+`app` 目录的路径，相对于根目录。默认为 `"app"`。
 
 ```tsx filename=react-router.config.ts
 export default {
@@ -81,7 +81,7 @@ export default {
 
 ### `basename`
 
-The React Router app basename. Defaults to `"/"`.
+React Router 应用的基础路径。默认为 `"/"`。
 
 ```tsx filename=react-router.config.ts
 export default {
@@ -91,7 +91,7 @@ export default {
 
 ### `buildDirectory`
 
-The path to the build directory, relative to the project. Defaults to `"build"`.
+构建目录的路径，相对于项目。默认为 `"build"`。
 
 ```tsx filename=react-router.config.ts
 export default {
@@ -101,7 +101,7 @@ export default {
 
 ### `buildEnd`
 
-A function that is called after the full React Router build is complete.
+完整的 React Router 构建完成后调用的函数。
 
 ```tsx filename=react-router.config.ts
 export default {
@@ -110,7 +110,7 @@ export default {
     reactRouterConfig,
     viteConfig,
   }) => {
-    // Custom build logic here
+    // 自定义构建逻辑
     console.log("Build completed!");
   },
 } satisfies Config;
@@ -118,30 +118,30 @@ export default {
 
 ### `future`
 
-Enabled future flags for opting into upcoming features.
+已启用的 future flag，用于选择加入即将推出的功能。
 
-See [Future Flags][future-flags] for more information.
+详情请参阅 [Future Flag][future-flags]。
 
 ```tsx filename=react-router.config.ts
 export default {
   future: {
-    // Enable future flags here
+    // 在这里启用 future flag
   },
 } satisfies Config;
 ```
 
 ### `prerender`
 
-An array of URLs to prerender to HTML files at build time. Can also be a function returning an array to dynamically generate URLs.
+构建时要预渲染为 HTML 文件的 URL 数组。也可以是返回数组的函数，用于动态生成 URL。
 
-See [Pre-Rendering][pre-rendering] for more information.
+详情请参阅[预渲染][pre-rendering]。
 
 ```tsx filename=react-router.config.ts
 export default {
-  // Static array
+  // 静态数组
   prerender: ["/", "/about", "/contact"],
 
-  // Or dynamic function
+  // 或动态函数
   prerender: async ({ getStaticPaths }) => {
     const paths = await getStaticPaths();
     return ["/", ...paths];
@@ -151,52 +151,52 @@ export default {
 
 ### `presets`
 
-An array of React Router plugin config presets to ease integration with other platforms and tools.
+React Router 插件配置预设数组，便于与其他平台和工具集成。
 
-See [Presets][presets] for more information.
+详情请参阅[预设][presets]。
 
 ```tsx filename=react-router.config.ts
 export default {
   presets: [
-    // Add presets here
+    // 在这里添加预设
   ],
 } satisfies Config;
 ```
 
 ### `routeDiscovery`
 
-Configure how routes are discovered and loaded by the client. Defaults to `mode: "lazy"` with `manifestPath: "/__manifest"`.
+配置客户端如何发现和加载路由。默认为 `mode: "lazy"`，`manifestPath: "/__manifest"`。
 
-**Options:**
+**选项：**
 
-- `mode: "lazy"` - Routes are discovered as the user navigates (default)
-  - `manifestPath` - Custom path for manifest requests when using `lazy` mode
-- `mode: "initial"` - All routes are included in the initial manifest
+- `mode: "lazy"` - 用户导航时才发现路由（默认）
+  - `manifestPath` - 使用 `lazy` 模式时 manifest 请求的自定义路径
+- `mode: "initial"` - 所有路由都包含在初始 manifest 中
 
 ```tsx filename=react-router.config.ts
 export default {
-  // Enable lazy route discovery (default)
+  // 启用延迟路由发现（默认）
   routeDiscovery: {
     mode: "lazy",
     manifestPath: "/__manifest",
   },
 
-  // Use a custom manifest path
+  // 使用自定义 manifest 路径
   routeDiscovery: {
     mode: "lazy",
     manifestPath: "/custom-manifest",
   },
 
-  // Disable lazy discovery and include all routes initially
+  // 禁用延迟发现，初始包含所有路由
   routeDiscovery: { mode: "initial" },
 } satisfies Config;
 ```
 
-See [Lazy Route Discovery][lazy-route-discovery] for more information.
+详情请参阅[延迟路由发现][lazy-route-discovery]。
 
 ### `serverBuildFile`
 
-The file name of the server build output. This file should end in a `.js` extension and should be deployed to your server. Defaults to `"index.js"`.
+服务端构建输出的文件名。文件应以 `.js` 扩展名结尾，并部署到你的服务器。默认为 `"index.js"`。
 
 ```tsx filename=react-router.config.ts
 export default {
@@ -206,14 +206,14 @@ export default {
 
 ### `serverBundles`
 
-A function for assigning routes to different server bundles. This function should return a server bundle ID which will be used as the bundle's directory name within the server build directory.
+将路由分配到不同服务端包的函数。此函数应返回一个服务端包 ID，该 ID 将用作服务端构建目录中的包目录名称。
 
-See [Server Bundles][server-bundles] for more information.
+详情请参阅[服务端包][server-bundles]。
 
 ```tsx filename=react-router.config.ts
 export default {
   serverBundles: ({ branch }) => {
-    // Return bundle ID based on route branch
+    // 根据路由分支返回包 ID
     return branch.some((route) => route.id === "admin")
       ? "admin"
       : "main";
@@ -223,25 +223,25 @@ export default {
 
 ### `serverModuleFormat`
 
-The output format of the server build. Defaults to `"esm"`.
+服务端构建的输出格式。默认为 `"esm"`。
 
 ```tsx filename=react-router.config.ts
 export default {
-  serverModuleFormat: "cjs", // or "esm"
+  serverModuleFormat: "cjs", // 或 "esm"
 } satisfies Config;
 ```
 
 ### `ssr`
 
-If `true`, React Router will server render your application.
+如果为 `true`，React Router 将对你的应用进行服务端渲染。
 
-If `false`, React Router will pre-render your application and save it as an `index.html` file with your assets so your application can be deployed as a SPA without server-rendering. See ["SPA Mode"][spa-mode] for more information.
+如果为 `false`，React Router 将预渲染你的应用并将其保存为带有静态资源的 `index.html` 文件，这样你的应用就可以作为 SPA 部署而无需服务端渲染。详情请参阅["SPA 模式"][spa-mode]。
 
-Defaults to `true`.
+默认为 `true`。
 
 ```tsx filename=react-router.config.ts
 export default {
-  ssr: false, // disabled server-side rendering
+  ssr: false, // 禁用服务端渲染
 } satisfies Config;
 ```
 

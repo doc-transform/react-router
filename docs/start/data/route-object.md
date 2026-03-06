@@ -1,15 +1,15 @@
 ---
-title: Route Object
+title: 路由对象
 order: 3
 ---
 
-# Route Object
+# 路由对象
 
 [MODES: data]
 
-## Introduction
+## 简介
 
-The objects passed to `createBrowserRouter` are called Route Objects.
+传递给 `createBrowserRouter` 的对象称为路由对象。
 
 ```tsx lines=[2-5]
 createBrowserRouter([
@@ -20,19 +20,19 @@ createBrowserRouter([
 ]);
 ```
 
-Route modules are the foundation of React Router's data features, they define:
+路由模块是 React Router 数据功能的基础，它们定义了：
 
-- data loading
-- actions
-- revalidation
-- error boundaries
-- and more
+- 数据加载
+- 操作（Action）
+- 重新验证
+- 错误边界
+- 以及更多
 
-This guide is a quick overview of every route object feature.
+本指南是对路由对象所有功能的快速概览。
 
 ## Component
 
-The `Component` property in a route object defines the component that will render when the route matches.
+路由对象中的 `Component` 属性定义了当路由匹配时要渲染的组件。
 
 ```tsx lines=[4]
 createBrowserRouter([
@@ -56,7 +56,7 @@ function MyRouteComponent() {
 
 ## `middleware`
 
-Route [middleware][middleware] runs sequentially before and after navigations. This gives you a singular place to do things like logging and authentication. The `next` function continues down the chain, and on the leaf route the `next` function executes the loaders/actions for the navigation.
+路由[中间件][middleware]在导航前后按顺序运行。这为你提供了一个统一的位置来处理日志记录和身份认证等事务。`next` 函数继续沿链路向下执行，在叶子路由上 `next` 函数会执行该导航的 loader/action。
 
 ```tsx
 createBrowserRouter([
@@ -97,13 +97,13 @@ async function authMiddleware ({ context }) {
 };
 ```
 
-See also:
+另请参阅：
 
-- [Middleware][middleware]
+- [中间件][middleware]
 
 ## `loader`
 
-Route loaders provide data to route components before they are rendered.
+路由 loader 在组件渲染之前为路由组件提供数据。
 
 ```tsx
 import {
@@ -129,13 +129,13 @@ function MyRoute() {
 }
 ```
 
-See also:
+另请参阅：
 
-- [`loader` params][loader-params]
+- [`loader` 参数][loader-params]
 
 ## `action`
 
-Route actions allow server-side data mutations with automatic revalidation of all loader data on the page when called from `<Form>`, `useFetcher`, and `useSubmit`.
+路由 action 允许进行服务端数据变更，当通过 `<Form>`、`useFetcher` 和 `useSubmit` 调用时，页面上所有的 loader 数据会自动重新验证。
 
 ```tsx
 import {
@@ -163,13 +163,13 @@ async function action({ request }) {
   return { ok: true };
 }
 
-// this data will be revalidated after the action completes...
+// 这些数据会在 action 完成后自动重新验证……
 async function loader() {
   const items = await fakeDb.getItems();
   return { items };
 }
 
-// ...so that the list here is updated automatically
+// ……因此这里的列表会自动更新
 export default function Items() {
   let data = useLoaderData();
   return (
@@ -186,17 +186,17 @@ export default function Items() {
 
 ## `shouldRevalidate`
 
-Loader data is automatically revalidated after certain events like navigations and form submissions.
+Loader 数据会在导航和表单提交等特定事件后自动重新验证。
 
-This hook enables you to opt in or out of the default revalidation behavior. The default behavior is nuanced to avoid calling loaders unnecessarily.
+此钩子允许你选择启用或禁用默认的重新验证行为。默认行为经过精心设计，以避免不必要的 loader 调用。
 
-A route loader is revalidated when:
+路由 loader 在以下情况下会重新验证：
 
-- its own route params change
-- any change to URL search params
-- after an action is called and returns a non-error status code
+- 自身路由参数发生变化
+- URL 搜索参数发生任何变化
+- action 被调用并返回非错误状态码后
 
-By defining this function, you opt out of the default behavior completely and can manually control when loader data is revalidated for navigations and form submissions.
+定义此函数后，你将完全退出默认行为，可以手动控制导航和表单提交时何时重新验证 loader 数据。
 
 ```tsx
 import type { ShouldRevalidateFunctionArgs } from "react-router";
@@ -216,20 +216,20 @@ createBrowserRouter([
 ]);
 ```
 
-[`ShouldRevalidateFunctionArgs` Reference Documentation ↗](https://api.reactrouter.com/v7/interfaces/react-router.ShouldRevalidateFunctionArgs.html)
+[`ShouldRevalidateFunctionArgs` 参考文档 ↗](https://api.reactrouter.com/v7/interfaces/react-router.ShouldRevalidateFunctionArgs.html)
 
-Please note the default behavior is different in [Framework Mode](../modes).
+请注意，[框架模式](../modes)中的默认行为有所不同。
 
 ## `lazy`
 
-Most properties can be lazily imported to reduce the initial bundle size.
+大多数属性都可以延迟导入，以减小初始包体积。
 
 ```tsx
 createBrowserRouter([
   {
     path: "/app",
     lazy: async () => {
-      // load component and loader in parallel before rendering
+      // 在渲染前并行加载组件和 loader
       const [Component, loader] = await Promise.all([
         import("./app"),
         import("./app-loader"),
@@ -242,7 +242,7 @@ createBrowserRouter([
 
 ---
 
-Next: [Data Loading](./data-loading)
+下一节：[数据加载](./data-loading)
 
 [loader-params]: https://api.reactrouter.com/v7/interfaces/react-router.LoaderFunctionArgs
 [middleware]: ../../how-to/middleware

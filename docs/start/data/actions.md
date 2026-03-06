@@ -1,15 +1,15 @@
 ---
-title: Actions
+title: 操作（Action）
 order: 5
 ---
 
-# Actions
+# 操作（Action）
 
 [MODES: data]
 
-## Defining Actions
+## 定义 Action
 
-Data mutations are done through Route actions defined on the `action` property of a route object. When the action completes, all loader data on the page is revalidated to keep your UI in sync with the data without writing any code to do it.
+数据变更通过路由对象上 `action` 属性定义的路由 action 来完成。当 action 完成后，页面上所有的 loader 数据都会自动重新验证，使你的 UI 与数据保持同步，无需编写任何额外代码。
 
 ```tsx
 import { createBrowserRouter } from "react-router";
@@ -29,11 +29,11 @@ let router = createBrowserRouter([
 ]);
 ```
 
-## Calling Actions
+## 调用 Action
 
-Actions are called declaratively through `<Form>` and imperatively through `useSubmit` (or `<fetcher.Form>` and `fetcher.submit`) by referencing the route's path and a "post" method.
+Action 可以通过 `<Form>` 声明式调用，也可以通过 `useSubmit`（或 `<fetcher.Form>` 和 `fetcher.submit`）命令式调用，需要引用路由路径并使用 "post" 方法。
 
-### Calling actions with a Form
+### 使用 Form 调用 action
 
 ```tsx
 import { Form } from "react-router";
@@ -48,11 +48,11 @@ function SomeComponent() {
 }
 ```
 
-This will cause a navigation and a new entry will be added to the browser history.
+这将触发导航，并在浏览器历史记录中添加新条目。
 
-### Calling actions with useSubmit
+### 使用 useSubmit 调用 action
 
-You can submit form data to an action imperatively with `useSubmit`.
+你可以使用 `useSubmit` 以命令式方式向 action 提交表单数据。
 
 ```tsx
 import { useCallback } from "react";
@@ -74,11 +74,11 @@ function useQuizTimer() {
 }
 ```
 
-This will cause a navigation and a new entry will be added to the browser history.
+这将触发导航，并在浏览器历史记录中添加新条目。
 
-### Calling actions with a fetcher
+### 使用 fetcher 调用 action
 
-Fetchers allow you to submit data to actions (and loaders) without causing a navigation (no new entries in the browser history).
+Fetcher 允许你向 action（和 loader）提交数据，而不触发导航（浏览器历史记录中不会添加新条目）。
 
 ```tsx
 import { useFetcher } from "react-router";
@@ -98,7 +98,7 @@ function Task() {
 }
 ```
 
-They also have the imperative `submit` method.
+它们也有命令式的 `submit` 方法。
 
 ```tsx
 fetcher.submit(
@@ -107,11 +107,11 @@ fetcher.submit(
 );
 ```
 
-See the [Using Fetchers][fetchers] guide for more information.
+更多信息请参阅[使用 Fetcher][fetchers] 指南。
 
-## Accessing Action Data
+## 访问 Action 数据
 
-Actions can return data available through `useActionData` in the route component or `fetcher.data` when using a fetcher.
+Action 可以返回数据，在路由组件中通过 `useActionData` 访问，或在使用 fetcher 时通过 `fetcher.data` 访问。
 
 ```tsx
 function Project() {
@@ -133,6 +133,6 @@ function Project() {
 
 ---
 
-Next: [Navigating](./navigating)
+下一节：[导航](./navigating)
 
 [fetchers]: ../../how-to/fetchers

@@ -4,28 +4,13 @@ title: useRoutes
 
 # useRoutes
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useRoutes.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useRoutes.html)
 
-Hook version of [`<Routes>`](../components/Routes) that uses objects instead of
-components. These objects have the same properties as the component props.
-The return value of `useRoutes` is either a valid React element you can use
-to render the route tree, or `null` if nothing matched.
+[`<Routes>`](../components/Routes) 的 Hook 版本，使用对象而非组件。这些对象具有与组件 props 相同的属性。`useRoutes` 的返回值是一个可用于渲染路由树的有效 React 元素，如果没有匹配则返回 `null`。
 
 ```tsx
 import { useRoutes } from "react-router";
@@ -50,26 +35,25 @@ function App() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
 function useRoutes(
   routes: RouteObject[],
   locationArg?: Partial<Location> | string,
-): React.ReactElement | null
+): React.ReactElement | null;
 ```
 
-## Params
+## 参数
 
 ### routes
 
-An array of [`RouteObject`](https://api.reactrouter.com/v7/types/react-router.RouteObject.html)s that define the route hierarchy
+定义路由层级的 [`RouteObject`](https://api.reactrouter.com/v7/types/react-router.RouteObject.html) 数组。
 
 ### locationArg
 
-An optional [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) object or pathname string to use instead of the current [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html)
+可选的 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html) 对象或路径名字符串，用于替代当前 [`Location`](https://api.reactrouter.com/v7/interfaces/react-router.Location.html)。
 
-## Returns
+## 返回值
 
-A React element to render the matched route, or `null` if no routes matched
-
+用于渲染匹配路由的 React 元素，如果没有匹配的路由则返回 `null`。

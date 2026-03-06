@@ -1,20 +1,20 @@
 ---
-title: Sessions and Cookies
+title: 会话与 Cookie
 ---
 
-# Sessions and Cookies
+# 会话与 Cookie
 
 [MODES: framework, data]
 
-## Sessions
+## 会话
 
-Sessions are an important part of websites that allow the server to identify requests coming from the same person, especially when it comes to server-side form validation or when JavaScript is not on the page. Sessions are a fundamental building block of many sites that let users "log in", including social, e-commerce, business, and educational websites.
+会话是网站的重要组成部分，允许服务器识别来自同一用户的请求，特别是在服务端表单验证或页面上没有 JavaScript 时。会话是许多允许用户"登录"的站点的基本构建块，包括社交、电商、商务和教育网站。
 
-When using React Router as your framework, sessions are managed on a per-route basis (rather than something like express middleware) in your `loader` and `action` methods using a "session storage" object (that implements the [`SessionStorage`][session-storage] interface). Session storage understands how to parse and generate cookies, and how to store session data in a database or filesystem.
+在使用 React Router 作为框架时，会话是在路由级别（而非像 express 中间件那样）在 `loader` 和 `action` 方法中使用"会话存储"对象（实现 [`SessionStorage`][session-storage] 接口）来管理的。会话存储知道如何解析和生成 cookie，以及如何在数据库或文件系统中存储会话数据。
 
-### Using Sessions
+### 使用会话
 
-This is an example of a cookie session storage:
+这是一个 cookie 会话存储的示例：
 
 ```ts filename=app/sessions.server.ts
 import { createCookieSessionStorage } from "react-router";
@@ -30,14 +30,15 @@ type SessionFlashData = {
 const { getSession, commitSession, destroySession } =
   createCookieSessionStorage<SessionData, SessionFlashData>(
     {
-      // a Cookie from `createCookie` or the CookieOptions to create one
+      // 来自 `createCookie` 的 Cookie 或用于创建的 CookieOptions
       cookie: {
         name: "__session",
 
-        // all of these are optional
+        // 以下都是可选的
         domain: "reactrouter.com",
-        // Expires can also be set (although maxAge overrides it when used in combination).
-        // Note that this method is NOT recommended as `new Date` creates only one date on each server deployment, not a dynamic date in the future!
+        // Expires 也可以设置（但当与 maxAge 一起使用时，maxAge 会覆盖它）。
+        // 注意不推荐此方法，因为 `new Date` 只在每次服务器部署时创建一个日期，
+        // 而不是未来的动态日期！
         //
         // expires: new Date(Date.now() + 60_000),
         httpOnly: true,
@@ -53,13 +54,13 @@ const { getSession, commitSession, destroySession } =
 export { getSession, commitSession, destroySession };
 ```
 
-We recommend setting up your session storage object in `app/sessions.server.ts` so all routes that need to access session data can import from the same spot.
+我们建议在 `app/sessions.server.ts` 中设置会话存储对象，这样所有需要访问会话数据的路由都可以从同一位置导入。
 
-The input/output to a session storage object are HTTP cookies. `getSession()` retrieves the current session from the incoming request's `Cookie` header, and `commitSession()`/`destroySession()` provide the `Set-Cookie` header for the outgoing response.
+会话存储对象的输入/输出是 HTTP cookie。`getSession()` 从传入请求的 `Cookie` 头中获取当前会话，而 `commitSession()`/`destroySession()` 提供传出响应的 `Set-Cookie` 头。
 
-You'll use methods to get access to sessions in your `loader` and `action` functions.
+你会在 `loader` 和 `action` 函数中使用这些方法来访问会话。
 
-After retrieving a session with `getSession`, the returned session object has a handful of methods and properties:
+通过 `getSession` 获取会话后，返回的会话对象有一系列方法和属性：
 
 ```tsx
 export async function action({
@@ -70,15 +71,15 @@ export async function action({
   );
   session.get("foo");
   session.has("bar");
-  // etc.
+  // 等等
 }
 ```
 
-See the [Session API][session-api] for all methods available on the session object.
+查看 [Session API][session-api] 了解会话对象上所有可用的方法。
 
-### Login form example
+### 登录表单示例
 
-A login form might look something like this:
+登录表单可能看起来像这样：
 
 ```tsx filename=app/routes/login.tsx lines=[4-7,12-14,16,22,25,33-35,46,51,56,61]
 import { data, redirect } from "react-router";
@@ -97,7 +98,7 @@ export async function loader({
   );
 
   if (session.has("userId")) {
-    // Redirect to the home page if they are already signed in.
+    // 如果已登录则重定向到首页。
     return redirect("/");
   }
 
@@ -127,9 +128,9 @@ export async function action({
   );
 
   if (userId == null) {
-    session.flash("error", "Invalid username/password");
+    session.flash("error", "用户名或密码无效");
 
-    // Redirect back to the login page with errors.
+    // 带着错误信息重定向回登录页面。
     return redirect("/login", {
       headers: {
         "Set-Cookie": await commitSession(session),
@@ -139,7 +140,7 @@ export async function action({
 
   session.set("userId", userId);
 
-  // Login succeeded, send them to the home page.
+  // 登录成功，将他们发送到首页。
   return redirect("/", {
     headers: {
       "Set-Cookie": await commitSession(session),
@@ -157,14 +158,13 @@ export default function Login({
       {error ? <div className="error">{error}</div> : null}
       <form method="POST">
         <div>
-          <p>Please sign in</p>
+          <p>请登录</p>
         </div>
         <label>
-          Username: <input type="text" name="username" />
+          用户名: <input type="text" name="username" />
         </label>
         <label>
-          Password:{" "}
-          <input type="password" name="password" />
+          密码: <input type="password" name="password" />
         </label>
       </form>
     </div>
@@ -172,7 +172,7 @@ export default function Login({
 }
 ```
 
-And then a logout form might look something like this:
+退出登录表单可能看起来像这样：
 
 ```tsx filename=app/routes/logout.tsx
 import {
@@ -197,32 +197,32 @@ export async function action({
 export default function LogoutRoute() {
   return (
     <>
-      <p>Are you sure you want to log out?</p>
+      <p>确定要退出登录吗？</p>
       <Form method="post">
-        <button>Logout</button>
+        <button>退出登录</button>
       </Form>
-      <Link to="/">Never mind</Link>
+      <Link to="/">算了</Link>
     </>
   );
 }
 ```
 
-<docs-warning>It's important that you logout (or perform any mutation for that matter) in an `action` and not a `loader`. Otherwise you open your users to [Cross-Site Request Forgery][csrf] attacks.</docs-warning>
+<docs-warning>重要的是要在 `action` 中执行退出登录（或执行任何数据变更操作），而不是 `loader` 中。否则你的用户将面临[跨站请求伪造 (CSRF)][csrf] 攻击的风险。</docs-warning>
 
-### Session Gotchas
+### 会话注意事项
 
-Because of nested routes, multiple loaders can be called to construct a single page. When using `session.flash()` or `session.unset()`, you need to be sure no other loaders in the request are going to want to read that, otherwise you'll get race conditions. Typically if you're using flash, you'll want to have a single loader read it, if another loader wants a flash message, use a different key for that loader.
+由于嵌套路由的存在，多个 loader 可以被调用来构建单个页面。当使用 `session.flash()` 或 `session.unset()` 时，你需要确保请求中没有其他 loader 会读取它，否则会出现竞态条件。通常如果你使用 flash，你会希望只有一个 loader 读取它，如果另一个 loader 想要 flash 消息，请为该 loader 使用不同的 key。
 
-### Creating custom session storage
+### 创建自定义会话存储
 
-React Router makes it easy to store sessions in your own database if needed. The [`createSessionStorage()`][create-session-storage] API requires a `cookie` (for options for creating a cookie, see [cookies][cookies]) and a set of create, read, update, and delete (CRUD) methods for managing the session data. The cookie is used to persist the session ID.
+如果需要，React Router 使你可以轻松地将会话存储在自己的数据库中。[`createSessionStorage()`][create-session-storage] API 需要一个 `cookie`（用于创建 cookie 的选项，请参阅 [cookies][cookies]）和一组用于管理会话数据的创建、读取、更新和删除 (CRUD) 方法。cookie 用于持久化会话 ID。
 
-- `createData` will be called from `commitSession` on the initial session creation when no session ID exists in the cookie
-- `readData` will be called from `getSession` when a session ID exists in the cookie
-- `updateData` will be called from `commitSession` when a session ID already exists in the cookie
-- `deleteData` is called from `destroySession`
+- `createData` 将在初始会话创建时由 `commitSession` 调用（当 cookie 中不存在会话 ID 时）
+- `readData` 将在 cookie 中存在会话 ID 时由 `getSession` 调用
+- `updateData` 将在 cookie 中已存在会话 ID 时由 `commitSession` 调用
+- `deleteData` 由 `destroySession` 调用
 
-The following example shows how you could do this using a generic database client:
+以下示例展示了如何使用通用数据库客户端来实现：
 
 ```ts
 import { createSessionStorage } from "react-router";
@@ -232,15 +232,15 @@ function createDatabaseSessionStorage({
   host,
   port,
 }) {
-  // Configure your database client...
+  // 配置你的数据库客户端...
   const db = createDatabaseClient(host, port);
 
   return createSessionStorage({
     cookie,
     async createData(data, expires) {
-      // `expires` is a Date after which the data should be considered
-      // invalid. You could use it to invalidate the data somehow or
-      // automatically purge this record from your database.
+      // `expires` 是一个 Date，之后数据应被视为无效。
+      // 你可以用它以某种方式使数据无效或
+      // 自动从数据库中清除此记录。
       const id = await db.insert(data);
       return id;
     },
@@ -257,7 +257,7 @@ function createDatabaseSessionStorage({
 }
 ```
 
-And then you can use it like this:
+然后你可以这样使用它：
 
 ```ts
 const { getSession, commitSession, destroySession } =
@@ -271,46 +271,46 @@ const { getSession, commitSession, destroySession } =
   });
 ```
 
-The `expires` argument to `createData` and `updateData` is the same `Date` at which the cookie itself expires and is no longer valid. You can use this information to automatically purge the session record from your database to save on space, or to ensure that you do not otherwise return any data for old, expired cookies.
+`createData` 和 `updateData` 的 `expires` 参数与 cookie 本身过期且不再有效的 `Date` 相同。你可以使用此信息自动从数据库中清除会话记录以节省空间，或确保你不会为旧的过期 cookie 返回任何数据。
 
-### Additional session utils
+### 其他会话工具
 
-There are also several other session utilities available if you need them:
+如果需要，还有其他几个可用的会话工具：
 
 - [`isSession`][is-session]
 - [`createMemorySessionStorage`][create-memory-session-storage]
-- [`createSession`][create-session] (custom storage)
-- [`createFileSessionStorage`][create-file-session-storage] (node)
-- [`createWorkersKVSessionStorage`][create-workers-kv-session-storage] (Cloudflare Workers)
-- [`createArcTableSessionStorage`][create-arc-table-session-storage] (architect, Amazon DynamoDB)
+- [`createSession`][create-session]（自定义存储）
+- [`createFileSessionStorage`][create-file-session-storage]（node）
+- [`createWorkersKVSessionStorage`][create-workers-kv-session-storage]（Cloudflare Workers）
+- [`createArcTableSessionStorage`][create-arc-table-session-storage]（architect, Amazon DynamoDB）
 
 ## Cookies
 
-A [cookie][cookie] is a small piece of information that your server sends someone in a HTTP response that their browser will send back on subsequent requests. This technique is a fundamental building block of many interactive websites that adds state so you can build authentication (see [sessions][sessions]), shopping carts, user preferences, and many other features that require remembering who is "logged in".
+[Cookie][cookie] 是服务器在 HTTP 响应中发送给客户端的一小段信息，浏览器会在后续请求中将其发回。这种技术是许多添加状态的交互式网站的基本构建块，你可以用它构建认证（参见[会话][sessions]）、购物车、用户偏好设置和许多其他需要记住谁"已登录"的功能。
 
-React Router's [`Cookie` interface][cookie-api] provides a logical, reusable container for cookie metadata.
+React Router 的 [`Cookie` 接口][cookie-api]提供了一个逻辑化、可复用的 cookie 元数据容器。
 
-### Using cookies
+### 使用 Cookies
 
-While you may create these cookies manually, it is more common to use a [session storage][sessions].
+虽然你可以手动创建这些 cookie，但更常见的做法是使用[会话存储][sessions]。
 
-In React Router, you will typically work with cookies in your `loader` and/or `action` functions, since those are the places where you need to read and write data.
+在 React Router 中，你通常会在 `loader` 和/或 `action` 函数中使用 cookie，因为这些是你需要读写数据的地方。
 
-Let's say you have a banner on your e-commerce site that prompts users to check out the items you currently have on sale. The banner spans the top of your homepage, and includes a button on the side that allows the user to dismiss the banner so they don't see it for at least another week.
+假设你的电商网站上有一个横幅，提示用户查看当前促销商品。横幅横跨首页顶部，并包含一个按钮让用户关闭横幅，这样至少在接下来的一周内不会再看到它。
 
-First, create a cookie:
+首先，创建一个 cookie：
 
 ```ts filename=app/cookies.server.ts
 import { createCookie } from "react-router";
 
 export const userPrefs = createCookie("user-prefs", {
-  maxAge: 604_800, // one week
+  maxAge: 604_800, // 一周
 });
 ```
 
-Then, you can `import` the cookie and use it in your `loader` and/or `action`. The `loader` in this case just checks the value of the user preference so you can use it in your component for deciding whether to render the banner. When the button is clicked, the `<form>` calls the `action` on the server and reloads the page without the banner.
+然后，你可以 `import` 该 cookie 并在 `loader` 和/或 `action` 中使用它。此处的 `loader` 只是检查用户偏好的值，以便你可以在组件中决定是否渲染横幅。当按钮被点击时，`<form>` 在服务器上调用 `action` 并重新加载不带横幅的页面。
 
-### User preferences example
+### 用户偏好设置示例
 
 ```tsx filename=app/routes/home.tsx lines=[4,9-11,18-20,29]
 import { Link, Form, redirect } from "react-router";
@@ -353,30 +353,30 @@ export default function Home({
     <div>
       {loaderData.showBanner ? (
         <div>
-          <Link to="/sale">Don't miss our sale!</Link>
+          <Link to="/sale">不要错过我们的促销！</Link>
           <Form method="post">
             <input
               type="hidden"
               name="bannerVisibility"
               value="hidden"
             />
-            <button type="submit">Hide</button>
+            <button type="submit">隐藏</button>
           </Form>
         </div>
       ) : null}
-      <h1>Welcome!</h1>
+      <h1>欢迎！</h1>
     </div>
   );
 }
 ```
 
-### Cookie attributes
+### Cookie 属性
 
-Cookies have [several attributes][cookie-attrs] that control when they expire, how they are accessed, and where they are sent. Any of these attributes may be specified either in `createCookie(name, options)`, or during `serialize()` when the `Set-Cookie` header is generated.
+Cookie 有[多个属性][cookie-attrs]控制它们何时过期、如何访问以及发送到哪里。这些属性中的任何一个都可以在 `createCookie(name, options)` 中指定，或在生成 `Set-Cookie` 头时在 `serialize()` 中指定。
 
 ```ts
 const cookie = createCookie("user-prefs", {
-  // These are defaults for this cookie.
+  // 此 cookie 的默认值。
   path: "/",
   sameSite: "lax",
   httpOnly: true,
@@ -385,20 +385,20 @@ const cookie = createCookie("user-prefs", {
   maxAge: 60,
 });
 
-// You can either use the defaults:
+// 你可以使用默认值：
 cookie.serialize(userPrefs);
 
-// Or override individual ones as needed:
+// 或根据需要覆盖个别值：
 cookie.serialize(userPrefs, { sameSite: "strict" });
 ```
 
-Please read [more info about these attributes][cookie-attrs] to get a better understanding of what they do.
+请阅读[关于这些属性的更多信息][cookie-attrs]以更好地了解它们的作用。
 
-### Signing cookies
+### 签名 Cookies
 
-It is possible to sign a cookie to automatically verify its contents when it is received. Since it's relatively easy to spoof HTTP headers, this is a good idea for any information that you do not want someone to be able to fake, like authentication information (see [sessions][sessions]).
+可以对 cookie 进行签名，以便在接收时自动验证其内容。由于伪造 HTTP 头相对容易，对于任何你不希望被人伪造的信息（如认证信息，参见[会话][sessions]），这是一个好主意。
 
-To sign a cookie, provide one or more `secrets` when you first create the cookie:
+要签名一个 cookie，在首次创建 cookie 时提供一个或多个 `secrets`：
 
 ```ts
 const cookie = createCookie("user-prefs", {
@@ -406,9 +406,9 @@ const cookie = createCookie("user-prefs", {
 });
 ```
 
-Cookies that have one or more `secrets` will be stored and verified in a way that ensures the cookie's integrity.
+拥有一个或多个 `secrets` 的 cookie 将以确保 cookie 完整性的方式存储和验证。
 
-Secrets may be rotated by adding new secrets to the front of the `secrets` array. Cookies that have been signed with old secrets will still be decoded successfully in `cookie.parse()`, and the newest secret (the first one in the array) will always be used to sign outgoing cookies created in `cookie.serialize()`.
+可以通过在 `secrets` 数组前面添加新的 secret 来轮换密钥。使用旧 secret 签名的 cookie 仍然可以在 `cookie.parse()` 中成功解码，而最新的 secret（数组中的第一个）将始终用于签名 `cookie.serialize()` 中创建的传出 cookie。
 
 ```ts filename=app/cookies.server.ts
 export const cookie = createCookie("user-prefs", {
@@ -425,26 +425,26 @@ export async function loader({
   request,
 }: Route.LoaderArgs) {
   const oldCookie = request.headers.get("Cookie");
-  // oldCookie may have been signed with "olds3cret", but still parses ok
+  // oldCookie 可能是用 "olds3cret" 签名的，但仍然可以正常解析
   const value = await cookie.parse(oldCookie);
 
   return data("...", {
     headers: {
-      // Set-Cookie is signed with "n3wsecr3t"
+      // Set-Cookie 使用 "n3wsecr3t" 签名
       "Set-Cookie": await cookie.serialize(value),
     },
   });
 }
 ```
 
-### Additional cookie utils
+### 其他 Cookie 工具
 
-There are also several other cookie utilities available if you need them:
+如果需要，还有其他几个可用的 cookie 工具：
 
 - [`isCookie`][is-cookie]
 - [`createCookie`][create-cookie]
 
-To learn more about each attribute, please see the [MDN Set-Cookie docs][cookie-attrs].
+要了解每个属性的更多信息，请参阅 [MDN Set-Cookie 文档][cookie-attrs]。
 
 [csrf]: https://developer.mozilla.org/en-US/docs/Glossary/CSRF
 [cookies]: #cookies

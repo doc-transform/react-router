@@ -1,53 +1,53 @@
 ---
-title: Framework Adoption from Component Routes
+title: 从组件路由迁移到框架模式
 order: 4
 ---
 
-# Framework Adoption from Component Routes
+# 从组件路由迁移到框架模式
 
-If you are using `<RouterProvider>` please see [Framework Adoption from RouterProvider][upgrade-router-provider] instead.
+如果你使用的是 `<RouterProvider>`，请参阅[从 RouterProvider 迁移到框架模式][upgrade-router-provider]。
 
-If you are using `<Routes>` this is the right place.
+如果你使用的是 `<Routes>`，那你来对地方了。
 
-The React Router Vite plugin adds framework features to React Router. This guide will help you adopt the plugin in your app. If you run into any issues, please reach out for help on [Twitter](https://x.com/remix_run) or [Discord](https://rmx.as/discord).
+React Router Vite 插件为 React Router 增加了框架功能。本指南将帮助你在应用中采用该插件。如果你遇到任何问题，请通过 [Twitter](https://x.com/remix_run) 或 [Discord](https://rmx.as/discord) 寻求帮助。
 
-## Features
+## 功能
 
-The Vite plugin adds:
+Vite 插件增加了以下功能：
 
-- Route loaders, actions, and automatic data revalidation
-- Type-safe Routes Modules
-- Automatic route code-splitting
-- Automatic scroll restoration across navigations
-- Optional Static pre-rendering
-- Optional Server rendering
+- 路由 loader、action 和自动数据重新验证
+- 类型安全的路由模块
+- 自动路由代码拆分
+- 跨导航的自动滚动恢复
+- 可选的静态预渲染
+- 可选的服务端渲染
 
-The initial setup requires the most work. However, once complete, you can adopt new features incrementally, one route at a time.
+初始设置需要的工作量最大。不过一旦完成，你可以逐步采用新功能，每次迁移一个路由。
 
-## Prerequisites
+## 前提条件
 
-To use the Vite plugin, your project requires:
+使用 Vite 插件要求你的项目满足：
 
-- Node.js 20+ (if using Node as your runtime)
+- Node.js 20+（如果使用 Node 作为运行时）
 - Vite 5+
 
-## 1. Install the Vite plugin
+## 1. 安装 Vite 插件
 
-**👉 Install the React Router Vite plugin**
+**👉 安装 React Router Vite 插件**
 
 ```shellscript nonumber
 npm install -D @react-router/dev
 ```
 
-**👉 Install a runtime adapter**
+**👉 安装运行时适配器**
 
-We will assume you are using Node as your runtime.
+这里假设你使用 Node 作为运行时。
 
 ```shellscript nonumber
 npm install @react-router/node
 ```
 
-**👉 Swap out the React plugin for React Router.**
+**👉 将 React 插件替换为 React Router**
 
 ```diff filename=vite.config.ts
 -import react from '@vitejs/plugin-react'
@@ -63,11 +63,11 @@ export default defineConfig({
 });
 ```
 
-## 2. Add the React Router config
+## 2. 添加 React Router 配置
 
-**👉 Create a `react-router.config.ts` file**
+**👉 创建 `react-router.config.ts` 文件**
 
-Add the following to the root of your project. In this config you can tell React Router about your project, like where to find the app directory and to not use SSR (server-side rendering) for now.
+在项目根目录添加以下文件。在这个配置中，你可以告诉 React Router 关于你项目的信息，比如应用目录的位置以及暂时不使用 SSR（服务端渲染）。
 
 ```shellscript nonumber
 touch react-router.config.ts
@@ -82,13 +82,13 @@ export default {
 } satisfies Config;
 ```
 
-## 3. Add the Root entry point
+## 3. 添加根入口点
 
-In a typical Vite app, the `index.html` file is the entry point for bundling. The React Router Vite plugin moves the entry point to a `root.tsx` file so you can use React to render the shell of your app instead of static HTML, and eventually upgrade to Server Rendering if you want.
+在典型的 Vite 应用中，`index.html` 文件是打包的入口点。React Router Vite 插件将入口点移到 `root.tsx` 文件，这样你就可以使用 React 来渲染应用的外壳，而不是静态 HTML，并且以后可以升级到服务端渲染。
 
-**👉 Move your existing `index.html` to `root.tsx`**
+**👉 将现有的 `index.html` 移至 `root.tsx`**
 
-For example, if your current `index.html` looks like this:
+例如，如果你当前的 `index.html` 如下所示：
 
 ```html filename=index.html
 <!DOCTYPE html>
@@ -108,7 +108,7 @@ For example, if your current `index.html` looks like this:
 </html>
 ```
 
-You would move that markup into `src/root.tsx` and delete `index.html`:
+你需要将这些标记移到 `src/root.tsx` 中，并删除 `index.html`：
 
 ```shellscript nonumber
 touch src/root.tsx
@@ -154,13 +154,13 @@ export default function Root() {
 }
 ```
 
-## 4. Add client entry module
+## 4. 添加客户端入口模块
 
-In the typical Vite app the `index.html` file points to `src/main.tsx` as the client entry point. React Router uses a file named `src/entry.client.tsx` instead.
+在典型的 Vite 应用中，`index.html` 文件指向 `src/main.tsx` 作为客户端入口点。React Router 使用名为 `src/entry.client.tsx` 的文件。
 
-**👉 Make `src/entry.client.tsx` your entry point**
+**👉 将 `src/entry.client.tsx` 设为入口点**
 
-If your current `src/main.tsx` looks like this:
+如果你当前的 `src/main.tsx` 如下所示：
 
 ```tsx filename=src/main.tsx
 import React from "react";
@@ -180,7 +180,7 @@ ReactDOM.createRoot(
 );
 ```
 
-You would rename it to `entry.client.tsx` and change it to this:
+你需要将其重命名为 `entry.client.tsx` 并修改为：
 
 ```tsx filename=src/entry.client.tsx
 import React from "react";
@@ -196,27 +196,27 @@ ReactDOM.hydrateRoot(
 );
 ```
 
-- Use `hydrateRoot` instead of `createRoot`
-- Render a `<HydratedRouter>` instead of your `<App/>` component
-- Note: we stopped rendering the `<App/>` component. We'll bring it back in a later step, but first we want to get the app to boot with the new entry point.
+- 使用 `hydrateRoot` 代替 `createRoot`
+- 渲染 `<HydratedRouter>` 代替 `<App/>` 组件
+- 注意：我们暂时不再渲染 `<App/>` 组件。我们会在后面的步骤中把它加回来，但首先要确保应用能用新的入口点启动。
 
-## 5. Shuffle stuff around
+## 5. 调整代码位置
 
-Between `root.tsx` and `entry.client.tsx`, you may want to shuffle some stuff around between them.
+在 `root.tsx` 和 `entry.client.tsx` 之间，你可能需要在它们之间移动一些代码。
 
-In general:
+一般来说：
 
-- `root.tsx` contains any rendering things like context providers, layouts, styles, etc.
-- `entry.client.tsx` should be as minimal as possible
-- Remember to _not_ try to render your existing `<App/>` component yet, we'll do that in a later step
+- `root.tsx` 包含所有渲染相关的内容，如 context provider、布局、样式等。
+- `entry.client.tsx` 应尽可能精简
+- 记住暂时*不要*尝试渲染你现有的 `<App/>` 组件，我们会在后面的步骤中处理
 
-Note that your `root.tsx` file will be statically generated and served as the entry point of your app, so just that module will need to be compatible with server rendering. This is where most of your trouble will come.
+注意：你的 `root.tsx` 文件会被静态生成并作为应用的入口点提供，因此仅该模块需要兼容服务端渲染。这是你可能遇到最多问题的地方。
 
-## 6. Set up your routes
+## 6. 设置路由
 
-The React Router Vite plugin uses a `routes.ts` file to configure your routes. For now we'll add a simple catchall route to get things going.
+React Router Vite 插件使用 `routes.ts` 文件来配置路由。现在我们先添加一个简单的全匹配路由来让应用运行起来。
 
-**👉 Set up a `catchall.tsx` route**
+**👉 设置一个 `catchall.tsx` 路由**
 
 ```shellscript nonumber
 touch src/routes.ts src/catchall.tsx
@@ -229,14 +229,14 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
-  // * matches all URLs, the ? makes it optional so it will match / as well
+  // * 匹配所有 URL，? 使其成为可选的，这样它也能匹配 /
   route("*?", "catchall.tsx"),
 ] satisfies RouteConfig;
 ```
 
-**👉 Render a placeholder route**
+**👉 渲染一个占位路由**
 
-Eventually we'll replace this with our original `App` component, but for now we'll just render something simple to make sure we can boot the app.
+最终我们会用原来的 `App` 组件替换它，但现在先渲染一些简单的内容来确保应用能启动。
 
 ```tsx filename=src/catchall.tsx
 export default function Component() {
@@ -244,13 +244,13 @@ export default function Component() {
 }
 ```
 
-[View our guide on configuring routes][configuring-routes] to learn more about the `routes.ts` file.
+查看我们的[路由配置指南][configuring-routes]了解更多关于 `routes.ts` 文件的信息。
 
-## 7. Boot the app
+## 7. 启动应用
 
-At this point you should be able to boot the app and see the root layout.
+此时你应该能够启动应用并看到根布局了。
 
-**👉 Add `dev` script and run the app**
+**👉 添加 `dev` 脚本并运行应用**
 
 ```json filename=package.json
 "scripts": {
@@ -258,25 +258,25 @@ At this point you should be able to boot the app and see the root layout.
 }
 ```
 
-Now make sure you can boot your app at this point before moving on:
+在继续下一步之前，确保应用能正常启动：
 
 ```shellscript
 npm run dev
 ```
 
-You will probably want to add `.react-router/` to your `.gitignore` file to avoid tracking unnecessary files in your repository.
+你可能还想将 `.react-router/` 添加到 `.gitignore` 文件中，以避免在仓库中跟踪不必要的文件。
 
 ```txt
 .react-router/
 ```
 
-You can check out [Type Safety][type-safety] to learn how to fully set up and use autogenerated type safety for params, loader data, and more.
+你可以查看[类型安全][type-safety]了解如何完整设置和使用自动生成的类型安全，包括参数、loader 数据等。
 
-## 8. Render your app
+## 8. 渲染你的应用
 
-To get back to rendering your app, we'll update the "catchall" route we set up earlier that matches all URLs so that your existing `<Routes>` get a chance to render.
+要恢复渲染你的应用，我们需要更新之前设置的匹配所有 URL 的"全匹配"路由，让你现有的 `<Routes>` 能够渲染。
 
-**👉 Update the catchall route to render your app**
+**👉 更新全匹配路由以渲染你的应用**
 
 ```tsx filename=src/catchall.tsx
 import App from "./App";
@@ -286,13 +286,13 @@ export default function Component() {
 }
 ```
 
-Your app should be back on the screen and working as usual!
+你的应用应该重新出现在屏幕上并正常工作了！
 
-## 9. Migrate a route to a Route Module
+## 9. 将路由迁移为路由模块
 
-You can now incrementally migrate your routes to route modules.
+现在你可以逐步将路由迁移为路由模块了。
 
-Given an existing route like this:
+假设有一个现有路由如下：
 
 ```tsx filename=src/App.tsx
 // ...
@@ -307,7 +307,7 @@ export default function App() {
 }
 ```
 
-**👉 Add the route definition to `routes.ts`**
+**👉 在 `routes.ts` 中添加路由定义**
 
 ```tsx filename=src/routes.ts
 import {
@@ -321,13 +321,13 @@ export default [
 ] satisfies RouteConfig;
 ```
 
-**👉 Add the route module**
+**👉 添加路由模块**
 
-Edit the route module to use the [Route Module API][route-modules]:
+编辑路由模块以使用[路由模块 API][route-modules]：
 
 ```tsx filename=src/pages/about.tsx
 export async function clientLoader() {
-  // you can now fetch data here
+  // 现在你可以在这里获取数据
   return {
     title: "About page",
   };
@@ -338,13 +338,13 @@ export default function Component({ loaderData }) {
 }
 ```
 
-See [Type Safety][type-safety] to set up autogenerated type safety for params, loader data, and more.
+查看[类型安全][type-safety]了解如何设置自动生成的参数、loader 数据等的类型安全。
 
-The first few routes you migrate are the hardest because you often have to access various abstractions a bit differently than before (like in a loader instead of from a hook or context). But once the trickiest bits get dealt with, you get into an incremental groove.
+迁移的前几个路由是最困难的，因为你经常需要以不同于之前的方式访问各种抽象（比如在 loader 中而不是从 hook 或 context 中获取）。但一旦最棘手的部分处理完毕，你就会进入一个渐进式的节奏。
 
-## Enable SSR and/or Pre-rendering
+## 启用 SSR 和/或预渲染
 
-If you want to enable server rendering and static pre-rendering, you can do so with the `ssr` and `prerender` options in the bundler plugin. For SSR you'll need to also deploy the server build to a server.
+如果你想启用服务端渲染和静态预渲染，可以在打包器插件中使用 `ssr` 和 `prerender` 选项。对于 SSR，你还需要将服务端构建产物部署到服务器上。
 
 ```ts filename=react-router.config.ts
 import type { Config } from "@react-router/dev/config";

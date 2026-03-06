@@ -4,54 +4,37 @@ title: PrefetchPageLinks
 
 # PrefetchPageLinks
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/ssr/components.tsx
--->
-
 [MODES: framework]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.PrefetchPageLinks.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.PrefetchPageLinks.html)
 
-Renders [`<link rel=prefetch|modulepreload>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement/rel)
-tags for modules and data of another page to enable an instant navigation to
-that page. [`<Link prefetch>`](./Link#prefetch) uses this internally, but you
-can render it to prefetch a page for any other reason.
+渲染 [`<link rel=prefetch|modulepreload>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement/rel) 标签，用于预取另一个页面的模块和数据，实现到该页面的即时导航。[`<Link prefetch>`](./Link#prefetch) 内部使用了此组件，但你也可以出于其他原因渲染它来预取页面。
 
-For example, you may render one of this as the user types into a search field
-to prefetch search results before they click through to their selection.
+例如，当用户在搜索框中输入时，你可以渲染此组件来预取搜索结果，以便在用户点击选择后即时导航。
 
 ```tsx
 import { PrefetchPageLinks } from "react-router";
 
-<PrefetchPageLinks page="/absolute/path" />
+<PrefetchPageLinks page="/absolute/path" />;
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function PrefetchPageLinks({ page, ...linkProps }: PageLinkDescriptor)
+function PrefetchPageLinks({
+  page,
+  ...linkProps
+}: PageLinkDescriptor);
 ```
 
 ## Props
 
 ### page
 
-The absolute path of the page to prefetch, e.g. `/absolute/path`.
+要预取的页面的绝对路径，例如 `/absolute/path`。
 
 ### linkProps
 
-Additional props to spread onto the [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) tags, such as [`crossOrigin`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement/crossOrigin),
-[`integrity`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement/integrity),
-[`rel`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement/rel),
-etc.
-
+扩展到 [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) 标签上的额外 props，如 [`crossOrigin`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement/crossOrigin)、[`integrity`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement/integrity)、[`rel`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement/rel) 等。

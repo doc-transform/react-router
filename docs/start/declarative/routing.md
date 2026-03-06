@@ -1,15 +1,15 @@
 ---
-title: Routing
+title: 路由
 order: 2
 ---
 
-# Routing
+# 路由
 
 [MODES: declarative]
 
-## Configuring Routes
+## 配置路由
 
-Routes are configured by rendering `<Routes>` and `<Route>` that couple URL segments to UI elements.
+路由通过渲染 `<Routes>` 和 `<Route>` 来配置，将 URL 路径段与 UI 元素关联起来。
 
 ```tsx
 import React from "react";
@@ -28,7 +28,7 @@ ReactDOM.createRoot(root).render(
 );
 ```
 
-Here's a larger sample config:
+以下是一个更完整的配置示例：
 
 ```tsx
 <Routes>
@@ -48,9 +48,9 @@ Here's a larger sample config:
 </Routes>
 ```
 
-## Nested Routes
+## 嵌套路由
 
-Routes can be nested inside parent routes.
+路由可以嵌套在父路由中。
 
 ```tsx
 <Routes>
@@ -61,9 +61,9 @@ Routes can be nested inside parent routes.
 </Routes>
 ```
 
-The path of the parent is automatically included in the child, so this config creates both `"/dashboard"` and `"/dashboard/settings"` URLs.
+父路由的路径会自动包含在子路由中，因此上面的配置同时创建了 `"/dashboard"` 和 `"/dashboard/settings"` 两个 URL。
 
-Child routes are rendered through the `<Outlet/>` in the parent route.
+子路由通过父路由中的 `<Outlet/>` 进行渲染。
 
 ```tsx filename=app/dashboard.tsx
 import { Outlet } from "react-router";
@@ -72,16 +72,16 @@ export default function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
-      {/* will either be <Home/> or <Settings/> */}
+      {/* 这里渲染的是 <Home/> 或 <Settings/> */}
       <Outlet />
     </div>
   );
 }
 ```
 
-## Layout Routes
+## 布局路由
 
-Routes _without_ a `path` create new nesting for their children, but they don't add any segments to the URL.
+_没有_ `path` 的路由会为其子路由创建新的嵌套层级，但不会向 URL 添加任何路径段。
 
 ```tsx lines=[2,9]
 <Routes>
@@ -100,18 +100,18 @@ Routes _without_ a `path` create new nesting for their children, but they don't 
 </Routes>
 ```
 
-## Index Routes
+## 索引路由
 
-Index routes render into their parent's `<Outlet/>` at their parent's URL (like a default child route). They are configured with the `index` prop:
+索引路由在父路由的 URL 处渲染到父路由的 `<Outlet/>` 中（类似于默认子路由）。通过 `index` 属性进行配置：
 
 ```tsx lines=[4,8]
 <Routes>
   <Route path="/" element={<Root />}>
-    {/* renders into the outlet in <Root> at "/" */}
+    {/* 在 "/" 处渲染到 <Root> 的 outlet 中 */}
     <Route index element={<Home />} />
 
     <Route path="dashboard" element={<Dashboard />}>
-      {/* renders into the outlet in <Dashboard> at "/dashboard" */}
+      {/* 在 "/dashboard" 处渲染到 <Dashboard> 的 outlet 中 */}
       <Route index element={<DashboardHome />} />
       <Route path="settings" element={<Settings />} />
     </Route>
@@ -119,11 +119,11 @@ Index routes render into their parent's `<Outlet/>` at their parent's URL (like 
 </Routes>
 ```
 
-Note that index routes can't have children. If you're expecting that behavior, you probably want a [layout route](#layout-routes).
+注意：索引路由不能有子路由。如果你需要这种行为，可能应该使用[布局路由](#布局路由)。
 
-## Route Prefixes
+## 路由前缀
 
-A `<Route path>` _without_ an `element` prop adds a path prefix to its child routes, without introducing a parent layout.
+_没有_ `element` 属性的 `<Route path>` 会为其子路由添加路径前缀，而不引入父布局。
 
 ```tsx filename=app/routes.ts lines=[1]
 <Route path="projects">
@@ -135,9 +135,9 @@ A `<Route path>` _without_ an `element` prop adds a path prefix to its child rou
 </Route>
 ```
 
-## Dynamic Segments
+## 动态路径段
 
-If a path segment starts with `:` then it becomes a "dynamic segment". When the route matches the URL, the dynamic segment will be parsed from the URL and provided as `params` to other router APIs like `useParams`.
+如果路径段以 `:` 开头，则它会成为"动态段"。当路由匹配 URL 时，动态段会从 URL 中解析出来，并作为 `params` 提供给其他路由 API（如 `useParams`）。
 
 ```tsx
 <Route path="teams/:teamId" element={<Team />} />
@@ -152,7 +152,7 @@ export default function Team() {
 }
 ```
 
-You can have multiple dynamic segments in one route path:
+一个路由路径中可以有多个动态段：
 
 ```tsx
 <Route
@@ -170,25 +170,25 @@ export default function CategoryProduct() {
 }
 ```
 
-You should ensure that all dynamic segments in a given path are unique. Otherwise, as the `params` object is populated - latter dynamic segment values will override earlier values.
+你应该确保给定路径中所有动态段的名称是唯一的。否则，由于 `params` 对象是按顺序填充的，后面的动态段值会覆盖前面的值。
 
-## Optional Segments
+## 可选路径段
 
-You can make a route segment optional by adding a `?` to the end of the segment.
+你可以在路径段末尾添加 `?` 使其成为可选的。
 
 ```tsx
 <Route path=":lang?/categories" element={<Categories />} />
 ```
 
-You can have optional static segments, too:
+静态路径段也可以是可选的：
 
 ```tsx
 <Route path="users/:userId/edit?" element={<User />} />
 ```
 
-## Splats
+## 通配符
 
-Also known as "catchall" and "star" segments. If a route path pattern ends with `/*` then it will match any characters following the `/`, including other `/` characters.
+也称为"全匹配"和"星号"路径段。如果路由路径模式以 `/*` 结尾，它将匹配 `/` 之后的任何字符，包括其他 `/` 字符。
 
 ```tsx
 <Route path="files/*" element={<File />} />
@@ -196,19 +196,19 @@ Also known as "catchall" and "star" segments. If a route path pattern ends with 
 
 ```tsx
 let params = useParams();
-// params["*"] will contain the remaining URL after files/
+// params["*"] 包含 files/ 之后的剩余 URL
 let filePath = params["*"];
 ```
 
-You can destructure the `*`, you just have to assign it a new name. A common name is `splat`:
+你可以解构 `*`，但需要给它一个新名称。常用的名称是 `splat`：
 
 ```tsx
 let { "*": splat } = useParams();
 ```
 
-## Linking
+## 链接
 
-Link to routes from your UI with `Link` and `NavLink`
+在 UI 中使用 `Link` 和 `NavLink` 链接到各个路由。
 
 ```tsx
 import { NavLink, Link } from "react-router";
@@ -216,7 +216,7 @@ import { NavLink, Link } from "react-router";
 function Header() {
   return (
     <nav>
-      {/* NavLink makes it easy to show active states */}
+      {/* NavLink 可以方便地显示激活状态 */}
       <NavLink
         to="/"
         className={({ isActive }) =>
@@ -234,4 +234,4 @@ function Header() {
 
 ---
 
-Next: [Navigating](./navigating)
+下一节：[导航](./navigating)

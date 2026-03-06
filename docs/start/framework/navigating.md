@@ -1,19 +1,19 @@
 ---
-title: Navigating
+title: 导航
 order: 6
 ---
 
-# Navigating
+# 导航
 
 [MODES: framework]
 
-## Introduction
+## 简介
 
-Users navigate your application with `<Link>`, `<NavLink>`, `<Form>`, `redirect`, and `useNavigate`.
+用户通过 `<Link>`、`<NavLink>`、`<Form>`、`redirect` 和 `useNavigate` 在你的应用中进行导航。
 
 ## NavLink
 
-This component is for navigation links that need to render active and pending states.
+此组件用于需要渲染激活和待定状态的导航链接。
 
 ```tsx
 import { NavLink } from "react-router";
@@ -34,7 +34,7 @@ export function MyAppNav() {
 }
 ```
 
-`NavLink` renders default class names for different states for easy styling with CSS:
+`NavLink` 会渲染不同状态下的默认类名，方便用 CSS 设置样式：
 
 ```css
 a.active {
@@ -46,11 +46,11 @@ a.pending {
 }
 
 a.transitioning {
-  /* css transition is running */
+  /* css 过渡正在运行 */
 }
 ```
 
-It also has callback props on `className`, `style`, and `children` with the states for inline styling or conditional rendering:
+它还提供了 `className`、`style` 和 `children` 上的回调属性，可以获取状态用于内联样式或条件渲染：
 
 ```tsx
 // className
@@ -95,7 +95,7 @@ It also has callback props on `className`, `style`, and `children` with the stat
 
 ## Link
 
-Use `<Link>` when the link doesn't need active styling:
+当链接不需要激活样式时，使用 `<Link>`：
 
 ```tsx
 import { Link } from "react-router";
@@ -112,7 +112,7 @@ export function LoggedOutMessage() {
 
 ## Form
 
-The form component can be used to navigate with `URLSearchParams` provided by the user.
+Form 组件可用于通过用户提供的 `URLSearchParams` 进行导航。
 
 ```tsx
 <Form action="/search">
@@ -120,17 +120,17 @@ The form component can be used to navigate with `URLSearchParams` provided by th
 </Form>
 ```
 
-If the user enters "journey" into the input and submits it, they will navigate to:
+如果用户在输入框中输入"journey"并提交，将导航到：
 
 ```
 /search?q=journey
 ```
 
-Forms with `<Form method="post" />` will also navigate to the action prop but will submit the data as `FormData` instead of `URLSearchParams`. However, it is more common to `useFetcher()` to POST form data. See [Using Fetchers](../../how-to/fetchers).
+使用 `<Form method="post" />` 的表单也会导航到 action 属性指定的地址，但会以 `FormData` 而非 `URLSearchParams` 的形式提交数据。不过更常见的做法是使用 `useFetcher()` 来 POST 表单数据。参见[使用 Fetcher](../../how-to/fetchers)。
 
 ## redirect
 
-Inside of route loaders and actions, you can return a `redirect` to another URL.
+在路由 loader 和 action 内部，你可以返回 `redirect` 跳转到另一个 URL。
 
 ```tsx
 import { redirect } from "react-router";
@@ -144,7 +144,7 @@ export async function loader({ request }) {
 }
 ```
 
-It is common to redirect to a new record after it has been created:
+在新记录创建后重定向到该记录是很常见的做法：
 
 ```tsx
 import { redirect } from "react-router";
@@ -158,12 +158,12 @@ export async function action({ request }) {
 
 ## useNavigate
 
-This hook allows the programmer to navigate the user to a new page without the user interacting. Usage of this hook should be uncommon. It's recommended to use the other APIs in this guide when possible.
+此 Hook 允许开发者在无需用户交互的情况下，将用户导航到新页面。此 Hook 的使用应该不常见。建议尽可能使用本指南中的其他 API。
 
-Reserve usage of `useNavigate` to situations where the user is _not_ interacting but you need to navigate, for example:
+仅在用户*没有*交互但你需要导航的场景下使用 `useNavigate`，例如：
 
-- Logging them out after inactivity
-- Timed UIs like quizzes, etc.
+- 因不活跃而将用户登出
+- 有时间限制的 UI（如测验等）
 
 ```tsx
 import { useNavigate } from "react-router";
@@ -179,4 +179,4 @@ export function useLogoutAfterInactivity() {
 
 ---
 
-Next: [Pending UI](./pending-ui)
+下一节：[待定 UI](./pending-ui)

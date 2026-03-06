@@ -10,60 +10,58 @@ unstable: true
 <br/>
 <br/>
 
-<docs-warning>React Server Components support is experimental and subject to breaking changes in
-minor/patch releases. Please use with caution and pay **very** close attention
-to release notes for relevant changes.</docs-warning>
+<docs-warning>React Server Components 支持是实验性的，可能在次要/补丁版本中发生破坏性变更。请谨慎使用，并**密切**关注发布说明中的相关变更。</docs-warning>
 
-React Server Components (RSC) refers generally to an architecture and set of APIs provided by React since version 19.
+React Server Components（RSC）通常指 React 19 以来提供的一套架构和 API。
 
-From the docs:
+引用自官方文档：
 
-> Server Components are a new type of Component that renders ahead of time, before bundling, in an environment separate from your client app or SSR server.
+> Server Components 是一种新的组件类型，在打包之前提前渲染，运行在与客户端应用或 SSR 服务器分离的环境中。
 >
-> <cite>- [React "Server Components" docs][react-server-components-doc]</cite>
+> <cite>- [React "Server Components" 文档][react-server-components-doc]</cite>
 
-React Router provides a set of APIs for integrating with RSC-compatible bundlers, allowing you to leverage [Server Components][react-server-components-doc] and [Server Functions][react-server-functions-doc] in your React Router applications.
+React Router 提供了一套用于与支持 RSC 的打包工具集成的 API，让你可以在 React Router 应用中使用 [Server Components][react-server-components-doc] 和 [Server Functions][react-server-functions-doc]。
 
-If you're unfamiliar with these React features, we recommend reading the official [Server Components documentation][react-server-components-doc] before using React Router's RSC APIs.
+如果你不熟悉这些 React 特性，我们建议在使用 React Router 的 RSC API 之前先阅读官方 [Server Components 文档][react-server-components-doc]。
 
-RSC support is available in both Framework and Data Modes. For more information on the conceptual difference between these, see ["Picking a Mode"][picking-a-mode]. However, note that the APIs and features differ between RSC and non-RSC modes in ways that this guide will cover in more detail.
+RSC 支持在框架模式和数据模式中都可用。关于这两种模式的概念差异，请参阅["选择模式"][picking-a-mode]。不过请注意，RSC 和非 RSC 模式之间的 API 和功能有所不同，本指南将详细介绍。
 
-## Quick Start
+## 快速开始
 
-The quickest way to get started is with one of our templates.
+最快的入门方式是使用我们的模板之一。
 
-These templates come with React Router RSC APIs already configured, offering you out of the box features such as:
+这些模板已经预配置了 React Router RSC API，开箱即用地提供以下功能：
 
-- Server Component Routes
-- Server Side Rendering (SSR)
-- Client Components (via [`"use client"`][use-client-docs] directive)
-- Server Functions (via [`"use server"`][use-server-docs] directive)
+- Server Component 路由
+- 服务端渲染 (SSR)
+- Client Components（通过 [`"use client"`][use-client-docs] 指令）
+- Server Functions（通过 [`"use server"`][use-server-docs] 指令）
 
-### RSC Framework Mode Template
+### RSC 框架模式模板
 
-The [RSC Framework Mode template][framework-rsc-template] uses the unstable React Router RSC Vite plugin along with the experimental [`@vitejs/plugin-rsc` plugin][vite-plugin-rsc].
+[RSC 框架模式模板][framework-rsc-template]使用不稳定的 React Router RSC Vite 插件以及实验性的 [`@vitejs/plugin-rsc` 插件][vite-plugin-rsc]。
 
 ```shellscript
 npx create-react-router@latest --template remix-run/react-router-templates/unstable_rsc-framework-mode
 ```
 
-### RSC Data Mode Templates
+### RSC 数据模式模板
 
-The [Vite RSC Data Mode template][vite-rsc-template] uses the experimental Vite `@vitejs/plugin-rsc` plugin.
+[Vite RSC 数据模式模板][vite-rsc-template]使用实验性的 Vite `@vitejs/plugin-rsc` 插件。
 
 ```shellscript
 npx create-react-router@latest --template remix-run/react-router-templates/unstable_rsc-data-mode-vite
 ```
 
-## RSC Framework Mode
+## RSC 框架模式
 
-Most APIs and features in RSC Framework Mode are the same as non-RSC Framework Mode, so this guide will focus on the differences.
+RSC 框架模式中的大部分 API 和功能与非 RSC 框架模式相同，因此本指南将重点介绍差异之处。
 
-### New React Router RSC Vite Plugin
+### 新的 React Router RSC Vite 插件
 
-RSC Framework Mode uses a different Vite plugin than non-RSC Framework Mode, currently exported as `unstable_reactRouterRSC`.
+RSC 框架模式使用与非 RSC 框架模式不同的 Vite 插件，当前导出为 `unstable_reactRouterRSC`。
 
-This new Vite plugin also has a peer dependency on the experimental `@vitejs/plugin-rsc` plugin. Note that the `@vitejs/plugin-rsc` plugin should be placed after the React Router RSC plugin in your Vite config.
+这个新的 Vite 插件还对实验性的 `@vitejs/plugin-rsc` 插件有对等依赖。注意 `@vitejs/plugin-rsc` 插件应放在 Vite 配置中 React Router RSC 插件之后。
 
 ```tsx filename=vite.config.ts
 import { defineConfig } from "vite";
@@ -75,13 +73,13 @@ export default defineConfig({
 });
 ```
 
-### Build Output
+### 构建产物
 
-The RSC Framework Mode server build file (`build/server/index.js`) now exports a `default` request handler function (`(request: Request) => Promise<Response>`) for document/data requests.
+RSC 框架模式的服务器构建文件（`build/server/index.js`）现在导出一个用于文档/数据请求的 `default` 请求处理函数（`(request: Request) => Promise<Response>`）。
 
-If needed, you can convert this into a [standard Node.js request listener][node-request-listener] for use with Node's built-in `http.createServer` function (or anything that supports it, e.g. [Express][express]) by using the `createRequestListener` function from [@remix-run/node-fetch-server][node-fetch-server].
+如果需要，你可以使用 [@remix-run/node-fetch-server][node-fetch-server] 的 `createRequestListener` 函数将其转换为[标准 Node.js 请求监听器][node-request-listener]，以配合 Node 内置的 `http.createServer` 函数（或任何支持它的工具，如 [Express][express]）使用。
 
-For example, in Express:
+例如，在 Express 中：
 
 ```tsx filename=start.js
 import express from "express";
@@ -102,17 +100,17 @@ app.use(createRequestListener(requestHandler));
 app.listen(3000);
 ```
 
-### React Elements From Loaders/Actions
+### 从 Loader/Action 返回 React 元素
 
-In RSC Framework Mode, loaders and actions can now return React elements along with other data. These elements will only ever be rendered on the server.
+在 RSC 框架模式中，loader 和 action 现在可以返回 React 元素以及其他数据。这些元素只会在服务器上渲染。
 
 ```tsx
 import type { Route } from "./+types/route";
 
 export async function loader() {
   return {
-    message: "Message from the server!",
-    element: <p>Element from the server!</p>,
+    message: "来自服务器的消息！",
+    element: <p>来自服务器的元素！</p>,
   };
 }
 
@@ -128,7 +126,7 @@ export default function Route({
 }
 ```
 
-If you need to use client-only features (e.g. [Hooks][hooks], event handlers) within React elements returned from loaders/actions, you'll need to extract components using these features into a [client module][use-client-docs]:
+如果你需要在从 loader/action 返回的 React 元素中使用仅客户端的功能（如 [Hooks][hooks]、事件处理器），需要将使用这些功能的组件提取到[客户端模块][use-client-docs]中：
 
 ```tsx filename=src/routes/counter/counter.tsx
 "use client";
@@ -137,7 +135,7 @@ export function Counter() {
   const [count, setCount] = useState(0);
   return (
     <button onClick={() => setCount(count + 1)}>
-      Count: {count}
+      计数: {count}
     </button>
   );
 }
@@ -149,10 +147,10 @@ import { Counter } from "./counter";
 
 export async function loader() {
   return {
-    message: "Message from the server!",
+    message: "来自服务器的消息！",
     element: (
       <>
-        <p>Element from the server!</p>
+        <p>来自服务器的元素！</p>
         <Counter />
       </>
     ),
@@ -171,9 +169,9 @@ export default function Route({
 }
 ```
 
-### Server Component Routes
+### Server Component 路由
 
-If a route exports a `ServerComponent` instead of the typical `default` component export, this component along with other route components (`ErrorBoundary`, `HydrateFallback`, `Layout`) will be server components rather than the usual client components.
+如果路由导出 `ServerComponent` 而非通常的 `default` 组件导出，该组件以及其他路由组件（`ErrorBoundary`、`HydrateFallback`、`Layout`）将是 server component 而非通常的 client component。
 
 ```tsx
 import type { Route } from "./+types/route";
@@ -191,15 +189,15 @@ export function ServerComponent({
 }: Route.ComponentProps) {
   return (
     <>
-      <h1>Server Component Route</h1>
-      <p>Message from the server: {loaderData.message}</p>
+      <h1>Server Component 路由</h1>
+      <p>来自服务器的消息: {loaderData.message}</p>
       <Outlet />
     </>
   );
 }
 ```
 
-If you need to use client-only features (e.g. [Hooks][hooks], event handlers) within a server-first route, you'll need to extract components using these features into a [client module][use-client-docs]:
+如果你需要在服务器优先的路由中使用仅客户端的功能（如 [Hooks][hooks]、事件处理器），需要将使用这些功能的组件提取到[客户端模块][use-client-docs]中：
 
 ```tsx filename=src/routes/counter/counter.tsx
 "use client";
@@ -208,7 +206,7 @@ export function Counter() {
   const [count, setCount] = useState(0);
   return (
     <button onClick={() => setCount(count + 1)}>
-      Count: {count}
+      计数: {count}
     </button>
   );
 }
@@ -220,28 +218,28 @@ import { Counter } from "./counter";
 export function ServerComponent() {
   return (
     <>
-      <h1>Counter</h1>
+      <h1>计数器</h1>
       <Counter />
     </>
   );
 }
 ```
 
-### `.server`/`.client` Modules
+### `.server`/`.client` 模块
 
-To avoid confusion with RSC's `"use server"` and `"use client"` directives, support for [`.server` modules][server-modules] and [`.client` modules][client-modules] is no longer built-in when using RSC Framework Mode.
+为了避免与 RSC 的 `"use server"` 和 `"use client"` 指令混淆，在使用 RSC 框架模式时不再内置对 [`.server` 模块][server-modules]和 [`.client` 模块][client-modules]的支持。
 
-As an alternative solution that doesn't rely on file naming conventions, we recommend using the `"server-only"` and `"client-only"` imports provided by [`@vitejs/plugin-rsc`][vite-plugin-rsc]. For example, to ensure a module is never accidentally included in the client build, simply import from `"server-only"` as a side effect within your server-only module.
+作为不依赖文件命名约定的替代方案，我们推荐使用 [`@vitejs/plugin-rsc`][vite-plugin-rsc] 提供的 `"server-only"` 和 `"client-only"` 导入。例如，要确保模块永远不会意外包含在客户端构建中，只需在你的服务端模块中以副作用方式从 `"server-only"` 导入：
 
 ```ts filename=app/utils/db.ts
 import "server-only";
 
-// Rest of the module...
+// 模块的其余部分...
 ```
 
-Note that while there are official npm packages [`server-only`][server-only-package] and [`client-only`][client-only-package] created by the React team, they don't need to be installed. `@vitejs/plugin-rsc` internally handles these imports and provides build-time validation instead of runtime errors.
+注意虽然 React 团队创建了官方 npm 包 [`server-only`][server-only-package] 和 [`client-only`][client-only-package]，但不需要安装它们。`@vitejs/plugin-rsc` 内部处理这些导入并提供构建时验证而非运行时错误。
 
-If you'd like to quickly migrate existing code that relies on the `.server` and `.client` file naming conventions, we recommend using the [`vite-env-only` plugin][vite-env-only] directly. For example, to ensure `.server` modules aren't accidentally included in the client build:
+如果你想快速迁移依赖 `.server` 和 `.client` 文件命名约定的现有代码，我们推荐直接使用 [`vite-env-only` 插件][vite-env-only]。例如，要确保 `.server` 模块不会意外包含在客户端构建中：
 
 ```tsx filename=vite.config.ts
 import { defineConfig } from "vite";
@@ -260,27 +258,27 @@ export default defineConfig({
 });
 ```
 
-### MDX Route Support
+### MDX 路由支持
 
-MDX routes are supported in RSC Framework Mode when using `@mdx-js/rollup` v3.1.1+.
+使用 `@mdx-js/rollup` v3.1.1+ 时，RSC 框架模式支持 MDX 路由。
 
-Note that any components exported from an MDX route must also be valid in RSC environments, meaning that they cannot use client-only features like [Hooks][hooks]. Any components that need to use these features should be extracted into a [client module][use-client-docs].
+注意从 MDX 路由导出的任何组件也必须在 RSC 环境中有效，即不能使用仅客户端的功能如 [Hooks][hooks]。需要使用这些功能的组件应提取到[客户端模块][use-client-docs]中。
 
-### Custom Entry Files
+### 自定义入口文件
 
-RSC Framework Mode supports custom entry files, allowing you to customize the behavior of the RSC server, SSR server, and client entry points.
+RSC 框架模式支持自定义入口文件，允许你自定义 RSC 服务器、SSR 服务器和客户端入口点的行为。
 
-The plugin will automatically detect custom entry files in your `app` directory:
+插件会自动检测 `app` 目录中的自定义入口文件：
 
-- `app/entry.rsc.ts` (or `.tsx`) - Custom RSC server entry
-- `app/entry.ssr.ts` (or `.tsx`) - Custom SSR server entry
-- `app/entry.client.tsx` - Custom client entry
+- `app/entry.rsc.ts`（或 `.tsx`）- 自定义 RSC 服务器入口
+- `app/entry.ssr.ts`（或 `.tsx`）- 自定义 SSR 服务器入口
+- `app/entry.client.tsx` - 自定义客户端入口
 
-If these files are not found, React Router will use the default entries provided by the framework.
+如果未找到这些文件，React Router 将使用框架提供的默认入口。
 
-#### Basic Override Pattern
+#### 基本覆盖模式
 
-You can create a custom entry file that wraps or extends the default behavior. For example, to add custom logging to the RSC entry:
+你可以创建一个包装或扩展默认行为的自定义入口文件。例如，要为 RSC 入口添加自定义日志记录：
 
 ```ts filename=app/entry.rsc.ts
 import defaultEntry from "@react-router/dev/config/default-rsc-entries/entry.rsc";
@@ -288,10 +286,7 @@ import { RouterContextProvider } from "react-router";
 
 export default {
   fetch(request: Request): Promise<Response> {
-    console.log(
-      "Custom RSC entry handling request:",
-      request.url,
-    );
+    console.log("自定义 RSC 入口处理请求:", request.url);
 
     const requestContext = new RouterContextProvider();
 
@@ -304,7 +299,7 @@ if (import.meta.hot) {
 }
 ```
 
-Similarly, you can customize the SSR entry:
+同样，你可以自定义 SSR 入口：
 
 ```ts filename=app/entry.ssr.ts
 import { generateHTML as defaultGenerateHTML } from "@react-router/dev/config/default-rsc-entries/entry.ssr";
@@ -313,75 +308,72 @@ export function generateHTML(
   request: Request,
   serverResponse: Response,
 ): Promise<Response> {
-  console.log(
-    "Custom SSR entry generating HTML for:",
-    request.url,
-  );
+  console.log("自定义 SSR 入口生成 HTML:", request.url);
 
   return defaultGenerateHTML(request, serverResponse);
 }
 ```
 
-And for the client:
+以及客户端入口：
 
 ```ts filename=app/entry.client.ts
 import "@react-router/dev/config/default-rsc-entries/entry.client";
 ```
 
-#### Copying Default Entries
+#### 复制默认入口
 
-For more advanced customization, you can copy the default entries and modify them as needed. To find the default entries:
+如果需要更高级的自定义，你可以复制默认入口并根据需要修改。要找到默认入口：
 
-1. In your IDE, use "Go to Definition" (or Cmd/Ctrl+Click) on the default entry import:
+1. 在 IDE 中，对默认入口导入使用"转到定义"（或 Cmd/Ctrl+Click）：
 
    ```ts
    import defaultEntry from "@react-router/dev/config/default-rsc-entries/entry.rsc";
    ```
 
-2. Copy the default entry code into your custom file
+2. 将默认入口代码复制到你的自定义文件中
 
-3. Modify it to suit your needs
+3. 根据需要修改
 
-The default entries are located at:
+默认入口位于：
 
 - [`@react-router/dev/config/default-rsc-entries/entry.rsc`][entry-rsc-source]
 - [`@react-router/dev/config/default-rsc-entries/entry.ssr`][entry-ssr-source]
 - [`@react-router/dev/config/default-rsc-entries/entry.client`][entry-client-source]
 
-You can view the source code on GitHub using the links above, or navigate directly to these files in `node_modules/@react-router/dev/dist/config/default-rsc-entries/`.
+你可以通过上面的链接在 GitHub 上查看源代码，或直接在 `node_modules/@react-router/dev/dist/config/default-rsc-entries/` 中导航到这些文件。
 
 <docs-info>
 
-When copying default entries, make sure to maintain the required exports:
+复制默认入口时，请确保保留必需的导出：
 
-- `entry.rsc.ts` must export a default object with a `fetch` method
-- `entry.ssr.ts` must export a `generateHTML` function
-- `entry.client.tsx` should handle client-side hydration
+- `entry.rsc.ts` 必须导出一个带有 `fetch` 方法的默认对象
+- `entry.ssr.ts` 必须导出一个 `generateHTML` 函数
+- `entry.client.tsx` 应该处理客户端注水
 
 </docs-info>
 
-### Unsupported Config Options
+### 不支持的配置选项
 
-For the initial unstable release, the following options from `react-router.config.ts` are not yet supported in RSC Framework Mode:
+在初始不稳定版本中，以下 `react-router.config.ts` 中的选项在 RSC 框架模式中尚不支持：
 
 - `buildEnd`
 - `prerender`
 - `presets`
 - `routeDiscovery`
 - `serverBundles`
-- `ssr: false` (SPA Mode)
+- `ssr: false`（SPA 模式）
 - `future.v8_splitRouteModules`
 - `future.unstable_subResourceIntegrity`
 
-## RSC Data Mode
+## RSC 数据模式
 
-The RSC Framework Mode APIs described above are built on top of lower-level RSC Data Mode APIs.
+上述 RSC 框架模式 API 构建在更低级的 RSC 数据模式 API 之上。
 
-RSC Data Mode is missing some of the features of RSC Framework Mode (e.g. `routes.ts` config and file system routing, HMR and Hot Data Revalidation), but is more flexible and allows you to integrate with your own bundler and server abstractions.
+RSC 数据模式缺少 RSC 框架模式的一些功能（如 `routes.ts` 配置和文件系统路由、HMR 和热数据重新验证），但更加灵活，允许你与自己的打包工具和服务器抽象集成。
 
-### Configuring Routes
+### 配置路由
 
-Routes are configured as an argument to [`matchRSCServerRequest`][match-rsc-server-request]. At a minimum, you need a path and component:
+路由作为 [`matchRSCServerRequest`][match-rsc-server-request] 的参数进行配置。至少需要一个路径和组件：
 
 ```tsx
 function Root() {
@@ -389,16 +381,16 @@ function Root() {
 }
 
 matchRSCServerRequest({
-  // ...other options
+  // ...其他选项
   routes: [{ path: "/", Component: Root }],
 });
 ```
 
-While you can define components inline, we recommend using the `lazy()` option and defining [Route Modules][route-module] for both startup performance and code organization
+虽然你可以内联定义组件，但我们推荐使用 `lazy()` 选项并定义[路由模块][route-module]，以兼顾启动性能和代码组织。
 
 <docs-info>
 
-The [Route Module API][route-module] up until now has been a [Framework Mode][framework-mode] only feature. However, the `lazy` field of the RSC route config expects the same exports as the Route Module exports, unifying the APIs even further.
+[路由模块 API][route-module] 到目前为止一直是[框架模式][framework-mode]独有的功能。然而，RSC 路由配置的 `lazy` 字段期望与路由模块相同的导出，进一步统一了 API。
 
 </docs-info>
 
@@ -428,27 +420,24 @@ export function routes() {
 }
 ```
 
-### Server Component Routes
+### Server Component 路由
 
-By default each route's `default` export renders a Server Component
+默认情况下，每个路由的 `default` 导出渲染一个 Server Component
 
 ```tsx
 export default function Home() {
   return (
     <main>
       <article>
-        <h1>Welcome to React Router RSC</h1>
-        <p>
-          You won't find me running any JavaScript in the
-          browser!
-        </p>
+        <h1>欢迎来到 React Router RSC</h1>
+        <p>你不会发现我在浏览器中运行任何 JavaScript！</p>
       </article>
     </main>
   );
 }
 ```
 
-A nice feature of Server Components is that you can fetch data directly from your component by making it asynchronous.
+Server Components 的一个好处是你可以通过将组件设为异步来直接在组件中获取数据。
 
 ```tsx
 export default async function Home() {
@@ -457,14 +446,9 @@ export default async function Home() {
   return (
     <main>
       <article>
-        <h1>Welcome to React Router RSC</h1>
-        <p>
-          You won't find me running any JavaScript in the
-          browser!
-        </p>
-        <p>
-          Hello, {user ? user.name : "anonymous person"}!
-        </p>
+        <h1>欢迎来到 React Router RSC</h1>
+        <p>你不会发现我在浏览器中运行任何 JavaScript！</p>
+        <p>你好，{user ? user.name : "匿名用户"}！</p>
       </article>
     </main>
   );
@@ -473,15 +457,15 @@ export default async function Home() {
 
 <docs-info>
 
-Server Components can also be returned from your loaders and actions. In general, if you are using RSC to build your application, loaders are primarily useful for things like setting `status` codes or returning a `redirect`.
+Server Components 也可以从 loader 和 action 返回。通常，如果你使用 RSC 构建应用，loader 主要用于设置 `status` 状态码或返回 `redirect`。
 
-Using Server Components in loaders can be helpful for incremental adoption of RSC.
+在 loader 中使用 Server Components 对于渐进式采用 RSC 很有帮助。
 
 </docs-info>
 
 ### Server Functions
 
-[Server Functions][react-server-functions-doc] are a React feature that allow you to call async functions executed on the server. They're defined with the [`"use server"`][use-server-docs] directive.
+[Server Functions][react-server-functions-doc] 是 React 提供的功能，允许你调用在服务器上执行的异步函数。它们通过 [`"use server"`][use-server-docs] 指令定义。
 
 ```tsx
 "use server";
@@ -519,11 +503,11 @@ export async function AddToFavoritesForm({
 }
 ```
 
-Note that after server functions are called, React Router will automatically revalidate the route and update the UI with the new server content. You don't have to mess around with any cache invalidation.
+注意在调用 server function 后，React Router 会自动重新验证路由并用新的服务器内容更新 UI。你不需要处理任何缓存失效。
 
-### Client Properties
+### 客户端属性
 
-Routes are defined on the server at runtime, but we can still provide `clientLoader`, `clientAction`, and `shouldRevalidate` through the utilization of client references and `"use client"`.
+路由在服务器运行时定义，但我们仍然可以通过客户端引用和 `"use client"` 来提供 `clientLoader`、`clientAction` 和 `shouldRevalidate`。
 
 ```tsx filename=src/routes/root/client.tsx
 "use client";
@@ -535,7 +519,7 @@ export function clientLoader() {}
 export function shouldRevalidate() {}
 ```
 
-We can then re-export these from our lazy loaded route module:
+然后我们可以从懒加载的路由模块中重新导出：
 
 ```tsx filename=src/routes/root/route.tsx
 export {
@@ -549,7 +533,7 @@ export default function Root() {
 }
 ```
 
-This is also the way we would make an entire route a Client Component.
+这也是将整个路由设为 Client Component 的方式。
 
 ```tsx filename=src/routes/root/route.tsx lines=[1,11]
 import { default as ClientRoot } from "./route.client";
@@ -560,70 +544,69 @@ export {
 } from "./route.client";
 
 export default function Root() {
-  // Adding a Server Component at the root is required by bundlers
-  // if you're using css side-effects imports.
+  // 如果你使用 css 副作用导入，打包工具需要在根路由添加一个 Server Component
   return <ClientRoot />;
 }
 ```
 
-### Bundler Configuration
+### 打包工具配置
 
-React Router provides several APIs that allow you to easily integrate with RSC-compatible bundlers, useful if you are using React Router Data Mode to make your own [custom framework][custom-framework].
+React Router 提供了多个 API，让你可以轻松与支持 RSC 的打包工具集成。如果你使用 React Router 数据模式来构建自己的[自定义框架][custom-framework]，这很有用。
 
-The following steps show how to setup a React Router application to use Server Components (RSC) to server-render (SSR) pages and hydrate them for single-page app (SPA) navigations. You don't have to use SSR (or even client-side hydration) if you don't want to. You can also leverage the HTML generation for Static Site Generation (SSG) or Incremental Static Regeneration (ISR) if you prefer. This guide is meant merely to explain how to wire up all the different APIs for a typically RSC-based application.
+以下步骤展示了如何设置 React Router 应用使用 Server Components (RSC) 进行服务端渲染 (SSR) 页面并在客户端注水以支持单页应用 (SPA) 导航。你不必使用 SSR（甚至不需要客户端注水）。你也可以利用 HTML 生成来实现静态站点生成 (SSG) 或增量静态再生 (ISR)。本指南仅用于解释如何为典型的基于 RSC 的应用连接所有不同的 API。
 
-### Entry points
+### 入口点
 
-Besides our [route definitions](#configuring-routes), we will need to configure the following:
+除了[路由定义](#configuring-routes)外，我们还需要配置以下内容：
 
-1. A server to handle the incoming request, fetch the RSC payload, and convert it into HTML
-2. A React server to generate RSC payloads
-3. A browser handler to hydrate the generated HTML and set the `callServer` function to support post-hydration server actions
+1. 一个服务器来处理传入请求、获取 RSC 载荷并将其转换为 HTML
+2. 一个 React 服务器来生成 RSC 载荷
+3. 一个浏览器处理器来注水生成的 HTML 并设置 `callServer` 函数以支持注水后的 server action
 
-The following naming conventions have been chosen for familiarity and simplicity. Feel free to name and configure your entry points as you see fit.
+以下命名约定是为了熟悉性和简洁性而选择的。你可以根据需要命名和配置入口点。
 
-See the relevant bundler documentation below for specific code examples for each of the following entry points.
+有关每个入口点的具体代码示例，请参阅下面的相关打包工具文档。
 
-These examples all use [express][express] and [@remix-run/node-fetch-server][node-fetch-server] for the server and request handling.
+这些示例都使用 [express][express] 和 [@remix-run/node-fetch-server][node-fetch-server] 来处理服务器和请求。
 
-**Routes**
+**路由**
 
-See [Configuring Routes](#configuring-routes).
+参见[配置路由](#configuring-routes)。
 
-**Server**
+**服务器**
 
 <docs-info>
 
-You don't have to use SSR at all. You can choose to use RSC to "prerender" HTML for Static Site Generation (SSG) or something like Incremental Static Regeneration (ISR).
+你完全不必使用 SSR。你可以选择使用 RSC 来"预渲染"HTML 以实现静态站点生成 (SSG) 或类似增量静态再生 (ISR) 的功能。
 
 </docs-info>
 
-`entry.ssr.tsx` is the entry point for the server. It is responsible for handling the request, calling the RSC server, and converting the RSC payload into HTML on document requests (server-side rendering).
+`entry.ssr.tsx` 是服务器的入口点。它负责处理请求、调用 RSC 服务器，以及在文档请求时将 RSC 载荷转换为 HTML（服务端渲染）。
 
-Relevant APIs:
+相关 API：
 
 - [`routeRSCServerRequest`][route-rsc-server-request]
 - [`RSCStaticRouter`][rsc-static-router]
 
-**RSC Server**
+**RSC 服务器**
 
 <docs-info>
 
-Even though you have a "React Server" and a server responsible for request handling/SSR, you don't actually need to have 2 separate servers. You can simply have 2 separate module graphs within the same server. This is important because React behaves differently when generating RSC payloads vs. when generating HTML to be hydrated on the client.
+虽然你有一个"React 服务器"和一个负责请求处理/SSR 的服务器，但实际上不需要有 2 个独立的服务器。你只需在同一个服务器中有 2 个独立的模块图。这很重要，因为 React 在生成 RSC 载荷和生成要在客户端注水的 HTML 时行为不同。
 
 </docs-info>
 
-`entry.rsc.tsx` is the entry point for the React Server. It is responsible for matching the request to a route and generating RSC payloads.
+`entry.rsc.tsx` 是 React 服务器的入口点。它负责将请求匹配到路由并生成 RSC 载荷。
 
-Relevant APIs:
+相关 API：
 
 - [`matchRSCServerRequest`][match-rsc-server-request]
 
-**Browser**
+**浏览器**
 
-`entry.browser.tsx` is the entry point for the client. It is responsible for hydrating the generated HTML and setting the `callServer` function to support post-hydration server actions.
+`entry.browser.tsx` 是客户端的入口点。它负责注水生成的 HTML 并设置 `callServer` 函数以支持注水后的 server action。
 
-Relevant APIs:
+相关 API：
 
 - [`createCallServer`][create-call-server]
 - [`getRSCStream`][get-rsc-stream]
@@ -631,9 +614,9 @@ Relevant APIs:
 
 ### Vite
 
-See the [@vitejs/plugin-rsc docs][vite-plugin-rsc] for more information. You can also refer to our [Vite RSC Data Mode template][vite-rsc-template] to see a working version.
+更多信息请参阅 [@vitejs/plugin-rsc 文档][vite-plugin-rsc]。你也可以参考我们的 [Vite RSC 数据模式模板][vite-rsc-template] 来查看可运行的版本。
 
-In addition to `react`, `react-dom`, and `react-router`, you'll need the following dependencies:
+除了 `react`、`react-dom` 和 `react-router` 外，你还需要以下依赖：
 
 ```shellscript
 npm i -D vite @vitejs/plugin-react @vitejs/plugin-rsc
@@ -641,7 +624,7 @@ npm i -D vite @vitejs/plugin-react @vitejs/plugin-rsc
 
 #### `vite.config.ts`
 
-To configure Vite, add the following to your `vite.config.ts`:
+要配置 Vite，在你的 `vite.config.ts` 中添加以下内容：
 
 ```ts filename=vite.config.ts
 import rsc from "@vitejs/plugin-rsc/plugin";
@@ -690,7 +673,7 @@ export function routes() {
 
 #### `entry.ssr.tsx`
 
-The following is a simplified example of a Vite SSR Server.
+以下是 Vite SSR 服务器的简化示例。
 
 ```tsx filename=src/entry.ssr.tsx
 import { createFromReadableStream } from "@vitejs/plugin-rsc/ssr";
@@ -705,13 +688,13 @@ export async function generateHTML(
   serverResponse: Response,
 ): Promise<Response> {
   return await routeRSCServerRequest({
-    // The incoming request.
+    // 传入的请求
     request,
-    // The React Server response
+    // React Server 的响应
     serverResponse,
-    // Provide the React Server touchpoints.
+    // 提供 React Server 的接触点
     createFromReadableStream,
-    // Render the router to HTML.
+    // 将路由器渲染为 HTML
     async renderHTML(getPayload) {
       const payload = getPayload();
 
@@ -734,7 +717,7 @@ export async function generateHTML(
 
 #### `entry.rsc.tsx`
 
-The following is a simplified example of a Vite RSC Server.
+以下是 Vite RSC 服务器的简化示例。
 
 ```tsx filename=src/entry.rsc.tsx
 import {
@@ -751,17 +734,17 @@ import { routes } from "./routes/config";
 
 function fetchServer(request: Request) {
   return matchRSCServerRequest({
-    // Provide the React Server touchpoints.
+    // 提供 React Server 的接触点
     createTemporaryReferenceSet,
     decodeAction,
     decodeFormState,
     decodeReply,
     loadServerAction,
-    // The incoming request.
+    // 传入的请求
     request,
-    // The app routes.
+    // 应用路由
     routes: routes(),
-    // Encode the match with the React Server implementation.
+    // 使用 React Server 实现编码匹配结果
     generateResponse(match) {
       return new Response(
         renderToReadableStream(match.payload),
@@ -775,7 +758,7 @@ function fetchServer(request: Request) {
 }
 
 export default async function handler(request: Request) {
-  // Import the generateHTML function from the client environment
+  // 从客户端环境导入 generateHTML 函数
   const ssr = await import.meta.viteRsc.loadModule<
     typeof import("./entry.ssr")
   >("ssr", "index");
@@ -805,7 +788,7 @@ import {
   type unstable_RSCPayload as RSCServerPayload,
 } from "react-router";
 
-// Create and set the callServer function to support post-hydration server actions.
+// 创建并设置 callServer 函数以支持注水后的 server action
 setServerCallback(
   createCallServer({
     createFromReadableStream,
@@ -814,7 +797,7 @@ setServerCallback(
   }),
 );
 
-// Get and decode the initial server payload.
+// 获取并解码初始服务器载荷
 createFromReadableStream<RSCServerPayload>(
   getRSCStream(),
 ).then((payload) => {

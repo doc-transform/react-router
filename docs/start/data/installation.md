@@ -1,31 +1,31 @@
 ---
-title: Installation
+title: 安装
 order: 1
 ---
 
-# Installation
+# 安装
 
 [MODES: data]
 
-## Bootstrap with a Bundler Template
+## 使用打包器模板创建项目
 
-You can start with a React template from Vite and choose "React", otherwise bootstrap your application however you prefer (Parcel, Webpack, etc).
+你可以从 Vite 的 React 模板开始，选择"React"，或者按照你喜欢的方式搭建应用（Parcel、Webpack 等）。
 
 ```shellscript nonumber
 npx create-vite@latest
 ```
 
-## Install React Router
+## 安装 React Router
 
-Next install React Router from npm:
+接下来通过 npm 安装 React Router：
 
 ```shellscript nonumber
 npm i react-router
 ```
 
-## Create a Router and Render
+## 创建路由并渲染
 
-Create a router and pass it to `RouterProvider`:
+创建一个路由并将其传给 `RouterProvider`：
 
 ```tsx lines=[3-4,6-11,16]
 import React from "react";
@@ -49,4 +49,4 @@ ReactDOM.createRoot(root).render(
 
 ---
 
-Next: [Routing](./routing)
+下一节：[路由](./routing)

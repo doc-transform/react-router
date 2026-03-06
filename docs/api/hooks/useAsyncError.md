@@ -4,25 +4,13 @@ title: useAsyncError
 
 # useAsyncError
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useAsyncError.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useAsyncError.html)
 
-Returns the rejection value from the closest [`<Await>`](../components/Await).
+返回最近的 [`<Await>`](../components/Await) 组件的 Promise 拒绝值。
 
 ```tsx
 import { Await, useAsyncError } from "react-router";
@@ -34,20 +22,19 @@ function ErrorElement() {
   );
 }
 
-// somewhere in your app
+// 在应用的某处
 <Await
   resolve={promiseThatRejects}
   errorElement={<ErrorElement />}
 />;
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function useAsyncError(): unknown
+function useAsyncError(): unknown;
 ```
 
-## Returns
+## 返回值
 
-The error that was thrown in the nearest [`Await`](../components/Await) component
-
+最近的 [`Await`](../components/Await) 组件中抛出的错误。

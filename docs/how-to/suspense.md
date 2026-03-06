@@ -1,27 +1,27 @@
 ---
-title: Streaming with Suspense
+title: 使用 Suspense 进行流式传输
 ---
 
-# Streaming with Suspense
+# 使用 Suspense 进行流式传输
 
 [MODES: framework, data]
 
 <br/>
 <br/>
 
-Streaming with React Suspense allows apps to speed up initial renders by deferring non-critical data and unblocking UI rendering.
+使用 React Suspense 进行流式传输可以让应用通过延迟非关键数据、解除对 UI 渲染的阻塞来加速初始渲染。
 
-React Router supports React Suspense by returning promises from loaders and actions.
+React Router 通过从 loader 和 action 返回 promise 来支持 React Suspense。
 
-## 1. Return a promise from loader
+## 1. 从 loader 返回 promise
 
-React Router awaits route loaders before rendering route components. To unblock the loader for non-critical data, return the promise instead of awaiting it in the loader.
+React Router 会在渲染路由组件之前等待路由 loader 完成。要为非关键数据解除阻塞，在 loader 中返回 promise 而不是 await 它。
 
 ```tsx
 import type { Route } from "./+types/my-route";
 
 export async function loader({}: Route.LoaderArgs) {
-  // note this is NOT awaited
+  // 注意这里没有 await
   let nonCriticalData = new Promise((res) =>
     setTimeout(() => res("non-critical"), 5000),
   );
@@ -34,17 +34,17 @@ export async function loader({}: Route.LoaderArgs) {
 }
 ```
 
-Note you can't return a single promise, it must be an object with keys.
+注意你不能返回单个 promise，必须是带有键的对象。
 
-## 2. Render the fallback and resolved UI
+## 2. 渲染回退和解析后的 UI
 
-The promise will be available on `loaderData`, `<Await>` will await the promise and trigger `<Suspense>` to render the fallback UI.
+promise 将在 `loaderData` 上可用，`<Await>` 会等待 promise 并触发 `<Suspense>` 渲染回退 UI。
 
 ```tsx
 import * as React from "react";
 import { Await } from "react-router";
 
-// [previous code]
+// [之前的代码]
 
 export default function MyComponent({
   loaderData,
@@ -53,12 +53,12 @@ export default function MyComponent({
 
   return (
     <div>
-      <h1>Streaming example</h1>
-      <h2>Critical data value: {criticalData}</h2>
+      <h1>流式传输示例</h1>
+      <h2>关键数据值：{criticalData}</h2>
 
-      <React.Suspense fallback={<div>Loading...</div>}>
+      <React.Suspense fallback={<div>加载中...</div>}>
         <Await resolve={nonCriticalData}>
-          {(value) => <h3>Non critical value: {value}</h3>}
+          {(value) => <h3>非关键值：{value}</h3>}
         </Await>
       </React.Suspense>
     </div>
@@ -66,12 +66,12 @@ export default function MyComponent({
 }
 ```
 
-## With React 19
+## 使用 React 19
 
-If you're experimenting with React 19, you can use `React.use` instead of `Await`, but you'll need to create a new component and pass the promise down to trigger the suspense fallback.
+如果你正在使用 React 19，可以用 `React.use` 代替 `Await`，但你需要创建一个新组件并将 promise 传递下去以触发 suspense 回退。
 
 ```tsx
-<React.Suspense fallback={<div>Loading...</div>}>
+<React.Suspense fallback={<div>加载中...</div>}>
   <NonCriticalUI p={nonCriticalData} />
 </React.Suspense>
 ```
@@ -79,15 +79,15 @@ If you're experimenting with React 19, you can use `React.use` instead of `Await
 ```tsx
 function NonCriticalUI({ p }: { p: Promise<string> }) {
   let value = React.use(p);
-  return <h3>Non critical value {value}</h3>;
+  return <h3>非关键值 {value}</h3>;
 }
 ```
 
-## Timeouts
+## 超时
 
-By default, loaders and actions reject any outstanding promises after 4950ms. You can control this by exporting a `streamTimeout` numerical value from your `entry.server.tsx`.
+默认情况下，loader 和 action 会在 4950 毫秒后拒绝所有未完成的 promise。你可以通过在 `entry.server.tsx` 中导出一个 `streamTimeout` 数值来控制这个时间。
 
 ```ts filename=entry.server.tsx
-// Reject all pending promises from handler functions after 10 seconds
+// 在 10 秒后拒绝处理函数中所有待处理的 promise
 export const streamTimeout = 10_000;
 ```

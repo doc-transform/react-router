@@ -4,40 +4,21 @@ title: createContext
 
 # createContext
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/router/utils.ts
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createContext.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createContext.html)
 
-Creates a type-safe [`RouterContext`](https://api.reactrouter.com/v7/interfaces/react-router.RouterContext.html) object that can be used to
-store and retrieve arbitrary values in [`action`](../../start/framework/route-module#action)s,
-[`loader`](../../start/framework/route-module#loader)s, and [middleware](../../how-to/middleware).
-Similar to React's [`createContext`](https://react.dev/reference/react/createContext),
-but specifically designed for React Router's request/response lifecycle.
+创建一个类型安全的 [`RouterContext`](https://api.reactrouter.com/v7/interfaces/react-router.RouterContext.html) 对象，可用于在 [`action`](../../start/framework/route-module#action)、[`loader`](../../start/framework/route-module#loader) 和[中间件](../../how-to/middleware)中存储和检索任意值。类似于 React 的 [`createContext`](https://react.dev/reference/react/createContext)，但专为 React Router 的请求/响应生命周期设计。
 
-If a `defaultValue` is provided, it will be returned from `context.get()`
-when no value has been set for the context. Otherwise, reading this context
-when no value has been set will throw an error.
+如果提供了 `defaultValue`，当没有为上下文设置值时，`context.get()` 将返回该默认值。否则，在没有设置值的情况下读取此上下文将抛出错误。
 
 ```tsx filename=app/context.ts
 import { createContext } from "react-router";
 
-// Create a context for user data
-export const userContext =
-  createContext<User | null>(null);
+// 为用户数据创建上下文
+export const userContext = createContext<User | null>(null);
 ```
 
 ```tsx filename=app/middleware/auth.ts
@@ -69,21 +50,20 @@ export async function loader({
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function createContext<T>(defaultValue?: T): RouterContext<T>
+function createContext<T>(
+  defaultValue?: T,
+): RouterContext<T>;
 ```
 
-## Params
+## 参数
 
 ### defaultValue
 
-An optional default value for the context. This value will be returned if no value has been set for this context.
+上下文的可选默认值。如果没有为此上下文设置值，将返回此默认值。
 
-## Returns
+## 返回值
 
-A [`RouterContext`](https://api.reactrouter.com/v7/interfaces/react-router.RouterContext.html) object that can be used with
-`context.get()` and `context.set()` in [`action`](../../start/framework/route-module#action)s,
-[`loader`](../../start/framework/route-module#loader)s, and [middleware](../../how-to/middleware).
-
+一个 [`RouterContext`](https://api.reactrouter.com/v7/interfaces/react-router.RouterContext.html) 对象，可与 [`action`](../../start/framework/route-module#action)、[`loader`](../../start/framework/route-module#loader) 和[中间件](../../how-to/middleware)中的 `context.get()` 和 `context.set()` 一起使用。

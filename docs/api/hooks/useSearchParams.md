@@ -4,26 +4,13 @@ title: useSearchParams
 
 # useSearchParams
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useSearchParams.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useSearchParams.html)
 
-Returns a tuple of the current URL's [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
-and a function to update them. Setting the search params causes a navigation.
+返回一个元组，包含当前 URL 的 [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) 和一个用于更新它们的函数。设置搜索参数会触发导航。
 
 ```tsx
 import { useSearchParams } from "react-router";
@@ -34,33 +21,30 @@ export function SomeComponent() {
 }
 ```
 
-### `setSearchParams` function
+### `setSearchParams` 函数
 
-The second element of the tuple is a function that can be used to update the
-search params. It accepts the same types as `defaultInit` and will cause a
-navigation to the new URL.
+元组的第二个元素是一个可以用于更新搜索参数的函数。它接受与 `defaultInit` 相同的类型，并会触发导航到新 URL。
 
 ```tsx
 let [searchParams, setSearchParams] = useSearchParams();
 
-// a search param string
+// 搜索参数字符串
 setSearchParams("?tab=1");
 
-// a shorthand object
+// 简写对象
 setSearchParams({ tab: "1" });
 
-// object keys can be arrays for multiple values on the key
+// 对象的 key 可以是数组，用于同一个 key 的多个值
 setSearchParams({ brand: ["nike", "reebok"] });
 
-// an array of tuples
+// 元组数组
 setSearchParams([["tab", "1"]]);
 
-// a `URLSearchParams` object
+// `URLSearchParams` 对象
 setSearchParams(new URLSearchParams("?tab=1"));
 ```
 
-It also supports a function callback like React's
-[`setState`](https://react.dev/reference/react/useState#setstate):
+它还支持类似 React [`setState`](https://react.dev/reference/react/useState#setstate) 的函数回调：
 
 ```tsx
 setSearchParams((searchParams) => {
@@ -69,17 +53,11 @@ setSearchParams((searchParams) => {
 });
 ```
 
-<docs-warning>The function callback version of `setSearchParams` does not support
-the [queueing](https://react.dev/reference/react/useState#setstate-parameters)
-logic that React's `setState` implements.  Multiple calls to `setSearchParams`
-in the same tick will not build on the prior value.  If you need this behavior,
-you can use `setState` manually.</docs-warning>
+<docs-warning>`setSearchParams` 的函数回调版本不支持 React `setState` 实现的[队列化](https://react.dev/reference/react/useState#setstate-parameters)逻辑。在同一个 tick 内多次调用 `setSearchParams` 不会基于上一个值进行构建。如果你需要此行为，可以手动使用 `setState`。</docs-warning>
 
-### Notes
+### 注意事项
 
-Note that `searchParams` is a stable reference, so you can reliably use it
-as a dependency in React's [`useEffect`](https://react.dev/reference/react/useEffect)
-hooks.
+`searchParams` 是一个稳定引用，因此你可以放心地将其作为 React [`useEffect`](https://react.dev/reference/react/useEffect) Hook 的依赖项。
 
 ```tsx
 useEffect(() => {
@@ -87,45 +65,39 @@ useEffect(() => {
 }, [searchParams]);
 ```
 
-However, this also means it's mutable. If you change the object without
-calling `setSearchParams`, its values will change between renders if some
-other state causes the component to re-render and URL will not reflect the
-values.
+但这也意味着它是可变的。如果你在不调用 `setSearchParams` 的情况下修改了对象，当其他状态导致组件重新渲染时，它的值会在渲染之间发生变化，且 URL 不会反映这些值。
 
-## Signature
+## 函数签名
 
 ```tsx
 function useSearchParams(
   defaultInit?: URLSearchParamsInit,
-): [URLSearchParams, SetURLSearchParams]
+): [URLSearchParams, SetURLSearchParams];
 ```
 
-## Params
+## 参数
 
 ### defaultInit
 
-You can initialize the search params with a default value, though it **will
-not** change the URL on the first render.
+你可以用默认值初始化搜索参数，但这**不会**在首次渲染时更改 URL。
 
 ```tsx
-// a search param string
+// 搜索参数字符串
 useSearchParams("?tab=1");
 
-// a shorthand object
+// 简写对象
 useSearchParams({ tab: "1" });
 
-// object keys can be arrays for multiple values on the key
+// 对象的 key 可以是数组，用于同一个 key 的多个值
 useSearchParams({ brand: ["nike", "reebok"] });
 
-// an array of tuples
+// 元组数组
 useSearchParams([["tab", "1"]]);
 
-// a `URLSearchParams` object
+// `URLSearchParams` 对象
 useSearchParams(new URLSearchParams("?tab=1"));
 ```
 
-## Returns
+## 返回值
 
-A tuple of the current [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
-and a function to update them.
-
+包含当前 [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) 和一个更新函数的元组。

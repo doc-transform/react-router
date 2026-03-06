@@ -1,30 +1,30 @@
 ---
-title: Single Page App (SPA)
+title: 单页应用 (SPA)
 ---
 
-# Single Page App (SPA)
+# 单页应用 (SPA)
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-<docs-info>This guide focuses on how to build Single Page Apps with React Router Framework mode. If you're using React Router in declarative or data mode, you can design your own SPA architecture.</docs-info>
+<docs-info>本指南重点介绍如何使用 React Router 框架模式构建单页应用。如果你使用的是声明式或数据模式的 React Router，可以设计自己的 SPA 架构。</docs-info>
 
-When using React Router as a framework, you can enable "SPA Mode" by setting `ssr:false` in your `react-router.config.ts` file. This will disable runtime server rendering and generate an `index.html` at build time that you can serve and hydrate as a SPA.
+使用 React Router 作为框架时，你可以通过在 `react-router.config.ts` 文件中设置 `ssr:false` 来启用"SPA 模式"。这将禁用运行时服务端渲染，并在构建时生成一个 `index.html`，你可以将其作为 SPA 来提供和注水。
 
-Typical Single Page apps send a mostly blank `index.html` template with little more than an empty `<div id="root"></div>`. In contrast, `react-router build` (in SPA Mode) pre-renders your root route at build time into an `index.html` file. This means you can:
+典型的单页应用发送一个几乎空白的 `index.html` 模板，内容不多于一个空的 `<div id="root"></div>`。相比之下，`react-router build`（在 SPA 模式下）会在构建时预渲染你的根路由到一个 `index.html` 文件。这意味着你可以：
 
-- Send more than an empty `<div>`
-- Use a root `loader` to load data for your application shell
-- Use React components to generate the initial page users see (root `HydrateFallback`)
-- Re-enable server rendering later without changing anything about your UI
+- 发送更多内容而非空的 `<div>`
+- 使用根路由的 `loader` 为应用外壳加载数据
+- 使用 React 组件生成用户看到的初始页面（根 `HydrateFallback`）
+- 以后重新启用服务端渲染而无需更改 UI
 
-<docs-info>SPA Mode is a special form of "Pre-Rendering" that allows you to serve all paths in your application from the same HTML file. Please refer to the [Pre-Rendering](./pre-rendering) guide if you want to do more extensive pre-rendering.</docs-info>
+<docs-info>SPA 模式是"预渲染"的一种特殊形式，允许你从同一个 HTML 文件提供应用中的所有路径。如果你想做更全面的预渲染，请参阅[预渲染](./pre-rendering)指南。</docs-info>
 
-## 1. Disable Runtime Server Rendering
+## 1. 禁用运行时服务端渲染
 
-Server rendering is enabled by default. Set the `ssr` flag to `false` in `react-router.config.ts` to disable it.
+服务端渲染默认启用。在 `react-router.config.ts` 中将 `ssr` 标志设置为 `false` 来禁用它。
 
 ```ts filename=react-router.config.ts lines=[4]
 import { type Config } from "@react-router/dev/config";
@@ -34,15 +34,15 @@ export default {
 } satisfies Config;
 ```
 
-With this set to false, the server build will no longer be generated.
+设置为 false 后，将不再生成服务端构建。
 
-<docs-info>It's important to note that setting `ssr:false` only disables _runtime server rendering_. React Router will still server render your root route at _build time_ to generate the `index.html` file. This is why your project still needs a dependency on `@react-router/node` and your routes need to be SSR-safe. That means you can't call `window` or other browser-only APIs during the initial render, even when server rendering is disabled.</docs-info>
+<docs-info>需要注意的是，设置 `ssr:false` 只禁用 _运行时_ 服务端渲染。React Router 仍然会在 _构建时_ 服务端渲染你的根路由以生成 `index.html` 文件。这就是为什么你的项目仍然需要依赖 `@react-router/node`，并且你的路由需要兼容 SSR。这意味着即使禁用了服务端渲染，你也不能在初始渲染期间调用 `window` 或其他仅浏览器可用的 API。</docs-info>
 
-## 2. Add a `HydrateFallback` and optional `loader` to your root route
+## 2. 向根路由添加 `HydrateFallback` 和可选的 `loader`
 
-SPA Mode will generate an `index.html` file at build-time that you can serve as the entry point for your SPA. This will only render the root route so that it is capable of hydrating at runtime for any path in your application.
+SPA 模式将在构建时生成一个 `index.html` 文件，你可以将其作为 SPA 的入口点。它只会渲染根路由，以便能够在运行时为应用中的任何路径进行注水。
 
-To provide a better loading UI than an empty `<div>`, you can add a `HydrateFallback` component to your root route to render your loading UI into the `index.html` at build time. This way, it will be shown to users immediately while the SPA is loading/hydrating.
+为了提供比空 `<div>` 更好的加载 UI，你可以向根路由添加 `HydrateFallback` 组件，在构建时将加载 UI 渲染到 `index.html` 中。这样在 SPA 加载/注水期间，用户会立即看到它。
 
 ```tsx filename=root.tsx lines=[7-9]
 import LoadingScreen from "./components/loading-screen";
@@ -60,7 +60,7 @@ export default function App() {
 }
 ```
 
-Because the root route is server-rendered at build time, you can also use a `loader` in your root route if you choose. This `loader` will be called at build time and the data will be available via the optional `HydrateFallback` `loaderData` prop.
+因为根路由在构建时就进行了服务端渲染，你也可以选择在根路由中使用 `loader`。这个 `loader` 将在构建时调用，数据将通过可选的 `HydrateFallback` 的 `loaderData` prop 提供。
 
 ```tsx filename=root.tsx lines=[5,10,14]
 import { Route } from "./+types/root";
@@ -76,18 +76,18 @@ export function HydrateFallback({
 }: Route.ComponentProps) {
   return (
     <div>
-      <h1>Loading version {loaderData.version}...</h1>
+      <h1>正在加载版本 {loaderData.version}...</h1>
       <AwesomeSpinner />
     </div>
   );
 }
 ```
 
-You cannot include a `loader` in any other routes in your app when using SPA Mode unless you are [pre-rendering those pages](./pre-rendering).
+使用 SPA 模式时，你不能在应用的其他路由中包含 `loader`，除非你正在[预渲染那些页面](./pre-rendering)。
 
-## 3. Use client loaders and client actions
+## 3. 使用客户端 loader 和客户端 action
 
-With server rendering disabled, you can still use `clientLoader` and `clientAction` to manage route data and mutations.
+禁用服务端渲染后，你仍然可以使用 `clientLoader` 和 `clientAction` 来管理路由数据和变更。
 
 ```tsx filename=some-route.tsx
 import { Route } from "./+types/some-route";
@@ -107,14 +107,18 @@ export async function clientAction({
 }
 ```
 
-## 4. Direct all URLs to index.html
+## 4. 将所有 URL 指向 index.html
 
-After running `react-router build`, deploy the `build/client` directory to whatever static host you prefer.
+运行 `react-router build` 后，将 `build/client` 目录部署到你喜欢的任何静态主机。
 
-Common to deploying any SPA, you'll need to configure your host to direct all URLs to the `index.html` of the client build. Some hosts do this by default, but others don't. As an example, a host may support a `_redirects` file to do this:
+与部署任何 SPA 一样，你需要配置主机将所有 URL 指向客户端构建的 `index.html`。有些主机默认就是这样做的，但其他主机不是。例如，主机可能支持 `_redirects` 文件来实现这一点：
 
 ```
 /*    /index.html   200
 ```
 
-If you're getting 404s at valid routes for your app, it's likely you need to configure your host.
+如果你在应用的有效路由上收到 404，很可能需要配置你的主机。
+
+```
+
+```

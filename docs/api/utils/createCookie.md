@@ -6,8 +6,8 @@ title: createCookie
 
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createCookie.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createCookie.html)
 
-Creates a logical container for managing a browser cookie from the server.
+创建并返回一个逻辑容器，用于从服务端管理浏览器 Cookie。

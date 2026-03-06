@@ -1,15 +1,15 @@
 ---
-title: Status Codes
+title: 状态码
 ---
 
-# Status Codes
+# 状态码
 
 [MODES: framework ,data]
 
 <br/>
 <br/>
 
-Set status codes from loaders and actions with `data`.
+使用 `data` 在 loader 和 action 中设置状态码。
 
 ```tsx filename=app/project.tsx lines=[3,12-15,20,23]
 // route('/projects/:projectId', './project.tsx')
@@ -23,10 +23,7 @@ export async function action({
   let formData = await request.formData();
   let title = formData.get("title");
   if (!title) {
-    return data(
-      { message: "Invalid title" },
-      { status: 400 },
-    );
+    return data({ message: "标题无效" }, { status: 400 });
   }
 
   if (!projectExists(title)) {
@@ -34,15 +31,15 @@ export async function action({
     return data(project, { status: 201 });
   } else {
     let project = await fakeDb.updateProject({ title });
-    // the default status code is 200, no need for `data`
+    // 默认状态码是 200，不需要 `data`
     return project;
   }
 }
 ```
 
-See [Form Validation](./form-validation) for more information on rendering form errors like this.
+请参阅[表单验证](./form-validation)了解更多关于渲染此类表单错误的信息。
 
-Another common status code is 404:
+另一个常见的状态码是 404：
 
 ```tsx
 // route('/projects/:projectId', './project.tsx')
@@ -53,11 +50,11 @@ import { fakeDb } from "../db";
 export async function loader({ params }: Route.ActionArgs) {
   let project = await fakeDb.getProject(params.id);
   if (!project) {
-    // throw to ErrorBoundary
+    // 抛出到 ErrorBoundary
     throw data(null, { status: 404 });
   }
   return project;
 }
 ```
 
-See the [Error Boundaries](./error-boundary) for more information on thrown `data`.
+请参阅[错误边界](./error-boundary)了解更多关于抛出 `data` 的信息。

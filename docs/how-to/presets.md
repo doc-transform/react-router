@@ -1,26 +1,26 @@
 ---
-title: Presets
+title: 预设
 ---
 
-# Presets
+# 预设
 
 [MODES: framework]
 
 <br/>
 <br/>
 
-The [React Router config][react-router-config] supports a `presets` option to ease integration with other tools and hosting providers.
+[React Router 配置][react-router-config]支持 `presets` 选项，以简化与其他工具和托管提供商的集成。
 
-[Presets][preset-type] can only do two things:
+[预设][preset-type]只能做两件事：
 
-- Configure React Router config options on your behalf
-- Validate the resolved config
+- 代表你配置 React Router 配置选项
+- 验证已解析的配置
 
-The config returned by each preset is merged in the order the presets were defined. Any config directly specified in your React Router config will be merged last. This means that your config will always take precedence over any presets.
+每个预设返回的配置按照预设定义的顺序合并。直接在你的 React Router 配置中指定的任何配置将最后合并。这意味着你的配置始终优先于任何预设。
 
-## Defining preset config
+## 定义预设配置
 
-As a basic example, let's create a preset that configures a [server bundles function][server-bundles]:
+作为一个基本示例，让我们创建一个配置[服务端包函数][server-bundles]的预设：
 
 ```ts filename=my-cool-preset.ts
 import type { Preset } from "@react-router/dev/config";
@@ -43,11 +43,11 @@ export function myCoolPreset(): Preset {
 }
 ```
 
-## Validating config
+## 验证配置
 
-Keep in mind that other presets and user config can still override the values returned from your preset.
+请记住，其他预设和用户配置仍然可以覆盖你的预设返回的值。
 
-In our example preset, the `serverBundles` function could be overridden with a different, conflicting implementation. If we want to validate that the final resolved config contains the `serverBundles` function from our preset, we can use the `reactRouterConfigResolved` hook:
+在我们的示例预设中，`serverBundles` 函数可能被不同的、冲突的实现覆盖。如果我们想验证最终解析的配置包含来自我们预设的 `serverBundles` 函数，可以使用 `reactRouterConfigResolved` 钩子：
 
 ```ts filename=my-cool-preset.ts lines=[22-27]
 import type {
@@ -75,18 +75,18 @@ export function myCoolPreset(): Preset {
       if (
         reactRouterConfig.serverBundles !== serverBundles
       ) {
-        throw new Error("`serverBundles` was overridden!");
+        throw new Error("`serverBundles` 被覆盖了！");
       }
     },
   };
 }
 ```
 
-The `reactRouterConfigResolved` hook should only be used when it would be an error to merge or override your preset's config.
+`reactRouterConfigResolved` 钩子只应在合并或覆盖你的预设配置会导致错误时使用。
 
-## Using a preset
+## 使用预设
 
-Presets are designed to be published to npm and used within your React Router config.
+预设被设计为发布到 npm 并在你的 React Router 配置中使用。
 
 ```ts filename=react-router.config.ts lines=[6]
 import type { Config } from "@react-router/dev/config";

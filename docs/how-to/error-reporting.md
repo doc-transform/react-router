@@ -1,33 +1,33 @@
 ---
-title: Error Reporting
+title: 错误上报
 ---
 
-# Error Reporting
+# 错误上报
 
 [MODES: framework,data]
 
 <br/>
 <br/>
 
-React Router catches errors in your route modules and sends them to [error boundaries](./error-boundary) to prevent blank pages when errors occur. However, `ErrorBoundary` isn't sufficient for logging and reporting errors.
+React Router 会捕获路由模块中的错误并将其发送到[错误边界](./error-boundary)，以防止错误发生时出现空白页面。然而，`ErrorBoundary` 不足以用于记录和上报错误。
 
-## Server Errors
+## 服务端错误
 
 [modes: framework]
 
-To access these caught errors on the server, use the `handleError` export of the server entry module.
+要在服务端访问这些被捕获的错误，请使用服务端入口模块的 `handleError` 导出。
 
-### 1. Reveal the server entry
+### 1. 显示服务端入口
 
-If you don't see [`entry.server.tsx`][entryserver] in your app directory, you're using a default entry. Reveal it with this cli command:
+如果你在 app 目录中看不到 [`entry.server.tsx`][entryserver]，说明你使用的是默认入口。使用以下 CLI 命令来显示它：
 
 ```shellscript nonumber
 react-router reveal entry.server
 ```
 
-### 2. Export your error handler
+### 2. 导出错误处理器
 
-This function is called whenever React Router catches an error in your application on the server.
+每当 React Router 在服务端捕获到应用中的错误时，都会调用此函数。
 
 ```tsx filename=entry.server.tsx
 import { type HandleErrorFunction } from "react-router";
@@ -36,39 +36,39 @@ export const handleError: HandleErrorFunction = (
   error,
   { request },
 ) => {
-  // React Router may abort some interrupted requests, don't log those
+  // React Router 可能会中止一些被打断的请求，不要记录那些
   if (!request.signal.aborted) {
     myReportError(error);
 
-    // make sure to still log the error so you can see it
+    // 确保仍然在控制台记录错误，以便你能看到
     console.error(error);
   }
 };
 ```
 
-See also:
+另请参阅：
 
 - [`handleError`][handleError]
 
-## Client Errors
+## 客户端错误
 
-To access these caught errors on the client, use the `onError` prop on your [`HydratedRouter`][hydratedrouter] or [`RouterProvider`][routerprovider] component.
+要在客户端访问这些被捕获的错误，请使用 [`HydratedRouter`][hydratedrouter] 或 [`RouterProvider`][routerprovider] 组件的 `onError` prop。
 
-### Framework Mode
+### 框架模式
 
 [modes: framework]
 
-#### 1. Reveal the client entry
+#### 1. 显示客户端入口
 
-If you don't see [`entry.client.tsx`][entryclient] in your app directory, you're using a default entry. Reveal it with this cli command:
+如果你在 app 目录中看不到 [`entry.client.tsx`][entryclient]，说明你使用的是默认入口。使用以下 CLI 命令来显示它：
 
 ```shellscript nonumber
 react-router reveal entry.client
 ```
 
-#### 2. Add your error handler
+#### 2. 添加错误处理器
 
-This function is called whenever React Router catches an error in your application on the client.
+每当 React Router 在客户端捕获到应用中的错误时，都会调用此函数。
 
 ```tsx filename=entry.client.tsx
 import { type ClientOnErrorFunction } from "react-router";
@@ -79,7 +79,7 @@ const onError: ClientOnErrorFunction = (
 ) => {
   myReportError(error, location, errorInfo);
 
-  // make sure to still log the error so you can see it
+  // 确保仍然在控制台记录错误，以便你能看到
   console.error(error, errorInfo);
 };
 
@@ -93,15 +93,15 @@ startTransition(() => {
 });
 ```
 
-See also:
+另请参阅：
 
 - [`<HydratedRouter onError>`][hydratedrouter-onerror]
 
-### Data Mode
+### 数据模式
 
 [modes: data]
 
-This function is called whenever React Router catches an error in your application on the client.
+每当 React Router 在客户端捕获到应用中的错误时，都会调用此函数。
 
 ```tsx
 import { type ClientOnErrorFunction } from "react-router";
@@ -112,7 +112,7 @@ const onError: ClientOnErrorFunction = (
 ) => {
   myReportError(error, location, errorInfo);
 
-  // make sure to still log the error so you can see it
+  // 确保仍然在控制台记录错误，以便你能看到
   console.error(error, errorInfo);
 };
 
@@ -121,7 +121,7 @@ function App() {
 }
 ```
 
-See also:
+另请参阅：
 
 - [`<RouterProvider onError>`][routerprovider-onerror]
 

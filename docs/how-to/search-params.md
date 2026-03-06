@@ -1,4 +1,4 @@
 ---
-title: Using Search Params
+title: 使用搜索参数
 hidden: true
 ---

@@ -7,6 +7,6 @@ hidden: true
 
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.createRequestHandler.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.createRequestHandler.html)

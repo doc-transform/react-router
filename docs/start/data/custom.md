@@ -1,23 +1,23 @@
 ---
-title: Custom Framework
+title: 自定义框架
 order: 8
 ---
 
-# Custom Framework
+# 自定义框架
 
 [MODES: data]
 
-## Introduction
+## 简介
 
-Instead of using `@react-router/dev`, you can integrate React Router's framework features (like loaders, actions, fetchers, etc.) into your own bundler and server abstractions with Data Mode.
+你可以不使用 `@react-router/dev`，而是通过数据模式将 React Router 的框架功能（如 loader、action、fetcher 等）集成到你自己的打包器和服务端抽象中。
 
-## Client Rendering
+## 客户端渲染
 
-### 1. Create a Router
+### 1. 创建路由
 
-The browser runtime API that enables route module APIs (loaders, actions, etc.) is `createBrowserRouter`.
+启用路由模块 API（loader、action 等）的浏览器端运行时 API 是 `createBrowserRouter`。
 
-It takes an array of route objects that support loaders, actions, error boundaries and more. The React Router Vite plugin creates one of these from `routes.ts`, but you can create one manually (or with an abstraction) and use your own bundler.
+它接受一个路由对象数组，支持 loader、action、错误边界等。React Router Vite 插件会从 `routes.ts` 创建路由，但你也可以手动创建（或通过抽象层）并使用自己的打包器。
 
 ```tsx
 import { createBrowserRouter } from "react-router";
@@ -40,9 +40,9 @@ let router = createBrowserRouter([
 ]);
 ```
 
-### 2. Render the Router
+### 2. 渲染路由
 
-To render the router in the browser, use `<RouterProvider>`.
+在浏览器中渲染路由，使用 `<RouterProvider>`。
 
 ```tsx
 import {
@@ -56,9 +56,9 @@ createRoot(document.getElementById("root")).render(
 );
 ```
 
-### 3. Lazy Loading
+### 3. 懒加载
 
-Routes can take most of their definition lazily with the `lazy` property.
+路由的大部分定义可以通过 `lazy` 属性进行懒加载。
 
 ```tsx
 createBrowserRouter([
@@ -76,15 +76,15 @@ createBrowserRouter([
 ]);
 ```
 
-## Server Rendering
+## 服务端渲染
 
-To server render a custom setup, there are a few server APIs available for rendering and data loading.
+要对自定义配置进行服务端渲染，有一些服务端 API 可用于渲染和数据加载。
 
-This guide simply gives you some ideas about how it works. For deeper understanding, please see the [Custom Framework Example Repo](https://github.com/remix-run/custom-react-router-framework-example)
+本指南只是简单介绍其工作原理。如需深入了解，请参阅[自定义框架示例仓库](https://github.com/remix-run/custom-react-router-framework-example)。
 
-### 1. Define Your Routes
+### 1. 定义路由
 
-Routes are the same kinds of objects on the server as the client.
+服务端的路由与客户端的路由对象格式相同。
 
 ```tsx
 export default [
@@ -104,9 +104,9 @@ export default [
 ];
 ```
 
-### 2. Create a static handler
+### 2. 创建静态处理器
 
-Turn your routes into a request handler with `createStaticHandler`:
+使用 `createStaticHandler` 将路由转换为请求处理器：
 
 ```tsx
 import { createStaticHandler } from "react-router";
@@ -115,11 +115,11 @@ import routes from "./some-routes";
 let { query, dataRoutes } = createStaticHandler(routes);
 ```
 
-### 3. Get Routing Context and Render
+### 3. 获取路由上下文并渲染
 
-React Router works with web fetch [Requests](https://developer.mozilla.org/en-US/docs/Web/API/Request), so if your server doesn't, you'll need to adapt whatever objects it uses to a web fetch `Request` object.
+React Router 使用 Web Fetch [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) 对象，因此如果你的服务器不支持，需要将其使用的对象适配为 Web Fetch `Request` 对象。
 
-This step assumes your server receives `Request` objects.
+以下步骤假设你的服务器接收 `Request` 对象。
 
 ```tsx
 import { renderToString } from "react-dom/server";
@@ -134,18 +134,18 @@ import routes from "./some-routes.js";
 let { query, dataRoutes } = createStaticHandler(routes);
 
 export async function handler(request: Request) {
-  // 1. run actions/loaders to get the routing context with `query`
+  // 1. 使用 `query` 运行 action/loader 获取路由上下文
   let context = await query(request);
 
-  // If `query` returns a Response, send it raw (a route probably a redirected)
+  // 如果 `query` 返回了 Response，则直接发送（可能是路由重定向）
   if (context instanceof Response) {
     return context;
   }
 
-  // 2. Create a static router for SSR
+  // 2. 为 SSR 创建静态路由
   let router = createStaticRouter(dataRoutes, context);
 
-  // 3. Render everything with StaticRouterProvider
+  // 3. 使用 StaticRouterProvider 渲染所有内容
   let html = renderToString(
     <StaticRouterProvider
       router={router}
@@ -153,7 +153,7 @@ export async function handler(request: Request) {
     />,
   );
 
-  // Setup headers from action and loaders from deepest match
+  // 从最深层匹配的 action 和 loader 设置响应头
   let leaf = context.matches[context.matches.length - 1];
   let actionHeaders = context.actionHeaders[leaf.route.id];
   let loaderHeaders = context.loaderHeaders[leaf.route.id];
@@ -166,7 +166,7 @@ export async function handler(request: Request) {
 
   headers.set("Content-Type", "text/html; charset=utf-8");
 
-  // 4. send a response
+  // 4. 发送响应
   return new Response(`<!DOCTYPE html>${html}`, {
     status: context.statusCode,
     headers,
@@ -174,9 +174,9 @@ export async function handler(request: Request) {
 }
 ```
 
-### 4. Hydrate in the browser
+### 4. 在浏览器中注水
 
-Hydration data is embedded onto `window.__staticRouterHydrationData`, use that to initialize your client side router and render a `<RouterProvider>`.
+注水数据嵌入在 `window.__staticRouterHydrationData` 中，使用它来初始化客户端路由并渲染 `<RouterProvider>`。
 
 ```tsx
 import { StrictMode } from "react";

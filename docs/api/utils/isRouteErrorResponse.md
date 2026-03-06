@@ -4,61 +4,56 @@ title: isRouteErrorResponse
 
 # isRouteErrorResponse
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/router/utils.ts
--->
-
 [MODES: framework, data]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.isRouteErrorResponse.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.isRouteErrorResponse.html)
 
-Check if the given error is an [`ErrorResponse`](https://api.reactrouter.com/v7/types/react-router.ErrorResponse.html) generated from a 4xx/5xx
-[`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
-thrown from an [`action`](../../start/framework/route-module#action) or
-[`loader`](../../start/framework/route-module#loader) function.
+检查给定的错误是否是从 [`action`](../../start/framework/route-module#action) 或 [`loader`](../../start/framework/route-module#loader) 函数中抛出的 4xx/5xx [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) 生成的 [`ErrorResponse`](https://api.reactrouter.com/v7/types/react-router.ErrorResponse.html)。
 
 ```tsx
 import { isRouteErrorResponse } from "react-router";
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+export function ErrorBoundary({
+  error,
+}: Route.ErrorBoundaryProps) {
   if (isRouteErrorResponse(error)) {
     return (
       <>
-        <p>Error: `${error.status}: ${error.statusText}`</p>
+        <p>
+          Error: `${error.status}: ${error.statusText}`
+        </p>
         <p>{error.data}</p>
       </>
     );
   }
 
   return (
-    <p>Error: {error instanceof Error ? error.message : "Unknown Error"}</p>
+    <p>
+      Error:{" "}
+      {error instanceof Error
+        ? error.message
+        : "Unknown Error"}
+    </p>
   );
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function isRouteErrorResponse(error: any): error is ErrorResponse
+function isRouteErrorResponse(
+  error: any,
+): error is ErrorResponse;
 ```
 
-## Params
+## 参数
 
 ### error
 
-The error to check.
+要检查的错误。
 
-## Returns
+## 返回值
 
-`true` if the error is an [`ErrorResponse`](https://api.reactrouter.com/v7/types/react-router.ErrorResponse.html), `false` otherwise.
-
+如果错误是 [`ErrorResponse`](https://api.reactrouter.com/v7/types/react-router.ErrorResponse.html) 则为 `true`，否则为 `false`。

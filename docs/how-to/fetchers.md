@@ -1,21 +1,21 @@
 ---
-title: Using Fetchers
+title: 使用 Fetcher
 ---
 
-# Using Fetchers
+# 使用 Fetcher
 
 [MODES: framework, data]
 
 <br/>
 <br/>
 
-Fetchers are useful for creating complex, dynamic user interfaces that require multiple, concurrent data interactions without causing a navigation.
+Fetcher 适用于创建需要多个并发数据交互但不触发导航的复杂、动态用户界面。
 
-Fetchers track their own, independent state and can be used to load data, mutate data, submit forms, and generally interact with loaders and actions.
+Fetcher 跟踪自己独立的状态，可以用来加载数据、修改数据、提交表单，以及与 loader 和 action 交互。
 
-## Calling Actions
+## 调用 Action
 
-The most common case for a fetcher is to submit data to an action, triggering a revalidation of route data. Consider the following route module:
+Fetcher 最常见的用例是向 action 提交数据，触发路由数据的重新验证。考虑以下路由模块：
 
 ```tsx
 import { useLoaderData } from "react-router";
@@ -35,9 +35,9 @@ export default function Component() {
 }
 ```
 
-### 1. Add an action
+### 1. 添加 action
 
-First we'll add an action to the route for the fetcher to call:
+首先为路由添加一个供 fetcher 调用的 action：
 
 ```tsx lines=[7-11]
 import { useLoaderData } from "react-router";
@@ -59,9 +59,9 @@ export default function Component() {
 }
 ```
 
-### 2. Create a fetcher
+### 2. 创建 fetcher
 
-Next create a fetcher and render a form with it:
+接下来创建一个 fetcher 并用它渲染一个表单：
 
 ```tsx lines=[7,12-14]
 import { useLoaderData, useFetcher } from "react-router";
@@ -83,13 +83,13 @@ export default function Component() {
 }
 ```
 
-### 3. Submit the form
+### 3. 提交表单
 
-If you submit the form now, the fetcher will call the action and revalidate the route data automatically.
+如果你现在提交表单，fetcher 会调用 action 并自动重新验证路由数据。
 
-### 4. Render pending state
+### 4. 渲染待处理状态
 
-Fetchers make their state available during the async work so you can render pending UI the moment the user interacts:
+Fetcher 在异步工作期间会暴露它们的状态，这样你可以在用户交互时立即渲染待处理 UI：
 
 ```tsx lines=[10]
 export default function Component() {
@@ -101,16 +101,16 @@ export default function Component() {
 
       <fetcher.Form method="post">
         <input type="text" name="title" />
-        {fetcher.state !== "idle" && <p>Saving...</p>}
+        {fetcher.state !== "idle" && <p>保存中...</p>}
       </fetcher.Form>
     </div>
   );
 }
 ```
 
-### 5. Optimistic UI
+### 5. 乐观 UI
 
-Sometimes there's enough information in the form to render the next state immediately. You can access the form data with `fetcher.formData`:
+有时表单中有足够的信息可以立即渲染下一个状态。你可以通过 `fetcher.formData` 访问表单数据：
 
 ```tsx lines=[3-4,8]
 export default function Component() {
@@ -124,16 +124,16 @@ export default function Component() {
 
       <fetcher.Form method="post">
         <input type="text" name="title" />
-        {fetcher.state !== "idle" && <p>Saving...</p>}
+        {fetcher.state !== "idle" && <p>保存中...</p>}
       </fetcher.Form>
     </div>
   );
 }
 ```
 
-### 6. Fetcher Data and Validation
+### 6. Fetcher 数据和验证
 
-Data returned from an action is available in the fetcher's `data` property. This is primarily useful for returning error messages to the user for a failed mutation:
+从 action 返回的数据可以通过 fetcher 的 `data` 属性获取。这主要用于在变更失败时向用户返回错误消息：
 
 ```tsx lines=[7-10,28-32]
 // ...
@@ -144,7 +144,7 @@ export async function clientAction({ request }) {
 
   let title = data.get("title") as string;
   if (title.trim() === "") {
-    return { ok: false, error: "Title cannot be empty" };
+    return { ok: false, error: "标题不能为空" };
   }
 
   localStorage.setItem("title", title);
@@ -162,7 +162,7 @@ export default function Component() {
 
       <fetcher.Form method="post">
         <input type="text" name="title" />
-        {fetcher.state !== "idle" && <p>Saving...</p>}
+        {fetcher.state !== "idle" && <p>保存中...</p>}
         {fetcher.data?.error && (
           <p style={{ color: "red" }}>
             {fetcher.data.error}
@@ -174,13 +174,13 @@ export default function Component() {
 }
 ```
 
-## Loading Data
+## 加载数据
 
-Another common use case for fetchers is to load data from a route for something like a combobox.
+Fetcher 的另一个常见用例是从路由加载数据，例如用于组合框。
 
-### 1. Create a search route
+### 1. 创建搜索路由
 
-Consider the following route with a very basic search:
+考虑以下带有基本搜索功能的路由：
 
 ```tsx filename=./search-users.tsx
 // { path: '/search-users', filename: './search-users.tsx' }
@@ -200,7 +200,7 @@ export async function loader({ request }) {
 }
 ```
 
-### 2. Render a fetcher in a combobox component
+### 2. 在组合框组件中渲染 fetcher
 
 ```tsx
 import { useFetcher } from "react-router";
@@ -217,10 +217,10 @@ export function UserSearchCombobox() {
 }
 ```
 
-- The action points to the route we created above: "/search-users"
-- The name of the input is "q" to match the query parameter
+- action 指向我们上面创建的路由："/search-users"
+- 输入框的 name 是 "q"，与查询参数匹配
 
-### 3. Add type inference
+### 3. 添加类型推断
 
 ```tsx lines=[2,5]
 import { useFetcher } from "react-router";
@@ -232,9 +232,9 @@ export function UserSearchCombobox() {
 }
 ```
 
-Ensure you use `import type` so you only import the types.
+确保使用 `import type`，这样你只导入类型。
 
-### 4. Render the data
+### 4. 渲染数据
 
 ```tsx lines=[10-16]
 import { useFetcher } from "react-router";
@@ -258,9 +258,9 @@ export function UserSearchCombobox() {
 }
 ```
 
-Note you will need to hit "enter" to submit the form and see the results.
+注意你需要按"回车"来提交表单并查看结果。
 
-### 5. Render a pending state
+### 5. 渲染待处理状态
 
 ```tsx lines=[12-14]
 import { useFetcher } from "react-router";
@@ -288,9 +288,9 @@ export function UserSearchCombobox() {
 }
 ```
 
-### 6. Search on user input
+### 6. 在用户输入时搜索
 
-Fetchers can be submitted programmatically with `fetcher.submit`:
+Fetcher 可以通过 `fetcher.submit` 以编程方式提交：
 
 ```tsx lines=[5-7]
 <fetcher.Form method="get" action="/search-users">
@@ -304,4 +304,4 @@ Fetchers can be submitted programmatically with `fetcher.submit`:
 </fetcher.Form>
 ```
 
-Note the input event's form is passed as the first argument to `fetcher.submit`. The fetcher will use that form to submit the request, reading its attributes and serializing the data from its elements.
+注意输入事件的 form 作为第一个参数传递给 `fetcher.submit`。Fetcher 将使用该表单来提交请求，读取其属性并从其元素中序列化数据。

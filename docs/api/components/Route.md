@@ -4,31 +4,16 @@ title: Route
 
 # Route
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/components.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.Route.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.Route.html)
 
-Configures an element to render when a pattern matches the current location.
-It must be rendered within a [`Routes`](../components/Routes) element. Note that these routes
-do not participate in data loading, actions, code splitting, or any other
-route module features.
+配置当 URL 模式匹配当前位置时要渲染的元素。必须在 [`Routes`](../components/Routes) 元素内渲染。注意：这些路由不参与数据加载、action、代码拆分或任何其他路由模块功能。
 
 ```tsx
-// Usually used in a declarative router
+// 通常在声明式路由中使用
 function App() {
   return (
     <BrowserRouter>
@@ -37,17 +22,25 @@ function App() {
         <Route path="step-2" element={<StepTwo />} />
         <Route path="step-3" element={<StepThree />} />
       </Routes>
-   </BrowserRouter>
+    </BrowserRouter>
   );
 }
 
-// But can be used with a data router as well if you prefer the JSX notation
+// 也可以与数据路由一起使用（如果你偏好 JSX 写法）
 const routes = createRoutesFromElements(
   <>
     <Route index loader={step1Loader} Component={StepOne} />
-    <Route path="step-2" loader={step2Loader} Component={StepTwo} />
-    <Route path="step-3" loader={step3Loader} Component={StepThree} />
-  </>
+    <Route
+      path="step-2"
+      loader={step2Loader}
+      Component={StepTwo}
+    />
+    <Route
+      path="step-3"
+      loader={step3Loader}
+      Component={StepThree}
+    />
+  </>,
 );
 
 const router = createBrowserRouter(routes);
@@ -57,87 +50,76 @@ function App() {
 }
 ```
 
-## Signature
+## 函数签名
 
 ```tsx
-function Route(props: RouteProps): React.ReactElement | null
+function Route(
+  props: RouteProps,
+): React.ReactElement | null;
 ```
 
 ## Props
 
 ### action
 
-The route action.
-See [`action`](../../start/data/route-object#action).
+路由 action。参见 [`action`](../../start/data/route-object#action)。
 
 ### caseSensitive
 
-Whether the path should be case-sensitive. Defaults to `false`.
+路径是否区分大小写。默认为 `false`。
 
 ### Component
 
-The React Component to render when this route matches.
-Mutually exclusive with `element`.
+此路由匹配时要渲染的 React 组件。与 `element` 互斥。
 
 ### children
 
-Child Route components
+子 Route 组件。
 
 ### element
 
-The React element to render when this Route matches.
-Mutually exclusive with `Component`.
+此路由匹配时要渲染的 React 元素。与 `Component` 互斥。
 
 ### ErrorBoundary
 
-The React Component to render at this route if an error occurs.
-Mutually exclusive with `errorElement`.
+当此路由发生错误时要渲染的 React 组件。与 `errorElement` 互斥。
 
 ### errorElement
 
-The React element to render at this route if an error occurs.
-Mutually exclusive with `ErrorBoundary`.
+当此路由发生错误时要渲染的 React 元素。与 `ErrorBoundary` 互斥。
 
 ### handle
 
-The route handle.
+路由 handle。
 
 ### HydrateFallback
 
-The React Component to render while this router is loading data.
-Mutually exclusive with `hydrateFallbackElement`.
+路由加载数据时要渲染的 React 组件。与 `hydrateFallbackElement` 互斥。
 
 ### hydrateFallbackElement
 
-The React element to render while this router is loading data.
-Mutually exclusive with `HydrateFallback`.
+路由加载数据时要渲染的 React 元素。与 `HydrateFallback` 互斥。
 
 ### id
 
-The unique identifier for this route (for use with [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html)s)
+此路由的唯一标识符（用于 [`DataRouter`](https://api.reactrouter.com/v7/interfaces/react-router.DataRouter.html)）。
 
 ### index
 
-Whether this is an index route.
+是否为索引路由。
 
 ### lazy
 
-A function that returns a promise that resolves to the route object.
-Used for code-splitting routes.
-See [`lazy`](../../start/data/route-object#lazy).
+返回一个解析为路由对象的 Promise 的函数。用于路由的代码拆分。参见 [`lazy`](../../start/data/route-object#lazy)。
 
 ### loader
 
-The route loader.
-See [`loader`](../../start/data/route-object#loader).
+路由 loader。参见 [`loader`](../../start/data/route-object#loader)。
 
 ### path
 
-The path pattern to match. If unspecified or empty, then this becomes a
-layout route.
+要匹配的路径模式。如果未指定或为空，则成为布局路由。
 
 ### shouldRevalidate
 
-The route shouldRevalidate function.
-See [`shouldRevalidate`](../../start/data/route-object#shouldRevalidate).
-
+路由的 shouldRevalidate 函数。参见 [`shouldRevalidate`](../../start/data/route-object#shouldRevalidate)。

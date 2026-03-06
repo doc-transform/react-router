@@ -4,41 +4,28 @@ title: useOutlet
 
 # useOutlet
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/hooks.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useOutlet.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useOutlet.html)
 
-Returns the element for the child route at this level of the route
-hierarchy. Used internally by [`<Outlet>`](../components/Outlet) to render child
-routes.
+返回此路由层级中子路由的元素。[`<Outlet>`](../components/Outlet) 内部使用此 Hook 来渲染子路由。
 
-## Signature
+## 函数签名
 
 ```tsx
-function useOutlet(context?: unknown): React.ReactElement | null
+function useOutlet(
+  context?: unknown,
+): React.ReactElement | null;
 ```
 
-## Params
+## 参数
 
 ### context
 
-The context to pass to the outlet
+传递给 outlet 的上下文。
 
-## Returns
+## 返回值
 
-The child route element or `null` if no child routes match
-
+子路由元素，如果没有匹配的子路由则返回 `null`。

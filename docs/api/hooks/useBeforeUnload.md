@@ -4,27 +4,15 @@ title: useBeforeUnload
 
 # useBeforeUnload
 
-<!--
-⚠️ ⚠️ IMPORTANT ⚠️ ⚠️ 
-
-Thank you for helping improve our documentation!
-
-This file is auto-generated from the JSDoc comments in the source
-code, so please edit the JSDoc comments in the file below and this
-file will be re-generated once those changes are merged.
-
-https://github.com/remix-run/react-router/blob/main/packages/react-router/lib/dom/lib.tsx
--->
-
 [MODES: framework, data, declarative]
 
-## Summary
+## 概述
 
-[Reference Documentation ↗](https://api.reactrouter.com/v7/functions/react-router.useBeforeUnload.html)
+[参考文档 ↗](https://api.reactrouter.com/v7/functions/react-router.useBeforeUnload.html)
 
-Set up a callback to be fired on [Window's `beforeunload` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event).
+设置一个在 [Window 的 `beforeunload` 事件](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event)触发时调用的回调。
 
-## Signature
+## 函数签名
 
 ```tsx
 function useBeforeUnload(
@@ -32,20 +20,19 @@ function useBeforeUnload(
   options?: {
     capture?: boolean;
   },
-): void
+): void;
 ```
 
-## Params
+## 参数
 
 ### callback
 
-The callback to be called when the [`beforeunload` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event) is fired.
+当 [`beforeunload` 事件](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event)触发时调用的回调函数。
 
 ### options.capture
 
-If `true`, the event will be captured during the capture phase. Defaults to `false`.
+如果为 `true`，事件将在捕获阶段被捕获。默认为 `false`。
 
-## Returns
+## 返回值
 
-No return value.
-
+无返回值。
