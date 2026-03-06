@@ -5,11 +5,11 @@ title: NativeRouter
 # `<NativeRouter>`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function NativeRouter(
-  props: NativeRouterProps
+  props: NativeRouterProps,
 ): React.ReactElement;
 
 interface NativeRouterProps extends MemoryRouterProps {}
@@ -17,10 +17,10 @@ interface NativeRouterProps extends MemoryRouterProps {}
 
 </details>
 
-`<NativeRouter>` is the recommended interface for running React Router in a [React Native][react-native] app.
+`<NativeRouter>` 是在 [React Native][react-native] 应用中运行 React Router 的推荐接口。
 
-- `<NativeRouter initialEntries>` defaults to `["/"]` (a single entry at the root `/` URL)
-- `<NativeRouter initialIndex>` defaults to the last index of `initialEntries`
+- `<NativeRouter initialEntries>` 默认为 `["/"]`（根 `/` URL 处的单个条目）
+- `<NativeRouter initialIndex>` 默认为 `initialEntries` 的最后一个索引
 
 ```tsx
 import * as React from "react";
@@ -29,7 +29,7 @@ import { NativeRouter } from "react-router-native";
 function App() {
   return (
     <NativeRouter>
-      {/* The rest of your app goes here */}
+      {/* 你的应用的其余部分放在这里 */}
     </NativeRouter>
   );
 }

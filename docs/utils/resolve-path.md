@@ -10,7 +10,7 @@ title: resolvePath
 ```tsx
 declare function resolvePath(
   to: To,
-  fromPathname?: string
+  fromPathname?: string,
 ): Path;
 
 type To = string | Partial<Path>;
@@ -24,8 +24,8 @@ interface Path {
 
 </details>
 
-`resolvePath` resolves a given `To` value into an actual `Path` object with an absolute `pathname`. This is useful whenever you need to know the exact path for a relative `To` value. For example, the `<Link>` component uses this function to know the actual URL it points to.
+`resolvePath` 将给定的 `To` 值解析为具有绝对 `pathname` 的实际 `Path` 对象。当你需要知道相对 `To` 值的确切路径时，这非常有用。例如，`<Link>` 组件使用此函数来知道它指向的实际 URL。
 
-The [`useResolvedPath` hook][useresolvedpath] uses `resolvePath` internally to resolve the pathname. If `to` contains a pathname, it is resolved against the current route pathname. Otherwise, it is resolved against the current URL (`location.pathname`).
+[`useResolvedPath` hook][useresolvedpath] 在内部使用 `resolvePath` 来解析 pathname。如果 `to` 包含 pathname，则相对于当前路由的 pathname 进行解析。否则，相对于当前 URL（`location.pathname`）进行解析。
 
 [useresolvedpath]: ../hooks/use-resolved-path

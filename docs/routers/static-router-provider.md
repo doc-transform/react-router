@@ -5,7 +5,7 @@ new: true
 
 # `<StaticRouterProvider>`
 
-A `<StaticRouterProvider>` accepts a `router` from [`createStaticRouter()`][createstaticrouter] and a `context` from [`createStaticHandler()`][createstatichandler] and renders your application on the server (i.e., [Node][node] or another Javascript runtime). For a more complete overview, please refer to the [Server-Side Rendering][ssr] guide.
+`<StaticRouterProvider>` 接受来自 [`createStaticRouter()`][createstaticrouter] 的 `router` 和来自 [`createStaticHandler()`][createstatichandler] 的 `context`，在服务器上（即 [Node][node] 或其他 JavaScript 运行时）渲染你的应用。更完整的概述请参阅[服务端渲染][ssr]指南。
 
 ```jsx lines=[4,34-37]
 import {
@@ -45,12 +45,12 @@ export async function renderHtml(req) {
         router={router}
         context={context}
       />
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }
 ```
 
-## Type Declaration
+## 类型声明
 
 ```ts
 declare function StaticRouterProvider(props: {
@@ -63,23 +63,23 @@ declare function StaticRouterProvider(props: {
 
 ## `context`
 
-This is the `context` returned from the `createStaticHandler().query()` calls which contains all of the fetched data for the request.
+这是从 `createStaticHandler().query()` 调用返回的 `context`，包含该请求所获取的所有数据。
 
 ## `router`
 
-This is the router created via `createStaticRouter`
+这是通过 `createStaticRouter` 创建的路由器。
 
 ## `hydrate`
 
-By default, `<StaticRouterProvider>` will stringify the required hydration data onto `window.__staticRouterHydrationData` in a `<script>` tag which will be read and automatically hydrated by `createBrowserRouter()`.
+默认情况下，`<StaticRouterProvider>` 会将所需的注水数据以 `<script>` 标签的形式序列化到 `window.__staticRouterHydrationData` 上，`createBrowserRouter()` 将读取并自动注水这些数据。
 
-If you wish to do more advanced hydration manually, you can pass `hydrate={false}` to disable this automatic hydration. Client-side, you would then pass your own `hydrationData` to `createBrowserRouter`.
+如果你希望手动进行更高级的注水，可以传递 `hydrate={false}` 来禁用此自动注水。在客户端，你需要将自己的 `hydrationData` 传递给 `createBrowserRouter`。
 
 ## `nonce`
 
-When leveraging automatic hydration, you may provide a `nonce` value to be rendered onto the `<script>` tag and used along with your [Content Security Policy][nonce].
+在使用自动注水时，你可以提供一个 `nonce` 值，该值将被渲染到 `<script>` 标签上，并与你的[内容安全策略][nonce]一起使用。
 
-**See also:**
+**另请参阅：**
 
 - [`createStaticHandler`][createstatichandler]
 - [`createStaticRouter`][createstaticrouter]

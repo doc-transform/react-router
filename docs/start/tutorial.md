@@ -1,25 +1,25 @@
 ---
-title: Tutorial
+title: 教程
 order: 2
 ---
 
-# Tutorial
+# 教程
 
-Welcome to the tutorial! We'll be building a small, but feature-rich app that lets you keep track of your contacts. We expect it to take between 30-60m if you're following along.
+欢迎来到教程！我们将构建一个小而功能丰富的应用，用来管理你的联系人。如果你跟着做的话，预计需要 30-60 分钟。
 
 <img class="tutorial" src="/_docs/tutorial/15.webp" />
 
-👉 **Every time you see this it means you need to do something in the app!**
+👉 **每次你看到这个标志，说明你需要在应用中做些操作！**
 
-The rest is just there for your information and deeper understanding. Let's get to it.
+其余内容仅供参考和深入理解。让我们开始吧。
 
-## Setup
+## 安装
 
-<docs-info>If you're not going to follow along in your own app, you can skip this section</docs-info>
+<docs-info>如果你不打算在自己的应用中跟着做，可以跳过本节</docs-info>
 
-We'll be using [Vite][vite] for our bundler and dev server for this tutorial. You'll need [Node.js][node] installed for the `npm` command line tool.
+本教程我们将使用 [Vite][vite] 作为打包工具和开发服务器。你需要安装 [Node.js][node] 以使用 `npm` 命令行工具。
 
-👉️ **Open up your terminal and bootstrap a new React app with Vite:**
+👉️ **打开终端，使用 Vite 创建一个新的 React 应用：**
 
 ```sh
 npm create vite@latest name-of-your-project -- --template react
@@ -30,7 +30,7 @@ npm install localforage match-sorter sort-by # only for this tutorial.
 npm run dev
 ```
 
-You should be able to visit the URL printed in the terminal:
+你应该能够访问终端中打印的 URL：
 
 ```
  VITE v3.0.7  ready in 175 ms
@@ -39,17 +39,17 @@ You should be able to visit the URL printed in the terminal:
   ➜  Network: use --host to expose
 ```
 
-We've got some pre-written CSS for this tutorial so we can stay focused on React Router. Feel free to judge it harshly or write your own 😅 (We did things we normally wouldn't in CSS so that the markup in this tutorial could stay as minimal as possible.)
+我们为本教程准备了一些预写的 CSS，这样我们可以专注于 React Router。随意评价或自己编写 😅（我们在 CSS 中做了一些通常不会做的事情，以使本教程的标记尽可能精简。）
 
-👉 **Copy/Paste the tutorial CSS [found here][tutorial-css] into `src/index.css`**
+👉 **将[这里找到的][tutorial-css]教程 CSS 复制粘贴到 `src/index.css`**
 
-This tutorial will be creating, reading, searching, updating, and deleting data. A typical web app would probably be talking to an API on your web server, but we're going to use browser storage and fake some network latency to keep this focused. None of this code is relevant to React Router, so just go ahead and copy/paste it all.
+本教程将创建、读取、搜索、更新和删除数据。一个典型的 Web 应用可能会与 Web 服务器上的 API 通信，但我们将使用浏览器存储并模拟一些网络延迟以保持专注。这些代码都与 React Router 无关，所以直接复制粘贴就好。
 
-👉 **Copy/Paste the tutorial data module [found here][tutorial-data] into `src/contacts.js`**
+👉 **将[这里找到的][tutorial-data]教程数据模块复制粘贴到 `src/contacts.js`**
 
-All you need in the src folder are `contacts.js`, `main.jsx`, and `index.css`. You can delete anything else (like `App.js` and `assets`, etc.).
+src 文件夹中你只需要 `contacts.js`、`main.jsx` 和 `index.css`。你可以删除其他所有内容（比如 `App.js` 和 `assets` 等）。
 
-👉 **Delete unused files in `src/` so all you have left are these:**
+👉 **删除 `src/` 中未使用的文件，只保留以下这些：**
 
 ```
 src
@@ -58,15 +58,15 @@ src
 └── main.jsx
 ```
 
-If your app is running, it might blow up momentarily, just keep going 😋. And with that, we're ready to get started!
+如果你的应用正在运行，它可能会暂时崩溃，继续就好 😋。这样我们就准备好开始了！
 
-## Adding a Router
+## 添加路由器
 
-First thing to do is create a [Browser Router][createbrowserrouter] and configure our first route. This will enable client side routing for our web app.
+首先要做的是创建一个[浏览器路由器][createbrowserrouter]并配置我们的第一个路由。这将为我们的 Web 应用启用客户端路由。
 
-The `main.jsx` file is the entry point. Open it up and we'll put React Router on the page.
+`main.jsx` 文件是入口点。打开它，我们来把 React Router 放到页面上。
 
-👉 **Create and render a [browser router][createbrowserrouter] in `main.jsx`**
+👉 **在 `main.jsx` 中创建并渲染一个[浏览器路由器][createbrowserrouter]**
 
 ```jsx lines=[3-6,9-14,18] filename=src/main.jsx
 import * as React from "react";
@@ -87,26 +87,26 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 ```
 
-This first route is what we often call the "root route" since the rest of our routes will render inside of it. It will serve as the root layout of the UI, we'll have nested layouts as we get farther along.
+这第一个路由就是我们通常所说的
 
-## The Root Route
+## 根路由
 
-Let's add the global layout for this app.
+让我们来添加这个应用的全局布局。
 
-👉 **Create `src/routes` and `src/routes/root.jsx`**
+👉 **创建 `src/routes` 和 `src/routes/root.jsx`**
 
 ```sh
 mkdir src/routes
 touch src/routes/root.jsx
 ```
 
-<small>(If you don't want to be a command line nerd, use your editor instead of those commands 🤓)</small>
+<small>（如果你不想当命令行达人，可以用编辑器来代替这些命令 🤓）</small>
 
-👉 **Create the root layout component**
+👉 **创建根布局组件**
 
 ```jsx filename=src/routes/root.jsx
 export default function Root() {
@@ -154,9 +154,9 @@ export default function Root() {
 }
 ```
 
-Nothing React Router specific yet, so feel free to copy/paste all of that.
+到目前为止还没有 React Router 相关的内容，所以随意复制粘贴这些。
 
-👉 **Set `<Root>` as the root route's [`element`][routeelement]**
+👉 **将 `<Root>` 设置为根路由的 [`element`][routeelement]**
 
 ```jsx filename=src/main.jsx lines=[2,7]
 /* existing imports */
@@ -172,29 +172,29 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 ```
 
-The app should look something like this now. It sure is nice having a designer who can also write the CSS, isn't it? (Thank you [Jim][jim] 🙏).
+应用现在应该看起来像这样。有一个能写 CSS 的设计师真好，不是吗？（感谢 [Jim][jim] 🙏）。
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/01.webp" />
 
-## Handling Not Found Errors
+## 处理未找到错误
 
-It's always a good idea to know how your app responds to errors early in the project because we all write far more bugs than features when building a new app! Not only will your users get a good experience when this happens, but it helps you during development as well.
+在项目早期了解应用如何响应错误总是一个好主意，因为我们在构建新应用时写的 bug 远比功能多！这不仅能让用户在遇到错误时有好的体验，还能在开发过程中帮助你。
 
-We added some links to this app, let's see what happens when we click them?
+我们在应用中添加了一些链接，看看点击它们会发生什么？
 
-👉 **Click one of the sidebar names**
+👉 **点击侧边栏中的一个名字**
 
 <img class="tutorial" loading="lazy" alt="screenshot of default React Router error element" src="/_docs/tutorial/02.webp" />
 
-Gross! This is the default error screen in React Router, made worse by our flex box styles on the root element in this app 😂.
+糟糕！这是 React Router 的默认错误页面，被我们应用中根元素的 flex box 样式搞得更难看了 😂。
 
-Anytime your app throws an error while rendering, loading data, or performing data mutations, React Router will catch it and render an error screen. Let's make our own error page.
+每当你的应用在渲染、加载数据或执行数据变更时抛出错误，React Router 都会捕获它并渲染一个错误页面。让我们来创建自己的错误页面。
 
-👉 **Create an error page component**
+👉 **创建一个错误页面组件**
 
 ```sh
 touch src/error-page.jsx
@@ -219,7 +219,7 @@ export default function ErrorPage() {
 }
 ```
 
-👉 **Set the `<ErrorPage>` as the [`errorElement`][errorelement] on the root route**
+👉 **将 `<ErrorPage>` 设置为根路由的 [`errorElement`][errorelement]**
 
 ```jsx filename=src/main.jsx lines=[2,8]
 /* previous imports */
@@ -236,33 +236,33 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 ```
 
-The error page should now look like this:
+错误页面现在应该看起来像这样：
 
 <img class="tutorial" loading="lazy" alt="new error page, but still ugly" src="/_docs/tutorial/03.webp" />
 
-<small>(Well, that's not much better. Maybe somebody forgot to ask the designer to make an error page. Maybe everybody forgets to ask the designer to make an error page and then blames the designer for not thinking of it 😆)</small>
+<small>（好吧，也没好多少。也许有人忘了让设计师做一个错误页面。也许每个人都忘了让设计师做错误页面，然后责怪设计师没想到 😆）</small>
 
-Note that [`useRouteError`][userouteerror] provides the error that was thrown. When the user navigates to routes that don't exist you'll get an [error response][isrouteerrorresponse] with a "Not Found" `statusText`. We'll see some other errors later in the tutorial and discuss them more.
+注意 [`useRouteError`][userouteerror] 提供了抛出的错误。当用户导航到不存在的路由时，你会得到一个带有 "Not Found" `statusText` 的[错误响应][isrouteerrorresponse]。我们将在教程后面看到其他错误并进一步讨论。
 
-For now, it's enough to know that pretty much all of your errors will now be handled by this page instead of infinite spinners, unresponsive pages, or blank screens 🙌
+现在，知道你的几乎所有错误现在都由这个页面处理就足够了，而不是无限转圈、无响应的页面或空白屏幕 🙌
 
-## The Contact Route UI
+## 联系人路由 UI
 
-Instead of a 404 "Not Found" page, we want to actually render something at the URLs we've linked to. For that, we need to make a new route.
+不是显示 404 "未找到"页面，我们希望在我们链接到的 URL 上实际渲染一些内容。为此，我们需要创建一个新路由。
 
-👉 **Create the contact route module**
+👉 **创建联系人路由模块**
 
 ```sh
 touch src/routes/contact.jsx
 ```
 
-👉 **Add the contact component UI**
+👉 **添加联系人组件 UI**
 
-It's just a bunch of elements, feel free to copy/paste.
+它只是一堆元素，随意复制粘贴。
 
 ```jsx filename=src/routes/contact.jsx
 import { Form } from "react-router-dom";
@@ -324,7 +324,7 @@ export default function Contact() {
             onSubmit={(event) => {
               if (
                 !confirm(
-                  "Please confirm you want to delete this record."
+                  "Please confirm you want to delete this record.",
                 )
               ) {
                 event.preventDefault();
@@ -359,9 +359,9 @@ function Favorite({ contact }) {
 }
 ```
 
-Now that we've got a component, let's hook it up to a new route.
+现在我们有了一个组件，让我们把它挂载到一个新路由上。
 
-👉 **Import the contact component and create a new route**
+👉 **导入联系人组件并创建一个新路由**
 
 ```js filename=src/main.jsx lines=[2,10-13]
 /* existing imports */
@@ -382,21 +382,21 @@ const router = createBrowserRouter([
 /* existing code */
 ```
 
-Now if we click one of the links or visit `/contacts/1` we get our new component!
+现在如果我们点击其中一个链接或访问 `/contacts/1`，就会看到我们的新组件！
 
 <img class="tutorial" loading="lazy" alt="contact route rendering without the parent layout" src="/_docs/tutorial/04.webp" />
 
-However, it's not inside of our root layout 😠
+但是，它没有在我们的根布局内部 😠
 
-## Nested Routes
+## 嵌套路由
 
-We want the contact component to render _inside_ of the `<Root>` layout like this.
+我们希望联系人组件在 `<Root>` 布局的*内部*渲染，像这样。
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/05.webp" />
 
-We do it by making the contact route a _child_ of the root route.
+我们通过将联系人路由设为根路由的*子路由*来实现。
 
-👉 **Move the contacts route to be a child of the root route**
+👉 **将联系人路由移动为根路由的子路由**
 
 ```jsx filename=src/main.jsx lines=[6-11]
 const router = createBrowserRouter([
@@ -414,11 +414,11 @@ const router = createBrowserRouter([
 ]);
 ```
 
-You'll now see the root layout again but a blank page on the right. We need to tell the root route _where_ we want it to render its child routes. We do that with [`<Outlet>`][outlet].
+你现在又会看到根布局了，但右侧是一个空白页面。我们需要告诉根路由我们希望它在*哪里*渲染子路由。我们通过 [`<Outlet>`][outlet] 来实现。
 
-Find the `<div id="detail">` and put an outlet inside
+找到 `<div id="detail">` 并在内部放置一个 outlet
 
-👉 **Render an [`<Outlet>`][outlet]**
+👉 **渲染一个 [`<Outlet>`][outlet]**
 
 ```jsx filename=src/routes/root.jsx lines=[1,8]
 import { Outlet } from "react-router-dom";
@@ -435,13 +435,13 @@ export default function Root() {
 }
 ```
 
-## Client Side Routing
+## 客户端路由
 
-You may or may not have noticed, but when we click the links in the sidebar, the browser is doing a full document request for the next URL instead of using React Router.
+你可能已经注意到了，也可能没有，当我们点击侧边栏中的链接时，浏览器会对下一个 URL 发起完整的文档请求，而不是使用 React Router。
 
-Client side routing allows our app to update the URL without requesting another document from the server. Instead, the app can immediately render new UI. Let's make it happen with [`<Link>`][link].
+客户端路由允许我们的应用更新 URL 而无需从服务器请求另一个文档。相反，应用可以立即渲染新的 UI。让我们用 [`<Link>`][link] 来实现。
 
-👉 **Change the sidebar `<a href>` to `<Link to>`**
+👉 **将侧边栏的 `<a href>` 改为 `<Link to>`**
 
 ```jsx filename=src/routes/root.jsx lines=[1,12,15]
 import { Outlet, Link } from "react-router-dom";
@@ -470,22 +470,22 @@ export default function Root() {
 }
 ```
 
-You can open the network tab in the browser devtools to see that it's not requesting documents anymore.
+你可以打开浏览器开发工具的网络面板看到它不再请求文档了。
 
-## Loading Data
+## 加载数据
 
-URL segments, layouts, and data are more often than not coupled (tripled?) together. We can see it in this app already:
+URL 段、布局和数据往往是耦合在一起的。在这个应用中已经可以看到：
 
-| URL Segment  | Component   | Data               |
-| ------------ | ----------- | ------------------ |
-| /            | `<Root>`    | list of contacts   |
-| contacts/:id | `<Contact>` | individual contact |
+| URL 段       | 组件        | 数据       |
+| ------------ | ----------- | ---------- |
+| /            | `<Root>`    | 联系人列表 |
+| contacts/:id | `<Contact>` | 单个联系人 |
 
-Because of this natural coupling, React Router has data conventions to get data into your route components easily.
+由于这种自然的耦合，React Router 提供了数据约定来轻松地将数据获取到路由组件中。
 
-There are two APIs we'll be using to load data, [`loader`][loader] and [`useLoaderData`][useloaderdata]. First we'll create and export a loader function in the root module, then we'll hook it up to the route. Finally, we'll access and render the data.
+我们将使用两个 API 来加载数据：[`loader`][loader] 和 [`useLoaderData`][useloaderdata]。首先我们在根模块中创建并导出一个 loader 函数，然后将它连接到路由。最后，我们将访问并渲染数据。
 
-👉 **Export a loader from `root.jsx`**
+👉 **从 `root.jsx` 导出一个 loader**
 
 ```jsx filename=src/routes/root.jsx lines=[2,4-7]
 import { Outlet, Link } from "react-router-dom";
@@ -497,7 +497,7 @@ export async function loader() {
 }
 ```
 
-👉 **Configure the loader on the route**
+👉 **在路由上配置 loader**
 
 ```jsx filename=src/main.jsx lines=[2,9]
 /* other imports */
@@ -519,7 +519,7 @@ const router = createBrowserRouter([
 ]);
 ```
 
-👉 **Access and render the data**
+👉 **访问并渲染数据**
 
 ```jsx filename=src/routes/root.jsx lines=[4,11,19-40]
 import {
@@ -571,31 +571,31 @@ export default function Root() {
 }
 ```
 
-That's it! React Router will now automatically keep that data in sync with your UI. We don't have any data yet, so you're probably getting a blank list like this:
+就这样！React Router 现在会自动保持数据与 UI 同步。我们还没有任何数据，所以你可能会看到一个空列表像这样：
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/06.webp" />
 
-## Data Writes + HTML Forms
+## 数据写入 + HTML 表单
 
-We'll create our first contact in a second, but first let's talk about HTML.
+我们马上就会创建第一个联系人，但首先让我们谈谈 HTML。
 
-React Router emulates HTML Form navigation as the data mutation primitive, according to web development before the JavaScript cambrian explosion. It gives you the UX capabilities of client rendered apps with the simplicity of the "old school" web model.
+React Router 模拟 HTML 表单导航作为数据变更原语，这是 JavaScript 寒武纪大爆发之前的 Web 开发方式。它为你提供了客户端渲染应用的 UX 能力，同时保持了“老派”Web 模型的简单性。
 
-While unfamiliar to some web developers, HTML forms actually cause a navigation in the browser, just like clicking a link. The only difference is in the request: links can only change the URL while forms can also change the request method (GET vs POST) and the request body (POST form data).
+虽然对某些 Web 开发者来说可能不熟悉，但 HTML 表单实际上会在浏览器中引起导航，就像点击链接一样。唯一的区别在于请求：链接只能改变 URL，而表单还可以改变请求方法（GET vs POST）和请求体（POST 表单数据）。
 
-Without client side routing, the browser will serialize the form's data automatically and send it to the server as the request body for POST, and as URLSearchParams for GET. React Router does the same thing, except instead of sending the request to the server, it uses client side routing and sends it to a route [`action`][action].
+没有客户端路由时，浏览器会自动序列化表单数据，并将其作为 POST 的请求体发送到服务器，对于 GET 则作为 URLSearchParams。React Router 做的是同样的事情，只不过它不是将请求发送到服务器，而是使用客户端路由将其发送到路由的 [`action`][action]。
 
-We can test this out by clicking the "New" button in our app. The app should blow up because the Vite server isn't configured to handle a POST request (it sends a 404, though it should probably be a 405 🤷).
+我们可以通过点击应用中的 "New" 按钮来测试。应用应该会崩溃，因为 Vite 服务器没有配置来处理 POST 请求（它发送了 404，虽然应该是 405 🤷）。
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/07.webp" />
 
-Instead of sending that POST to the Vite server to create a new contact, let's use client side routing instead.
+不要将那个 POST 发送到 Vite 服务器来创建新联系人，让我们使用客户端路由来代替。
 
-## Creating Contacts
+## 创建联系人
 
-We'll create new contacts by exporting an `action` in our root route, wiring it up to the route config, and changing our `<form>` to a React Router [`<Form>`][form].
+我们将通过在根路由中导出一个 `action`、将其连接到路由配置，并将 `<form>` 改为 React Router 的 [`<Form>`][form] 来创建新联系人。
 
-👉 **Create the action and change `<form>` to `<Form>`**
+👉 **创建 action 并将 `<form>` 改为 `<Form>`**
 
 ```jsx filename=src/routes/root.jsx lines=[5,7,9-12,24-26]
 import {
@@ -633,7 +633,7 @@ export default function Root() {
 }
 ```
 
-👉 **Import and set the action on the route**
+👉 **导入并在路由上设置 action**
 
 ```jsx filename=src/main.jsx lines=[5,14]
 /* other imports */
@@ -660,25 +660,25 @@ const router = createBrowserRouter([
 ]);
 ```
 
-That's it! Go ahead and click the "New" button and you should see a new record pop into the list 🥳
+就这样！继续点击 "New" 按钮，你应该会看到一条新记录出现在列表中 🥳
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/08.webp" />
 
-The `createContact` method just creates an empty contact with no name or data or anything. But it does still create a record, promise!
+`createContact` 方法只是创建了一个没有名称、没有数据、什么都没有的空联系人。但它确实创建了一条记录，没骗你！
 
-> 🧐 Wait a sec ... How did the sidebar update? Where did we call the `action`? Where's the code to refetch the data? Where are `useState`, `onSubmit` and `useEffect`?!
+> 🧐 等等... 侧边栏是如何更新的？我们在哪里调用了 `action`？重新获取数据的代码在哪里？`useState`、`onSubmit` 和 `useEffect` 在哪里？！
 
-This is where the "old school web" programming model shows up. As we discussed earlier, [`<Form>`][form] prevents the browser from sending the request to the server and sends it to your route `action` instead. In web semantics, a POST usually means some data is changing. By convention, React Router uses this as a hint to automatically revalidate the data on the page after the action finishes. That means all of your `useLoaderData` hooks update and the UI stays in sync with your data automatically! Pretty cool.
+这就是“老派 Web”编程模型登场的地方。正如我们之前讨论的，[`<Form>`][form] 阻止了浏览器将请求发送到服务器，而是将其发送到你的路由 `action`。在 Web 语义中，POST 通常意味着某些数据正在发生变化。按惯例，React Router 将此作为提示，在 action 完成后自动重新验证页面上的数据。这意味着你所有的 `useLoaderData` hook 都会更新，UI 会自动与你的数据保持同步！相当酷。
 
-## URL Params in Loaders
+## Loader 中的 URL 参数
 
-👉 **Click on the No Name record**
+👉 **点击“No Name”记录**
 
-We should be seeing our old static contact page again, with one difference: the URL now has a real ID for the record.
+我们应该又会看到之前的静态联系人页面，但有一个区别：URL 现在有了记录的真实 ID。
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/09.webp" />
 
-Reviewing the route config, the route looks like this:
+回顾路由配置，路由看起来是这样的：
 
 ```jsx
 [
@@ -689,13 +689,13 @@ Reviewing the route config, the route looks like this:
 ];
 ```
 
-Note the `:contactId` URL segment. The colon (`:`) has special meaning, turning it into a "dynamic segment". Dynamic segments will match dynamic (changing) values in that position of the URL, like the contact ID. We call these values in the URL "URL Params", or just "params" for short.
+注意 `:contactId` URL 段。冒号（`:`）有特殊含义，它将其变成“动态段”。动态段会匹配 URL 中该位置的动态（变化的）值，比如联系人 ID。我们称 URL 中的这些值为“URL Params”，或简称“params”。
 
-These [`params`][params] are passed to the loader with keys that match the dynamic segment. For example, our segment is named `:contactId` so the value will be passed as `params.contactId`.
+这些 [`params`][params] 会被传递给 loader，key 与动态段匹配。例如，我们的段名为 `:contactId`，所以值将作为 `params.contactId` 传递。
 
-These params are most often used to find a record by ID. Let's try it out.
+这些参数最常用于根据 ID 查找记录。让我们试试看。
 
-👉 **Add a loader to the contact page and access data with `useLoaderData`**
+👉 **为联系人页面添加 loader 并使用 `useLoaderData` 访问数据**
 
 ```jsx filename=src/routes/contact.jsx lines=[1,2,4-6,10]
 import { Form, useLoaderData } from "react-router-dom";
@@ -712,7 +712,7 @@ export default function Contact() {
 }
 ```
 
-👉 **Configure the loader on the route**
+👉 **在路由上配置 loader**
 
 ```jsx filename=src/main.jsx lines=[3,17]
 /* existing code */
@@ -742,19 +742,19 @@ const router = createBrowserRouter([
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/10.webp" />
 
-## Updating Data
+## 更新数据
 
-Just like creating data, you update data with [`<Form>`][form]. Let's make a new route at `contacts/:contactId/edit`. Again, we'll start with the component and then wire it up to the route config.
+就像创建数据一样，你用 [`<Form>`][form] 来更新数据。让我们在 `contacts/:contactId/edit` 创建一个新路由。同样，我们从组件开始，然后将其连接到路由配置。
 
-👉 **Create the edit component**
+👉 **创建编辑组件**
 
 ```
 touch src/routes/edit.jsx
 ```
 
-👉 **Add the edit page UI**
+👉 **添加编辑页 UI**
 
-Nothing we haven't seen before, feel free to copy/paste:
+之前都见过的内容，随意复制粘贴：
 
 ```jsx filename=src/routes/edit.jsx
 import { Form, useLoaderData } from "react-router-dom";
@@ -817,7 +817,7 @@ export default function EditContact() {
 }
 ```
 
-👉 **Add the new edit route**
+👉 **添加新的编辑路由**
 
 ```jsx filename=src/main.jsx lines=[2,17-21]
 /* existing code */
@@ -848,19 +848,19 @@ const router = createBrowserRouter([
 /* existing code */
 ```
 
-We want it to be rendered in the root route's outlet, so we made it a sibling to the existing child route.
+我们希望它在根路由的 outlet 中渲染，所以我们将它作为现有子路由的兄弟路由。
 
-(You might note we reused the `contactLoader` for this route. This is only because we're being lazy in the tutorial. There is no reason to attempt to share loaders among routes, they usually have their own.)
+（你可能注意到我们为这个路由复用了 `contactLoader`。这只是因为我们在教程中偷懒。没有理由尝试在路由之间共享 loader，它们通常有自己的。）
 
-Alright, clicking the "Edit" button gives us this new UI:
+好了，点击 "Edit" 按钮会给我们这个新 UI：
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/11.webp" />
 
-## Updating Contacts with FormData
+## 使用 FormData 更新联系人
 
-The edit route we just created already renders a form. All we need to do to update the record is wire up an action to the route. The form will post to the action and the data will be automatically revalidated.
+我们刚创建的编辑路由已经渲染了一个表单。我们需要做的就是为路由连接一个 action 来更新记录。表单将 post 到 action，数据将自动重新验证。
 
-👉 **Add an action to the edit module**
+👉 **为编辑模块添加 action**
 
 ```jsx filename=src/routes/edit.jsx lines=[4,6,8-13]
 import {
@@ -880,7 +880,7 @@ export async function action({ request, params }) {
 /* existing code */
 ```
 
-👉 **Wire the action up to the route**
+👉 **将 action 连接到路由**
 
 ```jsx filename=src/main.jsx lines=[3,23]
 /* existing code */
@@ -914,17 +914,17 @@ const router = createBrowserRouter([
 /* existing code */
 ```
 
-Fill out the form, hit save, and you should see something like this! <small>(Except easier on the eyes and maybe less hairy.)</small>
+填写表单，点击保存，你应该会看到类似这样的内容！<small>（只不过更养眼，可能毛发少一些。）</small>
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/12.webp" />
 
-## Mutation Discussion
+## 变更讨论
 
-> 😑 It worked, but I have no idea what is going on here...
+> 😑 它起作用了，但我完全不知道这里发生了什么...
 
-Let's dig in a bit...
+让我们深入了解一下...
 
-Open up `src/routes/edit.jsx` and look at the form elements. Notice how they each have a name:
+打开 `src/routes/edit.jsx` 并查看表单元素。注意它们每个都有一个 name：
 
 ```jsx lines=[5] filename=src/routes/edit.jsx
 <input
@@ -936,9 +936,9 @@ Open up `src/routes/edit.jsx` and look at the form elements. Notice how they eac
 />
 ```
 
-Without JavaScript, when a form is submitted, the browser will create [`FormData`][formdata] and set it as the body of the request when it sends it to the server. As mentioned before, React Router prevents that and sends the request to your action instead, including the [`FormData`][formdata].
+没有 JavaScript 时，当表单被提交时，浏览器会创建 [`FormData`][formdata] 并将其作为请求体发送到服务器。如前所述，React Router 阻止了这个行为，将请求发送到你的 action，包括 [`FormData`][formdata]。
 
-Each field in the form is accessible with `formData.get(name)`. For example, given the input field from above, you could access the first and last names like this:
+表单中的每个字段都可以通过 `formData.get(name)` 访问。例如，给定上面的输入字段，你可以像这样访问名和姓：
 
 ```jsx lines=[3,4]
 export async function action({ request, params }) {
@@ -949,7 +949,7 @@ export async function action({ request, params }) {
 }
 ```
 
-Since we have a handful of form fields, we used [`Object.fromEntries`][fromentries] to collect them all into an object, which is exactly what our `updateContact` function wants.
+由于我们有一些表单字段，我们使用 [`Object.fromEntries`][fromentries] 将它们收集到一个对象中，这正是我们的 `updateContact` 函数需要的。
 
 ```jsx lines=[2,3]
 const updates = Object.fromEntries(formData);
@@ -957,9 +957,9 @@ updates.first; // "Some"
 updates.last; // "Name"
 ```
 
-Aside from `action`, none of these APIs we're discussing are provided by React Router: [`request`][request], [`request.formData`][requestformdata], [`Object.fromEntries`][fromentries] are all provided by the web platform.
+除了 `action`，我们讨论的这些 API 都不是 React Router 提供的：[`request`][request]、[`request.formData`][requestformdata]、[`Object.fromEntries`][fromentries] 都是 Web 平台提供的。
 
-After we finished the action, note the [`redirect`][redirect] at the end:
+在我们完成 action 后，注意最后的 [`redirect`][redirect]：
 
 ```jsx filename=src/routes/edit.jsx lines=[5]
 export async function action({ request, params }) {
@@ -970,15 +970,15 @@ export async function action({ request, params }) {
 }
 ```
 
-Loaders and actions can both [return a `Response`][returningresponses] (makes sense, since they received a [`Request`][request]!). The [`redirect`][redirect] helper just makes it easier to return a [response][response] that tells the app to change locations.
+Loader 和 action 都可以[返回 `Response`][returningresponses]（这很合理，因为它们接收的是 [`Request`][request]！）。[`redirect`][redirect] helper 只是让返回一个告诉应用改变位置的 [response][response] 变得更容易。
 
-Without client side routing, if a server redirected after a POST request, the new page would fetch the latest data and render. As we learned before, React Router emulates this model and automatically revalidates the data on the page after the action. That's why the sidebar automatically updates when we save the form. The extra revalidation code doesn't exist without client side routing, so it doesn't need to exist with client side routing either!
+没有客户端路由时，如果服务器在 POST 请求后重定向，新页面会获取最新数据并渲染。正如我们之前学到的，React Router 模拟了这个模型，并在 action 后自动重新验证页面上的数据。这就是为什么当我们保存表单时侧边栏会自动更新。没有客户端路由时不存在的额外重新验证代码，有了客户端路由同样也不需要！
 
-## Redirecting new records to the edit page
+## 将新记录重定向到编辑页面
 
-Now that we know how to redirect, let's update the action that creates new contacts to redirect to the edit page:
+现在我们知道如何重定向了，让我们更新创建新联系人的 action，重定向到编辑页面：
 
-👉 **Redirect to the new record's edit page**
+👉 **重定向到新记录的编辑页面**
 
 ```jsx filename=src/routes/root.jsx lines=[6,12]
 import {
@@ -996,21 +996,21 @@ export async function action() {
 }
 ```
 
-Now when we click "New", we should end up on the edit page:
+现在当我们点击 "New" 时，应该会进入编辑页面：
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/13.webp" />
 
-👉 **Add a handful of records**
+👉 **添加一些记录**
 
-I'm going to use the stellar lineup of speakers from the first Remix Conference 😁
+我要用第一届 Remix 大会的豪华演讲嘉宾阵容 😁
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/14.webp" />
 
-## Active Link Styling
+## 活动链接样式
 
-Now that we have a bunch of records, it's not clear which one we're looking at in the sidebar. We can use [`NavLink`][navlink] to fix this.
+现在我们有了一堆记录，但不清楚侧边栏中我们正在查看哪一个。我们可以使用 [`NavLink`][navlink] 来解决这个问题。
 
-👉 **Use a `NavLink` in the sidebar**
+👉 **在侧边栏中使用 `NavLink`**
 
 ```jsx filename=src/routes/root.jsx lines=[3,20-31]
 import {
@@ -1038,8 +1038,8 @@ export default function Root() {
                       isActive
                         ? "active"
                         : isPending
-                        ? "pending"
-                        : ""
+                          ? "pending"
+                          : ""
                     }
                   >
                     {/* other code */}
@@ -1057,17 +1057,17 @@ export default function Root() {
 }
 ```
 
-Note that we are passing a function to `className`. When the user is at the URL in the `NavLink`, then `isActive` will be true. When it's _about_ to be active (the data is still loading) then `isPending` will be true. This allows us to easily indicate where the user is, as well as provide immediate feedback on links that have been clicked but we're still waiting for data to load.
+注意我们向 `className` 传递了一个函数。当用户在 `NavLink` 的 URL 上时，`isActive` 为 true。当它*即将*变为活动状态时（数据仍在加载），`isPending` 为 true。这允许我们轻松地指示用户在哪里，以及为已点击但仍在等待数据加载的链接提供即时反馈。
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/15.webp"/>
 
-## Global Pending UI
+## 全局待定 UI
 
-As the user navigates the app, React Router will _leave the old page up_ as data is loading for the next page. You may have noticed the app feels a little unresponsive as you click between the list. Let's provide the user with some feedback so the app doesn't feel unresponsive.
+当用户在应用中导航时，React Router 会在为下一页加载数据时*保留旧页面*。你可能注意到在列表之间点击时应用感觉有点无响应。让我们为用户提供一些反馈，这样应用就不会感觉无响应。
 
-React Router is managing all of the state behind the scenes and reveals the pieces of it you need to build dynamic web apps. In this case, we'll use the [`useNavigation`][usenavigation] hook.
+React Router 在幕后管理所有状态，并揭示你构建动态 Web 应用所需的部分。在这种情况下，我们将使用 [`useNavigation`][usenavigation] hook。
 
-👉 **`useNavigation` to add global pending UI**
+👉 **使用 `useNavigation` 添加全局待定 UI**
 
 ```jsx filename=src/routes/root.jsx lines=[3,10,17-19]
 import {
@@ -1097,17 +1097,17 @@ export default function Root() {
 }
 ```
 
-[`useNavigation`][usenavigation] returns the current navigation state: it can be one of `"idle" | "submitting" | "loading"`.
+[`useNavigation`][usenavigation] 返回当前的导航状态：可以是 `"idle" | "submitting" | "loading"` 之一。
 
-In our case, we add a `"loading"` class to the main part of the app if we're not idle. The CSS then adds a nice fade after a short delay (to avoid flickering the UI for fast loads). You could do anything you want though, like show a spinner or loading bar across the top.
+在我们的例子中，如果我们不是空闲状态，就为应用的主要部分添加 `"loading"` 类。然后 CSS 会在短暂延迟后添加一个漂亮的淡入效果（以避免快速加载时 UI 闪烁）。你可以做任何你想做的，比如显示 spinner 或顶部加载条。
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/16.webp" />
 
-Note that our data model (`src/contacts.js`) has a clientside cache, so navigating to the same contact is fast the second time. This behavior is _not_ React Router, it will re-load data for changing routes no matter if you've been there before or not. It does, however, avoid calling the loaders for _unchanging_ routes (like the list) during a navigation.
+注意我们的数据模型（`src/contacts.js`）有客户端缓存，所以第二次导航到相同的联系人很快。这个行为*不是* React Router 的功能，无论你之前是否访问过，它都会为变化的路由重新加载数据。但它确实会避免在导航期间为*未变化的*路由（如列表）调用 loader。
 
-## Deleting Records
+## 删除记录
 
-If we review code in the contact route, we can find the delete button looks like this:
+如果我们查看联系人路由中的代码，可以看到删除按钮看起来是这样的：
 
 ```jsx filename=src/routes/contact.jsx lines=[3]
 <Form
@@ -1116,7 +1116,7 @@ If we review code in the contact route, we can find the delete button looks like
   onSubmit={(event) => {
     if (
       !confirm(
-        "Please confirm you want to delete this record."
+        "Please confirm you want to delete this record.",
       )
     ) {
       event.preventDefault();
@@ -1127,21 +1127,21 @@ If we review code in the contact route, we can find the delete button looks like
 </Form>
 ```
 
-Note the `action` points to `"destroy"`. Like `<Link to>`, `<Form action>` can take a _relative_ value. Since the form is rendered in `contact/:contactId`, then a relative action with `destroy` will submit the form to `contact/:contactId/destroy` when clicked.
+注意 `action` 指向 `"destroy"`。就像 `<Link to>` 一样，`<Form action>` 可以使用*相对*值。由于表单在 `contact/:contactId` 中渲染，所以带 `destroy` 的相对 action 将在点击时将表单提交到 `contact/:contactId/destroy`。
 
-At this point you should know everything you need to know to make the delete button work. Maybe give it a shot before moving on? You'll need:
+此时你应该知道使删除按钮工作所需的一切了。也许在继续之前试试看？你需要：
 
-1. A new route
-2. An `action` at that route
-3. `deleteContact` from `src/contacts.js`
+1. 一个新路由
+2. 该路由上的 `action`
+3. 来自 `src/contacts.js` 的 `deleteContact`
 
-👉 **Create the "destroy" route module**
+👉 **创建 "destroy" 路由模块**
 
 ```
 touch src/routes/destroy.jsx
 ```
 
-👉 **Add the destroy action**
+👉 **添加 destroy action**
 
 ```jsx filename=src/routes/destroy.jsx
 import { redirect } from "react-router-dom";
@@ -1153,7 +1153,7 @@ export async function action({ params }) {
 }
 ```
 
-👉 **Add the destroy route to the route config**
+👉 **将 destroy 路由添加到路由配置中**
 
 ```jsx filename=src/main.jsx lines=[2,10-13]
 /* existing code */
@@ -1176,21 +1176,21 @@ const router = createBrowserRouter([
 /* existing code */
 ```
 
-Alright, navigate to a record and click the "Delete" button. It works!
+好的，导航到一条记录并点击 "Delete" 按钮。它工作了！
 
-> 😅 I'm still confused why this all works
+> 😅 我还是不明白为什么这一切能工作
 
-When the user clicks the submit button:
+当用户点击提交按钮时：
 
-1. `<Form>` prevents the default browser behavior of sending a new POST request to the server, but instead emulates the browser by creating a POST request with client side routing
-2. The `<Form action="destroy">` matches the new route at `"contacts/:contactId/destroy"` and sends it the request
-3. After the action redirects, React Router calls all of the loaders for the data on the page to get the latest values (this is "revalidation"). `useLoaderData` returns new values and causes the components to update!
+1. `<Form>` 阻止了浏览器向服务器发送新 POST 请求的默认行为，而是通过客户端路由创建 POST 请求来模拟浏览器
+2. `<Form action="destroy">` 匹配 `"contacts/:contactId/destroy"` 的新路由并将请求发送给它
+3. action 重定向后，React Router 调用页面上所有数据的 loader 来获取最新值（这就是“重新验证”）。`useLoaderData` 返回新值并导致组件更新！
 
-Add a form, add an action, React Router does the rest.
+添加表单，添加 action，React Router 处理其余。
 
-## Contextual Errors
+## 上下文错误
 
-Just for kicks, throw an error in the destroy action:
+只是为了好玩，在 destroy action 中抛出一个错误：
 
 ```jsx filename=src/routes/destroy.jsx lines=[2]
 export async function action({ params }) {
@@ -1202,9 +1202,9 @@ export async function action({ params }) {
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/17.webp" />
 
-Recognize that screen? It's our [`errorElement`][errorelement] from before. The user, however, can't really do anything to recover from this screen except to hit refresh.
+认出这个页面了吗？它就是我们之前的 [`errorElement`][errorelement]。然而，用户除了刷新外没法从这个页面恢复。
 
-Let's create a contextual error message for the destroy route:
+让我们为 destroy 路由创建一个上下文错误消息：
 
 ```jsx filename=src/main.jsx lines=[6]
 [
@@ -1217,31 +1217,31 @@ Let's create a contextual error message for the destroy route:
 ];
 ```
 
-Now try it again:
+现在再试试：
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/18.webp" />
 
-Our user now has more options than slamming refresh, they can continue to interact with the parts of the page that aren't having trouble 🙌
+我们的用户现在有了比狂按刷新更多的选择，他们可以继续与页面中没有问题的部分交互 🙌
 
-Because the destroy route has its own `errorElement` and is a child of the root route, the error will render there instead of the root. As you probably noticed, these errors bubble up to the nearest `errorElement`. Add as many or as few as you like, as long as you've got one at the root.
+因为 destroy 路由有自己的 `errorElement` 且是根路由的子路由，错误会在那里渲染而不是根路由。你可能已经注意到，这些错误会向上冒泡到最近的 `errorElement`。根据需要添加任意数量的 errorElement，只要确保根路由有一个就行。
 
-## Index Routes
+## 索引路由
 
-When we load up the app, you'll notice a big blank page on the right side of our list.
+当我们加载应用时，你会注意到列表右侧有一大片空白。
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/19.webp" />
 
-When a route has children, and you're at the parent route's path, the `<Outlet>` has nothing to render because no children match. You can think of index routes as the default child route to fill in that space.
+当路由有子路由且你在父路由的路径上时，`<Outlet>` 没有东西可渲染，因为没有子路由匹配。你可以把索引路由想象为填充该空间的默认子路由。
 
-👉 **Create the index route module**
+👉 **创建索引路由模块**
 
 ```
 touch src/routes/index.jsx
 ```
 
-👉 **Fill in the index component's elements**
+👉 **填充索引组件的元素**
 
-Feel free to copy paste, nothing special here.
+随意复制粘贴，这里没有什么特别的。
 
 ```jsx filename=src/routes/index.jsx
 export default function Index() {
@@ -1259,7 +1259,7 @@ export default function Index() {
 }
 ```
 
-👉 **Configure the index route**
+👉 **配置索引路由**
 
 ```jsx filename=src/main.jsx lines=[2,12]
 // existing code
@@ -1280,19 +1280,19 @@ const router = createBrowserRouter([
 ]);
 ```
 
-Note the [`{ index:true }`][index] instead of [`{ path: "" }`][path]. That tells the router to match and render this route when the user is at the parent route's exact path, so there are no other child routes to render in the `<Outlet>`.
+注意是 [`{ index:true }`][index] 而不是 [`{ path: "" }`][path]。这告诉路由器当用户在父路由的精确路径上时匹配并渲染此路由，这样就没有其他子路由需要在 `<Outlet>` 中渲染。
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/20.webp" />
 
-Voila! No more blank space. It's common to put dashboards, stats, feeds, etc. at index routes. They can participate in data loading as well.
+太棒了！不再有空白了。在索引路由上放置仪表盘、统计信息、动态等是很常见的。它们也可以参与数据加载。
 
-## Cancel Button
+## 取消按钮
 
-On the edit page we've got a cancel button that doesn't do anything yet. We'd like it to do the same thing as the browser's back button.
+在编辑页面上我们有一个取消按钮，现在还没有任何功能。我们希望它像浏览器的后退按钮一样工作。
 
-We'll need a click handler on the button as well as [`useNavigate`][usenavigate] from React Router.
+我们需要在按钮上添加点击处理程序以及 React Router 的 [`useNavigate`][usenavigate]。
 
-👉 **Add the cancel button click handler with `useNavigate`**
+👉 **使用 `useNavigate` 添加取消按钮点击处理程序**
 
 ```jsx filename=src/routes/edit.jsx lines=[5,10,20-22]
 import {
@@ -1326,29 +1326,29 @@ export default function EditContact() {
 }
 ```
 
-Now when the user clicks "Cancel", they'll be sent back one entry in the browser's history.
+现在当用户点击 "Cancel" 时，他们会被发送回浏览器历史中的上一个条目。
 
-> 🧐 Why is there no `event.preventDefault` on the button?
+> 🧐 为什么按钮上没有 `event.preventDefault`？
 
-A `<button type="button">`, while seemingly redundant, is the HTML way of preventing a button from submitting its form.
+`<button type="button">` 虽然看起来多余，但这是 HTML 中阻止按钮提交表单的方式。
 
-Two more features to go. We're on the home stretch!
+还有两个功能要做。我们已经到最后冲刺阶段了！
 
-## URL Search Params and GET Submissions
+## URL 搜索参数和 GET 提交
 
-All of our interactive UI so far have been either links that change the URL or forms that post data to actions. The search field is interesting because it's a mix of both: it's a form but it only changes the URL, it doesn't change data.
+到目前为止，我们所有的交互 UI 要么是改变 URL 的链接，要么是向 action post 数据的表单。搜索字段很有趣，因为它是两者的混合：它是一个表单，但它只改变 URL，不改变数据。
 
-Right now it's just a normal HTML `<form>`, not a React Router `<Form>`. Let's see what the browser does with it by default:
+现在它只是一个普通的 HTML `<form>`，不是 React Router 的 `<Form>`。让我们看看浏览器默认会对它做什么：
 
-👉 **Type a name into the search field and hit the enter key**
+👉 **在搜索字段中输入一个名字并按回车键**
 
-Note the browser's URL now contains your query in the URL as [URLSearchParams][urlsearchparams]:
+注意浏览器的 URL 现在包含你的查询作为 [URLSearchParams][urlsearchparams]：
 
 ```
 http://127.0.0.1:5173/?q=ryan
 ```
 
-If we review the search form, it looks like this:
+如果我们查看搜索表单，它看起来是这样的：
 
 ```jsx filename=src/routes/root.jsx lines=[1,7]
 <form id="search-form" role="search">
@@ -1364,15 +1364,15 @@ If we review the search form, it looks like this:
 </form>
 ```
 
-As we've seen before, browsers can serialize forms by the `name` attribute of it's input elements. The name of this input is `q`, that's why the URL has `?q=`. If we named it `search` the URL would be `?search=`.
+正如我们之前看到的，浏览器可以通过输入元素的 `name` 属性序列化表单。这个输入框的名称是 `q`，这就是 URL 中有 `?q=` 的原因。如果我们把它命名为 `search`，URL 就会是 `?search=`。
 
-Note that this form is different from the others we've used, it does not have `<form method="post">`. The default `method` is `"get"`. That means when the browser creates the request for the next document, it doesn't put the form data into the request POST body, but into the [`URLSearchParams`][urlsearchparams] of a GET request.
+注意这个表单与我们使用的其他表单不同，它没有 `<form method="post">`。默认的 `method` 是 `"get"`。这意味着当浏览器为下一个文档创建请求时，它不会将表单数据放入请求的 POST body 中，而是放入 GET 请求的 [`URLSearchParams`][urlsearchparams] 中。
 
-## GET Submissions with Client Side Routing
+## 使用客户端路由的 GET 提交
 
-Let's use client side routing to submit this form and filter the list in our existing loader.
+让我们使用客户端路由来提交这个表单并在现有的 loader 中过滤列表。
 
-👉 **Change `<form>` to `<Form>`**
+👉 **将 `<form>` 改为 `<Form>`**
 
 ```jsx filename=src/routes/root.jsx lines=[1,11]
 <Form id="search-form" role="search">
@@ -1388,7 +1388,7 @@ Let's use client side routing to submit this form and filter the list in our exi
 </Form>
 ```
 
-👉 **Filter the list if there are URLSearchParams**
+👉 **如果有 URLSearchParams 则过滤列表**
 
 ```jsx filename=src/routes/root.jsx lines=[1,2-4]
 export async function loader({ request }) {
@@ -1401,20 +1401,20 @@ export async function loader({ request }) {
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/21.webp" />
 
-Because this is a GET, not a POST, React Router _does not_ call the `action`. Submitting a GET form is the same as clicking a link: only the URL changes. That's why the code we added for filtering is in the `loader`, not the `action` of this route.
+因为这是 GET，不是 POST，React Router *不会*调用 `action`。提交 GET 表单与点击链接相同：只有 URL 改变。这就是为什么我们添加的过滤代码在 `loader` 中，而不是在这个路由的 `action` 中。
 
-This also means it's a normal page navigation. You can click the back button to get back to where you were.
+这也意味着这是一个正常的页面导航。你可以点击后退按钮回到之前的位置。
 
-## Synchronizing URLs to Form State
+## 同步 URL 与表单状态
 
-There are a couple of UX issues here that we can take care of quickly.
+这里有一些 UX 问题我们可以快速解决。
 
-1. If you click back after a search, the form field still has the value you entered even though the list is no longer filtered.
-2. If you refresh the page after searching, the form field no longer has the value in it, even though the list is filtered
+1. 如果你在搜索后点击后退，表单字段仍然有你输入的值，即使列表不再被过滤。
+2. 如果你在搜索后刷新页面，表单字段不再有值，即使列表被过滤了。
 
-In other words, the URL and our form state are out of sync.
+换句话说，URL 和我们的表单状态不同步。
 
-👉 **Return `q` from your loader and set it as the search field default value**
+👉 **从 loader 返回 `q` 并将其设置为搜索字段的默认值**
 
 ```jsx filename=src/routes/root.jsx lines=[7,11,26]
 // existing code
@@ -1456,13 +1456,13 @@ export default function Root() {
 }
 ```
 
-That solves problem (2). If you refresh the page now, the input field will show the query.
+这解决了问题 (2)。如果你现在刷新页面，输入框会显示查询内容。
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/21.webp" />
 
-Now for problem (1), clicking the back button and updating the input. We can bring in `useEffect` from React to manipulate the form's state in the DOM directly.
+现在解决问题 (1)，点击后退按钮并更新输入框。我们可以从 React 引入 `useEffect` 来直接操作 DOM 中的表单状态。
 
-👉 **Synchronize input value with the URL Search Params**
+👉 **将输入值与 URL 搜索参数同步**
 
 ```jsx filename=src/routes/root.jsx lines=[1,9-11]
 import { useEffect } from "react";
@@ -1481,14 +1481,14 @@ export default function Root() {
 }
 ```
 
-> 🤔 Shouldn't you use a controlled component and React State for this?
+> 🤔 你不应该用受控组件和 React State 来做这个吗？
 
-You could certainly do this as a controlled component, but you'll end up with more complexity for the same behavior. You don't control the URL, the user does with the back/forward buttons. There would be more synchronization points with a controlled component.
+你当然可以做成受控组件，但会为相同的行为带来更多复杂性。你不控制 URL，用户通过后退/前进按钮控制。使用受控组件会有更多的同步点。
 
 <details>
-<summary>If you're still concerned, expand this to see what it would look like</summary>
+<summary>如果你仍然担心，展开查看受控组件的写法</summary>
 
-Notice how controlling the input requires three points of synchronization now instead of just one. The behavior is identical but the code is more complex.
+注意控制输入框现在需要三个同步点而不是一个。行为是相同的，但代码更复杂。
 
 ```jsx filename=src/routes/root.jsx lines=[1,6,15,18-20,34-37]
 import { useEffect, useState } from "react";
@@ -1542,11 +1542,11 @@ export default function Root() {
 
 </details>
 
-## Submitting Forms `onChange`
+## `onChange` 时提交表单
 
-We've got a product decision to make here. For this UI, we'd probably rather have the filtering happen on every key stroke instead of when the form is explicitly submitted.
+我们需要做一个产品决策。对于这个 UI，我们可能更希望在每次按键时就进行过滤，而不是显式提交表单时。
 
-We've seen `useNavigate` already, we'll use its cousin, [`useSubmit`][usesubmit], for this.
+我们已经见过 `useNavigate` 了，我们将使用它的近亲 [`useSubmit`][usesubmit] 来实现。
 
 ```jsx filename=src/routes/root.jsx lines=[4,10,25-27]
 // existing code
@@ -1589,17 +1589,17 @@ export default function Root() {
 }
 ```
 
-Now as you type, the form is submitted automatically!
+现在当你输入时，表单会自动提交！
 
-Note the argument to [`submit`][usesubmit]. We're passing in `event.currentTarget.form`. The `currentTarget` is the DOM node the event is attached to, and the `currentTarget.form` is the input's parent form node. The `submit` function will serialize and submit any form you pass to it.
+注意 [`submit`][usesubmit] 的参数。我们传入的是 `event.currentTarget.form`。`currentTarget` 是事件绑定的 DOM 节点，`currentTarget.form` 是输入框的父表单节点。`submit` 函数会序列化并提交你传给它的任何表单。
 
-## Adding Search Spinner
+## 添加搜索 Spinner
 
-In a production app, it's likely this search will be looking for records in a database that is too large to send all at once and filter client side. That's why this demo has some faked network latency.
+在生产应用中，搜索很可能是在数据库中查找记录，数据库太大而无法一次性发送并在客户端过滤。这就是为什么这个演示有一些模拟的网络延迟。
 
-Without any loading indicator, the search feels kinda sluggish. Even if we could make our database faster, we'll always have the user's network latency in the way and out of our control. For a better UX, let's add some immediate UI feedback for the search. For this we'll use [`useNavigation`][usenavigation] again.
+没有加载指示器，搜索感觉有点迟缓。即使我们可以让数据库更快，我们也始终会有用户的网络延迟在路上且无法控制。为了更好的 UX，让我们为搜索添加一些即时的 UI 反馈。为此我们将再次使用 [`useNavigation`][usenavigation]。
 
-👉 **Add the search spinner**
+👉 **添加搜索 spinner**
 
 ```jsx filename=src/routes/root.jsx lines=[8-12,26,32]
 // existing code
@@ -1612,7 +1612,7 @@ export default function Root() {
   const searching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has(
-      "q"
+      "q",
     );
 
   useEffect(() => {
@@ -1649,17 +1649,17 @@ export default function Root() {
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/22.webp" />
 
-The `navigation.location` will show up when the app is navigating to a new URL and loading the data for it. It then goes away when there is no pending navigation anymore.
+当应用正在导航到新 URL 并加载其数据时，`navigation.location` 会出现。当没有待处理的导航时它就消失了。
 
-## Managing the History Stack
+## 管理历史栈
 
-Now that the form is submitted for every key stroke, if we type the characters "seba" and then delete them with backspace, we end up with 7 new entries in the stack 😂. We definitely don't want this
+现在表单在每次按键时都会提交，如果我们输入字符 "seba" 然后用退格键删除它们，我们最终会在历史栈中有 7 个新条目 😂。我们绝对不想这样
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/23.webp" />
 
-We can avoid this by _replacing_ the current entry in the history stack with the next page, instead of pushing into it.
+我们可以通过用下一页*替换*历史栈中的当前条目而不是推入新条目来避免这个问题。
 
-👉 **Use `replace` in `submit`**
+👉 **在 `submit` 中使用 `replace`**
 
 ```jsx filename=src/routes/root.jsx lines=[16-19]
 // existing code
@@ -1695,19 +1695,19 @@ export default function Root() {
 }
 ```
 
-We only want to replace search results, not the page before we started searching, so we do a quick check if this is the first search or not and then decide to replace.
+我们只想替换搜索结果，而不是搜索前的页面，所以我们快速检查这是否是第一次搜索，然后决定是否替换。
 
-Each key stroke no longer creates new entries, so the user can click back out of the search results without having to click it 7 times 😅.
+现在每次按键不再创建新条目，所以用户可以点击后退退出搜索结果，而不必点击 7 次 😅。
 
-## Mutations Without Navigation
+## 无导航的变更
 
-So far all of our mutations (the times we change data) have used forms that navigate, creating new entries in the history stack. While these user flows are common, it's equally as common to want to change data _without_ causing a navigation.
+到目前为止，我们所有的变更（我们改变数据的时候）都使用了会导航的表单，在历史栈中创建新条目。虽然这些用户流程很常见，但同样常见的是想在*不引起导航*的情况下改变数据。
 
-For these cases, we have the [`useFetcher`][usefetcher] hook. It allows us to communicate with loaders and actions without causing a navigation.
+对于这些情况，我们有 [`useFetcher`][usefetcher] hook。它允许我们与 loader 和 action 通信而不引起导航。
 
-The ★ button on the contact page makes sense for this. We aren't creating or deleting a new record, we don't want to change pages, we simply want to change the data on the page we're looking at.
+联系人页面上的 ★ 按钮很适合这个场景。我们不是在创建或删除新记录，我们不想改变页面，我们只是想改变我们正在查看的页面上的数据。
 
-👉 **Change the `<Favorite>` form to a fetcher form**
+👉 **将 `<Favorite>` 表单改为 fetcher 表单**
 
 ```jsx filename=src/routes/contact.jsx lines=[4,10,14,26]
 import {
@@ -1740,9 +1740,9 @@ function Favorite({ contact }) {
 }
 ```
 
-Might want to take a look at that form while we're here. As always, our form has fields with a `name` prop. This form will send [`formData`][formdata] with a `favorite` key that's either `"true" | "false"`. Since it's got `method="post"` it will call the action. Since there is no `<fetcher.Form action="...">` prop, it will post to the route where the form is rendered.
+我们在这里可能想看看那个表单。一如既往，我们的表单有带 `name` prop 的字段。这个表单将发送带有 `favorite` key 的 [`formData`][formdata]，值为 `"true" | "false"`。由于它有 `method="post"`，它将调用 action。由于没有 `<fetcher.Form action="...">` prop，它将 post 到表单渲染所在的路由。
 
-👉 **Create the action**
+👉 **创建 action**
 
 ```jsx filename=src/routes/contact.jsx lines=[2,4-9]
 // existing code
@@ -1760,9 +1760,9 @@ export default function Contact() {
 }
 ```
 
-Pretty simple. Pull the form data off the request and send it to the data model.
+相当简单。从请求中提取表单数据并发送到数据模型。
 
-👉 **Configure the route's new action**
+👉 **配置路由的新 action**
 
 ```jsx filename=src/main.jsx lines=[4,20]
 // existing code
@@ -1792,23 +1792,23 @@ const router = createBrowserRouter([
 ]);
 ```
 
-Alright, we're ready to click the star next to the user's name!
+好了，我们准备好点击用户名旁边的星星了！
 
 <img class="tutorial" loading="lazy" src="/_docs/tutorial/24.webp" />
 
-Check that out, both stars automatically update. Our new `<fetcher.Form method="post">` works almost exactly like the `<Form>` we've been using: it calls the action and then all data is revalidated automatically--even your errors will be caught the same way.
+看看，两个星星都自动更新了。我们新的 `<fetcher.Form method="post">` 的工作方式几乎与我们一直使用的 `<Form>` 完全相同：它调用 action，然后所有数据自动重新验证——甚至你的错误也会以相同的方式被捕获。
 
-There is one key difference though, it's not a navigation--the URL doesn't change, the history stack is unaffected.
+但有一个关键区别，它不是导航——URL 不会改变，历史栈不受影响。
 
-## Optimistic UI
+## 乐观 UI
 
-You probably noticed the app felt kind of unresponsive when we clicked the favorite button from the last section. Once again, we added some network latency because you're going to have it in the real world!
+你可能注意到，当我们从上一节点击收藏按钮时，应用感觉有点无响应。再次声明，我们添加了一些网络延迟，因为在现实世界中你会有这些！
 
-To give the user some feedback, we could put the star into a loading state with [`fetcher.state`][fetcherstate] (a lot like `navigation.state` from before), but we can do something even better this time. We can use a strategy called "optimistic UI"
+为了给用户一些反馈，我们可以用 [`fetcher.state`][fetcherstate]（很像之前的 `navigation.state`）将星星置于加载状态，但这次我们可以做得更好。我们可以使用一种称为“乐观 UI”的策略。
 
-The fetcher knows the form data being submitted to the action, so it's available to you on `fetcher.formData`. We'll use that to immediately update the star's state, even though the network hasn't finished. If the update eventually fails, the UI will revert to the real data.
+fetcher 知道正在提交到 action 的表单数据，所以你可以在 `fetcher.formData` 上获取。我们将用它来立即更新星星的状态，即使网络还没完成。如果更新最终失败，UI 会恢复到真实数据。
 
-👉 **Read the optimistic value from `fetcher.formData`**
+👉 **从 `fetcher.formData` 读取乐观值**
 
 ```jsx filename=src/routes/contact.jsx lines=[7-9]
 // existing code
@@ -1838,19 +1838,19 @@ function Favorite({ contact }) {
 }
 ```
 
-If you click the button now you should see the star _immediately_ change to the new state. Instead of always rendering the actual data, we check if the fetcher has any `formData` being submitted, if so, we'll use that instead. When the action is done, the `fetcher.formData` will no longer exist and we're back to using the actual data. So even if you write bugs in your optimistic UI code, it'll eventually go back to the correct state 🥹
+如果你现在点击按钮，你应该看到星星*立即*变为新状态。我们不是始终渲染实际数据，而是检查 fetcher 是否有正在提交的 `formData`，如果有，我们就用它来代替。当 action 完成后，`fetcher.formData` 将不再存在，我们回到使用实际数据。所以即使你在乐观 UI 代码中写了 bug，它最终都会回到正确状态 🥹
 
-## Not Found Data
+## 未找到数据
 
-What happens if the contact we're trying to load doesn't exist?
+如果我们尝试加载的联系人不存在会怎样？
 
 <img loading="lazy" class="tutorial" src="/_docs/tutorial/25.webp" />
 
-Our root [`errorElement`][errorelement] is catching this unexpected error as we try to render a `null` contact. Nice the error was properly handled, but we can do better!
+我们的根 [`errorElement`][errorelement] 在我们尝试渲染 `null` 联系人时捕获了这个意外错误。很好，错误被正确处理了，但我们可以做得更好！
 
-Whenever you have an expected error case in a loader or action–like the data not existing–you can `throw`. The call stack will break, React Router will catch it, and the error path is rendered instead. We won't even try to render a `null` contact.
+当你在 loader 或 action 中有预期的错误情况时——比如数据不存在——你可以 `throw`。调用栈会中断，React Router 会捕获它，并渲染错误路径。我们甚至不会尝试渲染 `null` 联系人。
 
-👉 **Throw a 404 response in the loader**
+👉 **在 loader 中抛出 404 响应**
 
 ```jsx filename=src/routes/contact.jsx lines=[2-9]
 export async function loader({ params }) {
@@ -1867,23 +1867,23 @@ export async function loader({ params }) {
 
 <img loading="lazy" class="tutorial" src="/_docs/tutorial/27.webp" />
 
-Instead of hitting a render error with `Cannot read properties of null`, we avoid the component completely and render the error path instead, telling the user something more specific.
+不是遇到 `Cannot read properties of null` 的渲染错误，我们完全避免了组件渲染，转而渲染错误路径，告诉用户更具体的信息。
 
-This keeps your happy paths, happy. Your route elements don't need to concern themselves with error and loading states.
+这让你的正常路径保持正常。你的路由元素不需要关心错误和加载状态。
 
-## Pathless Routes
+## 无路径路由
 
-One last thing. The last error page we saw would be better if it rendered inside the root outlet, instead of the whole page. In fact, every error in all of our child routes would be better in the outlet, then the user has more options than hitting refresh.
+最后一件事。我们看到的最后一个错误页面如果在根路由的 outlet 内渲染会更好，而不是整个页面。实际上，所有子路由中的每个错误都在 outlet 中渲染会更好，然后用户有比刷新更多的选择。
 
-We'd like it to look like this:
+我们希望它看起来像这样：
 
 <img loading="lazy" class="tutorial" src="/_docs/tutorial/26.webp" />
 
-We could add the error element to every one of the child routes but, since it's all the same error page, this isn't recommended.
+我们可以为每个子路由添加 error element，但由于都是相同的错误页面，这不推荐。
 
-There's a cleaner way. Routes can be used _without_ a path, which lets them participate in the UI layout without requiring new path segments in the URL. Check it out:
+有一种更干净的方式。路由可以在*没有*路径的情况下使用，这让它们参与 UI 布局而无需在 URL 中添加新的路径段。看看这个：
 
-👉 **Wrap the child routes in a pathless route**
+👉 **用无路径路由包裹子路由**
 
 ```jsx filename=src/main.jsx lines=[9-21]
 createBrowserRouter([
@@ -1912,11 +1912,11 @@ createBrowserRouter([
 ]);
 ```
 
-When any errors are thrown in the child routes, our new pathless route will catch it and render, preserving the root route's UI!
+当子路由中抛出任何错误时，我们新的无路径路由会捕获它并渲染，保留根路由的 UI！
 
-## JSX Routes
+## JSX 路由
 
-And for our final trick, many folks prefer to configure their routes with JSX. You can do that with `createRoutesFromElements`. There is no functional difference between JSX or objects when configuring your routes, it's simply a stylistic preference.
+最后一个技巧，很多人喜欢用 JSX 配置路由。你可以用 `createRoutesFromElements` 来实现。使用 JSX 或对象配置路由没有功能上的区别，纯粹是风格偏好。
 
 ```jsx
 import {
@@ -1953,14 +1953,14 @@ const router = createBrowserRouter(
           action={destroyAction}
         />
       </Route>
-    </Route>
-  )
+    </Route>,
+  ),
 );
 ```
 
 ---
 
-That's it! Thanks for giving React Router a shot. We hope this tutorial gives you a solid start to build great user experiences. There's a lot more you can do with React Router, so make sure to check out all the APIs 😀
+就这样！感谢你尝试 React Router。我们希望这个教程能给你一个坚实的开始来构建优秀的用户体验。React Router 还有很多可以做的，所以一定要查看所有的 API 😀
 
 [vite]: https://vitejs.dev/guide/
 [node]: https://nodejs.org

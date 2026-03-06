@@ -5,15 +5,15 @@ new: true
 
 # `useNavigation`
 
-This hook tells you everything you need to know about a page navigation to build pending navigation indicators and optimistic UI on data mutations. Things like:
+此 hook 告诉你关于页面导航所需的一切，以构建待处理导航指示器和数据变更的乐观 UI。例如：
 
-- Global loading indicators
-- Disabling forms while a mutation is happening
-- Adding busy indicators to submit buttons
-- Optimistically showing a new record while it's being created on the server
-- Optimistically showing the new state of a record while it's being updated
+- 全局加载指示器
+- 在变更正在进行时禁用表单
+- 为提交按钮添加忙碌指示器
+- 在服务器上创建新记录时乐观地显示它
+- 在更新记录时乐观地显示新状态
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
 ```js
 import { useNavigation } from "react-router-dom";
@@ -31,27 +31,27 @@ function SomeComponent() {
 }
 ```
 
-<docs-warning>The `useNavigation().formMethod` field is lowercase without the `future.v7_normalizeFormMethod` [Future Flag][api-development-strategy]. This is being normalized to uppercase to align with the `fetch()` behavior in v7, so please upgrade your React Router v6 applications to adopt the uppercase HTTP methods.</docs-warning>
+<docs-warning>没有 `future.v7_normalizeFormMethod` [Future Flag][api-development-strategy] 时，`useNavigation().formMethod` 字段是小写的。这将在 v7 中规范化为大写以与 `fetch()` 行为保持一致，因此请升级你的 React Router v6 应用以采用大写 HTTP 方法。</docs-warning>
 
 ## `navigation.state`
 
-- **idle** - There is no navigation pending.
-- **submitting** - A route action is being called due to a form submission using POST, PUT, PATCH, or DELETE
-- **loading** - The loaders for the next routes are being called to render the next page
+- **idle** - 没有正在进行的导航。
+- **submitting** - 由于使用 POST、PUT、PATCH 或 DELETE 的表单提交，正在调用路由 action。
+- **loading** - 正在调用下一个路由的 loader 以渲染下一个页面。
 
-Normal navigations and GET form submissions transition through these states:
+普通导航和 GET 表单提交经历以下状态转换：
 
 ```
 idle → loading → idle
 ```
 
-Form submissions with POST, PUT, PATCH, or DELETE transition through these states:
+使用 POST、PUT、PATCH 或 DELETE 的表单提交经历以下状态转换：
 
 ```
 idle → submitting → loading → idle
 ```
 
-Here's a simple submit button that changes its text when the navigation state is changing:
+以下是一个简单的提交按钮，当导航状态变化时会改变其文本：
 
 ```tsx
 function SubmitButton() {
@@ -61,14 +61,14 @@ function SubmitButton() {
     navigation.state === "submitting"
       ? "Saving..."
       : navigation.state === "loading"
-      ? "Saved!"
-      : "Go";
+        ? "Saved!"
+        : "Go";
 
   return <button type="submit">{text}</button>;
 }
 ```
 
-While `navigation.state` provides the high-level state of the active navigation, you can deduce more granular information by combining it with other `navigation` aspects:
+虽然 `navigation.state` 提供了活跃导航的高级状态，你可以通过将它与其他 `navigation` 属性结合来推断更细粒度的信息：
 
 ```js
 // Is this just a normal load?
@@ -91,39 +91,39 @@ let isRedirecting =
 
 ## `navigation.formData`
 
-Any POST, PUT, PATCH, or DELETE navigation that started from a `<Form>` or `useSubmit` will have your form's submission data attached to it. This is primarily useful to build "Optimistic UI" with the `submission.formData` [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) object.
+任何从 `<Form>` 或 `useSubmit` 发起的 POST、PUT、PATCH 或 DELETE 导航都会附带你的表单提交数据。这主要用于通过 `submission.formData` [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) 对象构建“乐观 UI”。
 
-In the case of a GET form submission, `formData` will be empty and the data will be reflected in `navigation.location.search`.
+对于 GET 表单提交，`formData` 将为空，数据将反映在 `navigation.location.search` 中。
 
 ## `navigation.json`
 
-Any POST, PUT, PATCH, or DELETE navigation that started from a `useSubmit(payload, { encType: "application/json" })` will have your JSON value available in `navigation.json`.
+任何从 `useSubmit(payload, { encType: "application/json" })` 发起的 POST、PUT、PATCH 或 DELETE 导航都会在 `navigation.json` 中提供你的 JSON 值。
 
 ## `navigation.text`
 
-Any POST, PUT, PATCH, or DELETE navigation that started from a `useSubmit(payload, { encType: "text/plain" })` will have your text value available in `navigation.text`.
+任何从 `useSubmit(payload, { encType: "text/plain" })` 发起的 POST、PUT、PATCH 或 DELETE 导航都会在 `navigation.text` 中提供你的文本值。
 
 ## `navigation.location`
 
-This tells you what the next [location][location] is going to be.
+此属性告诉你下一个 [location][location] 将是什么。
 
-Note that this link will not appear "pending" if a form is being submitted to the URL the link points to, because we only do this for "loading" states. The form will contain the pending UI for when the state is "submitting", once the action is complete, then the link will go pending.
+请注意，如果表单正在提交到链接指向的 URL，此链接不会显示为“待处理”，因为我们只对“loading”状态执行此操作。表单将包含状态为“submitting”时的待处理 UI，一旦 action 完成，链接就会变为待处理状态。
 
 ## `navigation.formAction`
 
-Any POST, PUT, PATCH, or DELETE navigation that started from a `<Form>` or `useSubmit` will have form's submission action route's path value available in `navigation.formAction`.
+任何从 `<Form>` 或 `useSubmit` 发起的 POST、PUT、PATCH 或 DELETE 导航都会在 `navigation.formAction` 中提供表单提交 action 路由的路径值。
 
-In the case of a GET form submission, `navigation.formAction` will be empty
+对于 GET 表单提交，`navigation.formAction` 将为空。
 
-If you submitted the form at `example.com/id`, then `navigation.formAction` would be "/id"
+如果你在 `example.com/id` 提交表单，那么 `navigation.formAction` 将是 "/id"
 
 ## `navigation.formMethod`
 
-Any POST, PUT, PATCH, or DELETE navigation that started from a `<Form>` or `useSubmit` will have form's submission method value available in `navigation.formMethod`.
+任何从 `<Form>` 或 `useSubmit` 发起的 POST、PUT、PATCH 或 DELETE 导航都会在 `navigation.formMethod` 中提供表单提交方法的值。
 
-In the case of a GET form submission, `navigation.formMethod` will be empty
+对于 GET 表单提交，`navigation.formMethod` 将为空。
 
-Here is an example. Please note that `navigation.formMethod` is in lowercase
+以下是一个示例。请注意 `navigation.formMethod` 是小写的：
 
 ```tsx
 function SubmitButton() {
@@ -142,11 +142,11 @@ function SubmitButton() {
 
 ## `navigation.formEncType`
 
-Any POST, PUT, PATCH, or DELETE navigation that started from a `<Form>` or `useSubmit` will have form's submission method value available in `navigation.formEncType`.
+任何从 `<Form>` 或 `useSubmit` 发起的 POST、PUT、PATCH 或 DELETE 导航都会在 `navigation.formEncType` 中提供表单提交方法的值。
 
-This property can be one of the four values: "text/plain," "application/json," "multipart/form-data," or "application/x-www-form-urlencoded."
+此属性可以是以下四个值之一："text/plain"、"application/json"、"multipart/form-data" 或 "application/x-www-form-urlencoded"。
 
-In the case of a GET form submission, `navigation.formEncType` will be empty
+对于 GET 表单提交，`navigation.formEncType` 将为空。
 
 [location]: ../utils/location
 [pickingarouter]: ../routers/picking-a-router

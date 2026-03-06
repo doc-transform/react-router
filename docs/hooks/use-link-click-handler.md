@@ -5,11 +5,11 @@ title: useLinkClickHandler
 # `useLinkClickHandler`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useLinkClickHandler<
-  E extends Element = HTMLAnchorElement
+  E extends Element = HTMLAnchorElement,
 >(
   to: To,
   options?: {
@@ -17,13 +17,13 @@ declare function useLinkClickHandler<
     replace?: boolean;
     state?: any;
     options?: { relative?: RelativeRoutingType };
-  }
+  },
 ): (event: React.MouseEvent<E, MouseEvent>) => void;
 ```
 
 </details>
 
-The `useLinkClickHandler` hook returns a click event handler for navigation when building a custom `<Link>` in `react-router-dom`.
+`useLinkClickHandler` hook 返回一个点击事件处理器，用于在 `react-router-dom` 中构建自定义 `<Link>` 时进行导航。
 
 ```tsx
 import {
@@ -43,7 +43,7 @@ const Link = React.forwardRef(
       to,
       ...rest
     },
-    ref
+    ref,
   ) => {
     let href = useHref(to);
     let handleClick = useLinkClickHandler(to, {
@@ -66,6 +66,6 @@ const Link = React.forwardRef(
         target={target}
       />
     );
-  }
+  },
 );
 ```

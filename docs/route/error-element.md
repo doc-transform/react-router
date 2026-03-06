@@ -5,22 +5,22 @@ new: true
 
 # `errorElement`
 
-When exceptions are thrown in [loaders][loader], [actions][action], or component rendering, instead of the normal render path for your Routes (`<Route element>`), the error path will be rendered (`<Route errorElement>`) and the error made available with [`useRouteError`][userouteerror].
+当 [loader][loader]、[action][action] 或组件渲染中抛出异常时，将渲染错误路径（`<Route errorElement>`）而不是正常的渲染路径（`<Route element>`），并且错误可以通过 [`useRouteError`][userouteerror] 获取。
 
-<docs-info>If you do not wish to specify a React element (i.e., `errorElement={<MyErrorBoundary />}`) you may specify an `ErrorBoundary` component instead (i.e., `ErrorBoundary={MyErrorBoundary}`) and React Router will call `createElement` for you internally.</docs-info>
+<docs-info>如果你不想指定 React 元素（即 `errorElement={<MyErrorBoundary />}`），你可以改为指定一个 `ErrorBoundary` 组件（即 `ErrorBoundary={MyErrorBoundary}`），React Router 将在内部为你调用 `createElement`。</docs-info>
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
 ```tsx
 <Route
   path="/invoices/:id"
-  // if an exception is thrown here
+  // 如果这里抛出异常
   loader={loadInvoice}
-  // here
+  // 或这里
   action={updateInvoice}
-  // or here
+  // 或这里
   element={<Invoice />}
-  // this will render instead of `element`
+  // 这个将替代 `element` 渲染
   errorElement={<ErrorBoundary />}
 />;
 
@@ -36,25 +36,25 @@ function ErrorBoundary() {
 }
 ```
 
-## Bubbling
+## 冒泡
 
-When a route does not have an `errorElement`, errors will bubble up through parent routes. This lets you get as granular or general as you like.
+当路由没有 `errorElement` 时，错误会沿着父路由冒泡。这让你可以根据需要进行粗粒度或细粒度的处理。
 
-Put an `errorElement` at the top of your route tree and handle nearly every error in your app in one place. Or, put them on all of your routes and allow the parts of the app that don't have errors to continue to render normally. This gives the user more options to recover from errors instead of a hard refresh and 🤞.
+在路由树的顶部放置一个 `errorElement`，在一个地方处理应用中几乎所有的错误。或者，在所有路由上都放置它们，让没有错误的应用部分继续正常渲染。这给用户提供了更多从错误中恢复的选项，而不是强制刷新并祈祷 🤞。
 
-### Default Error Element
+### 默认错误元素
 
-<docs-warning>We recommend _always_ providing at least a root-level `errorElement` before shipping your application to production, because the UI of the default `errorElement` is ugly and not intended for end-user consumption.</docs-warning>
+<docs-warning>我们建议在发布应用到生产环境之前，*始终*至少提供一个根级别的 `errorElement`，因为默认 `errorElement` 的 UI 很丑陋，不适合终端用户查看。</docs-warning>
 
-If you do not provide an `errorElement` in your route tree to handle a given error, errors will bubble up and be handled by a default `errorElement` which will print the error message and stack trace. Some folks have questioned why the stack trace shows up in production builds. Normally, you don't want to expose stack traces on your production sites for security reasons. However, this is more applicable to server-side errors (and Remix does indeed strip stack traces from server-side loader/action responses). In the case of client-side `react-router-dom` applications the code is already available in the browser anyway so any hiding is just security through obscurity. Furthermore, we would still want to expose the error in the console, so removing it from the UI display is still not hiding any information about the stack trace. Not showing it in the UI _and_ not logging it to the console would mean that application developers have no information _at all_ about production bugs, which poses its own set of issues. So, again we recommend you always add a root level `errorElement` before deploying your site to production!
+如果你没有在路由树中提供 `errorElement` 来处理给定的错误，错误将冒泡并由默认的 `errorElement` 处理，它会打印错误信息和堆栈跟踪。一些人质疑为什么堆栈跟踪会在生产构建中显示。通常，出于安全原因，你不想在生产站点上暴露堆栈跟踪。然而，这更适用于服务端错误（Remix 确实会从服务端 loader/action 响应中去除堆栈跟踪）。对于客户端的 `react-router-dom` 应用，代码本来就已经在浏览器中可用，因此任何隐藏都只是表面上的安全。此外，我们仍然希望在控制台中暴露错误，所以从 UI 显示中移除它仍然不会隐藏任何关于堆栈跟踪的信息。不在 UI 中显示*也*不在控制台中记录，意味着应用开发者对生产环境的 bug *完全*没有任何信息，这会带来一系列问题。因此，我们再次建议你在部署站点到生产环境之前始终添加一个根级别的 `errorElement`！
 
-## Throwing Manually
+## 手动抛出
 
-While `errorElement` handles unexpected errors, it can also be used to handle exceptions you expect.
+虽然 `errorElement` 处理的是意外错误，但它也可以用于处理你预期的异常。
 
-Particularly in loaders and actions, where you work with external data not in your control, you can't always plan on the data existing, the service being available, or the user having access to it. In these cases you can `throw` your own exceptions.
+特别是在 loader 和 action 中，当你处理不受控制的外部数据时，你不能总是确定数据存在、服务可用或用户有访问权限。在这些情况下，你可以 `throw` 自己的异常。
 
-Here's a "not found" case in a [loader][loader]:
+以下是 [loader][loader] 中的"未找到"案例：
 
 ```tsx [4,7-9]
 <Route
@@ -68,24 +68,24 @@ Here's a "not found" case in a [loader][loader]:
     }
     const home = await res.json();
     const descriptionHtml = parseMarkdown(
-      data.descriptionMarkdown
+      data.descriptionMarkdown,
     );
     return { home, descriptionHtml };
   }}
 />
 ```
 
-As soon as you know you can't render the route with the data you're loading, you can throw to break the call stack. You don't have to worry about the rest of the work in the loader (like parsing the user's markdown bio) when it doesn't exist. Just throw and get out of there.
+一旦你知道无法用正在加载的数据渲染路由，就可以抛出来跳出调用栈。你不必担心 loader 中剩余的工作（比如解析用户的 markdown 简介），因为数据不存在。直接抛出并退出即可。
 
-This also means you don't have to worry about a bunch of error branching code in your route component. It won't even try to render if you throw in the loader or action, since your `errorElement` will render instead.
+这也意味着你不必在路由组件中担心大量的错误分支代码。如果你在 loader 或 action 中抛出，它根本不会尝试渲染，因为你的 `errorElement` 将替代渲染。
 
-You can throw anything from a loader or action just like you can return anything: responses (like the previous example), errors, or plain objects.
+你可以从 loader 或 action 中抛出任何东西，就像你可以返回任何东西一样：Response（如前面的示例）、Error 或普通对象。
 
-## Throwing Responses
+## 抛出 Response
 
-While you can throw anything and it will be provided back to you through [`useRouteError`][userouteerror], if you throw a [Response][response], React Router will automatically parse the response data before returning it to your components.
+虽然你可以抛出任何东西，它都会通过 [`useRouteError`][userouteerror] 返回给你，但如果你抛出一个 [Response][response]，React Router 会在返回给组件之前自动解析响应数据。
 
-Additionally, [`isRouteErrorResponse`][isrouteerrorresponse] lets you check for this specific type in your boundaries. Coupled with [`json`][json], you can easily throw responses with some data and render different cases in your boundary:
+此外，[`isRouteErrorResponse`][isrouteerrorresponse] 允许你在边界中检查这种特定类型。配合 [`json`][json]，你可以轻松地抛出带有数据的 Response，并在边界中渲染不同的情况：
 
 ```tsx
 import { json } from "react-router-dom";
@@ -98,7 +98,7 @@ function loader() {
         sorry: "You have been fired.",
         hrEmail: "hr@bigco.com",
       },
-      { status: 401 }
+      { status: 401 },
     );
   }
 }
@@ -107,8 +107,8 @@ function ErrorBoundary() {
   const error = useRouteError();
 
   if (isRouteErrorResponse(error) && error.status === 401) {
-    // the response json is automatically parsed to
-    // `error.data`, you also have access to the status
+    // 响应的 json 会自动解析到 `error.data`，
+    // 你也可以访问 status
     return (
       <div>
         <h1>{error.status}</h1>
@@ -121,13 +121,13 @@ function ErrorBoundary() {
     );
   }
 
-  // rethrow to let the parent error boundary handle it
-  // when it's not a special case for this route
+  // 重新抛出，让父错误边界处理
+  // 当它不是此路由的特殊情况时
   throw error;
 }
 ```
 
-This makes it possible to create a general error boundary, usually on your root route, that handles many cases:
+这使得创建一个通用的错误边界成为可能，通常放在根路由上，处理多种情况：
 
 ```tsx
 function RootBoundary() {
@@ -135,15 +135,15 @@ function RootBoundary() {
 
   if (isRouteErrorResponse(error)) {
     if (error.status === 404) {
-      return <div>This page doesn't exist!</div>;
+      return <div>此页面不存在！</div>;
     }
 
     if (error.status === 401) {
-      return <div>You aren't authorized to see this</div>;
+      return <div>你没有权限查看此内容</div>;
     }
 
     if (error.status === 503) {
-      return <div>Looks like our API is down</div>;
+      return <div>看起来我们的 API 挂了</div>;
     }
 
     if (error.status === 418) {
@@ -151,15 +151,15 @@ function RootBoundary() {
     }
   }
 
-  return <div>Something went wrong</div>;
+  return <div>出了点问题</div>;
 }
 ```
 
-## Abstractions
+## 抽象化
 
-This pattern of throwing when you know you can't continue down the data loading path you're on makes it pretty simple to properly handle exceptional situations.
+当你知道无法继续沿着当前的数据加载路径走下去时抛出异常的模式，使得正确处理异常情况变得非常简单。
 
-Imagine a function that gets the user's web token for authorized requests looking something like this:
+假设有一个获取用户 Web Token 用于授权请求的函数，大致如下：
 
 ```tsx
 async function getUserToken() {
@@ -171,9 +171,9 @@ async function getUserToken() {
 }
 ```
 
-No matter which loader or action uses that function, it will stop executing code in the current call stack and send the app over to the error path instead.
+无论哪个 loader 或 action 使用该函数，它都会停止执行当前调用栈中的代码，将应用转到错误路径。
 
-Now let's add a function that fetches a project:
+现在让我们添加一个获取项目的函数：
 
 ```tsx
 function fetchProject(id) {
@@ -186,18 +186,18 @@ function fetchProject(id) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  // the fetch failed
+  // fetch 失败了
   if (!response.ok) {
     throw new Error("Could not fetch project");
   }
 }
 ```
 
-Thanks to `getUserToken`, this code can assume it gets a token. If there isn't one, the error path will be rendered. Then if the project doesn't exist, no matter which loader is calling this function, it will throw a 404 over to the `errorElement`. Finally, if the fetch fails completely, it will send an error.
+多亏了 `getUserToken`，这段代码可以假设它能获得一个 token。如果没有 token，将渲染错误路径。然后如果项目不存在，无论哪个 loader 调用此函数，它都会抛出 404 到 `errorElement`。最后，如果 fetch 完全失败，它将发送一个错误。
 
-At any time you realize "I don't have what I need", you can simply `throw`, knowing that you're still rendering something useful for the end user.
+任何时候你意识到"我没有我需要的东西"，你可以简单地 `throw`，知道你仍然在为终端用户渲染有用的内容。
 
-Let's put it together into a route:
+让我们把它整合到一个路由中：
 
 ```tsx
 <Route
@@ -213,7 +213,7 @@ Let's put it together into a route:
 </Route>
 ```
 
-The project route doesn't have to think about errors at all. Between the loader utility functions like `fetchProject` and `getUserToken` throwing whenever something isn't right, and the `RootBoundary` handling all of the cases, the project route gets to focus strictly on the happy path.
+项目路由完全不需要考虑错误。在 loader 工具函数如 `fetchProject` 和 `getUserToken` 会在出错时抛出异常，以及 `RootBoundary` 处理所有情况之间，项目路由可以严格专注于正常路径。
 
 [loader]: ./loader
 [action]: ./action

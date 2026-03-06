@@ -12,13 +12,13 @@ declare function generatePath<Path extends string>(
   path: Path,
   params?: {
     [key in PathParams<Path>]: string;
-  }
+  },
 ): string;
 ```
 
 </details>
 
-`generatePath` interpolates a set of params into a route path string with `:id` and `*` placeholders. This can be useful when you want to eliminate placeholders from a route path so it matches statically instead of using a dynamic parameter.
+`generatePath` 将一组参数插入到包含 `:id` 和 `*` 占位符的路由路径字符串中。当你想要消除路由路径中的占位符以便静态匹配而不是使用动态参数时非常有用。
 
 ```tsx
 generatePath("/users/:id", { id: "42" }); // "/users/42"

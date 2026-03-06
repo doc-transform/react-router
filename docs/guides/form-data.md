@@ -1,13 +1,13 @@
 ---
-title: Working With FormData
+title: 使用 FormData
 new: true
 ---
 
-# Working With FormData
+# 使用 FormData
 
-<docs-info>TODO: This document is a stub</docs-info>
+<docs-info>TODO: 本文档是占位文档</docs-info>
 
-A common trick is to turn the entire formData into an object with [`Object.fromEntries`][object-fromentries]:
+一个常见的技巧是使用 [`Object.fromEntries`][object-fromentries] 将整个 formData 转换为对象：
 
 ```tsx
 const data = Object.fromEntries(await request.formData());

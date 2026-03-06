@@ -5,11 +5,11 @@ new: true
 
 # `useSubmit`
 
-The imperative version of `<Form>` that lets you, the programmer, submit a form instead of the user.
+`<Form>` 的命令式版本，允许你（程序员）代替用户提交表单。
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
-For example, submitting the form every time a value changes inside the form:
+例如，每当表单内的值发生变化时提交表单：
 
 ```tsx [8]
 import { useSubmit, Form } from "react-router-dom";
@@ -29,7 +29,7 @@ function SearchField() {
 }
 ```
 
-This can also be useful if you'd like to automatically sign someone out of your website after a period of inactivity. In this case, we've defined inactivity as the user hasn't navigated to any other pages after 5 minutes.
+如果你希望在一段时间不活动后自动将用户从网站注销，这也很有用。在这种情况下，我们将不活动定义为用户在 5 分钟后没有导航到任何其他页面。
 
 ```tsx lines=[1,10,15]
 import { useSubmit, useLocation } from "react-router-dom";
@@ -54,11 +54,11 @@ function useSessionTimeout() {
 }
 ```
 
-## Submit target
+## 提交目标
 
-The first argument to submit accepts many different values.
+submit 的第一个参数接受许多不同的值。
 
-You can submit any form or form input element:
+你可以提交任何表单或表单输入元素：
 
 ```tsx
 // input element events
@@ -70,7 +70,7 @@ let ref = useRef();
 submit(ref.current);
 ```
 
-You can submit `FormData`:
+你可以提交 `FormData`：
 
 ```tsx
 let formData = new FormData();
@@ -78,7 +78,7 @@ formData.append("cheese", "gouda");
 submit(formData);
 ```
 
-Or you can submit `URLSearchParams`:
+或者你可以提交 `URLSearchParams`：
 
 ```tsx
 let searchParams = new URLSearchParams();
@@ -86,7 +86,7 @@ searchParams.append("cheese", "gouda");
 submit(searchParams);
 ```
 
-Or anything that the `URLSearchParams` constructor accepts:
+或者 `URLSearchParams` 构造函数接受的任何内容：
 
 ```tsx
 submit("cheese=gouda&toasted=yes");
@@ -96,7 +96,7 @@ submit([
 ]);
 ```
 
-The default behavior if you submit a JSON object for a POST submission is to encode the data into `FormData`:
+对于 POST 提交，如果提交一个 JSON 对象，默认行为是将数据编码为 `FormData`：
 
 ```tsx
 submit(
@@ -104,18 +104,18 @@ submit(
   {
     method: "post",
     encType: "application/x-www-form-urlencoded",
-  }
+  },
 );
 // will serialize into request.formData() in your action
 // and will show up on useNavigation().formData during the navigation
 ```
 
-Or you can opt-into JSON encoding:
+或者你可以选择 JSON 编码：
 
 ```tsx
 submit(
   { key: "value" },
-  { method: "post", encType: "application/json" }
+  { method: "post", encType: "application/json" },
 );
 // will serialize into request.json() in your action
 // and will show up on useNavigation().json during the navigation
@@ -128,7 +128,7 @@ submit('{"key":"value"}', {
 // and will show up on useNavigation().json during the navigation
 ```
 
-Or plain text:
+或纯文本：
 
 ```tsx
 submit("value", { method: "post", encType: "text/plain" });
@@ -136,9 +136,9 @@ submit("value", { method: "post", encType: "text/plain" });
 // and will show up on useNavigation().text during the navigation
 ```
 
-## Submit options
+## 提交选项
 
-The second argument is a set of options that map (mostly) directly to form submission attributes:
+第二个参数是一组选项，（大部分）直接映射到表单提交属性：
 
 ```tsx
 submit(null, {
@@ -150,9 +150,9 @@ submit(null, {
 <Form action="/logout" method="post" />;
 ```
 
-<docs-info>Please see the [Splat Paths][relativesplatpath] section on the `useResolvedPath` docs for a note on the behavior of the `future.v7_relativeSplatPath` future flag for relative `useSubmit()` `action` behavior within splat routes</docs-info>
+<docs-info>请参阅 `useResolvedPath` 文档中的[通配符路径][relativesplatpath]部分，了解 `future.v7_relativeSplatPath` future flag 对通配符路由内相对 `useSubmit()` `action` 行为的说明</docs-info>
 
-Because submissions are navigations, the options may also contain the other navigation related props from [`<Form>`][form] such as:
+由于提交是导航，选项还可以包含来自 [`<Form>`][form] 的其他导航相关 props，如：
 
 - `fetcherKey`
 - `navigate`
@@ -164,7 +164,7 @@ Because submissions are navigations, the options may also contain the other navi
 
 ### `options.flushSync`
 
-The `flushSync` option tells React Router DOM to wrap the initial state update for this submission in a [`ReactDOM.flushSync`][flush-sync] call instead of the default [`React.startTransition`][start-transition]. This allows you to perform synchronous DOM actions immediately after the update is flushed to the DOM.
+`flushSync` 选项告诉 React Router DOM 将此提交的初始状态更新包装在 [`ReactDOM.flushSync`][flush-sync] 调用中，而不是默认的 [`React.startTransition`][start-transition] 中。这允许你在更新刷新到 DOM 后立即执行同步 DOM 操作。
 
 [pickingarouter]: ../routers/picking-a-router
 [form]: ../components/form

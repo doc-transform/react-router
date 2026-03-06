@@ -5,7 +5,7 @@ new: true
 
 ## `<Await>`
 
-Used to render [deferred][defer] values with automatic error handling. Make sure to review the [Deferred Data Guide][deferred guide] since there are a few APIs that work together with this component.
+用于渲染[延迟][defer]值并自动处理错误。请务必查阅[延迟数据指南][deferred guide]，因为有几个 API 需要与此组件配合使用。
 
 ```jsx lines=[1,10-18]
 import { Await, useLoaderData } from "react-router-dom";
@@ -32,13 +32,13 @@ function Book() {
 }
 ```
 
-**Note:** `<Await>` expects to be rendered inside of a `<React.Suspense>` or `<React.SuspenseList>` parent to enable the fallback UI.
+**注意：** `<Await>` 需要在 `<React.Suspense>` 或 `<React.SuspenseList>` 父组件内部渲染，以启用后备 UI。
 
-## Type declaration
+## 类型声明
 
 ```tsx
 declare function Await(
-  props: AwaitProps
+  props: AwaitProps,
 ): React.ReactElement;
 
 interface AwaitProps {
@@ -54,9 +54,9 @@ interface AwaitResolveRenderFunction {
 
 ## `children`
 
-Can either be React elements or a function.
+可以是 React 元素或函数。
 
-When using a function, the value is provided as the only parameter.
+使用函数时，解析后的值作为唯一参数传入。
 
 ```tsx [2]
 <Await resolve={reviewsPromise}>
@@ -64,7 +64,7 @@ When using a function, the value is provided as the only parameter.
 </Await>
 ```
 
-When using React elements, [`useAsyncValue`][useasyncvalue] will provide the data:
+使用 React 元素时，[`useAsyncValue`][useasyncvalue] 将提供数据：
 
 ```tsx [2]
 <Await resolve={reviewsPromise}>
@@ -79,9 +79,9 @@ function Reviews() {
 
 ## `errorElement`
 
-The error element renders instead of the children when the promise rejects. You can access the error with [`useAsyncError`][useasyncerror].
+当 Promise 被拒绝时，错误元素会替代 children 渲染。你可以使用 [`useAsyncError`][useasyncerror] 访问错误信息。
 
-If the promise rejects, you can provide an optional `errorElement` to handle that error in a contextual UI via the `useAsyncError` hook.
+如果 Promise 被拒绝，你可以提供一个可选的 `errorElement`，通过 `useAsyncError` hook 在上下文化的 UI 中处理该错误。
 
 ```tsx [3,9]
 <Await
@@ -97,11 +97,11 @@ function ReviewsError() {
 }
 ```
 
-If you do not provide an errorElement, the rejected value will bubble up to the nearest route-level [`errorElement`][routeerrorelement] and be accessible via the [`useRouteError`][userouteerror] hook.
+如果你不提供 errorElement，被拒绝的值将冒泡到最近的路由级别 [`errorElement`][routeerrorelement]，可以通过 [`useRouteError`][userouteerror] hook 访问。
 
 ## `resolve`
 
-Takes a promise returned from a [deferred][defer] [loader][loader] value to be resolved and rendered.
+接收从[延迟][defer] [loader][loader] 值返回的 Promise，用于解析和渲染。
 
 ```jsx [12,15,24,32-33]
 import {
@@ -111,14 +111,14 @@ import {
   Await,
 } from "react-router-dom";
 
-// given this route
+// 给定以下路由
 <Route
   loader={async () => {
     let book = await getBook();
-    let reviews = getReviews(); // not awaited
+    let reviews = getReviews(); // 未 await
     return defer({
       book,
-      reviews, // this is a promise
+      reviews, // 这是一个 Promise
     });
   }}
   element={<Book />}
@@ -127,7 +127,7 @@ import {
 function Book() {
   const {
     book,
-    reviews, // this is the same promise
+    reviews, // 这是同一个 Promise
   } = useLoaderData();
   return (
     <div>
@@ -135,7 +135,7 @@ function Book() {
       <p>{book.description}</p>
       <React.Suspense fallback={<ReviewsSkeleton />}>
         <Await
-          // and is the promise we pass to Await
+          // 将 Promise 传递给 Await
           resolve={reviews}
         >
           <Reviews />

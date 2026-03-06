@@ -6,7 +6,7 @@ new: true
 # `<Form>`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function Form(props: FormProps): React.ReactElement;
@@ -33,9 +33,9 @@ interface FormProps
 
 </details>
 
-The Form component is a wrapper around a plain HTML [form][htmlform] that emulates the browser for client side routing and data mutations. It is _not_ a form validation/state management library like you might be used to in the React ecosystem (for that, we recommend the browser's built in [HTML Form Validation][formvalidation] and data validation on your backend server).
+Form 组件是对原生 HTML [form][htmlform] 的包装，用于模拟浏览器的客户端路由和数据变更行为。它*不是*像你在 React 生态中可能习惯使用的那种表单验证/状态管理库（对于表单验证，我们推荐使用浏览器内置的 [HTML 表单验证][formvalidation] 以及后端服务器上的数据验证）。
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
 ```tsx
 import { Form } from "react-router-dom";
@@ -51,17 +51,17 @@ function NewEvent() {
 }
 ```
 
-<docs-info>Make sure your inputs have names or else the `FormData` will not include that field's value.</docs-info>
+<docs-info>确保你的输入框有 name 属性，否则 `FormData` 将不会包含该字段的值。</docs-info>
 
-All of this will trigger state updates to any rendered [`useNavigation`][usenavigation] hooks so you can build pending indicators and optimistic UI while the async operations are in-flight.
+所有这些都将触发对已渲染的 [`useNavigation`][usenavigation] hook 的状态更新，使你可以在异步操作进行期间构建加载中指示器和乐观 UI。
 
-If the form doesn't _feel_ like navigation, you probably want [`useFetcher`][usefetcher].
+如果表单操作*感觉*不像导航，你可能需要使用 [`useFetcher`][usefetcher]。
 
 ## `action`
 
-The url to which the form will be submitted, just like [HTML form action][htmlformaction]. The only difference is the default action. With HTML forms, it defaults to the full URL. With `<Form>`, it defaults to the relative URL of the closest route in context.
+表单将提交到的 URL，与 [HTML form action][htmlformaction] 相同。唯一的区别是默认 action。在 HTML 表单中，默认为完整 URL。在 `<Form>` 中，默认为上下文中最近路由的相对 URL。
 
-Consider the following routes and components:
+考虑以下路由和组件：
 
 ```jsx
 function ProjectsLayout() {
@@ -92,32 +92,31 @@ function ProjectsPage() {
 </DataBrowserRouter>;
 ```
 
-If the current URL is `"/projects/123"`, the form inside the child
-route, `ProjectsPage`, will have a default action as you might expect: `"/projects/123"`. In this case, where the route is the deepest matching route, both `<Form>` and plain HTML forms have the same result.
+如果当前 URL 是 `"/projects/123"`，子路由 `ProjectsPage` 内的表单将拥有你可能预期的默认 action：`"/projects/123"`。在这种情况下，路由是最深的匹配路由，`<Form>` 和普通 HTML 表单的结果相同。
 
-But the form inside of `ProjectsLayout` will point to `"/projects"`, not the full URL. In other words, it points to the matching segment of the URL for the route in which the form is rendered.
+但 `ProjectsLayout` 内的表单将指向 `"/projects"`，而不是完整 URL。换句话说，它指向表单所渲染的路由的匹配 URL 片段。
 
-This helps with portability as well as co-location of forms and their action handlers when if you add some convention around your route modules.
+这有助于提高可移植性，以及表单与其 action 处理程序的就近放置（如果你在路由模块中采用某种约定的话）。
 
-If you need to post to a different route, then add an action prop:
+如果你需要提交到不同的路由，添加一个 action 属性：
 
 ```tsx
 <Form action="/projects/new" method="post" />
 ```
 
-**See also:**
+**另请参阅：**
 
-- [Index Search Param][indexsearchparam] (index vs parent route disambiguation)
+- [Index 搜索参数][indexsearchparam]（索引路由与父路由的区分）
 
-<docs-info>Please see the [Splat Paths][relativesplatpath] section on the `useResolvedPath` docs for a note on the behavior of the `future.v7_relativeSplatPath` future flag for relative `useNavigate()` behavior within splat routes</docs-info>
+<docs-info>请参阅 `useResolvedPath` 文档中的[通配路径][relativesplatpath]部分，了解 `future.v7_relativeSplatPath` future flag 对通配路由中相对 `useNavigate()` 行为的影响</docs-info>
 
 ## `method`
 
-This determines the [HTTP verb](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) to be used. The same as plain HTML [form method][htmlform-method], except it also supports "put", "patch", and "delete" in addition to "get" and "post". The default is "get".
+此属性决定要使用的 [HTTP 方法](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)。与普通 HTML [form method][htmlform-method] 相同，但除了 "get" 和 "post" 之外还支持 "put"、"patch" 和 "delete"。默认为 "get"。
 
-### GET submissions
+### GET 提交
 
-The default method is "get". Get submissions _will not call an action_. Get submissions are the same as a normal navigation (user clicks a link) except the user gets to supply the search params that go to the URL from the form.
+默认方法是 "get"。Get 提交*不会调用 action*。Get 提交与普通导航（用户点击链接）相同，只是用户可以通过表单提供进入 URL 的搜索参数。
 
 ```tsx
 <Form method="get" action="/products">
@@ -130,9 +129,9 @@ The default method is "get". Get submissions _will not call an action_. Get subm
 </Form>
 ```
 
-Let's say the user types in "running shoes" and submits the form. React Router emulates the browser and will serialize the form into [URLSearchParams][urlsearchparams] and then navigate the user to `"/products?q=running+shoes"`. It's as if you rendered a `<Link to="/products?q=running+shoes">` as the developer, but instead you let the user supply the query string dynamically.
+假设用户输入了 "running shoes" 并提交了表单。React Router 模拟浏览器行为，将表单序列化为 [URLSearchParams][urlsearchparams]，然后将用户导航到 `"/products?q=running+shoes"`。就好像你作为开发者渲染了一个 `<Link to="/products?q=running+shoes">`，只不过你让用户动态地提供了查询字符串。
 
-Your route loader can access these values most conveniently by creating a new [`URL`][url] from the `request.url` and then load the data.
+你的路由 loader 可以通过从 `request.url` 创建一个新的 [`URL`][url] 来最方便地访问这些值，然后加载数据。
 
 ```tsx
 <Route
@@ -145,13 +144,13 @@ Your route loader can access these values most conveniently by creating a new [`
 />
 ```
 
-### Mutation Submissions
+### 数据变更提交
 
-All other methods are "mutation submissions", meaning you intend to change something about your data with POST, PUT, PATCH, or DELETE. Note that plain HTML forms only support "post" and "get", we tend to stick to those two as well.
+所有其他方法都是"数据变更提交"，意味着你打算用 POST、PUT、PATCH 或 DELETE 来更改某些数据。注意，普通 HTML 表单只支持 "post" 和 "get"，我们也倾向于只使用这两种。
 
-When the user submits the form, React Router will match the `action` to the app's routes and call the `<Route action>` with the serialized [`FormData`][formdata]. When the action completes, all of the loader data on the page will automatically revalidate to keep your UI in sync with your data.
+当用户提交表单时，React Router 会将 `action` 匹配到应用的路由并调用 `<Route action>`，传入序列化的 [`FormData`][formdata]。当 action 完成后，页面上的所有 loader 数据将自动重新验证，以保持 UI 与数据同步。
 
-The method will be available on [`request.method`][requestmethod] inside the route action that is called. You can use this to instruct your data abstractions about the intent of the submission.
+`method` 可在被调用的路由 action 中通过 [`request.method`][requestmethod] 获取。你可以使用它来指示数据抽象层关于提交的意图。
 
 ```tsx
 <Route
@@ -199,55 +198,55 @@ function Project() {
 }
 ```
 
-As you can see, both forms submit to the same route but you can use the `request.method` to branch on what you intend to do. After the actions completes, the `loader` will be revalidated and the UI will automatically synchronize with the new data.
+如你所见，两个表单都提交到同一个路由，但你可以使用 `request.method` 来区分你的意图。action 完成后，`loader` 将被重新验证，UI 将自动与新数据同步。
 
 ## `navigate`
 
-You can tell the form to skip the navigation and use a [fetcher][usefetcher] internally by specifying `<Form navigate={false}>`. This is essentially a shorthand for `useFetcher()` + `<fetcher.Form>` where you don't care about the resulting data and only want to kick off a submission and access the pending state via [`useFetchers()`][usefetchers].
+你可以通过指定 `<Form navigate={false}>` 来告诉表单跳过导航并在内部使用 [fetcher][usefetcher]。这本质上是 `useFetcher()` + `<fetcher.Form>` 的简写形式，适用于你不关心返回数据、只想触发提交并通过 [`useFetchers()`][usefetchers] 访问待定状态的场景。
 
 ## `fetcherKey`
 
-When using a non-navigating `Form`, you may also optionally specify your own fetcher key to use via `<Form navigate={false} fetcherKey="my-key">`.
+使用非导航 `Form` 时，你也可以通过 `<Form navigate={false} fetcherKey="my-key">` 来指定自己的 fetcher key。
 
 ## `replace`
 
-Instructs the form to replace the current entry in the history stack, instead of pushing the new entry.
+指示表单替换历史栈中的当前条目，而不是推入新条目。
 
 ```tsx
 <Form replace />
 ```
 
-The default behavior is conditional on the form behavior:
+默认行为取决于表单的行为：
 
-- `method=get` forms default to `false`
-- submission methods depend on the `formAction` and `action` behavior:
-  - if your `action` throws, then it will default to `false`
-  - if your `action` redirects to the current location, it defaults to `true`
-  - if your `action` redirects elsewhere, it defaults to `false`
-  - if your `formAction` is the current location, it defaults to `true`
-  - otherwise it defaults to `false`
+- `method=get` 表单默认为 `false`
+- 提交方法取决于 `formAction` 和 `action` 的行为：
+  - 如果你的 `action` 抛出异常，默认为 `false`
+  - 如果你的 `action` 重定向到当前位置，默认为 `true`
+  - 如果你的 `action` 重定向到其他位置，默认为 `false`
+  - 如果你的 `formAction` 是当前位置，默认为 `true`
+  - 否则默认为 `false`
 
-We've found with `get` you often want the user to be able to click "back" to see the previous search results/filters, etc. But with the other methods the default is `true` to avoid the "are you sure you want to resubmit the form?" prompt. Note that even if `replace={false}` React Router _will not_ resubmit the form when the back button is clicked and the method is post, put, patch, or delete.
+我们发现，对于 `get`，你通常希望用户能够点击"后退"查看之前的搜索结果/筛选条件等。但对于其他方法，默认为 `true` 以避免"你确定要重新提交表单吗？"的提示。注意，即使 `replace={false}`，React Router 在点击后退按钮时也*不会*重新提交 method 为 post、put、patch 或 delete 的表单。
 
-In other words, this is really only useful for GET submissions and you want to avoid the back button showing the previous results.
+换句话说，这实际上只对 GET 提交有用，用于避免后退按钮显示之前的结果。
 
 ## `relative`
 
-By default, paths are relative to the route hierarchy, so `..` will go up one `Route` level. Occasionally, you may find that you have matching URL patterns that do not make sense to be nested, and you're prefer to use relative _path_ routing. You can opt into this behavior with `<Form to="../some/where" relative="path">`
+默认情况下，路径相对于路由层级，因此 `..` 会上升一个 `Route` 层级。有时你可能会发现某些匹配的 URL 模式嵌套在一起没有意义，此时你更希望使用相对*路径*路由。你可以使用 `<Form to="../some/where" relative="path">` 来启用此行为。
 
 ## `reloadDocument`
 
-Instructs the form to skip React Router and submit the form with the browser's built in behavior.
+指示表单跳过 React Router，使用浏览器内置行为提交表单。
 
 ```tsx
 <Form reloadDocument />
 ```
 
-This is recommended over `<form>` so you can get the benefits of default and relative `action`, but otherwise is the same as a plain HTML form.
+推荐使用此方式而不是 `<form>`，这样你可以获得默认和相对 `action` 的好处，但在其他方面与普通 HTML 表单相同。
 
-Without a framework like [Remix][remix], or your own server handling of posts to routes, this isn't very useful.
+如果没有像 [Remix][remix] 这样的框架，或者你自己的服务器处理路由的 post 请求，这不是很有用。
 
-See also:
+另请参阅：
 
 - [`useNavigation`][usenavigation]
 - [`useActionData`][useactiondata]
@@ -255,7 +254,7 @@ See also:
 
 ## `state`
 
-The `state` property can be used to set a stateful value for the new location which is stored inside [history state][history-state]. This value can subsequently be accessed via `useLocation()`.
+`state` 属性可用于为新位置设置一个存储在 [history state][history-state] 中的有状态值。该值随后可以通过 `useLocation()` 访问。
 
 ```tsx
 <Form
@@ -265,7 +264,7 @@ The `state` property can be used to set a stateful value for the new location wh
 />
 ```
 
-You can access this state value while on the "new-path" route:
+你可以在 "new-path" 路由上访问此状态值：
 
 ```ts
 let { state } = useLocation();
@@ -273,25 +272,25 @@ let { state } = useLocation();
 
 ## `preventScrollReset`
 
-If you are using [`<ScrollRestoration>`][scrollrestoration], this lets you prevent the scroll position from being reset to the top of the window when the form action redirects to a new location.
+如果你使用了 [`<ScrollRestoration>`][scrollrestoration]，此属性可以阻止在表单 action 重定向到新位置时将滚动位置重置到窗口顶部。
 
 ```tsx
 <Form method="post" preventScrollReset={true} />
 ```
 
-See also: [`<Link preventScrollReset>`][link-preventscrollreset]
+参见：[`<Link preventScrollReset>`][link-preventscrollreset]
 
 ## `viewTransition`
 
-The `viewTransition` prop enables a [View Transition][view-transitions] for this navigation by wrapping the final state update in `document.startViewTransition()`. If you need to apply specific styles for this view transition, you will also need to leverage the [`useViewTransitionState()`][use-view-transition-state].
+`viewTransition` 属性通过将最终状态更新包装在 `document.startViewTransition()` 中，为此次导航启用[视图过渡][view-transitions]。如果你需要为此视图过渡应用特定样式，还需要使用 [`useViewTransitionState()`][use-view-transition-state] hook。
 
-# Examples
+# 示例
 
-TODO: More examples
+TODO: 更多示例
 
-## Large List Filtering
+## 大列表筛选
 
-A common use case for GET submissions is filtering a large list, like ecommerce and travel booking sites.
+GET 提交的一个常见用例是筛选大型列表，如电商和旅行预订网站。
 
 ```tsx
 function FilterForm() {
@@ -348,13 +347,13 @@ function FilterForm() {
 }
 ```
 
-When the user submits this form, the form will be serialized to the URL with something like this, depending on the user's selections:
+当用户提交此表单时，表单将根据用户的选择被序列化到 URL 中，类似这样：
 
 ```
 /slc/hotels?sort=price&stars=4&amenities=pool&amenities=exercise
 ```
 
-You can access those values from the `request.url`
+你可以从 `request.url` 中访问这些值：
 
 ```tsx
 <Route
@@ -369,7 +368,7 @@ You can access those values from the `request.url`
 />
 ```
 
-**See also:**
+**另请参阅：**
 
 - [useSubmit][usesubmit]
 

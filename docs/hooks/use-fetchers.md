@@ -5,9 +5,9 @@ new: true
 
 # `useFetchers`
 
-Returns an array of all inflight [fetchers][usefetcher] without their `load`, `submit`, or `Form` properties (can't have parent components trying to control the behavior of their children! We know from IRL experience that this is a fool's errand.)
+返回所有进行中的 [fetcher][usefetcher] 的数组，不包含它们的 `load`、`submit` 或 `Form` 属性（不能让父组件试图控制子组件的行为！我们从现实经验中知道这是徒劳的。）
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
 ```tsx
 import { useFetchers } from "react-router-dom";
@@ -18,9 +18,9 @@ function SomeComp() {
 }
 ```
 
-This is useful for components throughout the app that didn't create the fetchers but want to use their submissions to participate in optimistic UI.
+这对于应用中没有创建 fetcher 但想使用其提交来参与乐观 UI 的组件很有用。
 
-For example, imagine a UI where the sidebar lists projects, and the main view displays a list of checkboxes for the current project. The sidebar could display the number of completed and total tasks for each project.
+例如，想象一个 UI，侧边栏列出项目，主视图显示当前项目的复选框列表。侧边栏可以显示每个项目的已完成和总任务数。
 
 ```
 +-----------------+----------------------------+
@@ -38,7 +38,7 @@ For example, imagine a UI where the sidebar lists projects, and the main view di
 +-----------------+----------------------------┘
 ```
 
-When the user clicks a checkbox, the submission goes to the action to change the state of the task. Instead of creating a "loading state" we want to create an "optimistic UI" that will **immediately** update the checkbox to appear checked even though the server hasn't processed it yet. In the checkbox component, we can use `fetcher.formData`:
+当用户点击复选框时，提交会发送到 action 以更改任务的状态。我们不想创建“加载状态”，而是想创建“乐观 UI”，它会**立即**更新复选框显示为已选中，即使服务器尚未处理它。在复选框组件中，我们可以使用 `fetcher.formData`：
 
 ```tsx
 function Task({ task }) {
@@ -67,7 +67,7 @@ function Task({ task }) {
 }
 ```
 
-This awesome for the checkbox, but the sidebar will say 2/4 while the checkboxes show 3/4 when the user clicks on of them!
+这对于复选框很棒，但当用户点击其中一个时，侧边栏会显示 2/4，而复选框显示 3/4！
 
 ```
 +-----------------+----------------------------+
@@ -85,15 +85,15 @@ This awesome for the checkbox, but the sidebar will say 2/4 while the checkboxes
 +-----------------+----------------------------┘
 ```
 
-Because routes are automatically revalidated, the sidebar will quickly update and be correct. But for a moment, it's gonna feel a little funny.
+因为路由会自动重新验证，侧边栏会很快更新并变得正确。但有一刻，它会感觉有点奇怪。
 
-This is where `useFetchers` comes in. Up in the sidebar, we can access all the inflight fetcher states from the checkboxes - even though it's not the component that created them.
+这就是 `useFetchers` 的用武之地。在侧边栏中，我们可以访问复选框的所有进行中的 fetcher 状态——即使不是创建它们的组件。
 
-The strategy has three steps:
+策略有三个步骤：
 
-1. Find the submissions for tasks in a specific project
-2. Use the `fetcher.formData` to immediately update the count
-3. Use the normal task's state if it's not inflight
+1. 查找特定项目中任务的提交
+2. 使用 `fetcher.formData` 立即更新计数
+3. 如果任务不在进行中，则使用正常任务状态
 
 ```tsx
 function ProjectTaskCount({ project }) {
@@ -103,7 +103,7 @@ function ProjectTaskCount({ project }) {
   // Find this project's fetchers
   const relevantFetchers = fetchers.filter((fetcher) => {
     return fetcher.formAction?.startsWith(
-      `/projects/${project.id}/tasks/`
+      `/projects/${project.id}/tasks/`,
     );
   });
 
@@ -112,7 +112,7 @@ function ProjectTaskCount({ project }) {
     relevantFetchers.map(({ formData }) => [
       formData.get("id"),
       formData.get("complete") === "on",
-    ])
+    ]),
   );
 
   // Increment the count
@@ -136,7 +136,7 @@ function ProjectTaskCount({ project }) {
 }
 ```
 
-It's a little bit of work, but it's mostly just asking React Router for the state it's tracking and doing an optimistic calculation based on it.
+需要做一点工作，但主要是向 React Router 询问它正在跟踪的状态，并基于此进行乐观计算。
 
 [usefetcher]: ./use-fetcher
 [pickingarouter]: ../routers/picking-a-router

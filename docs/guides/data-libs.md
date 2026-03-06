@@ -1,23 +1,23 @@
 ---
-title: Data Library Integration
-description: 'Since the release of v6.4 some folks wonder if React Router is attempting to replace libraries like React Query.  The answer is "nope!".'
+title: 数据库集成
+description: "自 v6.4 发布以来，一些人开始疑惑 React Router 是否在试图替代像 React Query 这样的库。答案是“不！”"
 ---
 
-# Data Library Integration
+# 数据库集成
 
-Since the release of v6.4 some folks wonder if React Router is attempting to replace libraries like [React Query][react-query], [useSwr][useswr], etc.
+自 v6.4 发布以来，一些人开始疑惑 React Router 是否在试图替代像 [React Query][react-query]、[useSwr][useswr] 等库。
 
-The answer is "nope!".
+答案是“不！”
 
-React Router's data APIs are about _when_ to load, mutate, and revalidate data, but not _how_ to do it. It's about the data lifecycle, not the actual implementation of data fetching, mutation, storage, and caching.
+React Router 的数据 API 关注的是*何时*加载、变更和重新验证数据，而不是*如何*做到。它关注的是数据生命周期，而不是数据获取、变更、存储和缓存的实际实现。
 
-Considering that `<a href>` and `<form action>` are both navigation events, and both coupled to data (what data to show or what data to change), it makes sense that a client side router would help you with the _navigation state_ of both elements. But the actual data implementation is up to you.
+考虑到 `<a href>` 和 `<form action>` 都是导航事件，且两者都与数据耦合（显示什么数据或更改什么数据），客户端路由器帮助你处理两个元素的*导航状态*是很有意义的。但实际的数据实现取决于你。
 
-The examples here were adapted from [TkDodo's blog][tkdodo], thank you for the great post!
+本文的示例改编自 [TkDodo 的博客][tkdodo]，感谢这篇优秀的文章！
 
-## Loading Data
+## 加载数据
 
-Instead of loading data in components, you use your data abstractions inside of loaders. Note that this loading happens outside of the React render lifecycle, so you can't use hooks like React Query's `useQuery`, you'll need to use the query client's methods directly.
+不是在组件中加载数据，而是在 loader 内部使用你的数据抽象。注意，这个加载发生在 React 渲染生命周期之外，所以你不能使用像 React Query 的 `useQuery` 这样的 hook，你需要直接使用 query client 的方法。
 
 ```jsx lines=[4]
 import { queryClient } from "./query-client";
@@ -29,17 +29,17 @@ export const loader = ({ params }) => {
 };
 ```
 
-If the query client throws errors correctly, then React Router's [`errorElement`][errorelement] will work the same.
+如果 query client 能正确抛出错误，那么 React Router 的 [`errorElement`][errorelement] 将以相同的方式工作。
 
-Of course, you can use all of the features of the data library, like caching. Caching your data ensures that when the user clicks the back button to a page you've already seen, the data is loaded from the cache immediately. Sometimes caching is the right choice, sometimes you always want it fresh, but that's not a decision within the scope of React Router's data APIs.
+当然，你可以使用数据库的所有功能，比如缓存。缓存你的数据可以确保当用户点击后退按钮回到已经看过的页面时，数据会立即从缓存加载。有时缓存是正确的选择，有时你希望它始终是最新的，但这不在 React Router 数据 API 的范围内。
 
-React Router only retains the _current page's loaderData_. If users click "back", all loaders are called again. Without a data caching library like React Query (or HTTP cache headers on your JSON API to use the browser's own HTTP cache), your app will refetch all of the data again.
+React Router 只保留*当前页面的 loaderData*。如果用户点击“后退”，所有 loader 都会再次被调用。没有像 React Query 这样的数据缓存库（或你的 JSON API 上的 HTTP 缓存头来使用浏览器自己的 HTTP 缓存），你的应用会再次获取所有数据。
 
-In this way, React Router is about _timing_, where React Query is about _caching_.
+从这个意义上说，React Router 关注的是*时机*，而 React Query 关注的是*缓存*。
 
-## Accessing Data in Components
+## 在组件中访问数据
 
-While React Router's `useLoaderData` returns whatever you returned from your loader, you can use your data abstraction's hooks instead to get access to the full feature set of that package.
+虽然 React Router 的 `useLoaderData` 返回你从 loader 返回的任何内容，但你可以使用数据抽象库的 hook 来获取该包的完整功能集。
 
 ```diff
 export default function SomeRouteComponent() {
@@ -48,11 +48,11 @@ export default function SomeRouteComponent() {
 }
 ```
 
-## Invalidating Data in Mutations
+## 在数据变更中失效数据
 
-Because most of these library's have some mechanism for caching, you'll need to invalidate those caches at some point.
+因为大多数这些库都有某种缓存机制，你需要在某个时候失效这些缓存。
 
-The perfect place to invalidate those caches is in a React Router [action][action].
+失效这些缓存的完美位置是在 React Router 的 [action][action] 中。
 
 ```jsx lines=[7]
 import { queryClient } from "./query-client";
@@ -66,9 +66,9 @@ export const action = async ({ request, params }) => {
 };
 ```
 
-## Usage with `defer`
+## 与 `defer` 一起使用
 
-You can similarly take advantage of the deferred APIs:
+你同样可以利用 deferred API：
 
 ```jsx lines=[2,10,14,28]
 function loader() {
@@ -103,13 +103,13 @@ function SomeView() {
 }
 ```
 
-## The Overlap
+## 功能重叠
 
-Hooks like `useQuery` often return pending and error states you can use to branch your UI. With React Router, you can keep all of that branching out of your happy path components and rely on [`errorElement`][errorelement], [`useNavigation`][usenavigation], and [`Await`][await] instead.
+像 `useQuery` 这样的 hook 通常返回加载状态和错误状态，你可以用它们来分支 UI。使用 React Router，你可以将所有分支逻辑保留在幸福路径组件之外，而依赖 [`errorElement`][errorelement]、[`useNavigation`][usenavigation] 和 [`Await`][await] 来代替。
 
-## Conclusion
+## 总结
 
-With all of these APIs working together, you can now use [`useNavigation`][usenavigation] from React Router to build pending states, optimistic UI, and more. Use React Router for timing of data loading, mutations, and navigation state, then use libraries like React Query for the actual implementation of loading, invalidating, storage, and caching.
+通过所有这些 API 的协作，你现在可以使用 React Router 的 [`useNavigation`][usenavigation] 构建加载状态、乐观 UI 等更多功能。使用 React Router 处理数据加载、变更和导航状态的时机，然后使用 React Query 等库处理实际的加载、失效、存储和缓存。
 
 [react-query]: https://tanstack.com/query/v4/
 [useswr]: https://swr.vercel.app/

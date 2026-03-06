@@ -5,11 +5,11 @@ title: BrowserRouter
 # `<BrowserRouter>`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function BrowserRouter(
-  props: BrowserRouterProps
+  props: BrowserRouterProps,
 ): React.ReactElement;
 
 interface BrowserRouterProps {
@@ -22,7 +22,7 @@ interface BrowserRouterProps {
 
 </details>
 
-A `<BrowserRouter>` stores the current location in the browser's address bar using clean URLs and navigates using the browser's built-in history stack.
+`<BrowserRouter>` 使用简洁的 URL 将当前位置存储在浏览器的地址栏中，并使用浏览器内置的历史栈进行导航。
 
 ```tsx
 import * as React from "react";
@@ -33,21 +33,21 @@ const root = createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
-    {/* The rest of your app goes here */}
-  </BrowserRouter>
+    {/* 你的应用的其余部分放在这里 */}
+  </BrowserRouter>,
 );
 ```
 
 ## `basename`
 
-Configure your application to run underneath a specific basename in the URL:
+配置你的应用在 URL 中的特定基础路径下运行：
 
 ```jsx
 function App() {
   return (
     <BrowserRouter basename="/app">
       <Routes>
-        <Route path="/" /> {/* 👈 Renders at /app/ */}
+        <Route path="/" /> {/* 👈 在 /app/ 下渲染 */}
       </Routes>
     </BrowserRouter>
   );
@@ -56,7 +56,7 @@ function App() {
 
 ## `future`
 
-An optional set of [Future Flags][api-development-strategy] to enable. We recommend opting into newly released future flags sooner rather than later to ease your eventual migration to v7.
+一组可选的 [Future Flags][api-development-strategy]。我们建议尽早启用新发布的 future flag，以便将来更顺利地迁移到 v7。
 
 ```jsx
 function App() {
@@ -70,7 +70,7 @@ function App() {
 
 ## `window`
 
-`BrowserRouter` defaults to using the current [document's `defaultView`][defaultview], but it may also be used to track changes to another window's URL, in an `<iframe>`, for example.
+`BrowserRouter` 默认使用当前 [document 的 `defaultView`][defaultview]，但它也可以用于追踪另一个窗口 URL 的变化，例如在 `<iframe>` 中。
 
 [defaultview]: https://developer.mozilla.org/en-US/docs/Web/API/Document/defaultView
 [api-development-strategy]: ../guides/api-development-strategy

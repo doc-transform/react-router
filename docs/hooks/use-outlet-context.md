@@ -5,17 +5,17 @@ title: useOutletContext
 # `useOutletContext`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useOutletContext<
-  Context = unknown
+  Context = unknown,
 >(): Context;
 ```
 
 </details>
 
-Often parent routes manage state or other values you want shared with child routes. You can create your own [context provider](https://react.dev/learn/passing-data-deeply-with-context) if you like, but this is such a common situation that it's built-into `<Outlet />`:
+父路由通常管理你想与子路由共享的状态或其他值。如果你愿意，可以创建自己的[上下文提供者](https://react.dev/learn/passing-data-deeply-with-context)，但这是一种非常常见的情况，所以它已经内置在 `<Outlet />` 中：
 
 ```tsx lines=[3]
 function Parent() {
@@ -34,7 +34,7 @@ function Child() {
 }
 ```
 
-If you're using TypeScript, we recommend the parent component provide a custom hook for accessing the context value. This makes it easier for consumers to get nice typings, control consumers, and know who's consuming the context value. Here's a more realistic example:
+如果你使用 TypeScript，我们建议父组件提供一个自定义 hook 来访问上下文值。这使消费者更容易获得好的类型提示，控制消费者，以及了解谁在消费上下文值。以下是一个更实际的例子：
 
 ```tsx filename=src/routes/dashboard.tsx lines=[13,19]
 import * as React from "react";

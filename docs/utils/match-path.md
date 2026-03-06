@@ -9,10 +9,10 @@ title: matchPath
 
 ```tsx
 declare function matchPath<
-  ParamKey extends string = string
+  ParamKey extends string = string,
 >(
   pattern: PathPattern | string,
-  pathname: string
+  pathname: string,
 ): PathMatch<ParamKey> | null;
 
 interface PathMatch<ParamKey extends string = string> {
@@ -30,8 +30,8 @@ interface PathPattern {
 
 </details>
 
-`matchPath` matches a route path pattern against a URL pathname and returns information about the match. This is useful whenever you need to manually run the router's matching algorithm to determine if a route path matches or not. It returns `null` if the pattern does not match the given pathname.
+`matchPath` 将路由路径模式与 URL pathname 进行匹配，并返回匹配的信息。当你需要手动运行路由器的匹配算法来判断某个路由路径是否匹配时，这非常有用。如果模式与给定的 pathname 不匹配，则返回 `null`。
 
-The [`useMatch` hook][usematch] uses this function internally to match a route path relative to the current location.
+[`useMatch` hook][usematch] 在内部使用此函数来匹配相对于当前位置的路由路径。
 
 [usematch]: ../hooks/use-match

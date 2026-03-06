@@ -1,9 +1,9 @@
 ---
-title: Index Route
+title: Index 路由
 new: true
 hidden: true
 ---
 
-# Index Route
+# Index 路由
 
 <docs-info>TODO</docs-info>

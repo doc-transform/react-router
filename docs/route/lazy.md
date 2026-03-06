@@ -5,24 +5,24 @@ new: true
 
 # `lazy`
 
-In order to keep your application bundles small and support code-splitting of your routes, each route can provide an async function that resolves the non-route-matching portions of your route definition (`loader`, `action`, `Component`/`element`, `ErrorBoundary`/`errorElement`, etc.).
+为了保持应用包的小体积并支持路由的代码分割，每个路由可以提供一个异步函数来解析路由定义中非路由匹配的部分（`loader`、`action`、`Component`/`element`、`ErrorBoundary`/`errorElement` 等）。
 
-Lazy routes are resolved on initial load and during the `loading` or `submitting` phase of a navigation or fetcher call. You cannot lazily define route-matching properties (`path`, `index`, `children`, `caseSensitive`) since we only execute your lazy route functions after we've matched known routes.
+懒加载路由在初始加载以及导航或 fetcher 调用的 `loading` 或 `submitting` 阶段被解析。你不能延迟定义路由匹配属性（`path`、`index`、`children`、`caseSensitive`），因为我们只在匹配已知路由后才执行懒加载路由函数。
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
-Each `lazy` function will typically return the result of a dynamic import.
+每个 `lazy` 函数通常返回动态导入的结果。
 
 ```jsx
 let routes = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route path="a" lazy={() => import("./a")} />
     <Route path="b" lazy={() => import("./b")} />
-  </Route>
+  </Route>,
 );
 ```
 
-Then in your lazy route modules, export the properties you want defined for the route (`loader`, `Component`, `ErrorBoundary`):
+然后在你的懒加载路由模块中，导出你想要为路由定义的属性（`loader`、`Component`、`ErrorBoundary`）：
 
 ```jsx
 export async function loader({ request }) {
@@ -41,7 +41,7 @@ export function Component() {
   );
 }
 
-// If you want to customize the component display name in React dev tools:
+// 如果你想在 React 开发工具中自定义组件显示名称：
 Component.displayName = "SampleLazyRoute";
 
 export function ErrorBoundary() {
@@ -55,19 +55,19 @@ export function ErrorBoundary() {
   );
 }
 
-// If you want to customize the component display name in React dev tools:
+// 如果你想在 React 开发工具中自定义组件显示名称：
 ErrorBoundary.displayName = "SampleErrorBoundary";
 ```
 
 <docs-info>
-Note that there's no `default` export in this lazy-loaded file.  That's because `default` is not a valid key on a route object.  These files generally should only export keys you would define on a route object, such as `loader`, `action`, `Component`, `ErrorBoundary`, etc.  All exports will be spread directly on the route object unless you manually return an object from `lazy`.
+注意这个懒加载文件中没有 `default` 导出。这是因为 `default` 不是路由对象上的有效键。这些文件通常应该只导出你会在路由对象上定义的键，比如 `loader`、`action`、`Component`、`ErrorBoundary` 等。所有导出都会直接展开到路由对象上，除非你从 `lazy` 手动返回一个对象。
 </docs-info>
 
-## Statically Defined Properties
+## 静态定义的属性
 
-Any properties defined statically on the route cannot be overwritten by the `lazy` function, and you'll receive a console warning if you attempt to overwrite them.
+任何在路由上静态定义的属性都不能被 `lazy` 函数覆盖，如果你尝试覆盖它们，你会收到控制台警告。
 
-Additionally, as an optimization, if you statically define a `loader`/`action` then it will be called in parallel with the `lazy` function. This is useful if you have slim loaders that you don't mind on the critical bundle, and would like to kick off their data fetches in parallel with the component download. This is close to how Remix handles fetching because each route is it's own API route.
+此外，作为一种优化，如果你静态定义了 `loader`/`action`，它将与 `lazy` 函数并行调用。如果你有不介意放在关键包中的轻量 loader，并且想要并行启动数据获取和组件下载，这很有用。这接近于 Remix 处理获取的方式，因为每个路由都是自己的 API 路由。
 
 ```js
 let route = {
@@ -77,7 +77,7 @@ let route = {
 };
 ```
 
-This also allows you to do more granular code splitting. For example, you could split your `loader` and `Component` into different files for parallel downloading:
+这还允许你进行更细粒度的代码分割。例如，你可以将 `loader` 和 `Component` 分到不同的文件中以便并行下载：
 
 ```js
 let route = {
@@ -90,15 +90,14 @@ let route = {
 };
 ```
 
-## Multiple Routes in a single file
+## 单个文件中的多个路由
 
-While `lazy` may generally be used 1:1 with an async `import()` per route, you are free to implement a more advanced `lazy` function and just need to return the properties you want added to that route. This opens up some interesting possibilities.
+虽然 `lazy` 通常按 1:1 的方式每个路由对应一个异步 `import()` 使用，但你可以自由实现更高级的 `lazy` 函数，只需返回你想添加到该路由的属性即可。这开启了一些有趣的可能性。
 
-For example, if you want to avoid loading multiple chunks for nested routes, you could store them all in the same file and return them to the individual routes. Modern bundlers will latch onto the same Promise for the different `import()` invocations.
+例如，如果你想避免为嵌套路由加载多个代码块，你可以将它们全部存储在同一个文件中，并将它们分别返回给各个路由。现代打包工具对于不同 `import()` 调用的同一个 Promise 会进行合并。
 
 ```js
-// Assume pages/Dashboard.jsx has all of our loaders/components for multiple
-// dashboard routes
+// 假设 pages/Dashboard.jsx 包含了多个仪表盘路由的所有 loader/组件
 let dashboardRoute = {
   path: "dashboard",
   async lazy() {

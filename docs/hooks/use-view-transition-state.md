@@ -5,7 +5,7 @@ title: useViewTransitionState
 # `useViewTransitionState`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useViewTransitionState(
@@ -24,9 +24,9 @@ interface Path {
 
 </details>
 
-This hook returns `true` when there is an active [View Transition][view-transitions] to the specified location. This can be used to apply finer-grained styles to elements to further customize the view transition. This requires that view transitions have been enabled for the given navigation via the [viewTransition][link-view-transition] prop on the `Link` (or the `Form`, `navigate`, or `submit` call).
+当存在到指定位置的活跃[视图过渡][view-transitions]时，此 hook 返回 `true`。这可以用于对元素应用更细粒度的样式，以进一步自定义视图过渡。这要求已通过 `Link`（或 `Form`、`navigate`、`submit` 调用）上的 [viewTransition][link-view-transition] prop 为给定导航启用了视图过渡。
 
-Consider clicking on an image in a list that you need to expand into the hero image on the destination page:
+假设在列表中点击一个图片，你需要将其展开为目标页面上的主图：
 
 ```jsx
 function NavImage({ src, alt, id }) {

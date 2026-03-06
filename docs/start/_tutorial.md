@@ -1,46 +1,46 @@
 ---
-title: Tutorial
+title: 教程
 order: 3
 hidden: true
 ---
 
-# Tutorial
+# 教程
 
-## Introduction
+## 介绍
 
-[Check out the completed version of the app here][stackblitz-app].
+[在这里查看完成的应用版本][stackblitz-app]。
 
-React Router is a fully-featured client and server-side routing library for React, a JavaScript library for building user interfaces. React Router runs anywhere React runs; on the web, on the server with node.js, and on React Native.
+React Router 是一个功能完备的客户端和服务端路由库，用于 React，一个用于构建用户界面的 JavaScript 库。React Router 可以在 React 运行的任何地方运行；在 Web 上、使用 node.js 的服务器上以及 React Native 上。
 
-If you're just getting started with React generally, we recommend you follow [the excellent Getting Started guide][reactjs-getting-started] in the official docs. There is plenty of information there to get you up and running. React Router is compatible with React >= 16.8.
+如果你刚开始学习 React，我们建议你先阅读官方文档中优秀的[入门指南][reactjs-getting-started]。那里有大量信息可以帮助你开始并运行。React Router 兼容 React >= 16.8。
 
-We'll keep this tutorial quick and to the point. By the end you'll know the APIs you deal with day-to-day with React Router. After that, you can dig into some of the other docs to get a deeper understanding.
+我们会保持本教程快速而简洁。学完后你就会知道 React Router 日常使用的 API。之后你可以深入其他文档以获得更深入的理解。
 
-While building a little bookkeeping app we'll cover:
+在构建一个小型记账应用的过程中，我们将涵盖：
 
-- Configuring Routes
-- Navigating with Link
-- Creating Links with active styling
-- Using Nested Routes for Layout
-- Navigating programmatically
-- Using URL params for data loading
-- Using URL Search params
-- Creating your own behaviors through composition
-- Server Rendering
+- 配置路由
+- 使用 Link 导航
+- 创建带活动样式的链接
+- 使用嵌套路由实现布局
+- 编程式导航
+- 使用 URL 参数加载数据
+- 使用 URL 搜索参数
+- 通过组合创建自定义行为
+- 服务端渲染
 
-## Installation
+## 安装
 
-### Recommended: StackBlitz
+### 推荐：StackBlitz
 
-To do this tutorial you'll need a working React app. We recommend skipping bundlers and using [this demo on StackBlitz][stackblitz-template] to code along in your browser:
+要完成本教程，你需要一个可工作的 React 应用。我们建议跳过打包工具，使用 [StackBlitz 上的这个 Demo][stackblitz-template] 在浏览器中跟着编写代码：
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)][stackblitz-template]
 
-As you edit files, the tutorial will update live.
+当你编辑文件时，教程会实时更新。
 
-### Using a bundler
+### 使用打包工具
 
-Feel free to use your bundler of choice like [Create React App][cra] or [Vite][vite].
+你也可以使用你喜欢的打包工具，如 [Create React App][cra] 或 [Vite][vite]。
 
 ```sh
 # create react app
@@ -50,14 +50,14 @@ npx create-react-app router-tutorial
 npm init vite@latest router-tutorial --template react
 ```
 
-Then install React Router dependencies:
+然后安装 React Router 依赖：
 
 ```sh
 cd router-tutorial
 npm install react-router-dom@6
 ```
 
-Then edit your App.js to be pretty boring:
+然后编辑你的 App.js 让它变得很简单：
 
 ```tsx filename=src/App.js
 export default function App() {
@@ -69,21 +69,21 @@ export default function App() {
 }
 ```
 
-Actually, that "!" doesn't look boring at all. This is pretty exciting. We sat on React Router v6 beta for over a year as we shifted gears with our business after a global pandemic. THIS IS THE MOST EXCITING THING WE'VE DONE IN A WHILE!
+实际上，那个“！”看起来一点都不无聊。这非常令人兴奋。在全球疑情之后，我们调整了业务方向，React Router v6 beta 已经虏了一年多了。这是我们一段时间以来做过的最令人兴奋的事情！
 
-Finally, go make sure `index.js` or `main.jsx` (depending on the bundler you used) is actually boring:
+最后，确保 `index.js` 或 `main.jsx`（取决于你使用的打包工具）是简单的：
 
 ```tsx filename=src/main.jsx
 import * as ReactDOM from "react-dom/client";
 import App from "./App";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 root.render(<App />);
 ```
 
-Finally, start your app:
+最后，启动你的应用：
 
 ```sh
 # probably this
@@ -93,9 +93,9 @@ npm start
 npm run dev
 ```
 
-## Connect the URL
+## 连接 URL
 
-First things first, we want to connect your app to the browser's URL: import `BrowserRouter` and render it around your whole app.
+首先，我们要将应用连接到浏览器的 URL：导入 `BrowserRouter` 并将它包裹在整个应用周围。
 
 ```tsx lines=[2,9-11] filename=src/main.jsx
 import * as ReactDOM from "react-dom/client";
@@ -103,20 +103,20 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 root.render(
   <BrowserRouter>
     <App />
-  </BrowserRouter>
+  </BrowserRouter>,
 );
 ```
 
-Nothing changes in your app, but now we're ready to start messing with the URL.
+你的应用没有任何变化，但现在我们已经准备好开始操作 URL 了。
 
-## Add Some Links
+## 添加一些链接
 
-Open up `src/App.js`, import `Link` and add some global navigation. Side note: don't take the styling too seriously in this tutorial, we're just using inline styles for convenience, style your apps however you want.
+打开 `src/App.js`，导入 `Link` 并添加一些全局导航。提示：不要太在意本教程中的样式，我们只是为了方便使用了内联样式，你可以用你想要的方式来给应用添加样式。
 
 ```tsx lines=[1,7-15] filename=src/App.js
 import { Link } from "react-router-dom";
@@ -139,20 +139,20 @@ export default function App() {
 }
 ```
 
-Go ahead and click the links and the back/forward button (if you're using StackBlitz, you'll need to click the "Open in New Window" button in the inline-browser's toolbar). React Router is now controlling the URL!
+继续点击链接和后退/前进按钮（如果你使用 StackBlitz，你需要点击内置浏览器工具栏中的“在新窗口中打开”按钮）。React Router 现在正在控制 URL！
 
-We don't have any routes that render when the URL changes yet, but Link is changing the URL without causing a full page reload.
+当 URL 改变时我们还没有任何路由进行渲染，但 Link 已经在不引起全页面重新加载的情况下改变了 URL。
 
-## Add Some Routes
+## 添加一些路由
 
-Add a couple new files:
+添加几个新文件：
 
 - `src/routes/invoices.jsx`
 - `src/routes/expenses.jsx`
 
-(The location of the files doesn't matter, but when you decide you'd like an automatic backend API, server rendering, code splitting bundler and more for this app, naming your files like this way makes it easy to port this app to our other project, [Remix][remix] 😉)
+（文件的位置无所谓，但当你决定为这个应用添加自动后端 API、服务端渲染、代码分割打包等功能时，这样命名文件可以让你轻松将应用迁移到我们的另一个项目 [Remix][remix] 😉）
 
-Now fill 'em up with some code:
+现在给它们填充一些代码：
 
 ```tsx filename=src/routes/expenses.jsx
 export default function Expenses() {
@@ -174,7 +174,7 @@ export default function Invoices() {
 }
 ```
 
-Finally, let's teach React Router how to render our app at different URLs by creating our first "Route Config" inside of `main.jsx` or `index.js`.
+最后，让我们通过在 `main.jsx` 或 `index.js` 中创建第一个“路由配置”来教会 React Router 如何在不同 URL 上渲染我们的应用。
 
 ```tsx lines=[2,4-5,8-9,15-21] filename=src/main.jsx
 import * as ReactDOM from "react-dom/client";
@@ -188,7 +188,7 @@ import Expenses from "./routes/expenses";
 import Invoices from "./routes/invoices";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 root.render(
   <BrowserRouter>
@@ -197,24 +197,24 @@ root.render(
       <Route path="expenses" element={<Expenses />} />
       <Route path="invoices" element={<Invoices />} />
     </Routes>
-  </BrowserRouter>
+  </BrowserRouter>,
 );
 ```
 
-Notice at `"/"` it renders `<App>`. At `"/invoices"` it renders `<Invoices>`. Nice work!
+注意在 `"/"` 它渲染 `<App>`。在 `"/invoices"` 它渲染 `<Invoices>`。干得漂亮！
 
-<docs-info>Remember if you're using StackBlitz to click the "Open in New Window" button in the inline browser's toolbar to be able to click the back/forward buttons in your browser.</docs-info>
+<docs-info>记住，如果你使用 StackBlitz，点击内置浏览器工具栏中的“在新窗口中打开”按钮来使用浏览器的后退/前进按钮。</docs-info>
 
-## Nested Routes
+## 嵌套路由
 
-You may have noticed when clicking the links that the layout in `App` disappears. Repeating shared layouts is a pain in the neck. We've learned that most UI is a series of nested layouts that almost always map to segments of the URL so this idea is baked right in to React Router.
+你可能注意到点击链接时 `App` 中的布局会消失。重复共享布局是一件很痛苦的事情。我们已经学到大多数 UI 是一系列嵌套布局，几乎总是映射到 URL 的段，所以这个想法已经内置到 React Router 中。
 
-Let's get some automatic, persistent layout handling by doing just two things:
+让我们通过两个操作来获得自动的、持久的布局处理：
 
-1. Nest the routes inside of the App route
-2. Render an Outlet
+1. 将路由嵌套在 App 路由内
+2. 渲染一个 Outlet
 
-First let's nest the routes. Right now the expenses and invoices routes are siblings to the app, we want to make them _children_ of the app route:
+首先让我们嵌套路由。现在 expenses 和 invoices 路由是 app 的兄弟，我们要把它们变成 app 路由的*子路由*：
 
 ```jsx lines=[17-20] filename=src/main.jsx
 import * as ReactDOM from "react-dom/client";
@@ -228,7 +228,7 @@ import Expenses from "./routes/expenses";
 import Invoices from "./routes/invoices";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 root.render(
   <BrowserRouter>
@@ -238,16 +238,16 @@ root.render(
         <Route path="invoices" element={<Invoices />} />
       </Route>
     </Routes>
-  </BrowserRouter>
+  </BrowserRouter>,
 );
 ```
 
-When routes have children it does two things:
+当路由有子路由时，它会做两件事：
 
-1. It nests the URLs (`"/" + "expenses"` and `"/" + "invoices"`)
-2. It will nest the UI components for shared layout when the child route matches:
+1. 嵌套 URL（`"/" + "expenses"` 和 `"/" + "invoices"`）
+2. 当子路由匹配时，它会嵌套 UI 组件以实现共享布局：
 
-However, before (2) will work we need to render an `Outlet` in the `App.jsx` "parent" route.
+但是，在 (2) 生效之前，我们需要在 `App.jsx` “父”路由中渲染一个 `Outlet`。
 
 ```jsx lines=[1,16] filename=src/App.jsx
 import { Outlet, Link } from "react-router-dom";
@@ -271,15 +271,15 @@ export default function App() {
 }
 ```
 
-Now click around again. The parent route (`App.js`) persists while the `<Outlet>` swaps between the two child routes (`<Invoices>` and `<Expenses>`)!
+现在再次点击。父路由（`App.js`）保持不变，而 `<Outlet>` 在两个子路由（`<Invoices>` 和 `<Expenses>`）之间切换！
 
-As we'll see later, this works at _any level_ of the route hierarchy and is incredibly powerful.
+正如我们稍后将看到的，这在路由层级的*任何层级*都有效，并且非常强大。
 
-## Listing the Invoices
+## 列出发票
 
-Normally you'd be fetching data from a server somewhere, but for this tutorial let's hard code some fake stuff so we can focus on routing.
+通常你会从某个服务器获取数据，但对于本教程，让我们硬编码一些假数据，这样我们可以专注于路由。
 
-Make a file at `src/data.js` and copy/paste this in there:
+在 `src/data.js` 创建一个文件，复制粘贴以下内容：
 
 ```js filename=src/data.js
 let invoices = [
@@ -320,7 +320,7 @@ export function getInvoices() {
 }
 ```
 
-Now we can use it in the invoices route. Let's also add a bit of styling to get a sidebar nav layout going on. Feel free to copy/paste all of this, but take special note of the `<Link>` elements `to` prop:
+现在我们可以在 invoices 路由中使用它。让我们也添加一些样式来实现侧边栏导航布局。可以随意复制粘贴这些，但请特别注意 `<Link>` 元素的 `to` prop：
 
 ```js lines=[17] filename=src/routes/invoices.jsx
 import { Link } from "react-router-dom";
@@ -351,15 +351,15 @@ export default function Invoices() {
 }
 ```
 
-Cool! Now click an invoice link and see what happens.
+很好！现在点击一个发票链接看看会发生什么。
 
 😨😨😨
 
-## Adding a "No Match" Route
+## 添加“无匹配”路由
 
-That didn't go as you might have expected. If you click those links the page goes blank! That's because none of the routes we've defined match a URL like the ones we're linking to: `"/invoices/123"`.
+这可能不是你预期的结果。如果你点击这些链接，页面会变空白！那是因为我们定义的没有任何路由匹配我们链接到的 URL：`"/invoices/123"`。
 
-Before we move on, it's good practice to always handle this "no match" case. Go back to your route config and add this:
+在继续之前，始终处理这种“无匹配”情况是好的实践。回到你的路由配置并添加以下内容：
 
 ```js lines=[5-12] filename=src/main.jsx
 <Routes>
@@ -378,11 +378,11 @@ Before we move on, it's good practice to always handle this "no match" case. Go 
 </Routes>
 ```
 
-The `"*"` has special meaning here. It will match only when no other routes do.
+这里的 `"*"` 有特殊含义。它只在没有其他路由匹配时才会匹配。
 
-## Reading URL Params
+## 读取 URL 参数
 
-Alright, back to the individual invoice URLs. Let's add a route for a specific invoice. We just visited some URLs like `"/invoices/1998"` and `"/invoices/2005"`, let's make a new component at `src/routes/invoice.jsx` to render at those URLs:
+好的，回到单个发票 URL。让我们为特定发票添加一个路由。我们刚刚访问了一些 URL，如 `"/invoices/1998"` 和 `"/invoices/2005"`，让我们在 `src/routes/invoice.jsx` 创建一个新组件来在这些 URL 上渲染：
 
 ```js filename=src/routes/invoice.jsx
 export default function Invoice() {
@@ -390,11 +390,11 @@ export default function Invoice() {
 }
 ```
 
-We'd like to render the invoice number instead of `"???"`. Normally in React you'd pass this as a prop: `<Invoice invoiceId="123" />`, but you don't control that information because it comes from the URL.
+我们想渲染发票号而不是 `"???"`。通常在 React 中你会将它作为 prop 传递：`<Invoice invoiceId="123" />`，但你无法控制这个信息，因为它来自 URL。
 
-Let's define a route that will match these kinds of URLs and enable us to get the invoice number from it.
+让我们定义一个可以匹配这类 URL 的路由，并能从中获取发票号。
 
-Create a new `<Route>` _inside_ of the "invoices" route like this:
+在 "invoices" 路由*内部*创建一个新的 `<Route>`，像这样：
 
 ```js lines=[4-6] filename=src/main.jsx
 <Routes>
@@ -415,14 +415,14 @@ Create a new `<Route>` _inside_ of the "invoices" route like this:
 </Routes>
 ```
 
-A couple things to note:
+注意两点：
 
-- We just created a route that matches urls like "/invoices/2005" and "/invoices/1998". The `:invoiceId` part of the path is a "URL param", meaning it can match any value as long as the pattern is the same.
-- The `<Route>` adds a second layer of route nesting when it matches: `<App><Invoices><Invoice /></Invoices></App>`. Because the `<Route>` is nested the UI will be nested too.
+- 我们刚刚创建了一个匹配像 "/invoices/2005" 和 "/invoices/1998" 这样 URL 的路由。路径中的 `:invoiceId` 部分是一个“URL 参数”，意味着只要模式相同它可以匹配任何值。
+- `<Route>` 在匹配时添加了第二层路由嵌套：`<App><Invoices><Invoice /></Invoices></App>`。因为 `<Route>` 是嵌套的，UI 也会嵌套。
 
-Alright, now go click a link to an invoice, note that the URL changes but the new invoice component doesn't show up yet. Do you know why?
+好的，现在点击一个发票链接，注意 URL 改变了但新的发票组件还没有显示。你知道为什么吗？
 
-That's right! We need to add an outlet to the parent layout route (we're really proud of you).
+没错！我们需要在父布局路由中添加一个 outlet（我们真的为你感到骄傲）。
 
 ```tsx lines=[1,24] filename=src/routes/invoices.jsx
 import { Link, Outlet } from "react-router-dom";
@@ -454,7 +454,7 @@ export default function Invoices() {
 }
 ```
 
-Okay, let's close the circle here. Open up the invoice component again and let's get the `:invoiceId` param from the URL:
+好的，让我们在这里闭合循环。再次打开 invoice 组件，让我们从 URL 获取 `:invoiceId` 参数：
 
 ```ts lines=[1,4] filename=src/routes/invoice.jsx
 import { useParams } from "react-router-dom";
@@ -465,13 +465,13 @@ export default function Invoice() {
 }
 ```
 
-Note that the key of the param on the `params` object is the same as the dynamic segment in the route path:
+注意 `params` 对象上参数的键名与路由路径中的动态段相同：
 
 ```
 :invoiceId -> params.invoiceId
 ```
 
-Let's use that information to build up a more interesting invoice page. Open up `src/data.js` and add a new function to lookup invoices by their number:
+让我们用这个信息来构建一个更有趣的发票页面。打开 `src/data.js` 并添加一个新函数来按编号查找发票：
 
 ```js filename=src/data.js lines=[7-11]
 // ...
@@ -482,12 +482,12 @@ export function getInvoices() {
 
 export function getInvoice(number) {
   return invoices.find(
-    (invoice) => invoice.number === number
+    (invoice) => invoice.number === number,
   );
 }
 ```
 
-And now back in `invoice.jsx` we use the param to look up an invoice and display more information:
+现在回到 `invoice.jsx`，我们使用参数来查找发票并显示更多信息：
 
 ```js filename=routes/invoice.jsx lines=[2,6]
 import { useParams } from "react-router-dom";
@@ -508,13 +508,13 @@ export default function Invoice() {
 }
 ```
 
-Note that we used `parseInt` around the param. It's very common for your data lookups to use a `number` type, but URL params are always `string`.
+注意我们在参数上使用了 `parseInt`。你的数据查找使用 `number` 类型是很常见的，但 URL 参数始终是 `string`。
 
-## Index Routes
+## 索引路由
 
-Index routes are possibly the most difficult concept in React Router for people to understand. So if you've struggled before, we hope this can clarify it for you.
+索引路由可能是 React Router 中人们最难理解的概念。所以如果你以前有过困惑，我们希望这可以为你澄清。
 
-Right now you're probably looking at one of the invoices. Click on the "Invoices" link in the global nav of your app. Notice that the main content area goes blank! We can fix this with an "index" route.
+现在你可能正在查看其中一个发票。点击应用全局导航中的 "Invoices" 链接。注意主内容区域变空白了！我们可以用一个“索引”路由来修复这个问题。
 
 ```jsx filename=src/main.jsx lines=[5-12]
 <Routes>
@@ -543,20 +543,20 @@ Right now you're probably looking at one of the invoices. Click on the "Invoices
 </Routes>
 ```
 
-Sweet! Now the index route fills the empty space!
+太好了！现在索引路由填充了空白区域！
 
-Notice it has the `index` prop instead of a `path`. That's because the index route shares the path of the parent. That's the whole point--it doesn't have a path.
+注意它有 `index` prop 而不是 `path`。那是因为索引路由与父路由共享路径。这就是它的全部意义——它没有路径。
 
-Maybe you're still scratching your head. There are a few ways we try to answer the question "what is an index route?". Hopefully one of these sticks for you:
+也许你还在困惑。我们有几种方式来回答“什么是索引路由？”这个问题。希望其中一个对你有用：
 
-- Index routes render in the parent routes outlet at the parent route's path.
-- Index routes match when a parent route matches but none of the other children match.
-- Index routes are the default child route for a parent route.
-- Index routes render when the user hasn't clicked one of the items in a navigation list yet.
+- 索引路由在父路由路径的父路由 outlet 中渲染。
+- 索引路由在父路由匹配但其他子路由都不匹配时匹配。
+- 索引路由是父路由的默认子路由。
+- 索引路由在用户还没有点击导航列表中的任何项目时渲染。
 
-## Active Links
+## 活动链接
 
-It's very common, especially in navigation lists, to display the link as the active link the user is looking at. Let's add this treatment to our invoices list by swapping out `Link` for `NavLink`.
+非常常见的做法是，特别是在导航列表中，将链接显示为用户正在查看的活动链接。让我们通过将 `Link` 替换为 `NavLink` 来给发票列表添加这个处理。
 
 ```jsx lines=[1,15-27] filename=src/routes/invoices.jsx
 import { NavLink, Outlet } from "react-router-dom";
@@ -594,29 +594,29 @@ export default function Invoices() {
 }
 ```
 
-We did three things there:
+我们做了三件事：
 
-1. We swapped out `Link` for `NavLink`.
-2. We changed the `style` from a simple object to a function that returns an object.
-3. We changed the color of our link by looking at the `isActive` value that `NavLink` passed to our styling function.
+1. 我们将 `Link` 替换为 `NavLink`。
+2. 我们将 `style` 从一个简单对象改为一个返回对象的函数。
+3. 我们通过查看 `NavLink` 传递给样式函数的 `isActive` 值来更改链接颜色。
 
-You can do the same thing with `className` on `NavLink`:
+你可以在 `NavLink` 上使用 `className` 做同样的事情：
 
 ```jsx
-// normal string
+// 普通字符串
 <NavLink className="red" />
 
-// function
+// 函数
 <NavLink className={({ isActive }) => isActive ? "red" : "blue"} />
 ```
 
-## Search Params
+## 搜索参数
 
-Search params are like URL params but they sit in a different position in the URL. Instead of being in the normal URL segments separated by `/`, they are at the end after a `?`. You've seen them across the web like `"/login?success=1"` or `"/shoes?brand=nike&sort=asc&sortby=price"`.
+搜索参数像 URL 参数，但它们在 URL 中的位置不同。它们不是在由 `/` 分隔的普通 URL 段中，而是在末尾的 `?` 之后。你在网上见过它们，比如 `"/login?success=1"` 或 `"/shoes?brand=nike&sort=asc&sortby=price"`。
 
-React Router makes it easy to read and manipulate the search params with `useSearchParams`. It works a lot like `React.useState()` but stores and sets the state in the URL search params instead of in memory.
+React Router 通过 `useSearchParams` 让你可以轻松地读取和操作搜索参数。它的工作方式很像 `React.useState()`，但是将状态存储和设置在 URL 搜索参数中而不是内存中。
 
-Let's see it in action by adding a little filter on the invoices nav list.
+让我们通过在发票导航列表上添加一个小的过滤器来看看它的效果。
 
 ```jsx filename=routes/invoices.jsx lines=[4,10,20-30,32-37]
 import {
@@ -676,18 +676,18 @@ export default function Invoices() {
 }
 ```
 
-Check this out, as the user types:
+看看这个，当用户输入时：
 
-- `setSearchParams()` is putting the `?filter=...` search params in the URL and rerendering the router.
-- `useSearchParams` is now returning a [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) with `"filter"` as one of its values.
-- We set the value of the input to whatever is in the filter search param (it's just like `useState` but in the URLSearchParams instead!)
-- We filter our list of invoices based on the filter search param.
+- `setSearchParams()` 将 `?filter=...` 搜索参数放入 URL 并重新渲染路由器。
+- `useSearchParams` 现在返回一个 [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)，其中 `"filter"` 是其值之一。
+- 我们将 input 的值设置为 filter 搜索参数中的任何内容（就像 `useState` 但在 URLSearchParams 中！）
+- 我们根据 filter 搜索参数过滤发票列表。
 
-## Custom Behavior
+## 自定义行为
 
-If you filter the list and then click a link, you'll notice that the list is no longer filtered and the search param is cleared from the `<input>` and the URL. You might want this, you might not! Maybe you want to keep the list filtered and keep the param in the URL.
+如果你过滤列表然后点击一个链接，你会注意到列表不再被过滤，搜索参数从 `<input>` 和 URL 中清除了。你可能想要这样，也可能不想！也许你想保持列表的过滤状态并将参数保留在 URL 中。
 
-We can persist the query string when we click a link by adding it to the link's href. We'll do that by composing `NavLink` and `useLocation` from React Router into our own `QueryNavLink` (maybe there's a better name, but that's what we're going with today).
+我们可以通过将查询字符串添加到链接的 href 来在点击链接时保持查询字符串。我们将通过组合 React Router 的 `NavLink` 和 `useLocation` 来创建我们自己的 `QueryNavLink`（也许有更好的名字，但今天我们就用这个）。
 
 ```js
 import { useLocation, NavLink } from "react-router-dom";
@@ -698,9 +698,9 @@ function QueryNavLink({ to, ...props }) {
 }
 ```
 
-You can put that code anywhere you want in your app and then replace your `NavLink` in `src/routes/invoices.jsx` with `QueryNavLink` and you're done.
+你可以把这段代码放在应用的任何你想要的地方，然后在 `src/routes/invoices.jsx` 中将 `NavLink` 替换为 `QueryNavLink` 就完成了。
 
-Like `useSearchParams`, `useLocation` returns a location that tells us information about the URL. A location looks something like this:
+像 `useSearchParams` 一样，`useLocation` 返回一个 location 对象，告诉我们关于 URL 的信息。一个 location 看起来像这样：
 
 ```js
 {
@@ -712,16 +712,16 @@ Like `useSearchParams`, `useLocation` returns a location that tells us informati
 }
 ```
 
-With that information, the task in `QueryNavLink` is pretty simple: add the `location.search` onto the `to` prop. You might be thinking, "Geez, seems like this should be a built-in component of React Router or something?". Well, let's look at another example.
+有了这些信息，`QueryNavLink` 中的任务就很简单了：将 `location.search` 添加到 `to` prop 上。你可能会想，“天哪，这似乎应该是 React Router 的一个内置组件什么的？”。好吧，让我们看看另一个例子。
 
-What if you had links like this on an ecommerce site.
+如果你在一个电商网站上有这样的链接。
 
 ```jsx
 <Link to="/shoes?brand=nike">Nike</Link>
 <Link to="/shoes?brand=vans">Vans</Link>
 ```
 
-And then you wanted to style them as "active" when the url search params match the brand? You could make a component that does exactly that pretty quickly with stuff you've learned in this tutorial:
+然后你想在 URL 搜索参数与品牌匹配时将它们样式化为“活动”？你可以用本教程中学到的知识很快地创建一个正好做到这一点的组件：
 
 ```jsx
 function BrandLink({ brand, ...props }) {
@@ -737,7 +737,7 @@ function BrandLink({ brand, ...props }) {
 }
 ```
 
-That's going to be active for `"/shoes?brand=nike"` as well as `"/shoes?brand=nike&brand=vans"`. Maybe you want it to be active when there's only one brand selected:
+它将对 `"/shoes?brand=nike"` 以及 `"/shoes?brand=nike&brand=vans"` 都显示为活动。也许你想要只在选择了一个品牌时才显示为活动：
 
 ```js
 let brands = params.getAll("brand");
@@ -746,7 +746,7 @@ let isActive =
 // ...
 ```
 
-Or maybe you want the links to be _additive_ (clicking Nike and then Vans adds both brands to the search params) instead of replacing the brand:
+或者你想让链接是*叠加的*（点击 Nike 然后点击 Vans 会将两个品牌都添加到搜索参数）而不是替换品牌：
 
 ```jsx [4-6,10]
 function BrandLink({ brand, ...props }) {
@@ -765,7 +765,7 @@ function BrandLink({ brand, ...props }) {
 }
 ```
 
-Or maybe you want it to add the brand if it's not there already and remove it if it's clicked again!
+或者你想要如果品牌还不在就添加，如果再次点击就移除！
 
 ```jsx [7-12]
 function BrandLink({ brand, ...props }) {
@@ -776,8 +776,9 @@ function BrandLink({ brand, ...props }) {
   } else {
     params = new URLSearchParams(
       Array.from(params).filter(
-        ([key, value]) => key !== "brand" || value !== brand
-      )
+        ([key, value]) =>
+          key !== "brand" || value !== brand,
+      ),
     );
   }
   return (
@@ -790,27 +791,27 @@ function BrandLink({ brand, ...props }) {
 }
 ```
 
-As you can see, even in this fairly simple example there are a lot of valid behaviors you might want. React Router doesn't try to solve every use-case we've ever heard of directly. Instead, we give you the components and hooks to compose whatever behavior you need.
+如你所见，即使在这个相当简单的例子中，你可能想要的有效行为也有很多。React Router 不会试图直接解决我们听过的每一个用例。相反，我们给你提供组件和 hooks，让你组合出你需要的任何行为。
 
-## Navigating Programmatically
+## 编程式导航
 
-Okay, back to our app. Hang in there, you're almost done!
+好的，回到我们的应用。坚持住，你快完成了！
 
-Most of the time the URL changes is in response to the user clicking a link. But sometimes you, the programmer, want to change the URL. A very common use case is after a data update like creating or deleting a record.
+大多数时候 URL 变化是用户点击链接的响应。但有时你——程序员——想要更改 URL。一个非常常见的用例是在数据更新后，比如创建或删除记录。
 
-Let's add a button that marks the invoice as paid and then navigates to the index route.
+让我们添加一个按钮，将发票标记为已付款，然后导航到索引路由。
 
-First you can copy and paste this function that deletes an invoice from our fake data store:
+首先你可以复制粘贴这个从我们的假数据存储中删除发票的函数：
 
 ```js filename=src/data.js
 export function deleteInvoice(number) {
   invoices = invoices.filter(
-    (invoice) => invoice.number !== number
+    (invoice) => invoice.number !== number,
   );
 }
 ```
 
-Now let's add the delete button, call our new function, and navigate to the index route:
+现在让我们添加删除按钮，调用新函数，并导航到索引路由：
 
 ```js lines=[1-6,9-10,21-30] filename=src/routes/invoice.jsx
 import {
@@ -848,13 +849,13 @@ export default function Invoice() {
 }
 ```
 
-Notice we used `useLocation` again to persist the query string by adding `location.search` to the navigation link.
+注意我们再次使用了 `useLocation` 来通过将 `location.search` 添加到导航链接来保持查询字符串。
 
-## Getting Help
+## 获取帮助
 
-Congrats! You're all done with this tutorial. We hope it helped you get your bearings with React Router.
+恭喜！你已经完成了本教程。我们希望它能帮助你熟悉 React Router。
 
-If you're having trouble, check out the [Resources](/resources) page to get help. Good luck!
+如果你遇到困难，请查看[资源](/resources)页面获取帮助。祝你好运！
 
 [stackblitz-app]: https://stackblitz.com/edit/github-agqlf5?file=src/App.jsx
 [stackblitz-template]: https://stackblitz.com/github/remix-run/react-router/tree/main/tutorial?file=src/App.jsx

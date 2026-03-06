@@ -6,11 +6,11 @@ new: true
 # `<RouterProvider>`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function RouterProvider(
-  props: RouterProviderProps
+  props: RouterProviderProps,
 ): React.ReactElement;
 
 interface RouterProviderProps {
@@ -22,9 +22,9 @@ interface RouterProviderProps {
 
 </details>
 
-All [data router][picking-a-router] objects are passed to this component to render your app and enable the rest of the data APIs.
+所有[数据路由器][picking-a-router]对象都传递给此组件来渲染你的应用并启用其余的数据 API。
 
-<docs-info>Due to the decoupling of fetching and rendering in the design of the data APIs, you should create your router outside of the React tree with a statically defined set of routes. For more information on this design, please see the [Remixing React Router][remixing-react-router] blog post and the [When to Fetch][when-to-fetch] conference talk.</docs-info>
+<docs-info>由于数据 API 的设计将获取和渲染解耦，你应该在 React 树之外使用静态定义的路由集合来创建路由器。关于此设计的更多信息，请参阅 [Remixing React Router][remixing-react-router] 博客文章和 [When to Fetch][when-to-fetch] 会议演讲。</docs-info>
 
 ```jsx lines=[24]
 import {
@@ -53,13 +53,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider
     router={router}
     fallbackElement={<BigSpinner />}
-  />
+  />,
 );
 ```
 
 ## `fallbackElement`
 
-If you are not server rendering your app, `createBrowserRouter` will initiate all matching route loaders when it mounts. During this time, you can provide a `fallbackElement` to give the user some indication that the app is working. Make that static hosting TTFB count!
+如果你没有对应用进行服务端渲染，`createBrowserRouter` 在挂载时会启动所有匹配的路由 loader。在此期间，你可以提供一个 `fallbackElement` 给用户一些应用正在工作的提示。让静态托管的 TTFB 物有所值！
 
 ```tsx
 <RouterProvider
@@ -70,7 +70,7 @@ If you are not server rendering your app, `createBrowserRouter` will initiate al
 
 ## `future`
 
-An optional set of [Future Flags][api-development-strategy] to enable. We recommend opting into newly released future flags sooner rather than later to ease your eventual migration to v7.
+一组可选的 [Future Flags][api-development-strategy]。我们建议尽早启用新发布的 future flag，以便将来更顺利地迁移到 v7。
 
 ```jsx
 function App() {

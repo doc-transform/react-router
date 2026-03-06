@@ -5,20 +5,20 @@ new: true
 
 # `replace`
 
-This is a small wrapper around [`redirect`][redirect] that will trigger a client-side redirect to the new location using `history.replaceState` instead of `history.pushState`.
+这是对 [`redirect`][redirect] 的一个小型包装，它会使用 `history.replaceState` 而不是 `history.pushState` 来触发客户端重定向到新位置。
 
-## Type Declaration
+## 类型声明
 
 ```ts
 type RedirectFunction = (
   url: string,
-  init?: number | ResponseInit
+  init?: number | ResponseInit,
 ) => Response;
 ```
 
 ## `url`
 
-The URL to redirect to.
+要重定向到的 URL。
 
 ```js
 replace("/otherapp/login");
@@ -26,7 +26,7 @@ replace("/otherapp/login");
 
 ## `init`
 
-The `status` or the [Response][response] options to be used in the response.
+`status` 或响应中要使用的 [Response][response] 选项。
 
 [response]: https://developer.mozilla.org/en-US/docs/Web/API/Response/Response
 [redirect]: ./redirect

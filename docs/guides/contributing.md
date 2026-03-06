@@ -1,25 +1,25 @@
 ---
-title: Contributing
+title: 参与贡献
 order: 8
 ---
 
-# Contributing to React Router
+# 为 React Router 做贡献
 
-Thanks for contributing, you rock!
+感谢你的贡献，你真棒！
 
-When it comes to open source, there are many different kinds of contributions that can be made, all of which are valuable. Here are a few guidelines that should help you as you prepare your contribution.
+当涉及开源时，可以做出许多不同类型的贡献，所有这些都是有价值的。以下是一些指南，可以在你准备贡献时帮助你。
 
-## Setup
+## 设置
 
-Before you can contribute to the codebase, you will need to fork the repo. This will look a bit different depending on what type of contribution you are making:
+在你能够为代码库做贡献之前，你需要先 fork 仓库。根据你做的贡献类型，这会略有不同：
 
-- All new features, bug-fixes, or **anything that touches `react-router` code** should be branched off of and merged into the `dev` branch
-- Changes that only touch documentation can be branched off of and merged into the `main` branch
+- 所有新功能、bug 修复或**任何涉及 `react-router` 代码**的内容应从 `dev` 分支拉取并合并到 `dev` 分支
+- 仅涉及文档的更改可以从 `main` 分支拉取并合并到 `main` 分支
 
-The following steps will get you set up to contribute changes to this repo:
+以下步骤将帮助你设置环境以便为此仓库做贡献：
 
-1. Fork the repo (click the <kbd>Fork</kbd> button at the top right of [this page](https://github.com/remix-run/react-router))
-2. Clone your fork locally
+1. Fork 仓库（点击[本页面](https://github.com/remix-run/react-router)右上角的 <kbd>Fork</kbd> 按钮）
+2. 在本地克隆你的 fork
 
 ```bash
 # in a terminal, cd to parent directory where you want your clone to be, then
@@ -30,57 +30,57 @@ cd react-router
 git checkout dev
 ```
 
-3. Install dependencies and build. React Router uses [pnpm](https://pnpm.io), so you should too. If you install using `npm`, unnecessary `package-lock.json` files will be generated.
+3. 安装依赖并构建。React Router 使用 [pnpm](https://pnpm.io)，你也应该使用。如果你使用 `npm` 安装，会生成不必要的 `package-lock.json` 文件。
 
-## Think You Found a Bug?
+## 你觉得发现了 Bug？
 
-Please conform to the issue template and provide a clear path to reproduction with a code example. Best is a pull request with a failing test. Next best is a link to CodeSandbox or repository that illustrates the bug.
+请符合 issue 模板并提供清晰的复现路径和代码示例。最好的是提交一个包含失败测试的 pull request。其次是一个能说明 bug 的 CodeSandbox 或仓库链接。
 
-## Adding an Example?
+## 添加示例？
 
-Examples can be added directly to the main branch. Create a branch off of your local clone of main. Once you've finished, create a pull request and outline your example.
+示例可以直接添加到 main 分支。从你本地 main 的克隆创建一个分支。完成后，创建一个 pull request 并概述你的示例。
 
-## Proposing New or Changed API?
+## 提议新的或变更的 API？
 
-Please provide thoughtful comments and some sample code that show what you'd like to do with React Router in your app. It helps the conversation if you can show us how you're limited by the current API first before jumping to a conclusion about what needs to be changed and/or added.
+请提供有思考的评论和一些示例代码，展示你希望在你的应用中如何使用 React Router。如果你先向我们展示当前 API 的局限性，再得出需要改变和/或添加什么的结论，这有助于对话。
 
-We have learned by experience that small APIs are usually better, so we may be a little reluctant to add something new unless there's an obvious limitation with the current API. That being said, we are always anxious to hear about cases that we just haven't considered before, so please don't be shy! :)
+我们从经验中学到，小的 API 通常更好，所以我们可能对添加新内容有点不情愿，除非当前 API 有明显的局限性。话虽如此，我们始终渴望听到我们之前没有考虑到的情况，所以请不要害羞！:)
 
-## Issue Not Getting Attention?
+## Issue 没有得到关注？
 
-If you need a bug fixed and nobody is fixing it, your best bet is to provide a fix for it and make a [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request). Open source code belongs to all of us, and it's all of our responsibility to push it forward.
+如果你需要修复一个 bug 而没有人修复它，你最好的选择是自己提供修复并提交一个 [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)。开源代码属于我们所有人，推动它前进是我们所有人的责任。
 
-## Making a Pull Request?
+## 提交 Pull Request？
 
-Pull requests need only the approval of two or more collaborators to be merged; when the PR author is a collaborator, that counts as one.
+Pull request 只需要两名或更多协作者的批准即可合并；当 PR 作者是协作者时，这算作一个。
 
-<docs-warning>When creating the PR in GitHub, make sure that you set the base to the correct branch. If you are submitting a PR that touches any code, this should be the `dev` branch. You set the base in GitHub when authoring the PR with the dropdown below the "Compare changes" heading: <img src="https://raw.githubusercontent.com/remix-run/react-router/main/static/base-branch.png" alt="" width="460" height="350" /></docs-warning>
+<docs-warning>在 GitHub 中创建 PR 时，确保将 base 设置为正确的分支。如果你提交的 PR 涉及任何代码，应该是 `dev` 分支。你可以在撰写 PR 时通过“Compare changes”标题下的下拉菜单设置 base：<img src="https://raw.githubusercontent.com/remix-run/react-router/main/static/base-branch.png" alt="" width="460" height="350" /></docs-warning>
 
-### Tests
+### 测试
 
-All commits that fix bugs or add features need a test.
+所有修复 bug 或添加功能的提交都需要测试。
 
-`<blink>`Do not merge code without tests!`</blink>`
+`<blink>`不要合并没有测试的代码！`</blink>`
 
-### Docs + Examples
+### 文档 + 示例
 
-All commits that change or add to the API must be done in a pull request that also updates all relevant examples and docs.
+所有更改或添加 API 的提交必须在一个 pull request 中同时更新所有相关的示例和文档。
 
-## Development
+## 开发
 
-### Packages
+### 包
 
-React Router uses a monorepo to host code for multiple packages. These packages live in the `packages` directory.
+React Router 使用 monorepo 来托管多个包的代码。这些包位于 `packages` 目录中。
 
-We use [pnpm workspaces](https://pnpm.io/workspaces/) to manage installation of dependencies and running various scripts. To get everything installed, make sure you have [pnpm installed](https://pnpm.io/installation), and then run `pnpm install` from the repo root.
+我们使用 [pnpm workspaces](https://pnpm.io/workspaces/) 来管理依赖安装和运行各种脚本。要安装所有内容，确保已安装 [pnpm](https://pnpm.io/installation)，然后从仓库根目录运行 `pnpm install`。
 
-### Building
+### 构建
 
-Calling `pnpm build` from the root directory will run the build, which should take only a few seconds. It's important to build all the packages together because `react-router-dom` and `react-router-native` both use `react-router` as a dependency.
+从根目录调用 `pnpm build` 将运行构建，应该只需要几秒钟。同时构建所有包很重要，因为 `react-router-dom` 和 `react-router-native` 都使用 `react-router` 作为依赖。
 
-### Testing
+### 测试
 
-Before running the tests, you need to run a build. After you build, running `pnpm test` from the root directory will run **every** package's tests. If you want to run tests for a specific package, use `pnpm test --projects packages/<package-name>`:
+在运行测试之前，你需要先运行构建。构建完成后，从根目录运行 `pnpm test` 将运行**每个**包的测试。如果你想运行特定包的测试，使用 `pnpm test --projects packages/<package-name>`：
 
 ```bash
 # Test all packages
@@ -90,25 +90,25 @@ pnpm test
 pnpm test --projects packages/react-router-dom
 ```
 
-## Repository Branching
+## 仓库分支
 
-This repo maintains separate branches for different purposes. They will look something like this:
+此仓库为不同目的维护单独的分支。它们看起来像这样：
 
 ```
-- main   > the most recent release and current docs
-- dev    > code under active development between stable releases
-- v5     > the most recent code for a specific major release
+- main   > 最新的发布版本和当前文档
+- dev    > 稳定版本之间正在积极开发的代码
+- v5     > 特定主版本的最新代码
 ```
 
-There may be other branches for various features and experimentation, but all of the magic happens from these branches.
+可能还有其他分支用于各种功能和实验，但所有的魔法都发生在这些分支上。
 
-## New Releases
+## 新版本发布
 
-When it's time to cut a new release, we follow a process based on our branching strategy depending on the type of release.
+当到了发布新版本的时候，我们会根据发布类型遵循基于分支策略的流程。
 
-### `react-router@next` Releases
+### `react-router@next` 发布
 
-We create experimental releases from the current state of the `dev` branch. They can be installed by using the `@next` tag:
+我们从 `dev` 分支的当前状态创建实验性发布。可以通过 `@next` 标签安装：
 
 ```bash
 pnpm add react-router-dom@next
@@ -116,9 +116,9 @@ pnpm add react-router-dom@next
 npm install react-router-dom@next
 ```
 
-These releases will be automated as PRs are merged into the `dev` branch.
+这些发布将在 PR 合并到 `dev` 分支时自动进行。
 
-### Latest Major Releases
+### 最新主版本发布
 
 ```bash
 # Start from the dev branch.
@@ -153,9 +153,9 @@ git push origin --delete release/v6.1.0
 # GitHub Actions take care of the rest!
 ```
 
-### Hot-fix Releases
+### 紧急修复发布
 
-Sometimes we have a crucial bug that needs to be patched right away. If the bug affects the latest release, we can create a new version directly from `main` (or the relevant major release branch where the bug exists):
+有时我们有一个关键 bug 需要立即修复。如果 bug 影响了最新版本，我们可以直接从 `main`（或 bug 存在的相关主版本分支）创建新版本：
 
 ```bash
 # From the main branch, make sure to run the build and all tests

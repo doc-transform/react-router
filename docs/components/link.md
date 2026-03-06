@@ -4,10 +4,10 @@ title: Link
 
 # `<Link>`
 
-<docs-info>This is the web version of `<Link>`. For the React Native version, [go here][link-native].</docs-info>
+<docs-info>这是 `<Link>` 的 Web 版本。React Native 版本请[点击这里][link-native]。</docs-info>
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function Link(props: LinkProps): React.ReactElement;
@@ -37,7 +37,7 @@ interface Path {
 
 </details>
 
-A `<Link>` is an element that lets the user navigate to another page by clicking or tapping on it. In `react-router-dom`, a `<Link>` renders an accessible `<a>` element with a real `href` that points to the resource it's linking to. This means that things like right-clicking a `<Link>` work as you'd expect. You can use `<Link reloadDocument>` to skip client side routing and let the browser handle the transition normally (as if it were an `<a href>`).
+`<Link>` 是一个让用户通过点击或触摸导航到另一个页面的元素。在 `react-router-dom` 中，`<Link>` 渲染一个可访问的 `<a>` 元素，其 `href` 指向所链接的资源。这意味着右键点击 `<Link>` 等操作会按预期工作。你可以使用 `<Link reloadDocument>` 跳过客户端路由，让浏览器正常处理过渡（就像 `<a href>` 一样）。
 
 ```tsx
 import * as React from "react";
@@ -59,18 +59,18 @@ function UsersIndexPage({ users }) {
 }
 ```
 
-A relative `<Link to>` value (that does not begin with `/`) resolves relative to the parent route, which means that it builds upon the URL path that was matched by the route that rendered that `<Link>`. It may contain `..` to link to routes further up the hierarchy. In these cases, `..` works exactly like the command-line `cd` function; each `..` removes one segment of the parent path.
+相对的 `<Link to>` 值（不以 `/` 开头）相对于父路由解析，这意味着它基于渲染该 `<Link>` 的路由所匹配的 URL 路径来构建。它可以包含 `..` 来链接到层级结构中更上层的路由。在这些情况下，`..` 的工作方式与命令行的 `cd` 功能完全相同；每个 `..` 移除父路径的一个片段。
 
-<docs-info>`<Link to>` with a `..` behaves differently from a normal `<a href>` when the current URL ends with `/`. `<Link to>` ignores the trailing slash, and removes one URL segment for each `..`. But an `<a href>` value handles `..` differently when the current URL ends with `/` vs when it does not.</docs-info>
+<docs-info>当当前 URL 以 `/` 结尾时，`<Link to>` 中的 `..` 与普通 `<a href>` 的行为不同。`<Link to>` 忽略尾部斜杠，每个 `..` 移除一个 URL 片段。但 `<a href>` 值在当前 URL 以 `/` 结尾和不以 `/` 结尾时对 `..` 的处理方式不同。</docs-info>
 
-<docs-info>Please see the [Splat Paths][relativesplatpath] section on the `useResolvedPath` docs for a note on the behavior of the `future.v7_relativeSplatPath` future flag for relative `<Link to>` behavior within splat routes</docs-info>
+<docs-info>请参阅 `useResolvedPath` 文档中的[通配路径][relativesplatpath]部分，了解 `future.v7_relativeSplatPath` future flag 对通配路由中相对 `<Link to>` 行为的影响</docs-info>
 
 ## `relative`
 
-By default, links are relative to the route hierarchy (`relative="route"`), so `..` will go up one `Route` level from the current contextual route. Occasionally, you may find that you have matching URL patterns that do not make sense to be nested, and you'd prefer to use relative _path_ routing from the current contextual route path. You can opt into this behavior with `relative="path"`:
+默认情况下，链接相对于路由层级（`relative="route"`），因此 `..` 会从当前上下文路由上升一个 `Route` 层级。有时你可能会发现某些匹配的 URL 模式嵌套在一起没有意义，此时你希望使用相对于当前上下文路由路径的*路径*路由。你可以使用 `relative="path"` 来启用此行为：
 
 ```jsx
-// Contact and EditContact do not share additional UI layout
+// Contact 和 EditContact 不共享额外的 UI 布局
 <Route path="/" element={<Layout />}>
   <Route path="contacts/:id" element={<Contact />} />
   <Route
@@ -80,9 +80,9 @@ By default, links are relative to the route hierarchy (`relative="route"`), so `
 </Route>;
 
 function EditContact() {
-  // Since Contact is not a parent of EditContact we need to go up one level
-  // in the current contextual route path, instead of one level in the Route
-  // hierarchy
+  // 由于 Contact 不是 EditContact 的父级，我们需要在
+  // 当前上下文路由路径中上升一级，而不是在 Route
+  // 层级结构中上升一级
   return (
     <Link to=".." relative="path">
       Cancel
@@ -91,21 +91,21 @@ function EditContact() {
 }
 ```
 
-Please note that `relative: "path"` only impacts the resolution of a relative path. It does not change the "starting" location for that relative path resolution. This resolution is always relative to the current location in the Route hierarchy (i.e., the route `Link` is rendered in).
+请注意，`relative: "path"` 仅影响相对路径的解析方式。它不会改变该相对路径解析的"起始"位置。解析始终相对于 Route 层级中的当前位置（即 `Link` 所渲染的路由）。
 
-If you wish to use path-relative routing against the current URL instead of the route hierarchy, you can do that with the current [`location`][use-location] and the `URL` constructor (note the trailing slash behavior):
+如果你希望针对当前 URL 而非路由层级使用路径相对路由，可以使用当前 [`location`][use-location] 和 `URL` 构造函数（注意尾部斜杠的行为）：
 
 ```js
-// Assume the current URL is https://remix.run/docs/en/main/start/quickstart
+// 假设当前 URL 为 https://remix.run/docs/en/main/start/quickstart
 let location = useLocation();
 
-// Without trailing slashes
+// 没有尾部斜杠
 new URL(".", window.origin + location.pathname);
 // 'https://remix.run/docs/en/main/start/'
 new URL("..", window.origin + location.pathname);
 // 'https://remix.run/docs/en/main/'
 
-// With trailing slashes:
+// 有尾部斜杠：
 new URL(".", window.origin + location.pathname + "/");
 // 'https://remix.run/docs/en/main/start/quickstart/'
 new URL("..", window.origin + location.pathname + "/");
@@ -114,27 +114,27 @@ new URL("..", window.origin + location.pathname + "/");
 
 ## `preventScrollReset`
 
-If you are using [`<ScrollRestoration>`][scrollrestoration], this lets you prevent the scroll position from being reset to the top of the window when the link is clicked.
+如果你使用了 [`<ScrollRestoration>`][scrollrestoration]，此属性可以阻止点击链接时将滚动位置重置到窗口顶部。
 
 ```tsx
 <Link to="?tab=one" preventScrollReset={true} />
 ```
 
-This does not prevent the scroll position from being restored when the user comes back to the location with the back/forward buttons, it just prevents the reset when the user clicks the link.
+这不会阻止用户使用前进/后退按钮回到该位置时恢复滚动位置，它只阻止用户点击链接时的重置。
 
-An example when you might want this behavior is a list of tabs that manipulate the url search params that aren't at the top of the page. You wouldn't want the scroll position to jump up to the top because it might scroll the toggled content out of the viewport!
+你可能希望使用此行为的一个场景是：一组操作 url 搜索参数的标签页不在页面顶部。你不希望滚动位置跳到顶部，因为那可能会将切换的内容滚出视口！
 
 ```
       ┌─────────────────────────┐
       │                         ├──┐
       │                         │  │
-      │                         │  │ scrolled
-      │                         │  │ out of view
+      │                         │  │ 已滚出
+      │                         │  │ 视口
       │                         │  │
       │                         │ ◄┘
     ┌─┴─────────────────────────┴─┐
     │                             ├─┐
-    │                             │ │ viewport
+    │                             │ │ 视口
     │   ┌─────────────────────┐   │ │
     │   │  tab   tab   tab    │   │ │
     │   ├─────────────────────┤   │ │
@@ -151,17 +151,17 @@ An example when you might want this behavior is a list of tabs that manipulate t
 
 ## `replace`
 
-The `replace` property can be used if you'd like to replace the current entry in the history stack via [`history.replaceState`][history-replace-state] instead of the default usage of [`history.pushState`][history-push-state].
+如果你想通过 [`history.replaceState`][history-replace-state] 替换历史栈中的当前条目，而不是使用默认的 [`history.pushState`][history-push-state]，可以使用 `replace` 属性。
 
 ## `state`
 
-The `state` property can be used to set a stateful value for the new location which is stored inside [history state][history-state]. This value can subsequently be accessed via `useLocation()`.
+`state` 属性可用于为新位置设置一个存储在 [history state][history-state] 中的有状态值。该值随后可以通过 `useLocation()` 访问。
 
 ```tsx
 <Link to="new-path" state={{ some: "value" }} />
 ```
 
-You can access this state value while on the "new-path" route:
+你可以在 "new-path" 路由上访问此状态值：
 
 ```ts
 let { state } = useLocation();
@@ -169,11 +169,11 @@ let { state } = useLocation();
 
 ## `reloadDocument`
 
-The `reloadDocument` property can be used to skip client side routing and let the browser handle the transition normally (as if it were an `<a href>`).
+`reloadDocument` 属性可用于跳过客户端路由，让浏览器正常处理过渡（就像 `<a href>` 一样）。
 
 ## `viewTransition`
 
-The `viewTransition` prop enables a [View Transition][view-transitions] for this navigation by wrapping the final state update in `document.startViewTransition()`:
+`viewTransition` 属性通过将最终状态更新包装在 `document.startViewTransition()` 中，为此次导航启用[视图过渡][view-transitions]：
 
 ```jsx
 <Link to={to} viewTransition>
@@ -181,7 +181,7 @@ The `viewTransition` prop enables a [View Transition][view-transitions] for this
 </Link>
 ```
 
-If you need to apply specific styles for this view transition, you will also need to leverage the [`useViewTransitionState()`][use-view-transition-state] hook (or check out the `transitioning` class and `isTransitioning` render prop in [NavLink][navlink]):
+如果你需要为此视图过渡应用特定样式，还需要使用 [`useViewTransitionState()`][use-view-transition-state] hook（或者查看 [NavLink][navlink] 中的 `transitioning` 类名和 `isTransitioning` 渲染属性）：
 
 ```jsx
 function ImageLink(to) {
@@ -211,7 +211,7 @@ function ImageLink(to) {
 }
 ```
 
-<docs-warning>`viewTransition` only works when using a data router, see [Picking a Router][picking-a-router]</docs-warning>
+<docs-warning>`viewTransition` 仅在使用数据路由器时有效，参见[选择路由器][picking-a-router]</docs-warning>
 
 [link-native]: ./link-native
 [scrollrestoration]: ./scroll-restoration

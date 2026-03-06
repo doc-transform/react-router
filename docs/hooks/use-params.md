@@ -5,17 +5,17 @@ title: useParams
 # `useParams`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useParams<
-  K extends string = string
+  K extends string = string,
 >(): Readonly<Params<K>>;
 ```
 
 </details>
 
-The `useParams` hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the `<Route path>`. Child routes inherit all params from their parent routes.
+`useParams` hook 返回一个由当前 URL 中与 `<Route path>` 匹配的动态参数组成的键/值对对象。子路由会继承其父路由的所有参数。
 
 ```tsx
 import * as React from 'react';

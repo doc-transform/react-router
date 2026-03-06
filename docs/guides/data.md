@@ -1,11 +1,11 @@
 ---
-title: Data Synchronization
+title: 数据同步
 hidden: true
 ---
 
-# Data Synchronization
+# 数据同步
 
-React Router not only keeps your UI in sync with the URL, but also your data. It does this with several APIs
+React Router 不仅让你的 UI 与 URL 保持同步，还与你的数据保持同步。它通过以下几个 API 实现：
 
 - [loader][loader]
 - [action][action]

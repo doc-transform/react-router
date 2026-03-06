@@ -1,16 +1,15 @@
 <!-- markdownlint-disable no-duplicate-header no-emphasis-as-heading no-inline-html -->
 
-# React Router Releases
+# React Router 版本发布记录
 
-This page lists all releases/release notes for React Router back to `v6.0.0`. For releases prior to v6, please refer to the [Github Releases Page](https://github.com/remix-run/react-router/releases).
+本页面列出了 React Router 从 `v6.0.0` 至今的所有版本发布记录。v6 之前的版本请参阅 [Github Releases 页面](https://github.com/remix-run/react-router/releases)。
+我们选择在此文件中管理版本发布记录，而非使用分页的 Github Releases 页面，原因有二：
 
-We manage release notes in this file instead of the paginated Github Releases Page for 2 reasons:
-
-- Pagination in the Github UI means that you cannot easily search release notes for a large span of releases at once
-- The paginated Github interface also cuts off longer releases notes without indication in list view, and you need to click into the detail view to see the full set of release notes
+- Github UI 的分页机制意味着你无法方便地一次性搜索大量版本的发布记录
+- Github 的分页界面在列表视图中还会截断较长的发布记录而不给出提示，你需要点击进入详情视图才能看到完整的发布记录
 
 <details>
-  <summary>Table of Contents</summary>
+  <summary>目录</summary>
 
 - [React Router Releases](#react-router-releases)
   - [v6.30.3](#v6303)
@@ -213,293 +212,293 @@ We manage release notes in this file instead of the paginated Github Releases Pa
 
 </details>
 
-<!-- To add a new release, copy from this template:
-
+<!-- 添加新版本时，请复制以下模板：
 ## v6.X.Y
 
 Date: YYYY-MM-DD
 
-### What's Changed
+### 重要变更
 
-#### Big New Feature 1
+#### 重大新特性 1
 
-#### Big New Feature 2
+#### 重大新特性 2
 
-### Minor Changes
+### 次要变更
 
-### Patch Changes
+### 补丁变更
 
-**Full Changelog**: [`v6.X.Y...v6.X.Y`](https://github.com/remix-run/react-router/compare/react-router@6.X.Y...react-router@6.X.Y)
+**完整更新日志**: [`v6.X.Y...v6.X.Y`](https://github.com/remix-run/react-router/compare/react-router@6.X.Y...react-router@6.X.Y)
 -->
 
 ## v6.30.3
 
 Date: 2026-01-07
 
-### Patch Changes
+### 补丁变更
 
-- Validate redirect locations ([#14707](https://github.com/remix-run/react-router/pull/14707))
+- 验证重定向位置 ([#14707](https://github.com/remix-run/react-router/pull/14707))
 
-**Full Changelog**: [`v6.30.2...v6.30.3`](https://github.com/remix-run/react-router/compare/react-router@6.30.2...react-router@6.30.3)
+**完整更新日志**: [`v6.30.2...v6.30.3`](https://github.com/remix-run/react-router/compare/react-router@6.30.2...react-router@6.30.3)
 
 ## v6.30.2
 
 Date: 2025-11-13
 
-### Patch Changes
+### 补丁变更
 
-- Normalize double-slashes in `resolvePath` ([#14537](https://github.com/remix-run/react-router/pull/14537))
+- 规范化 `resolvePath` 中的双斜杠 ([#14537](https://github.com/remix-run/react-router/pull/14537))
 
-**Full Changelog**: [`v6.30.1...v6.30.2`](https://github.com/remix-run/react-router/compare/react-router@6.30.1...react-router@6.30.2)
+**完整更新日志**: [`v6.30.1...v6.30.2`](https://github.com/remix-run/react-router/compare/react-router@6.30.1...react-router@6.30.2)
 
 ## v6.30.1
 
 Date: 2025-05-20
 
-### Patch Changes
+### 补丁变更
 
-- Partially revert optimization added in `6.29.0` to reduce calls to `matchRoutes` because it surfaced other issues ([#13623](https://github.com/remix-run/react-router/pull/13623))
-- Stop logging invalid warning when `v7_relativeSplatPath` is set to `false` ([#13502](https://github.com/remix-run/react-router/pull/13502))
+- 部分恢复 `6.29.0` 中添加的减少 `matchRoutes` 调用的优化，因为它引发了其他问题 ([#13623](https://github.com/remix-run/react-router/pull/13623))
+- 当 `v7_relativeSplatPath` 设置为 `false` 时不再记录无效警告 ([#13502](https://github.com/remix-run/react-router/pull/13502))
 
-**Full Changelog**: [`v6.30.0...v6.30.1`](https://github.com/remix-run/react-router/compare/react-router@6.30.0...react-router@6.30.1)
+**完整更新日志**: [`v6.30.0...v6.30.1`](https://github.com/remix-run/react-router/compare/react-router@6.30.0...react-router@6.30.1)
 
 ## v6.30.0
 
 Date: 2025-02-27
 
-### Minor Changes
+### 次要变更
 
-- Add `fetcherKey` as a parameter to `patchRoutesOnNavigation` ([#13109](https://github.com/remix-run/react-router/pull/13109))
+- 新增 `fetcherKey` 作为 `patchRoutesOnNavigation` 的参数 ([#13109](https://github.com/remix-run/react-router/pull/13109))
 
-### Patch Changes
+### 补丁变更
 
-- Fix regression introduced in `6.29.0` via [#12169](https://github.com/remix-run/react-router/pull/12169) that caused issues navigating to hash routes inside splat routes for applications using Lazy Route Discovery (`patchRoutesOnNavigation`) ([#13108](https://github.com/remix-run/react-router/pull/13108))
+- 修复 `6.29.0` 中通过 [#12169](https://github.com/remix-run/react-router/pull/12169) 引入的回归问题，该问题导致使用懒加载路由发现（`patchRoutesOnNavigation`）的应用在 splat 路由内导航到 hash 路由时出现问题 ([#13108](https://github.com/remix-run/react-router/pull/13108))
 
-**Full Changelog**: [`v6.29.0...v6.30.0`](https://github.com/remix-run/react-router/compare/react-router@6.29.0...react-router@6.30.0)
+**完整更新日志**: [`v6.29.0...v6.30.0`](https://github.com/remix-run/react-router/compare/react-router@6.29.0...react-router@6.30.0)
 
 ## v6.29.0
 
 Date: 2025-01-30
 
-### Minor Changes
+### 次要变更
 
-- Provide the request `signal` as a parameter to `patchRoutesOnNavigation` ([#12900](https://github.com/remix-run/react-router/pull/12900))
-  - This can be used to abort any manifest fetches if the in-flight navigation/fetcher is aborted
+- 将请求的 `signal` 作为参数传递给 `patchRoutesOnNavigation` ([#12900](https://github.com/remix-run/react-router/pull/12900))
+  - 可用于在飞行中的导航/fetcher 被中止时取消任何 manifest 请求
 
-### Patch Changes
+### 补丁变更
 
-- Do not log v7 deprecation warnings in production builds ([#12794](https://github.com/remix-run/react-router/pull/12794))
-- Properly bubble headers when throwing a `data()` result ([#12845](https://github.com/remix-run/react-router/pull/12845))
-- Optimize route matching by skipping redundant `matchRoutes` calls when possible ([#12169](https://github.com/remix-run/react-router/pull/12169))
-- Strip search parameters from `patchRoutesOnNavigation` `path` param for fetcher calls ([#12899](https://github.com/remix-run/react-router/pull/12899))
+- 在生产环境构建中不再记录 v7 弃用警告 ([#12794](https://github.com/remix-run/react-router/pull/12794))
+- 正确地在抛出 `data()` 结果时向上冒泡 headers ([#12845](https://github.com/remix-run/react-router/pull/12845))
+- 通过在可能时跳过冗余的 `matchRoutes` 调用来优化路由匹配 ([#12169](https://github.com/remix-run/react-router/pull/12169))
+- 为 fetcher 调用时从 `patchRoutesOnNavigation` 的 `path` 参数中移除搜索参数 ([#12899](https://github.com/remix-run/react-router/pull/12899))
 
-**Full Changelog**: [`v6.28.2...v6.29.0`](https://github.com/remix-run/react-router/compare/react-router@6.28.2...react-router@6.29.0)
+**完整更新日志**: [`v6.28.2...v6.29.0`](https://github.com/remix-run/react-router/compare/react-router@6.28.2...react-router@6.29.0)
 
 ## v6.28.2
 
 Date: 2025-01-16
 
-### Patch Changes
+### 补丁变更
 
-- Fix manual fetcher `key` usage when not opted into `future.v7_fetcherPersist` ([#12674](https://github.com/remix-run/react-router/pull/12674))
-- Fix issue with fetcher data cleanup in the data layer on fetcher unmount ([#12674](https://github.com/remix-run/react-router/pull/12674))
+- 修复未启用 `future.v7_fetcherPersist` 时手动设置 fetcher `key` 的用法问题 ([#12674](https://github.com/remix-run/react-router/pull/12674))
+- 修复 fetcher 卸载时数据层中 fetcher 数据清理的问题 ([#12674](https://github.com/remix-run/react-router/pull/12674))
 
-**Full Changelog**: [`v6.28.1...v6.28.2`](https://github.com/remix-run/react-router/compare/react-router@6.28.1...react-router@6.28.2)
+**完整更新日志**: [`v6.28.1...v6.28.2`](https://github.com/remix-run/react-router/compare/react-router@6.28.1...react-router@6.28.2)
 
 ## v6.28.1
 
 Date: 2024-12-20
 
-### Patch Changes
+### 补丁变更
 
-- Allow users to opt out of v7 deprecation warnings by setting flags to `false` ([#12441](https://github.com/remix-run/react-router/pull/12441))
+- 允许用户通过将标志设置为 `false` 来关闭 v7 弃用警告 ([#12441](https://github.com/remix-run/react-router/pull/12441))
 
-**Full Changelog**: [`v6.28.0...v6.28.1`](https://github.com/remix-run/react-router/compare/react-router@6.28.0...react-router@6.28.1)
+**完整更新日志**: [`v6.28.0...v6.28.1`](https://github.com/remix-run/react-router/compare/react-router@6.28.0...react-router@6.28.1)
 
 ## v6.28.0
 
 Date: 2024-11-06
 
-### What's Changed
+### 重要变更
 
-- In preparation for v7 we've added deprecation warnings for any future flags that you have not yet opted into. Please use the flags to better prepare for eventually upgrading to v7.
+- 为了准备迁移到 v7，我们为你尚未启用的所有 future 标志添加了弃用警告。请使用这些标志来更好地为最终升级到 v7 做好准备。
 
-### Minor Changes
+### 次要变更
 
-- Log deprecation warnings for v7 flags ([#11750](https://github.com/remix-run/react-router/pull/11750))
-  - Add deprecation warnings to `json`/`defer` in favor of returning raw objects
-    - These methods will be removed in React Router v7
+- 为 v7 标志记录弃用警告 ([#11750](https://github.com/remix-run/react-router/pull/11750))
+  - 为 `json`/`defer` 添加弃用警告，建议改为直接返回原始对象
+    - 这些方法将在 React Router v7 中移除
 
-### Patch Changes
+### 补丁变更
 
-- Update JSDoc URLs for new website structure (add /v6/ segment) ([#12141](https://github.com/remix-run/react-router/pull/12141))
+- 更新 JSDoc URL 以适配新的网站结构（添加 /v6/ 路径段） ([#12141](https://github.com/remix-run/react-router/pull/12141))
 
-**Full Changelog**: [`v6.27.0...v6.28.0`](https://github.com/remix-run/react-router/compare/react-router@6.27.0...react-router@6.28.0)
+**完整更新日志**: [`v6.27.0...v6.28.0`](https://github.com/remix-run/react-router/compare/react-router@6.27.0...react-router@6.28.0)
 
 ## v6.27.0
 
 Date: 2024-10-11
 
-### What's Changed
+### 重要变更
 
-#### Stabilized APIs
+#### 稳定化的 API
 
-This release stabilizes a handful of "unstable" APIs in preparation for the [pending](https://x.com/remix_run/status/1841926034868077009) React Router v7 release (see [these](https://remix.run/blog/merging-remix-and-react-router) [posts](https://remix.run/blog/incremental-path-to-react-19) for more info):
+本次发布稳定化了一批 "unstable" API，以为即将发布的 React Router v7 做准备（详情参见[这些](https://remix.run/blog/merging-remix-and-react-router) [文章](https://remix.run/blog/incremental-path-to-react-19)）：
+([pending](https://x.com/remix_run/status/1841926034868077009))
 
-- `unstable_dataStrategy` → `dataStrategy` (`createBrowserRouter` and friends) ([Docs](https://reactrouter.com/v6/routers/create-browser-router#optsdatastrategy))
-- `unstable_patchRoutesOnNavigation` → `patchRoutesOnNavigation` (`createBrowserRouter` and friends) ([Docs](https://reactrouter.com/v6/routers/create-browser-router#optspatchroutesonnavigation))
-- `unstable_flushSync` → `flushSync` (`useSubmit`, `fetcher.load`, `fetcher.submit`) ([Docs](https://reactrouter.com/v6/hooks/use-submit#optionsflushsync))
-- `unstable_viewTransition` → `viewTransition` (`<Link>`, `<Form>`, `useNavigate`, `useSubmit`) ([Docs](https://reactrouter.com/v6/components/link#viewtransition))
+- `unstable_dataStrategy` →`dataStrategy` (`createBrowserRouter` and friends) ([Docs](https://reactrouter.com/v6/routers/create-browser-router#optsdatastrategy))
+- `unstable_patchRoutesOnNavigation` →`patchRoutesOnNavigation` (`createBrowserRouter` and friends) ([Docs](https://reactrouter.com/v6/routers/create-browser-router#optspatchroutesonnavigation))
+- `unstable_flushSync` →`flushSync` (`useSubmit`, `fetcher.load`, `fetcher.submit`) ([Docs](https://reactrouter.com/v6/hooks/use-submit#optionsflushsync))
+- `unstable_viewTransition` →`viewTransition` (`<Link>`, `<Form>`, `useNavigate`, `useSubmit`) ([Docs](https://reactrouter.com/v6/components/link#viewtransition))
 
-### Minor Changes
+### 次要变更
 
-- Stabilize the `unstable_flushSync` option for navigations and fetchers ([#11989](https://github.com/remix-run/react-router/pull/11989))
-- Stabilize the `unstable_viewTransition` option for navigations and the corresponding `unstable_useViewTransitionState` hook ([#11989](https://github.com/remix-run/react-router/pull/11989))
-- Stabilize `unstable_dataStrategy` ([#11974](https://github.com/remix-run/react-router/pull/11974))
-- Stabilize `unstable_patchRoutesOnNavigation` ([#11973](https://github.com/remix-run/react-router/pull/11973))
-  - Add new `PatchRoutesOnNavigationFunctionArgs` type for convenience ([#11967](https://github.com/remix-run/react-router/pull/11967))
+- 稳定化导航和 fetcher 的 `unstable_flushSync` 选项 ([#11989](https://github.com/remix-run/react-router/pull/11989))
+- 稳定化导航的 `unstable_viewTransition` 选项及对应的 `unstable_useViewTransitionState` Hook ([#11989](https://github.com/remix-run/react-router/pull/11989))
+- 稳定化 `unstable_dataStrategy` ([#11974](https://github.com/remix-run/react-router/pull/11974))
+- 稳定化 `unstable_patchRoutesOnNavigation` ([#11973](https://github.com/remix-run/react-router/pull/11973))
+  - 新增 `PatchRoutesOnNavigationFunctionArgs` 类型以方便使用 ([#11967](https://github.com/remix-run/react-router/pull/11967))
 
-### Patch Changes
+### 补丁变更
 
-- Fix bug when submitting to the current contextual route (parent route with an index child) when an `?index` param already exists from a prior submission ([#12003](https://github.com/remix-run/react-router/pull/12003))
-- Fix `useFormAction` bug - when removing `?index` param it would not keep other non-Remix `index` params ([#12003](https://github.com/remix-run/react-router/pull/12003))
-- Fix bug with fetchers not persisting `preventScrollReset` through redirects during concurrent fetches ([#11999](https://github.com/remix-run/react-router/pull/11999))
-- Avoid unnecessary `console.error` on fetcher abort due to back-to-back revalidation calls ([#12050](https://github.com/remix-run/react-router/pull/12050))
-- Fix bugs with `partialHydration` when hydrating with errors ([#12070](https://github.com/remix-run/react-router/pull/12070))
-- Remove internal cache to fix issues with interrupted `patchRoutesOnNavigation` calls ([#12055](https://github.com/remix-run/react-router/pull/12055))
-  - ⚠️ This may be a breaking change if you were relying on this behavior in the `unstable_` API
-  - We used to cache in-progress calls to `patchRoutesOnNavigation` internally so that multiple navigations with the same start/end would only execute the function once and use the same promise
-  - However, this approach was at odds with `patch` short circuiting if a navigation was interrupted (and the `request.signal` aborted) since the first invocation's `patch` would no-op
-  - This cache also made some assumptions as to what a valid cache key might be - and is oblivious to any other application-state changes that may have occurred
-  - So, the cache has been removed because in _most_ cases, repeated calls to something like `import()` for async routes will already be cached automatically - and if not it's easy enough for users to implement this cache in userland
-- Remove internal `discoveredRoutes` FIFO queue from `unstable_patchRoutesOnNavigation` ([#11977](https://github.com/remix-run/react-router/pull/11977))
-  - ⚠️ This may be a breaking change if you were relying on this behavior in the `unstable_` API
-  - This was originally implemented as an optimization but it proved to be a bit too limiting
-  - If you need this optimization you can implement your own cache inside `patchRoutesOnNavigation`
-- Fix types for `RouteObject` within `PatchRoutesOnNavigationFunction`'s `patch` method so it doesn't expect agnostic route objects passed to `patch` ([#11967](https://github.com/remix-run/react-router/pull/11967))
-- Expose errors thrown from `patchRoutesOnNavigation` directly to `useRouteError` instead of wrapping them in a 400 `ErrorResponse` instance ([#12111](https://github.com/remix-run/react-router/pull/12111))
+- 修复向当前上下文路由（带索引子路由的父路由）提交时，如果已存在来自先前提交的 `?index` 参数的错误 ([#12003](https://github.com/remix-run/react-router/pull/12003))
+- 修复 `useFormAction` 错误——删除 `?index` 参数时不会保留其他非 Remix 的 `index` 参数 ([#12003](https://github.com/remix-run/react-router/pull/12003))
+- 修复并发 fetch 期间 fetcher 不保留 `preventScrollReset` 的重定向问题 ([#11999](https://github.com/remix-run/react-router/pull/11999))
+- 避免连续重新验证调用导致的 fetcher 中止不必要的 `console.error` ([#12050](https://github.com/remix-run/react-router/pull/12050))
+- 修复使用 `partialHydration` 时带错误的水合问题 ([#12070](https://github.com/remix-run/react-router/pull/12070))
+- 移除内部缓存以修复被中断的 `patchRoutesOnNavigation` 调用问题 ([#12055](https://github.com/remix-run/react-router/pull/12055))
+  - ⚠️ 如果你之前依赖 `unstable_` API 的这个行为，这可能是一个破坏性变更
+  - 我们之前会在内部缓存正在进行中的 `patchRoutesOnNavigation` 调用，这样多次具有相同起点/终点的导航只会执行一次函数并使用相同的 promise
+  - 然而，这种方法与导航被中断时 `patch` 短路的情况相冲突（因为第一次调用的 `patch` 会被中止而无操作）
+  - 此缓存还对有效的缓存键做了一些假设——并且完全不了解可能已发生的其他应用程序状态变化
+  - 因此，缓存已被移除，因为在 _大多数_ 情况下，像 `import()` 这样的异步路由重复调用会自动被缓存——如果没有，用户也可以很容易地在用户层实现这个缓存
+- 移除 `unstable_patchRoutesOnNavigation` 中的内部 `discoveredRoutes` FIFO 队列 ([#11977](https://github.com/remix-run/react-router/pull/11977))
+  - ⚠️ 如果你之前依赖 `unstable_` API 的这个行为，这可能是一个破坏性变更
+  - 这原本是作为优化实现的，但被证明限制太多
+  - 如果你需要这个优化，可以在 `patchRoutesOnNavigation` 内部实现自己的缓存
+- 修复 `PatchRoutesOnNavigationFunction` 的 `patch` 方法中 `RouteObject` 的类型，使其不再要求传递与路由无关的路由对象 ([#11967](https://github.com/remix-run/react-router/pull/11967))
+- 将 `patchRoutesOnNavigation` 抛出的错误直接暴露给 `useRouteError`，而不是将其包装在 400 `ErrorResponse` 实例中 ([#12111](https://github.com/remix-run/react-router/pull/12111))
 
-**Full Changelog**: [`v6.26.2...v6.27.0`](https://github.com/remix-run/react-router/compare/react-router@6.26.2...react-router@6.27.0)
+**完整更新日志**: [`v6.26.2...v6.27.0`](https://github.com/remix-run/react-router/compare/react-router@6.26.2...react-router@6.27.0)
 
 ## v6.26.2
 
 Date: 2024-09-09
 
-### Patch Changes
+### 补丁变更
 
-- Update the `unstable_dataStrategy` API to allow for more advanced implementations ([#11943](https://github.com/remix-run/react-router/pull/11943))
-  - ⚠️ If you have already adopted `unstable_dataStrategy`, please review carefully as this includes breaking changes to this API
-  - Rename `unstable_HandlerResult` to `unstable_DataStrategyResult`
-  - Change the return signature of `unstable_dataStrategy` from a parallel array of `unstable_DataStrategyResult[]` (parallel to `matches`) to a key/value object of `routeId => unstable_DataStrategyResult`
-    - This allows more advanced control over revalidation behavior because you can opt-into or out-of revalidating data that may not have been revalidated by default (via `match.shouldLoad`)
-  - You should now return/throw a result from your `handlerOverride` instead of returning a `DataStrategyResult`
-    - The return value (or thrown error) from your `handlerOverride` will be wrapped up into a `DataStrategyResult` and returned fromm `match.resolve`
-    - Therefore, if you are aggregating the results of `match.resolve()` into a final results object you should not need to think about the `DataStrategyResult` type
-    - If you are manually filling your results object from within your `handlerOverride`, then you will need to assign a `DataStrategyResult` as the value so React Router knows if it's a successful execution or an error (see examples in the documentation for details)
-  - Added a new `fetcherKey` parameter to `unstable_dataStrategy` to allow differentiation from navigational and fetcher calls
-- Preserve opted-in view transitions through redirects ([#11925](https://github.com/remix-run/react-router/pull/11925))
-- Preserve pending view transitions through a router revalidation call ([#11917](https://github.com/remix-run/react-router/pull/11917))
-- Fix blocker usage when `blocker.proceed` is called quickly/synchronously ([#11930](https://github.com/remix-run/react-router/pull/11930))
+- 更新 `unstable_dataStrategy` API 以支持更高级的实现 ([#11943](https://github.com/remix-run/react-router/pull/11943))
+  - ⚠️ 如果你已经采用了 `unstable_dataStrategy`，请仔细审查，因为本次包含对此 API 的破坏性变更
+  - 将 `unstable_HandlerResult` 重命名为 `unstable_DataStrategyResult`
+  - 将 `unstable_dataStrategy` 的返回类型从并行数组 `unstable_DataStrategyResult[]`（与 `matches` 并行）改为键值对象 `routeId => unstable_DataStrategyResult`
+    - 这允许对重新验证行为进行更高级的控制，因为你可以通过 `match.shouldLoad` 选择启用或禁用可能默认不会被重新验证的数据的重新验证
+  - 你现在应该从 `handlerOverride` 中返回/抛出结果，而不是返回 `DataStrategyResult`
+    - `handlerOverride` 的返回值（或抛出的错误）将被包装为 `DataStrategyResult` 并从 `match.resolve` 返回
+    - 因此，如果你将 `match.resolve()` 的结果聚合到最终结果对象中，则不需要考虑 `DataStrategyResult` 类型
+    - 如果你在 `handlerOverride` 内部手动填充结果对象，则需要将 `DataStrategyResult` 作为值赋值，以便 React Router 知道它是成功执行还是错误（详见文档中的示例）
+  - 新增 `fetcherKey` 参数到 `unstable_dataStrategy`，以区分导航和 fetcher 调用
+- 保留已启用的视图过渡通过重定向 ([#11925](https://github.com/remix-run/react-router/pull/11925))
+- 在路由器重新验证调用中保留待处理的视图过渡 ([#11917](https://github.com/remix-run/react-router/pull/11917))
+- 修复快速/同步调用 `blocker.proceed` 时的 blocker 用法问题 ([#11930](https://github.com/remix-run/react-router/pull/11930))
 
-**Full Changelog**: [`v6.26.1...v6.26.2`](https://github.com/remix-run/react-router/compare/react-router@6.26.1...react-router@6.26.2)
+**完整更新日志**: [`v6.26.1...v6.26.2`](https://github.com/remix-run/react-router/compare/react-router@6.26.1...react-router@6.26.2)
 
 ## v6.26.1
 
 Date: 2024-08-15
 
-### Patch Changes
+### 补丁变更
 
-- Rename `unstable_patchRoutesOnMiss` to `unstable_patchRoutesOnNavigation` to match new behavior ([#11888](https://github.com/remix-run/react-router/pull/11888))
-- Update `unstable_patchRoutesOnNavigation` logic so that we call the method when we match routes with dynamic param or splat segments in case there exists a higher-scoring static route that we've not yet discovered ([#11883](https://github.com/remix-run/react-router/pull/11883))
-  - We also now leverage an internal FIFO queue of previous paths we've already called `unstable_patchRoutesOnNavigation` against so that we don't re-call on subsequent navigations to the same path
+- 将 `unstable_patchRoutesOnMiss` 重命名为 `unstable_patchRoutesOnNavigation` 以匹配新的行为 ([#11888](https://github.com/remix-run/react-router/pull/11888))
+- 更新 `unstable_patchRoutesOnNavigation` 逻辑，使其在匹配到动态参数或 splat 段的路由时调用该方法，以防止存在尚未发现的更高分数的静态路由 ([#11883](https://github.com/remix-run/react-router/pull/11883))
+  - 我们现在还利用内部 FIFO 队列记录已经调用过 `unstable_patchRoutesOnNavigation` 的路径，以避免后续导航到相同路径时重复调用
 
-**Full Changelog**: [`v6.26.0...v6.26.1`](https://github.com/remix-run/react-router/compare/react-router@6.26.0...react-router@6.26.1)
+**完整更新日志**: [`v6.26.0...v6.26.1`](https://github.com/remix-run/react-router/compare/react-router@6.26.0...react-router@6.26.1)
 
 ## v6.26.0
 
 Date: 2024-08-01
 
-### Minor Changes
+### 次要变更
 
-- Add a new `replace(url, init?)` alternative to `redirect(url, init?)` that performs a `history.replaceState` instead of a `history.pushState` on client-side navigation redirects ([#11811](https://github.com/remix-run/react-router/pull/11811))
-- Add a new `unstable_data()` API for usage with Remix Single Fetch ([#11836](https://github.com/remix-run/react-router/pull/11836))
-  - This API is not intended for direct usage in React Router SPA applications
-  - It is primarily intended for usage with `createStaticHandler.query()` to allow loaders/actions to return arbitrary data along with custom `status`/`headers` without forcing the serialization of data into a `Response` instance
-  - This allows for more advanced serialization tactics via `unstable_dataStrategy` such as serializing via `turbo-stream` in Remix Single Fetch
-  - ⚠️ This removes the `status` field from `HandlerResult`
-    - If you need to return a specific `status` from `unstable_dataStrategy` you should instead do so via `unstable_data()`
+- 新增 `replace(url, init?)` 函数作为 `redirect(url, init?)` 的替代方案，它在客户端导航重定向时执行 `history.replaceState` 而非 `history.pushState` ([#11811](https://github.com/remix-run/react-router/pull/11811))
+- 新增 `unstable_data()` API 用于 Remix Single Fetch ([#11836](https://github.com/remix-run/react-router/pull/11836))
+  - 此 API 不适用于直接在 React Router SPA 应用中使用
+  - 它主要用于 `createStaticHandler.query()` 场景，允许 loader/action 返回任意数据并附带自定义 `status`/`headers`，而无需将数据强制序列化为 `Response` 实例
+  - 这允许通过 `unstable_dataStrategy` 实现更高级的序列化策略，例如在 Remix Single Fetch 中通过 `turbo-stream` 序列化
+  - ⚠️ 此变更移除了 `HandlerResult` 中的 `status` 字段
+    - 如果你需要从 `unstable_dataStrategy` 返回特定 `status`，应通过 `unstable_data()` 来实现
 
-### Patch Changes
+### 补丁变更
 
-- Fix internal cleanup of interrupted fetchers to avoid invalid revalidations on navigations ([#11839](https://github.com/remix-run/react-router/pull/11839))
-- Fix initial hydration behavior when using `future.v7_partialHydration` along with `unstable_patchRoutesOnMiss` ([#11838](https://github.com/remix-run/react-router/pull/11838))
-  - During initial hydration, `router.state.matches` will now include any partial matches so that we can render ancestor `HydrateFallback` components
+- 修复被中断的 fetcher 的内部清理问题，避免导航时出现无效的重新验证 ([#11839](https://github.com/remix-run/react-router/pull/11839))
+- 修复同时使用 `future.v7_partialHydration` 和 `unstable_patchRoutesOnMiss` 时的初始水合行为 ([#11838](https://github.com/remix-run/react-router/pull/11838))
+  - 在初始水合期间，`router.state.matches` 现在会包含任何部分匹配，以便我们可以渲染祖先级 `HydrateFallback` 组件
 
-**Full Changelog**: [`v6.25.1...v6.26.0`](https://github.com/remix-run/react-router/compare/react-router@6.25.1...react-router@6.26.0)
+**完整更新日志**: [`v6.25.1...v6.26.0`](https://github.com/remix-run/react-router/compare/react-router@6.25.1...react-router@6.26.0)
 
 ## v6.25.1
 
 Date: 2024-07-17
 
-### Patch Changes
+### 补丁变更
 
-- Memoize some `RouterProvider` internals to reduce unnecessary re-renders ([#11803](https://github.com/remix-run/react-router/pull/11803))
+- 对 `RouterProvider` 内部进行记忆化处理以减少不必要的重新渲染 ([#11803](https://github.com/remix-run/react-router/pull/11803))
 
-**Full Changelog**: [`v6.25.0...v6.25.1`](https://github.com/remix-run/react-router/compare/react-router@6.25.0...react-router@6.25.1)
+**完整更新日志**: [`v6.25.0...v6.25.1`](https://github.com/remix-run/react-router/compare/react-router@6.25.0...react-router@6.25.1)
 
 ## v6.25.0
 
 Date: 2024-07-16
 
-### What's Changed
+### 重要变更
 
-#### Stabilized `v7_skipActionErrorRevalidation`
+#### 稳定化 `v7_skipActionErrorRevalidation`
 
-This release stabilizes the `future.unstable_skipActionErrorRevalidation` flag into [`future.v7_skipActionErrorRevalidation`](https://reactrouter.com/v6/upgrading/future#v7_skipactionstatusrevalidation) in preparation for the upcoming React Router v7 release.
+本次发布将 `future.unstable_skipActionErrorRevalidation` 标志稳定化为 [`future.v7_skipActionErrorRevalidation`](https://reactrouter.com/v6/upgrading/future#v7_skipactionstatusrevalidation)，以为即将发布的 React Router v7 做准备。
 
-- When this flag is enabled, actions that return/throw a `4xx/5xx` `Response` will not trigger a revalidation by default
-- This also stabilizes `shouldRevalidate`'s `unstable_actionStatus` parameter to `actionStatus`
+- 启用此标志后，返回/抛出 `4xx/5xx` `Response` 的 action 将不会默认触发重新验证
+- 此变更还将 `shouldRevalidate` 的 `unstable_actionStatus` 参数稳定化为 `actionStatus`
 
-### Minor Changes
+### 次要变更
 
-- Stabilize `future.unstable_skipActionErrorRevalidation` as `future.v7_skipActionErrorRevalidation` ([#11769](https://github.com/remix-run/react-router/pull/11769))
+- 将 `future.unstable_skipActionErrorRevalidation` 稳定化为 `future.v7_skipActionErrorRevalidation` ([#11769](https://github.com/remix-run/react-router/pull/11769))
 
-### Patch Changes
+### 补丁变更
 
-- Fix regression and properly decode paths inside `useMatch` so matches/params reflect decoded params ([#11789](https://github.com/remix-run/react-router/pull/11789))
-- Fix bubbling of errors thrown from `unstable_patchRoutesOnMiss` ([#11786](https://github.com/remix-run/react-router/pull/11786))
-- Fix hydration in SSR apps using `unstable_patchRoutesOnMiss` that matched a splat route on the server ([#11790](https://github.com/remix-run/react-router/pull/11790))
+- 修复回归问题，正确解码 `useMatch` 内部的路径，使 matches/params 反映解码后的参数 ([#11789](https://github.com/remix-run/react-router/pull/11789))
+- 修复 `unstable_patchRoutesOnMiss` 抛出的错误冒泡问题 ([#11786](https://github.com/remix-run/react-router/pull/11786))
+- 修复使用 `unstable_patchRoutesOnMiss` 的 SSR 应用在服务器端匹配 splat 路由时的水合问题 ([#11790](https://github.com/remix-run/react-router/pull/11790))
 
-**Full Changelog**: [`v6.24.1...v6.25.0`](https://github.com/remix-run/react-router/compare/react-router@6.24.1...react-router@6.25.0)
+**完整更新日志**: [`v6.24.1...v6.25.0`](https://github.com/remix-run/react-router/compare/react-router@6.24.1...react-router@6.25.0)
 
 ## v6.24.1
 
 Date: 2024-07-03
 
-### Patch Changes
+### 补丁变更
 
-- Remove `polyfill.io` reference from warning message because the domain was sold and has since been determined to serve malware ([#11741](https://github.com/remix-run/react-router/pull/11741))
-  - See https://sansec.io/research/polyfill-supply-chain-attack
-- Export `NavLinkRenderProps` type for easier typing of custom `NavLink` callback ([#11553](https://github.com/remix-run/react-router/pull/11553))
-- When using `future.v7_relativeSplatPath`, properly resolve relative paths in splat routes that are children of pathless routes ([#11633](https://github.com/remix-run/react-router/pull/11633))
-- Fog of War (unstable): Trigger a new `router.routes` identity/reflow during route patching ([#11740](https://github.com/remix-run/react-router/pull/11740))
-- Fog of War (unstable): Fix initial matching when a splat route matches ([#11759](https://github.com/remix-run/react-router/pull/11759))
+- 从警告消息中移除 `polyfill.io` 引用，因为该域名已被出售并被确认用于提供恶意软件 ([#11741](https://github.com/remix-run/react-router/pull/11741))
+  - 参见 https://sansec.io/research/polyfill-supply-chain-attack
+- 导出 `NavLinkRenderProps` 类型以便更容易地为自定义 `NavLink` 回调定义类型 ([#11553](https://github.com/remix-run/react-router/pull/11553))
+- 使用 `future.v7_relativeSplatPath` 时，正确解析作为无路径路由子路由的 splat 路由中的相对路径 ([#11633](https://github.com/remix-run/react-router/pull/11633))
+- 迷雾探索（不稳定）：在路由补丁期间触发新的 `router.routes` 标识/重新流 ([#11740](https://github.com/remix-run/react-router/pull/11740))
+- 迷雾探索（不稳定）：修复 splat 路由匹配时的初始匹配问题 ([#11759](https://github.com/remix-run/react-router/pull/11759))
 
-**Full Changelog**: [`v6.24.0...v6.24.1`](https://github.com/remix-run/react-router/compare/react-router@6.24.0...react-router@6.24.1)
+**完整更新日志**: [`v6.24.0...v6.24.1`](https://github.com/remix-run/react-router/compare/react-router@6.24.0...react-router@6.24.1)
 
 ## v6.24.0
 
 Date: 2024-06-24
 
-### What's Changed
+### 重要变更
 
-#### Lazy Route Discovery (a.k.a. "Fog of War")
+#### 懒加载路由发现（也称“迷雾探索”）
 
-We're really excited to release our new API for "Lazy Route Discovery" in `v6.24.0`! For some background information, please check out the original [RFC](https://github.com/remix-run/react-router/discussions/11113). The **tl;dr;** is that ever since we introduced the Data APIs in v6.4 via `<RouterProvider>`, we've been a little bummed that one of the tradeoffs was the lack of a compelling code-splitting story mirroring what we had in the `<BrowserRouter>`/`<Routes>` apps. We took a baby-step towards improving that story with `route.lazy` in `v6.9.0`, but with `v6.24.0` we've gone the rest of the way.
+我们非常兴奋地在 `v6.24.0` 中发布了新的“懒加载路由发现” API！有关背景信息，请查看原始 [RFC](https://github.com/remix-run/react-router/discussions/11113)。简而言之，自从我们在 v6.4 中通过 `<RouterProvider>` 引入数据 API 以来，我们一直对缺少一个像 `<BrowserRouter>`/`<Routes>` 应用中那样的代码分割方案感到遗憾。我们在 `v6.9.0` 中通过 `route.lazy` 迈出了第一步，而在 `v6.24.0` 中我们完成了剩余的工作。
 
-With "Fog of War", you can now load portions of the route tree lazily via the new `unstable_patchRoutesOnMiss` option passed to `createBrowserRouter` (and it's memory/hash counterparts). This gives you a way to hook into spots where React Router is unable to match a given path and patch new routes into the route tree during the navigation (or fetcher call).
+通过“迷雾探索”功能，你现在可以通过传递给 `createBrowserRouter`（及其 memory/hash 对应版本）的新 `unstable_patchRoutesOnMiss` 选项来懒加载路由树的部分内容。这提供了一种方式来处理 React Router 无法匹配给定路径的情况，并在导航（或 fetcher 调用）期间将新路由补丁到路由树中。
 
-Here's a very small example, but please refer to the [documentation](https://reactrouter.com/v6/routers/create-browser-router#optsunstable_patchroutesonmiss) for more information and use cases:
+以下是一个非常简单的示例，更多信息和用例请参阅[文档](https://reactrouter.com/v6/routers/create-browser-router#optsunstable_patchroutesonmiss)：
 
 ```js
 const router = createBrowserRouter(
@@ -523,227 +522,225 @@ const router = createBrowserRouter(
 );
 ```
 
-### Minor Changes
+### 次要变更
 
-- Add support for Lazy Route Discovery (a.k.a. "Fog of War") ([#11626](https://github.com/remix-run/react-router/pull/11626))
+- 新增懒加载路由发现（也称“迷雾探索”）支持 ([#11626](https://github.com/remix-run/react-router/pull/11626))
 
-### Patch Changes
+### 补丁变更
 
-- Fix `fetcher.submit` types - remove incorrect `navigate`/`fetcherKey`/`unstable_viewTransition` options because they are only relevant for `useSubmit` ([#11631](https://github.com/remix-run/react-router/pull/11631))
-- Allow falsy `location.state` values passed to `<StaticRouter>` ([#11495](https://github.com/remix-run/react-router/pull/11495))
+- 修复 `fetcher.submit` 类型——移除不正确的 `navigate`/`fetcherKey`/`unstable_viewTransition` 选项，因为它们仅与 `useSubmit` 相关 ([#11631](https://github.com/remix-run/react-router/pull/11631))
+- 允许传递给 `<StaticRouter>` 的 `location.state` 为假值 ([#11495](https://github.com/remix-run/react-router/pull/11495))
 
-**Full Changelog**: [`v6.23.1...v6.24.0`](https://github.com/remix-run/react-router/compare/react-router@6.23.1...react-router@6.24.0)
+**完整更新日志**: [`v6.23.1...v6.24.0`](https://github.com/remix-run/react-router/compare/react-router@6.23.1...react-router@6.24.0)
 
 ## v6.23.1
 
 Date: 2024-05-10
 
-### Patch Changes
+### 补丁变更
 
-- Allow `undefined` to be resolved through `<Await>` ([#11513](https://github.com/remix-run/react-router/pull/11513))
-- Add defensive `document` check when checking for `document.startViewTransition` availability ([#11544](https://github.com/remix-run/react-router/pull/11544))
-- Change the `react-router-dom/server` import back to `react-router-dom` instead of `index.ts` ([#11514](https://github.com/remix-run/react-router/pull/11514))
-- `@remix-run/router` - Support `unstable_dataStrategy` on `staticHandler.queryRoute` ([#11515](https://github.com/remix-run/react-router/pull/11515))
+- 允许通过 `<Await>` 解析 `undefined` ([#11513](https://github.com/remix-run/react-router/pull/11513))
+- 添加防御性 `document` 检查，以确认 `document.startViewTransition` 是否可用 ([#11544](https://github.com/remix-run/react-router/pull/11544))
+- 将 `react-router-dom/server` 的导入改回 `react-router-dom` 而非 `index.ts` ([#11514](https://github.com/remix-run/react-router/pull/11514))
+- `@remix-run/router` - 支持在 `staticHandler.queryRoute` 上使用 `unstable_dataStrategy` ([#11515](https://github.com/remix-run/react-router/pull/11515))
 
-**Full Changelog**: [`v6.23.0...v6.23.1`](https://github.com/remix-run/react-router/compare/react-router@6.23.0...react-router@6.23.1)
+**完整更新日志**: [`v6.23.0...v6.23.1`](https://github.com/remix-run/react-router/compare/react-router@6.23.0...react-router@6.23.1)
 
 ## v6.23.0
 
 Date: 2024-04-23
 
-### What's Changed
+### 重要变更
 
-#### Data Strategy (unstable)
+#### 数据策略（不稳定）
 
-The new `unstable_dataStrategy` API is a low-level API designed for advanced use-cases where you need to take control over the data strategy for your `loader`/`action` functions. The default implementation is today's behavior, to fetch all loaders in parallel, but this option allows users to implement more advanced data flows including Remix ["Single Fetch"](https://remix.run/docs/guides/single-fetch), user-land middleware/context APIs, automatic loader caching, and more. Please see the [docs](https://reactrouter.com/v6/routers/create-browser-router#unstable_datastrategy) for more information.
+新的 `unstable_dataStrategy` API 是一个低级 API，专为高级用例设计，允许你控制 `loader`/`action` 函数的数据策略。默认实现是当前的行为（并行获取所有 loader），但此选项允许用户实现更高级的数据流，包括 Remix ["Single Fetch"](https://remix.run/docs/guides/single-fetch)、用户端中间件/上下文 API、自动 loader 缓存等。详情请参见[文档](https://reactrouter.com/v6/routers/create-browser-router#unstable_datastrategy)。
 
-**Note:** This is a low-level API intended for advanced use-cases. This overrides React Router's internal handling of `loader`/`action` execution, and if done incorrectly will break your app code. Please use with caution and perform the appropriate testing.
+**注意：** 这是一个为高级用例设计的低级 API。它会覆盖 React Router 对 `loader`/`action` 执行的内部处理，如果使用不当会破坏你的应用代码。请谨慎使用并进行充分测试。
 
-#### Skip Action Error Revalidation (unstable)
+#### 跳过 Action 错误重新验证（不稳定）
 
-Currently, all active `loader`'s revalidate after any `action` submission, regardless of the `action` result. However, in the majority of cases a `4xx`/`5xx` response from an `action` means that no data was actually changed and the revalidation is unnecessary. We've introduced a new `future.unstable_skipActionErrorRevalidation` flag that changes the behavior here, and we plan to make this the default in future version of React Router.
+目前，所有活跃的 `loader` 在任何 `action` 提交后都会重新验证，无论 `action` 结果如何。然而，在大多数情况下，`action` 返回 `4xx`/`5xx` 响应状态意味着实际上没有数据被更改，重新验证是不必要的。我们引入了一个新的 `future.unstable_skipActionErrorRevalidation` 标志来改变这里的行为，并计划在 React Router 未来版本中将其作为默认行为。
 
-With this flag enabled, `action`'s that return/throw a `4xx`/`5xx` response status will no longer automatically revalidate. If you need to revalidate after a `4xx`/`5xx` result with this flag enabled, you can still do that via returning `true` from `shouldRevalidate` - which now also receives a new `unstable_actionStatus` argument alongside `actionResult` so you can make decision based on the status of the `action` response without having to encode it into the action data.
+启用此标志后，返回/抛出 `4xx`/`5xx` 响应状态的 `action` 将不再自动重新验证。如果你需要在启用此标志后对 `4xx`/`5xx` 结果进行重新验证，仍然可以通过 `shouldRevalidate` 返回 `true` 来实现——现在还会接收一个新的 `unstable_actionStatus` 参数（与 `actionResult` 并列），这样你可以根据 `action` 响应的状态做出决定，而无需将其编码到 action 数据中。
 
-### Minor Changes
+### 次要变更
 
-- Add a new `unstable_dataStrategy` configuration option ([#11098](https://github.com/remix-run/react-router/pull/11098), [#11377](https://github.com/remix-run/react-router/pull/11377))
-- `@remix-run/router` - Add a new `future.unstable_skipActionRevalidation` future flag ([#11098](https://github.com/remix-run/react-router/pull/11098))
-- `@remix-run/router` - SSR: Added a new `skipLoaderErrorBubbling` options to the `staticHandler.query` method to disable error bubbling by the static handler for use in Remix's Single Fetch implementation ([#11098](https://github.com/remix-run/react-router/pull/11098), ([#11377](https://github.com/remix-run/react-router/pull/11377)))
+- 新增 `unstable_dataStrategy` 配置选项 ([#11098](https://github.com/remix-run/react-router/pull/11098), [#11377](https://github.com/remix-run/react-router/pull/11377))
+- `@remix-run/router` - 新增 `future.unstable_skipActionRevalidation` future 标志 ([#11098](https://github.com/remix-run/react-router/pull/11098))
+- `@remix-run/router` - SSR：为 `staticHandler.query` 方法新增 `skipLoaderErrorBubbling` 选项，用于在 Remix Single Fetch 实现中禁用静态处理程序的错误冒泡 ([#11098](https://github.com/remix-run/react-router/pull/11098), ([#11377](https://github.com/remix-run/react-router/pull/11377)))
 
-**Full Changelog**: [`v6.22.3...v6.23.0`](https://github.com/remix-run/react-router/compare/react-router@6.22.3...react-router@6.23.0)
+**完整更新日志**: [`v6.22.3...v6.23.0`](https://github.com/remix-run/react-router/compare/react-router@6.22.3...react-router@6.23.0)
 
 ## v6.22.3
 
 Date: 2024-03-07
 
-### Patch Changes
+### 补丁变更
 
-- Fix a `future.v7_partialHydration` bug that would re-run loaders below the boundary on hydration if SSR loader errors bubbled to a parent boundary ([#11324](https://github.com/remix-run/react-router/pull/11324))
-- Fix a `future.v7_partialHydration` bug that would consider the router uninitialized if a route did not have a loader ([#11325](https://github.com/remix-run/react-router/pull/11325))
+- 修复 `future.v7_partialHydration` 的错误：当 SSR loader 错误冒泡到父级边界时，会重新运行边界下方的 loader ([#11324](https://github.com/remix-run/react-router/pull/11324))
+- 修复 `future.v7_partialHydration` 的错误：如果路由没有 loader，会认为路由器未初始化 ([#11325](https://github.com/remix-run/react-router/pull/11325))
 
-**Full Changelog**: [`v6.22.2...v6.22.3`](https://github.com/remix-run/react-router/compare/react-router@6.22.2...react-router@6.22.3)
+**完整更新日志**: [`v6.22.2...v6.22.3`](https://github.com/remix-run/react-router/compare/react-router@6.22.2...react-router@6.22.3)
 
 ## v6.22.2
 
 Date: 2024-02-28
 
-### Patch Changes
+### 补丁变更
 
-- Preserve hydrated errors during partial hydration runs ([#11305](https://github.com/remix-run/react-router/pull/11305))
+- 在部分水合运行期间保留已水合的错误 ([#11305](https://github.com/remix-run/react-router/pull/11305))
 
-**Full Changelog**: [`v6.22.1...v6.22.2`](https://github.com/remix-run/react-router/compare/react-router@6.22.1...react-router@6.22.2)
+**完整更新日志**: [`v6.22.1...v6.22.2`](https://github.com/remix-run/react-router/compare/react-router@6.22.1...react-router@6.22.2)
 
 ## v6.22.1
 
 Date: 2024-02-16
 
-### Patch Changes
+### 补丁变更
 
-- Fix encoding/decoding issues with pre-encoded dynamic parameter values ([#11199](https://github.com/remix-run/react-router/pull/11199))
+- 修复预编码动态参数值的编码/解码问题 ([#11199](https://github.com/remix-run/react-router/pull/11199))
 
-**Full Changelog**: [`v6.22.0...v6.22.1`](https://github.com/remix-run/react-router/compare/react-router@6.22.0...react-router@6.22.1)
+**完整更新日志**: [`v6.22.0...v6.22.1`](https://github.com/remix-run/react-router/compare/react-router@6.22.0...react-router@6.22.1)
 
 ## v6.22.0
 
 Date: 2024-02-01
 
-### What's Changed
+### 重要变更
 
-#### Core Web Vitals Technology Report Flag
+#### Core Web Vitals 技术报告标志
 
-In 2021, the HTTP Archive launched the [Core Web Vitals Technology Report dashboard](https://discuss.httparchive.org/t/new-dashboard-the-core-web-vitals-technology-report/2178):
+2021 年，HTTP Archive 推出了 [Core Web Vitals 技术报告仪表盘](https://discuss.httparchive.org/t/new-dashboard-the-core-web-vitals-technology-report/2178)：
 
-> By combining the powers of real-user experiences in the Chrome UX Report 26 (CrUX) dataset with web technology detections in HTTP Archive 30, we can get a glimpse into how architectural decisions like choices of CMS platform or JavaScript framework play a role in sites’ CWV performance.
+> 通过将 Chrome UX Report 26 (CrUX) 数据集中的真实用户体验与 HTTP Archive 30 中的 Web 技术检测结合，我们可以了解 CMS 平台或 JavaScript 框架等架构决策如何影响网站的 CWV 性能。
 
-They use a tool called [`wappalyzer`](https://github.com/HTTPArchive/wappalyzer) to identify what technologies a given website is using by looking for certain scripts, global JS variables, or other identifying characteristics. For example, for Remix applications, they [look for the global `__remixContext`](https://github.com/HTTPArchive/wappalyzer/blob/c2a24ee7c2d07bf9c521f02584ae2dcf603ac0b7/src/technologies/r.json#L1328) variable to identify that a website is using Remix.
+他们使用一个名为 [`wappalyzer`](https://github.com/HTTPArchive/wappalyzer) 的工具来识别给定网站使用的技术，方法是查找特定的脚本、全局 JS 变量或其他识别特征。例如，对于 Remix 应用，他们[查找全局变量 `__remixContext`](https://github.com/HTTPArchive/wappalyzer/blob/c2a24ee7c2d07bf9c521f02584ae2dcf603ac0b7/src/technologies/r.json#L1328) 来识别网站是否使用 Remix。
 
-It was brought to our attention that React Router was unable to be reliably identified because there are no identifying global aspects. They are currently [looking for external scripts with `react-router`](https://github.com/HTTPArchive/wappalyzer/blob/c2a24ee7c2d07bf9c521f02584ae2dcf603ac0b7/src/technologies/r.json#L637) in the name. This will identify sites using React Router from a CDN such as `unpkg` - but it will miss the **vast** majority of sites that are installing React Router from the npm registry and bundling it into their JS files. This results in [drastically under-reporting](https://lookerstudio.google.com/s/pixHkNmGbN4) the usage of React Router on the web.
+我们注意到 React Router 无法被可靠地识别，因为没有可识别的全局特征。他们目前[查找名称中包含 `react-router` 的外部脚本](https://github.com/HTTPArchive/wappalyzer/blob/c2a24ee7c2d07bf9c521f02584ae2dcf603ac0b7/src/technologies/r.json#L637)。这能识别从 CDN（如 `unpkg`）使用 React Router 的网站——但会遗漏 **绝大多数** 从 npm 注册表安装并打包到 JS 文件中的网站。这导致 React Router 在 Web 上的使用量被[严重低估](https://lookerstudio.google.com/s/pixHkNmGbN4)。
 
-Starting with version `6.22.0`, sites using `react-router-dom` will begin adding a `window.__reactRouterVersion` variable that will be set to a string value of the SemVer major version number (i.e., `window.__reactRouterVersion = "6";`) so that they can be properly identified.
+从 `6.22.0` 版本开始，使用 `react-router-dom` 的网站将开始添加 `window.__reactRouterVersion` 变量，其值为 SemVer 主版本号的字符串（即 `window.__reactRouterVersion = "6";`），以便能够被正确识别。
 
-### Minor Changes
+### 次要变更
 
-- Include a `window.__reactRouterVersion` for CWV Report detection ([#11222](https://github.com/remix-run/react-router/pull/11222))
-- Add a `createStaticHandler` `future.v7_throwAbortReason` flag to throw `request.signal.reason` (defaults to a `DOMException`) when a request is aborted instead of an `Error` such as `new Error("query() call aborted: GET /path")` ([#11104](https://github.com/remix-run/react-router/pull/11104))
-  - Please note that `DOMException` was added in Node v17 so you will not get a `DOMException` on Node 16 and below.
+- 包含 `window.__reactRouterVersion` 以便 CWV 报告检测 ([#11222](https://github.com/remix-run/react-router/pull/11222))
+- 为 `createStaticHandler` 新增 `future.v7_throwAbortReason` 标志，使其在请求被中止时抛出 `request.signal.reason`（默认为 `DOMException`），而不是抛出 `Error`（如 `new Error("query() call aborted: GET /path")`） ([#11104](https://github.com/remix-run/react-router/pull/11104))
+  - 请注意 `DOMException` 是在 Node v17 中添加的，因此在 Node 16 及以下版本中你不会得到 `DOMException`。
 
-### Patch Changes
+### 补丁变更
 
-- Respect the `ErrorResponse` status code if passed to `getStaticContextFormError` ([#11213](https://github.com/remix-run/react-router/pull/11213))
+- 如果 `ErrorResponse` 状态码被传递给 `getStaticContextFormError`，则尊重该状态码 ([#11213](https://github.com/remix-run/react-router/pull/11213))
 
-**Full Changelog**: [`v6.21.3...v6.22.0`](https://github.com/remix-run/react-router/compare/react-router@6.21.3...react-router@6.22.0)
+**完整更新日志**: [`v6.21.3...v6.22.0`](https://github.com/remix-run/react-router/compare/react-router@6.21.3...react-router@6.22.0)
 
 ## v6.21.3
 
 Date: 2024-01-18
 
-### Patch Changes
+### 补丁变更
 
-- Fix `NavLink` `isPending` when a `basename` is used ([#11195](https://github.com/remix-run/react-router/pull/11195))
-- Remove leftover `unstable_` prefix from `Blocker`/`BlockerFunction` types ([#11187](https://github.com/remix-run/react-router/pull/11187))
+- 修复使用 `basename` 时 `NavLink` 的 `isPending` 问题 ([#11195](https://github.com/remix-run/react-router/pull/11195))
+- 移除 `Blocker`/`BlockerFunction` 类型中残留的 `unstable_` 前缀 ([#11187](https://github.com/remix-run/react-router/pull/11187))
 
-**Full Changelog**: [`v6.21.2...v6.21.3`](https://github.com/remix-run/react-router/compare/react-router@6.21.2...react-router@6.21.3)
+**完整更新日志**: [`v6.21.2...v6.21.3`](https://github.com/remix-run/react-router/compare/react-router@6.21.2...react-router@6.21.3)
 
 ## v6.21.2
 
 Date: 2024-01-11
 
-### Patch Changes
+### 补丁变更
 
-- Leverage `useId` for internal fetcher keys when available ([#11166](https://github.com/remix-run/react-router/pull/11166))
-- Fix bug where dashes were not picked up in dynamic parameter names ([#11160](https://github.com/remix-run/react-router/pull/11160))
-- Do not attempt to deserialize empty JSON responses ([#11164](https://github.com/remix-run/react-router/pull/11164))
+- 在可用时利用 `useId` 生成内部 fetcher key ([#11166](https://github.com/remix-run/react-router/pull/11166))
+- 修复动态参数名中无法识别破折号的错误 ([#11160](https://github.com/remix-run/react-router/pull/11160))
+- 不尝试反序列化空的 JSON 响应 ([#11164](https://github.com/remix-run/react-router/pull/11164))
 
-**Full Changelog**: [`v6.21.1...v6.21.2`](https://github.com/remix-run/react-router/compare/react-router@6.21.1...react-router@6.21.2)
+**完整更新日志**: [`v6.21.1...v6.21.2`](https://github.com/remix-run/react-router/compare/react-router@6.21.1...react-router@6.21.2)
 
 ## v6.21.1
 
 Date: 2023-12-21
 
-### Patch Changes
+### 补丁变更
 
-- Fix bug with `route.lazy` not working correctly on initial SPA load when `v7_partialHydration` is specified ([#11121](https://github.com/remix-run/react-router/pull/11121))
-- Fix bug preventing revalidation from occurring for persisted fetchers unmounted during the `submitting` phase ([#11102](https://github.com/remix-run/react-router/pull/11102))
-- De-dup relative path logic in `resolveTo` ([#11097](https://github.com/remix-run/react-router/pull/11097))
+- 修复指定 `v7_partialHydration` 时 `route.lazy` 在初始 SPA 加载时无法正确工作的错误 ([#11121](https://github.com/remix-run/react-router/pull/11121))
+- 修复在 `submitting` 阶段卸载的持久化 fetcher 无法进行重新验证的错误 ([#11102](https://github.com/remix-run/react-router/pull/11102))
+- 去重 `resolveTo` 中的相对路径逻辑 ([#11097](https://github.com/remix-run/react-router/pull/11097))
 
-**Full Changelog**: [`v6.21.0...v6.21.1`](https://github.com/remix-run/react-router/compare/react-router@6.21.0...react-router@6.21.1)
+**完整更新日志**: [`v6.21.0...v6.21.1`](https://github.com/remix-run/react-router/compare/react-router@6.21.0...react-router@6.21.1)
 
 ## v6.21.0
 
 Date: 2023-12-13
 
-### What's Changed
+### 重要变更
 
 #### `future.v7_relativeSplatPath`
 
-We fixed a splat route path-resolution bug in `6.19.0`, but later determined a large number of applications were relying on the buggy behavior, so we reverted the fix in `6.20.1` (see [#10983](https://github.com/remix-run/react-router/issues/10983), [#11052](https://github.com/remix-run/react-router/issues/11052), [#11078](https://github.com/remix-run/react-router/issues/11078)).
+我们在 `6.19.0` 中修复了一个 splat 路由路径解析错误，但后来发现大量应用依赖了这个错误行为，因此我们在 `6.20.1` 中恢复了该修复（参见 [#10983](https://github.com/remix-run/react-router/issues/10983)、[#11052](https://github.com/remix-run/react-router/issues/11052)、[#11078](https://github.com/remix-run/react-router/issues/11078)）。
 
-The buggy behavior is that the default behavior when resolving relative paths inside a splat route would _ignore_ any splat (`*`) portion of the current route path. When the future flag is enabled, splat portions are included in relative path logic within splat routes.
+该错误行为是：在 splat 路由内部解析相对路径时，默认行为会 _忽略_ 当前路由路径的任何 splat（`*`）部分。启用 future 标志后，splat 部分将被包含在 splat 路由内的相对路径逻辑中。
 
-For more information, please refer to the [`useResolvedPath` docs](https://reactrouter.com/v6/hooks/use-resolved-path#splat-paths) and/or the [detailed changelog entry](https://github.com/remix-run/react-router/blob/main/packages/react-router-dom/CHANGELOG.md#6210).
+更多信息请参阅 [`useResolvedPath` 文档](https://reactrouter.com/v6/hooks/use-resolved-path#splat-paths) 和/或[详细的更新日志条目](https://github.com/remix-run/react-router/blob/main/packages/react-router-dom/CHANGELOG.md#6210)。
 
-#### Partial Hydration
+#### 部分水合
 
-We added a new `future.v7_partialHydration` future flag for the `@remix-run/router` that enables partial hydration of a data router when Server-Side Rendering. This allows you to provide `hydrationData.loaderData` that has values for _some_ initially matched route loaders, but not all. When this flag is enabled, the router will call `loader` functions for routes that do not have hydration loader data during `router.initialize()`, and it will render down to the deepest provided `HydrateFallback` (up to the first route without hydration data) while it executes the unhydrated routes. ([#11033](https://github.com/remix-run/react-router/pull/11033))
+我们为 `@remix-run/router` 新增了 `future.v7_partialHydration` future 标志，在服务端渲染时启用数据路由器的部分水合。这允许你提供的 `hydrationData.loaderData` 仅包含 _部分_ 初始匹配路由的 loader 数据，而不是全部。启用此标志后，路由器将在 `router.initialize()` 期间为没有水合 loader 数据的路由调用 `loader` 函数，并会渲染到最深层提供的 `HydrateFallback`（直到第一个没有水合数据的路由），同时执行未水合的路由。([#11033](https://github.com/remix-run/react-router/pull/11033))
 
-### Minor Changes
+### 次要变更
 
-- Add a new `future.v7_relativeSplatPath` flag to implement a breaking bug fix to relative routing when inside a splat route. ([#11087](https://github.com/remix-run/react-router/pull/11087))
-- Add a new `future.v7_partialHydration` future flag that enables partial hydration of a data router when Server-Side Rendering ([#11033](https://github.com/remix-run/react-router/pull/11033))
+- 新增 `future.v7_relativeSplatPath` 标志，实现 splat 路由内相对路由的破坏性错误修复。([#11087](https://github.com/remix-run/react-router/pull/11087))
+- 新增 `future.v7_partialHydration` future 标志，在服务端渲染时启用数据路由器的部分水合 ([#11033](https://github.com/remix-run/react-router/pull/11033))
 
-### Patch Changes
+### 补丁变更
 
-- Properly handle falsy error values in `ErrorBoundary`'s ([#11071](https://github.com/remix-run/react-router/pull/11071))
-- Catch and bubble errors thrown when trying to unwrap responses from `loader`/`action` functions ([#11061](https://github.com/remix-run/react-router/pull/11061))
-- Fix `relative="path"` issue when rendering `Link`/`NavLink` outside of matched routes ([#11062](https://github.com/remix-run/react-router/pull/11062))
+- 正确处理 `ErrorBoundary` 中的假值错误 ([#11071](https://github.com/remix-run/react-router/pull/11071))
+- 捕获并冒泡尝试解包 `loader`/`action` 函数响应时抛出的错误 ([#11061](https://github.com/remix-run/react-router/pull/11061))
+- 修复在匹配路由外部渲染 `Link`/`NavLink` 时的 `relative="path"` 问题 ([#11062](https://github.com/remix-run/react-router/pull/11062))
 
-**Full Changelog**: [`v6.20.1...v6.21.0`](https://github.com/remix-run/react-router/compare/react-router@6.20.1...react-router@6.21.0)
+**完整更新日志**: [`v6.20.1...v6.21.0`](https://github.com/remix-run/react-router/compare/react-router@6.20.1...react-router@6.21.0)
 
 ## v6.20.1
 
 Date: 2023-12-01
 
-### Patch Changes
+### 补丁变更
 
-- Revert the `useResolvedPath` fix for splat routes due to a large number of applications that were relying on the buggy behavior (see [#11052](https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329)) ([#11078](https://github.com/remix-run/react-router/pull/11078))
-  - We plan to re-introduce this fix behind a future flag in the next minor version (see [this comment](https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329))
-  - This fix was included in versions `6.19.0` and `6.20.0`. If you are upgrading from `6.18.0` or earlier, you would not have been impacted by this fix.
+- 恢复 splat 路由的 `useResolvedPath` 修复，因为大量应用依赖了该错误行为（参见 [#11052](https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329)） ([#11078](https://github.com/remix-run/react-router/pull/11078))
+  - 我们计划在下一个次要版本中通过 future 标志重新引入此修复（参见[此评论](https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329)）
+  - 此修复包含在 `6.19.0` 和 `6.20.0` 版本中。如果你是从 `6.18.0` 或更早版本升级，则不会受到此修复的影响。
 
-**Full Changelog**: [`v6.20.0...v6.20.1`](https://github.com/remix-run/react-router/compare/react-router@6.20.0...react-router@6.20.1)
+**完整更新日志**: [`v6.20.0...v6.20.1`](https://github.com/remix-run/react-router/compare/react-router@6.20.0...react-router@6.20.1)
 
 ## v6.20.0
 
 Date: 2023-11-22
 
 > [!WARNING]
-> Please use version `6.20.1` or later instead of `6.20.0`. We discovered that a large number of apps were relying on buggy behavior that was fixed in this release ([#11045](https://github.com/remix-run/react-router/pull/11045)). We reverted the fix in `6.20.1` and will be re-introducing it behind a future flag in a subsequent release. See [#11052](https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329) for more details.
+> 请使用 `6.20.1` 或更高版本代替 `6.20.0`。我们发现大量应用依赖了本次发布中修复的错误行为（[#11045](https://github.com/remix-run/react-router/pull/11045)）。我们在 `6.20.1` 中恢复了该修复，并将在后续版本中通过 future 标志重新引入。详见 [#11052](https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329)。
 
-### Minor Changes
+- 导出 `PathParam` 类型作为公共 API ([#10719](https://github.com/remix-run/react-router/pull/10719))
 
-- Export the `PathParam` type from the public API ([#10719](https://github.com/remix-run/react-router/pull/10719))
+### 补丁变更
 
-### Patch Changes
+- 启用 `v7_fetcherPersist` 时不再重新验证已卸载的 fetcher ([#11044](https://github.com/remix-run/react-router/pull/11044))
+- 修复 splat 路由中 `resolveTo` 的路径解析错误 ([#11045](https://github.com/remix-run/react-router/pull/11045))
+  - 这是 [#10983](https://github.com/remix-run/react-router/pull/10983) 的后续修复，处理使用 `getPathContributingMatches` 的其他代码路径
+  - 从 `@remix-run/router` 中移除了 `UNSAFE_getPathContributingMatches` 导出，因为 `react-router`/`react-router-dom` 层不再需要它
 
-- Do not revalidate unmounted fetchers when `v7_fetcherPersist` is enabled ([#11044](https://github.com/remix-run/react-router/pull/11044))
-- Fix bug with `resolveTo` path resolution in splat routes ([#11045](https://github.com/remix-run/react-router/pull/11045))
-  - This is a follow up to [#10983](https://github.com/remix-run/react-router/pull/10983) to handle the few other code paths using `getPathContributingMatches`
-  - This removes the `UNSAFE_getPathContributingMatches` export from `@remix-run/router` since we no longer need this in the `react-router`/`react-router-dom` layers
-
-**Full Changelog**: [`v6.19.0...v6.20.0`](https://github.com/remix-run/react-router/compare/react-router@6.19.0...react-router@6.20.0)
+**完整更新日志**: [`v6.19.0...v6.20.0`](https://github.com/remix-run/react-router/compare/react-router@6.19.0...react-router@6.20.0)
 
 ## v6.19.0
 
 Date: 2023-11-16
 
 > [!WARNING]
-> Please use version `6.20.1` or later instead of `6.19.0`. We discovered that a large number of apps were relying on buggy behavior that was fixed in this release ([#10983](https://github.com/remix-run/react-router/pull/10983)). We reverted the fix in `6.20.1` and will be re-introducing it behind a future flag in a subsequent release. See [#11052](https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329) for more details.
+> 请使用 `6.20.1` 或更高版本代替 `6.19.0`。我们发现大量应用依赖了本次发布中修复的错误行为（[#10983](https://github.com/remix-run/react-router/pull/10983)）。我们在 `6.20.1` 中恢复了该修复，并将在后续版本中通过 future 标志重新引入。详见 [#11052](https://github.com/remix-run/react-router/issues/11052#issuecomment-1836589329)。
 
-### What's Changed
+### 重要变更
 
 #### `unstable_flushSync` API
 
-This release brings a new `unstable_flushSync` option to the imperative APIs (`useSubmit`, `useNavigate`, `fetcher.submit`, `fetcher.load`) to let users opt-into synchronous DOM updates for pending/optimistic UI.
+本次发布引入了新的 `unstable_flushSync` 选项，可用于命令式 API（`useSubmit`、`useNavigate`、`fetcher.submit`、`fetcher.load`），允许用户选择同步 DOM 更新以实现 pending/乐观 UI。
 
 ```js
 function handleClick() {
@@ -753,22 +750,22 @@ function handleClick() {
 }
 ```
 
-### Minor Changes
+### 次要变更
 
-- Add `unstable_flushSync` option to `useNavigate`/`useSubmit`/`fetcher.load`/`fetcher.submit` to opt-out of `React.startTransition` and into `ReactDOM.flushSync` for state updates ([#11005](https://github.com/remix-run/react-router/pull/11005))
-- Remove the `unstable_` prefix from the [`useBlocker`](https://reactrouter.com/v6/hooks/use-blocker) hook as it's been in use for enough time that we are confident in the API ([#10991](https://github.com/remix-run/react-router/pull/10991))
-  - We do not plan to remove the prefix from `unstable_usePrompt` due to differences in how browsers handle `window.confirm` that prevent React Router from guaranteeing consistent/correct behavior
+- 为 `useNavigate`/`useSubmit`/`fetcher.load`/`fetcher.submit` 新增 `unstable_flushSync` 选项，以退出 `React.startTransition` 转而使用 `ReactDOM.flushSync` 进行状态更新 ([#11005](https://github.com/remix-run/react-router/pull/11005))
+- 从 [`useBlocker`](https://reactrouter.com/v6/hooks/use-blocker) Hook 中移除 `unstable_` 前缀，因为它已经使用了足够长的时间，我们对该 API 有信心 ([#10991](https://github.com/remix-run/react-router/pull/10991))
+  - 我们不计划从 `unstable_usePrompt` 中移除前缀，因为浏览器处理 `window.confirm` 的方式存在差异，导致 React Router 无法保证一致/正确的行为
 
-### Patch Changes
+### 补丁变更
 
-- Fix `useActionData` so it returns proper contextual action data and not _any_ action data in the tree ([#11023](https://github.com/remix-run/react-router/pull/11023))
-- Fix bug in `useResolvedPath` that would cause `useResolvedPath(".")` in a splat route to lose the splat portion of the URL path. ([#10983](https://github.com/remix-run/react-router/pull/10983))
-  - ⚠️ This fixes a quite long-standing bug specifically for `"."` paths inside a splat route which incorrectly dropped the splat portion of the URL. If you are relative routing via `"."` inside a splat route in your application you should double check that your logic is not relying on this buggy behavior and update accordingly.
-- Fix issue where a changing fetcher `key` in a `useFetcher` that remains mounted wasn't getting picked up ([#11009](https://github.com/remix-run/react-router/pull/11009))
-- Fix `useFormAction` which was incorrectly inheriting the `?index` query param from child route `action` submissions ([#11025](https://github.com/remix-run/react-router/pull/11025))
-- Fix `NavLink` `active` logic when `to` location has a trailing slash ([#10734](https://github.com/remix-run/react-router/pull/10734))
-- Fix types so `unstable_usePrompt` can accept a `BlockerFunction` in addition to a `boolean` ([#10991](https://github.com/remix-run/react-router/pull/10991))
-- Fix `relative="path"` bug where relative path calculations started from the full location pathname, instead of from the current contextual route pathname. ([#11006](https://github.com/remix-run/react-router/pull/11006))
+- 修复 `useActionData` 使其返回正确的上下文 action 数据，而不是树中 _任意_ action 数据 ([#11023](https://github.com/remix-run/react-router/pull/11023))
+- 修复 `useResolvedPath` 中的错误：在 splat 路由中使用 `useResolvedPath(".")` 会丢失 URL 路径的 splat 部分。([#10983](https://github.com/remix-run/react-router/pull/10983))
+  - ⚠️ 这修复了一个相当长期存在的错误，专门针对 splat 路由内的 `"."` 路径，该错误会不正确地丢弃 URL 的 splat 部分。如果你在应用中的 splat 路由内通过 `"."` 进行相对路由，你应该检查你的逻辑是否依赖了这个错误行为并相应更新。
+- 修复 `useFetcher` 中变化的 fetcher `key` 在保持挂载时未被正确获取的问题 ([#11009](https://github.com/remix-run/react-router/pull/11009))
+- 修复 `useFormAction` 错误地从子路由 `action` 提交中继承 `?index` 查询参数的问题 ([#11025](https://github.com/remix-run/react-router/pull/11025))
+- 修复 `NavLink` 当 `to` 地址有尾部斜杠时的 `active` 逻辑 ([#10734](https://github.com/remix-run/react-router/pull/10734))
+- 修复类型使 `unstable_usePrompt` 可以接受 `BlockerFunction`，而不仅仅是 `boolean` ([#10991](https://github.com/remix-run/react-router/pull/10991))
+- 修复 `relative="path"` 错误：相对路径计算从完整的 location 路径名开始，而不是从当前上下文路由路径名开始。([#11006](https://github.com/remix-run/react-router/pull/11006))
 
   ```jsx
   <Route path="/a">
@@ -788,64 +785,64 @@ function handleClick() {
   }
   ```
 
-**Full Changelog**: [`6.18.0...6.19.0`](https://github.com/remix-run/react-router/compare/react-router@6.18.0...react-router@6.19.0)
+**完整更新日志**: [`6.18.0...6.19.0`](https://github.com/remix-run/react-router/compare/react-router@6.18.0...react-router@6.19.0)
 
 ## v6.18.0
 
 Date: 2023-10-31
 
-### What's Changed
+### 重要变更
 
-#### New Fetcher APIs
+#### 新的 Fetcher API
 
-Per this [RFC](https://github.com/remix-run/remix/discussions/7698), we've introduced some new APIs that give you more granular control over your fetcher behaviors.
+根据此 [RFC](https://github.com/remix-run/remix/discussions/7698)，我们引入了一些新 API，让你对 fetcher 行为有更细粒度的控制。
 
-- You may now specify your own fetcher identifier via `useFetcher({ key: string })`, which allows you to access the same fetcher instance from different components in your application without prop-drilling
-- Fetcher keys are now exposed on the fetchers returned from `useFetchers` so that they can be looked up by `key`
-- `Form` and `useSubmit` now support optional `navigate`/`fetcherKey` props/params to allow kicking off a fetcher submission under the hood with an optionally user-specified `key`
+- 你现在可以通过 `useFetcher({ key: string })` 指定自己的 fetcher 标识符，这允许你从应用中的不同组件访问同一个 fetcher 实例而无需层层传递 props
+- Fetcher 键现在会暴露在 `useFetchers` 返回的 fetcher 上，以便可以通过 `key` 查找
+- `Form` 和 `useSubmit` 现在支持可选的 `navigate`/`fetcherKey` props/参数，允许在底层以可选的用户指定 `key` 启动 fetcher 提交
   - `<Form method="post" navigate={false} fetcherKey="my-key">`
   - `submit(data, { method: "post", navigate: false, fetcherKey: "my-key" })`
-  - Invoking a fetcher in this way is ephemeral and stateless
-  - If you need to access the state of one of these fetchers, you will need to leverage `useFetchers()` or `useFetcher({ key })` to look it up elsewhere
+  - 以这种方式调用的 fetcher 是临时的和无状态的
+  - 如果你需要访问这些 fetcher 的状态，需要通过 `useFetchers()` 或 `useFetcher({ key })` 在其他地方查找
 
-#### Persistence Future Flag (`future.v7_fetcherPersist`)
+#### 持久化 Future 标志（`future.v7_fetcherPersist`）
 
-Per the same [RFC](https://github.com/remix-run/remix/discussions/7698) as above, we've introduced a new `future.v7_fetcherPersist` flag that allows you to opt-into the new fetcher persistence/cleanup behavior. Instead of being immediately cleaned up on unmount, fetchers will persist until they return to an `idle` state. This makes pending/optimistic UI _much_ easier in scenarios where the originating fetcher needs to unmount.
+根据上述相同的 [RFC](https://github.com/remix-run/remix/discussions/7698)，我们引入了新的 `future.v7_fetcherPersist` 标志，允许你启用新的 fetcher 持久化/清理行为。fetcher 不会在卸载时立即被清理，而是会持续存在直到它们返回 `idle` 状态。这使得在源 fetcher 需要卸载的场景中，pending/乐观 UI 变得 _更加容易_。
 
-- This is sort of a long-standing bug fix as the `useFetchers()` API was always supposed to only reflect **in-flight** fetcher information for pending/optimistic UI -- it was not intended to reflect fetcher data or hang onto fetchers after they returned to an `idle` state
-- Keep an eye out for the following specific behavioral changes when opting into this flag and check your app for compatibility:
-  - Fetchers that complete _while still mounted_ will no longer appear in `useFetchers()` after completion - they served no purpose in there since you can access the data via `useFetcher().data`
-  - Fetchers that previously unmounted _while in-flight_ will not be immediately aborted and will instead be cleaned up once they return to an `idle` state
-    - They will remain exposed via `useFetchers` while in-flight so you can still access pending/optimistic data after unmount
-    - If a fetcher is no longer mounted when it completes, then it's result will not be post processed - e.g., redirects will not be followed and errors will not bubble up in the UI
-    - However, if a fetcher was re-mounted elsewhere in the tree using the same `key`, then it's result will be processed, even if the originating fetcher was unmounted
+- 这在某种程度上是一个长期存在的错误修复，因为 `useFetchers()` API 一直应该只反映 **进行中** 的 fetcher 信息用于 pending/乐观 UI——它不应该反映 fetcher 数据或在它们返回 `idle` 状态后仍保留 fetcher
+- 启用此标志时请注意以下特定的行为变化，并检查你的应用兼容性：
+  - 在仍然挂载时完成的 fetcher 将不再在完成后出现在 `useFetchers()` 中——它们在那里没有用处，因为你可以通过 `useFetcher().data` 访问数据
+  - 之前在飞行中卸载的 fetcher 不会立即被中止，而是会在返回 `idle` 状态后被清理
+    - 它们在飞行中时仍会通过 `useFetchers` 暴露，以便你卸载后仍可访问 pending/乐观数据
+    - 如果 fetcher 完成时不再挂载，其结果不会被后处理——例如重定向不会被跟随，错误不会在 UI 中冒泡
+    - 但是，如果 fetcher 使用相同的 `key` 在树的其他地方重新挂载，那么其结果将被处理，即使原始 fetcher 已卸载
 
-### Minor Changes
+### 次要变更
 
-- Add fetcher `key` APIs and `navigate=false` options ([#10960](https://github.com/remix-run/react-router/pull/10960))
-- Add `future.v7_fetcherPersist` flag ([#10962](https://github.com/remix-run/react-router/pull/10962))
-- Add support for optional path segments in `matchPath` ([#10768](https://github.com/remix-run/react-router/pull/10768))
+- 新增 fetcher `key` API 和 `navigate=false` 选项 ([#10960](https://github.com/remix-run/react-router/pull/10960))
+- 新增 `future.v7_fetcherPersist` 标志 ([#10962](https://github.com/remix-run/react-router/pull/10962))
+- 新增 `matchPath` 中对可选路径段的支持 ([#10768](https://github.com/remix-run/react-router/pull/10768))
 
-### Patch Changes
+### 补丁变更
 
-- Fix the `future` prop on `BrowserRouter`, `HashRouter` and `MemoryRouter` so that it accepts a `Partial<FutureConfig>` instead of requiring all flags to be included ([#10962](https://github.com/remix-run/react-router/pull/10962))
-- Fix `router.getFetcher`/`router.deleteFetcher` type definitions which incorrectly specified `key` as an optional parameter ([#10960](https://github.com/remix-run/react-router/pull/10960))
+- 修复 `BrowserRouter`、`HashRouter` 和 `MemoryRouter` 上的 `future` prop，使其接受 `Partial<FutureConfig>` 而不是要求所有标志都必须指定 ([#10962](https://github.com/remix-run/react-router/pull/10962))
+- 修复 `router.getFetcher`/`router.deleteFetcher` 类型定义中 `key` 被错误地指定为可选参数的问题 ([#10960](https://github.com/remix-run/react-router/pull/10960))
 
-**Full Changelog**: [`6.17.0...6.18.0`](https://github.com/remix-run/react-router/compare/react-router@6.17.0...react-router@6.18.0)
+**完整更新日志**: [`6.17.0...6.18.0`](https://github.com/remix-run/react-router/compare/react-router@6.17.0...react-router@6.18.0)
 
 ## v6.17.0
 
 Date: 2023-10-16
 
-### What's Changed
+### 重要变更
 
-#### View Transitions 🚀
+#### 视图过渡 🚀
 
-We're excited to release experimental support for the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition) in React Router! You can now trigger navigational DOM updates to be wrapped in `document.startViewTransition` to enable CSS animated transitions on SPA navigations in your application.
+我们很高兴发布对 React Router 中 [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition) 的实验性支持！你现在可以触发将导航性 DOM 更新包装在 `document.startViewTransition` 中，以在应用中的 SPA 导航时启用 CSS 动画过渡。
 
-The simplest approach to enabling a View Transition in your React Router app is via the new [`<Link unstable_viewTransition>`](https://reactrouter.com/v6/components/link#unstable_viewtransition) prop. This will cause the navigation DOM update to be wrapped in `document.startViewTransition` which will enable transitions for the DOM update. Without any additional CSS styles, you'll get a basic cross-fade animation for your page.
+在 React Router 应用中启用视图过渡的最简单方法是通过新的 [`<Link unstable_viewTransition>`](https://reactrouter.com/v6/components/link#unstable_viewtransition) prop。这会将导航 DOM 更新包装在 `document.startViewTransition` 中，从而启用过渡动画。如果不添加额外的 CSS 样式，你将获得基本的淡入淡出动画。
 
-If you need to apply more fine-grained styles for your animations, you can leverage the [`unstable_useViewTransitionState`](https://reactrouter.com/v6/hooks/use-view-transition-state) hook which will tell you when a transition is in progress and you can use that to apply classes or styles:
+如果你需要为动画应用更细粒度的样式，可以使用 [`unstable_useViewTransitionState`](https://reactrouter.com/v6/hooks/use-view-transition-state) Hook，它会告诉你过渡是否正在进行，你可以用它来应用类或样式：
 
 ```jsx
 function ImageLink(to, src, alt) {
@@ -864,7 +861,7 @@ function ImageLink(to, src, alt) {
 }
 ```
 
-You can also use the [`<NavLink unstable_viewTransition>`](https://reactrouter.com/v6/components/nav-link#unstable_viewtransition) shorthand which will manage the hook usage for you and automatically add a `transitioning` class to the `<a>` during the transition:
+你还可以使用 [`<NavLink unstable_viewTransition>`](https://reactrouter.com/v6/components/nav-link#unstable_viewtransition) 简写形式，它会自动管理 Hook 的使用，并在过渡期间自动为 `<a>` 添加 `transitioning` 类名：
 
 ```css
 a.transitioning img {
@@ -878,106 +875,106 @@ a.transitioning img {
 </NavLink>
 ```
 
-For an example usage of View Transitions, check out [our fork](https://github.com/brophdawg11/react-router-records) of the awesome [Astro Records](https://github.com/Charca/astro-records) demo.
+有关视图过渡的使用示例，请查看我们 [fork 的版本](https://github.com/brophdawg11/react-router-records)（基于优秀的 [Astro Records](https://github.com/Charca/astro-records) 演示）。
 
-For more information on using the View Transitions API, please refer to the [Smooth and simple transitions with the View Transitions API](https://developer.chrome.com/docs/web-platform/view-transitions/) guide from the Google Chrome team.
+有关使用 View Transitions API 的更多信息，请参阅 Google Chrome 团队的[《使用 View Transitions API 实现平滑简单的过渡》](https://developer.chrome.com/docs/web-platform/view-transitions/)指南。
 
-### Minor Changes
+### 次要变更
 
-- Add support for view transitions ([#10916](https://github.com/remix-run/react-router/pull/10916))
+- 新增视图过渡支持 ([#10916](https://github.com/remix-run/react-router/pull/10916))
 
-### Patch Changes
+### 补丁变更
 
-- Log a warning and fail gracefully in `ScrollRestoration` when `sessionStorage` is unavailable ([#10848](https://github.com/remix-run/react-router/pull/10848))
-- Fix `RouterProvider` `future` prop type to be a `Partial<FutureConfig>` so that not all flags must be specified ([#10900](https://github.com/remix-run/react-router/pull/10900))
-- Allow 404 detection to leverage root route error boundary if path contains a URL segment ([#10852](https://github.com/remix-run/react-router/pull/10852))
-- Fix `ErrorResponse` type to avoid leaking internal field ([#10876](https://github.com/remix-run/react-router/pull/10876))
+- 当 `sessionStorage` 不可用时，在 `ScrollRestoration` 中记录警告并优雅降级 ([#10848](https://github.com/remix-run/react-router/pull/10848))
+- 修复 `RouterProvider` 的 `future` prop 类型为 `Partial<FutureConfig>`，使得不必指定所有标志 ([#10900](https://github.com/remix-run/react-router/pull/10900))
+- 当路径包含 URL 段时，允许 404 检测利用根路由错误边界 ([#10852](https://github.com/remix-run/react-router/pull/10852))
+- 修复 `ErrorResponse` 类型以避免泄露内部字段 ([#10876](https://github.com/remix-run/react-router/pull/10876))
 
-**Full Changelog**: [`6.16.0...6.17.0`](https://github.com/remix-run/react-router/compare/react-router@6.16.0...react-router@6.17.0)
+**完整更新日志**: [`6.16.0...6.17.0`](https://github.com/remix-run/react-router/compare/react-router@6.16.0...react-router@6.17.0)
 
 ## v6.16.0
 
 Date: 2023-09-13
 
-### Minor Changes
+### 次要变更
 
-- In order to move towards stricter TypeScript support in the future, we're aiming to replace current usages of `any` with `unknown` on exposed typings for user-provided data. To do this in Remix v2 without introducing breaking changes in React Router v6, we have added generics to a number of shared types. These continue to default to `any` in React Router and are overridden with `unknown` in Remix. In React Router v7 we plan to move these to `unknown` as a breaking change. ([#10843](https://github.com/remix-run/react-router/pull/10843))
-  - `Location` now accepts a generic for the `location.state` value
-  - `ActionFunctionArgs`/`ActionFunction`/`LoaderFunctionArgs`/`LoaderFunction` now accept a generic for the `context` parameter (only used in SSR usages via `createStaticHandler`)
-  - The return type of `useMatches` (now exported as `UIMatch`) accepts generics for `match.data` and `match.handle` - both of which were already set to `unknown`
-- Move the `@private` class export `ErrorResponse` to an `UNSAFE_ErrorResponseImpl` export since it is an implementation detail and there should be no construction of `ErrorResponse` instances in userland. This frees us up to export a `type ErrorResponse` which correlates to an instance of the class via `InstanceType`. Userland code should only ever be using `ErrorResponse` as a type and should be type-narrowing via `isRouteErrorResponse`. ([#10811](https://github.com/remix-run/react-router/pull/10811))
-- Export `ShouldRevalidateFunctionArgs` interface ([#10797](https://github.com/remix-run/react-router/pull/10797))
-- Removed private/internal APIs only required for the Remix v1 backwards compatibility layer and no longer needed in Remix v2 (`_isFetchActionRedirect`, `_hasFetcherDoneAnything`) ([#10715](https://github.com/remix-run/react-router/pull/10715))
+- 为了在未来推进更严格的 TypeScript 支持，我们计划将用户提供的数据的暴露类型中当前使用的 `any` 替换为 `unknown`。为了在不引入破坏性变更的情况下在 Remix v2 中实现这一点，我们为一些共享类型添加了泛型。这些类型在 React Router 中仍然默认为 `any`，并在 Remix 中被覆盖为 `unknown`。在 React Router v7 中，我们计划将这些作为破坏性变更移至 `unknown`。([#10843](https://github.com/remix-run/react-router/pull/10843))
+  - `Location` 现在接受一个泛型用于 `location.state` 值
+  - `ActionFunctionArgs`/`ActionFunction`/`LoaderFunctionArgs`/`LoaderFunction` 现在接受一个泛型用于 `context` 参数（仅在通过 `createStaticHandler` 的 SSR 用法中使用）
+  - `useMatches` 的返回类型（现导出为 `UIMatch`）接受 `match.data` 和 `match.handle` 的泛型——两者已经设置为 `unknown`
+- 将 `@private` 类导出 `ErrorResponse` 移至 `UNSAFE_ErrorResponseImpl` 导出，因为它是实现细节，用户代码中不应该构造 `ErrorResponse` 实例。这使我们能够导出一个 `type ErrorResponse`，通过 `InstanceType` 关联到类的实例。用户代码应该只将 `ErrorResponse` 作为类型使用，并通过 `isRouteErrorResponse` 进行类型缩窄。([#10811](https://github.com/remix-run/react-router/pull/10811))
+- 导出 `ShouldRevalidateFunctionArgs` 接口 ([#10797](https://github.com/remix-run/react-router/pull/10797))
+- 移除仅 Remix v1 后向兼容层需要的私有/内部 API，Remix v2 中不再需要（`_isFetchActionRedirect`、`_hasFetcherDoneAnything`）([#10715](https://github.com/remix-run/react-router/pull/10715))
 
-### Patch Changes
+### 补丁变更
 
-- Properly encode rendered URIs in server rendering to avoid hydration errors ([#10769](https://github.com/remix-run/react-router/pull/10769))
-- Add method/url to error message on aborted `query`/`queryRoute` calls ([#10793](https://github.com/remix-run/react-router/pull/10793))
-- Fix a race-condition with loader/action-thrown errors on `route.lazy` routes ([#10778](https://github.com/remix-run/react-router/pull/10778))
-- Fix type for `actionResult` on the arguments object passed to `shouldRevalidate` ([#10779](https://github.com/remix-run/react-router/pull/10779))
+- 正确编码服务端渲染中的 URI 以避免水合错误 ([#10769](https://github.com/remix-run/react-router/pull/10769))
+- 在中止的 `query`/`queryRoute` 调用的错误消息中添加 method/url ([#10793](https://github.com/remix-run/react-router/pull/10793))
+- 修复 `route.lazy` 路由上 loader/action 抛出错误的竞态条件 ([#10778](https://github.com/remix-run/react-router/pull/10778))
+- 修复 `shouldRevalidate` 参数对象上 `actionResult` 的类型 ([#10779](https://github.com/remix-run/react-router/pull/10779))
 
-**Full Changelog**: [`v6.15.0...v6.16.0`](https://github.com/remix-run/react-router/compare/react-router@6.15.0...react-router@6.16.0)
+**完整更新日志**: [`v6.15.0...v6.16.0`](https://github.com/remix-run/react-router/compare/react-router@6.15.0...react-router@6.16.0)
 
 ## v6.15.0
 
 Date: 2023-08-10
 
-### Minor Changes
+### 次要变更
 
-- Add's a new `redirectDocument()` function which allows users to specify that a redirect from a `loader`/`action` should trigger a document reload (via `window.location`) instead of attempting to navigate to the redirected location via React Router ([#10705](https://github.com/remix-run/react-router/pull/10705))
+- 新增 `redirectDocument()` 函数，允许用户指定 `loader`/`action` 的重定向应触发文档重新加载（通过 `window.location`）而不是尝试通过 React Router 导航到重定向位置 ([#10705](https://github.com/remix-run/react-router/pull/10705))
 
-### Patch Changes
+### 补丁变更
 
-- Ensure `useRevalidator` is referentially stable across re-renders if revalidations are not actively occurring ([#10707](https://github.com/remix-run/react-router/pull/10707))
-- Ensure hash history always includes a leading slash on hash pathnames ([#10753](https://github.com/remix-run/react-router/pull/10753))
-- Fixes an edge-case affecting web extensions in Firefox that use `URLSearchParams` and the `useSearchParams` hook ([#10620](https://github.com/remix-run/react-router/pull/10620))
-- Reorder effects in `unstable_usePrompt` to avoid throwing an exception if the prompt is unblocked and a navigation is performed synchronously ([#10687](https://github.com/remix-run/react-router/pull/10687), [#10718](https://github.com/remix-run/react-router/pull/10718))
-- SSR: Do not include hash in `useFormAction()` for unspecified actions since it cannot be determined on the server and causes hydration issues ([#10758](https://github.com/remix-run/react-router/pull/10758))
-- SSR: Fix an issue in `queryRoute` that was not always identifying thrown `Response` instances ([#10717](https://github.com/remix-run/react-router/pull/10717))
-- `react-router-native`: Update `@ungap/url-search-params` dependency from `^0.1.4` to `^0.2.2` ([#10590](https://github.com/remix-run/react-router/pull/10590))
+- 确保 `useRevalidator` 在没有活跃重新验证时在重新渲染之间保持引用稳定 ([#10707](https://github.com/remix-run/react-router/pull/10707))
+- 确保 hash 历史记录的 hash 路径名始终包含前导斜杠 ([#10753](https://github.com/remix-run/react-router/pull/10753))
+- 修复影响 Firefox 中使用 `URLSearchParams` 和 `useSearchParams` Hook 的 Web 扩展的边缘情况 ([#10620](https://github.com/remix-run/react-router/pull/10620))
+- 重新排序 `unstable_usePrompt` 中的效果以避免在解除阻塞并同步执行导航时抛出异常 ([#10687](https://github.com/remix-run/react-router/pull/10687), [#10718](https://github.com/remix-run/react-router/pull/10718))
+- SSR：对于未指定 action 的情况，不在 `useFormAction()` 中包含 hash，因为它在服务器端无法确定且会导致水合问题 ([#10758](https://github.com/remix-run/react-router/pull/10758))
+- SSR：修复 `queryRoute` 中没有始终识别抛出的 `Response` 实例的问题 ([#10717](https://github.com/remix-run/react-router/pull/10717))
+- `react-router-native`：更新 `@ungap/url-search-params` 依赖从 `^0.1.4` 到 `^0.2.2` ([#10590](https://github.com/remix-run/react-router/pull/10590))
 
-**Full Changelog**: [`v6.14.2...v6.15.0`](https://github.com/remix-run/react-router/compare/react-router@6.14.2...react-router@6.15.0)
+**完整更新日志**: [`v6.14.2...v6.15.0`](https://github.com/remix-run/react-router/compare/react-router@6.14.2...react-router@6.15.0)
 
 ## v6.14.2
 
 Date: 2023-07-17
 
-### Patch Changes
+### 补丁变更
 
-- Add missing `<Form state>` prop to populate `history.state` on submission navigations ([#10630](https://github.com/remix-run/react-router/pull/10630))
-- Trigger an error if a `defer` promise resolves/rejects with `undefined` in order to match the behavior of loaders and actions which must return a value or `null` ([#10690](https://github.com/remix-run/react-router/pull/10690))
-- Properly handle fetcher redirects interrupted by normal navigations ([#10674](https://github.com/remix-run/react-router/pull/10674))
-- Initial-load fetchers should not automatically revalidate on GET navigations ([#10688](https://github.com/remix-run/react-router/pull/10688))
-- Properly decode element id when emulating hash scrolling via `<ScrollRestoration>` ([#10682](https://github.com/remix-run/react-router/pull/10682))
-- Typescript: Enhance the return type of `Route.lazy` to prohibit returning an empty object ([#10634](https://github.com/remix-run/react-router/pull/10634))
-- SSR: Support proper hydration of `Error` subclasses such as `ReferenceError`/`TypeError` ([#10633](https://github.com/remix-run/react-router/pull/10633))
+- 添加缺失的 `<Form state>` prop 以在提交导航时填充 `history.state` ([#10630](https://github.com/remix-run/react-router/pull/10630))
+- 如果 `defer` promise 以 `undefined` resolve/reject，则触发错误，以匹配 loader 和 action 必须返回值或 `null` 的行为 ([#10690](https://github.com/remix-run/react-router/pull/10690))
+- 正确处理被正常导航中断的 fetcher 重定向 ([#10674](https://github.com/remix-run/react-router/pull/10674))
+- 初始加载的 fetcher 不应在 GET 导航时自动重新验证 ([#10688](https://github.com/remix-run/react-router/pull/10688))
+- 通过 `<ScrollRestoration>` 模拟 hash 滚动时正确解码元素 ID ([#10682](https://github.com/remix-run/react-router/pull/10682))
+- TypeScript：增强 `Route.lazy` 的返回类型以禁止返回空对象 ([#10634](https://github.com/remix-run/react-router/pull/10634))
+- SSR：支持 `Error` 子类（如 `ReferenceError`/`TypeError`）的正确水合 ([#10633](https://github.com/remix-run/react-router/pull/10633))
 
-**Full Changelog**: [`v6.14.1...v6.14.2`](https://github.com/remix-run/react-router/compare/react-router@6.14.1...react-router@6.14.2)
+**完整更新日志**: [`v6.14.1...v6.14.2`](https://github.com/remix-run/react-router/compare/react-router@6.14.1...react-router@6.14.2)
 
 ## v6.14.1
 
 Date: 2023-06-30
 
-### Patch Changes
+### 补丁变更
 
-- Fix loop in `unstable_useBlocker` when used with an unstable blocker function ([#10652](https://github.com/remix-run/react-router/pull/10652))
-- Fix issues with reused blockers on subsequent navigations ([#10656](https://github.com/remix-run/react-router/pull/10656))
-- Updated dependencies:
+- 修复 `unstable_useBlocker` 在使用不稳定的 blocker 函数时的循环问题 ([#10652](https://github.com/remix-run/react-router/pull/10652))
+- 修复后续导航中重复使用 blocker 的问题 ([#10656](https://github.com/remix-run/react-router/pull/10656))
+- 更新依赖：
   - `@remix-run/router@1.7.1`
 
-**Full Changelog**: [`v6.14.0...v6.14.1`](https://github.com/remix-run/react-router/compare/react-router@6.14.0...react-router@6.14.1)
+**完整更新日志**: [`v6.14.0...v6.14.1`](https://github.com/remix-run/react-router/compare/react-router@6.14.0...react-router@6.14.1)
 
 ## v6.14.0
 
 Date: 2023-06-23
 
-### What's Changed
+### 重要变更
 
-#### JSON/Text Submissions
+#### JSON/Text 提交
 
-`6.14.0` adds support for JSON and Text submissions via `useSubmit`/`fetcher.submit` since it's not always convenient to have to serialize into `FormData` if you're working in a client-side SPA. To opt-into these encodings you just need to specify the proper `formEncType`:
+`6.14.0` 通过 `useSubmit`/`fetcher.submit` 新增了对 JSON 和 Text 提交的支持，因为如果你在客户端 SPA 中工作，将数据序列化为 `FormData` 并不总是方便的。要启用这些编码，只需指定相应的 `formEncType`：
 
-**Opt-into `application/json` encoding:**
+**启用 `application/json` 编码：**
 
 ```js
 function Component() {
@@ -994,7 +991,7 @@ async function action({ request }) {
 }
 ```
 
-**Opt-into `text/plain` encoding:**
+**启用 `text/plain` 编码：**
 
 ```js
 function Component() {
@@ -1011,9 +1008,9 @@ async function action({ request }) {
 }
 ```
 
-**⚠️ Default Behavior Will Change in v7**
+**⚠️ 默认行为将在 v7 中改变**
 
-Please note that to avoid a breaking change, the default behavior will still encode a simple key/value JSON object into a `FormData` instance:
+请注意，为避免破坏性变更，默认行为仍然会将简单的键/值 JSON 对象编码为 `FormData` 实例：
 
 ```jsx
 function Component() {
@@ -1030,42 +1027,42 @@ async function action({ request }) {
 }
 ```
 
-This behavior will likely change in v7 so it's best to make any JSON object submissions explicit with `formEncType: "application/x-www-form-urlencoded"` or `formEncType: "application/json"` to ease your eventual v7 migration path.
+此行为可能会在 v7 中改变，因此最好对任何 JSON 对象提交明确指定 `formEncType: "application/x-www-form-urlencoded"` 或 `formEncType: "application/json"`，以便于将来迁移到 v7。
 
-### Minor Changes
+### 次要变更
 
-- Add support for `application/json` and `text/plain` encodings for `useSubmit`/`fetcher.submit`. To reflect these additional types, `useNavigation`/`useFetcher` now also contain `navigation.json`/`navigation.text` and `fetcher.json`/`fetcher.text` which include the json/text submission if applicable. ([#10413](https://github.com/remix-run/react-router/pull/10413))
+- 新增对 `useSubmit`/`fetcher.submit` 的 `application/json` 和 `text/plain` 编码支持。为反映这些额外类型，`useNavigation`/`useFetcher` 现在还包含 `navigation.json`/`navigation.text` 和 `fetcher.json`/`fetcher.text`（如适用）。([#10413](https://github.com/remix-run/react-router/pull/10413))
 
-### Patch Changes
+### 补丁变更
 
-- When submitting a form from a `submitter` element, prefer the built-in `new FormData(form, submitter)` instead of the previous manual approach in modern browsers (those that support the new `submitter` parameter) ([#9865](https://github.com/remix-run/react-router/pull/9865))
-  - For browsers that don't support it, we continue to just append the submit button's entry to the end, and we also add rudimentary support for `type="image"` buttons
-  - If developers want full spec-compliant support for legacy browsers, they can use the `formdata-submitter-polyfill`
-- Call `window.history.pushState/replaceState` _before_ updating React Router state (instead of after) so that `window.location` matches `useLocation` during synchronous React 17 rendering ([#10448](https://github.com/remix-run/react-router/pull/10448))
-  - ⚠️ Note: generally apps should not be relying on `window.location` and should always reference `useLocation` when possible, as `window.location` will not be in sync 100% of the time (due to `popstate` events, concurrent mode, etc.)
-- Avoid calling `shouldRevalidate` for fetchers that have not yet completed a data load ([#10623](https://github.com/remix-run/react-router/pull/10623))
-- Strip `basename` from the `location` provided to `<ScrollRestoration getKey>` to match the `useLocation` behavior ([#10550](https://github.com/remix-run/react-router/pull/10550))
-- Strip `basename` from locations provided to `unstable_useBlocker` functions to match the `useLocation` behavior ([#10573](https://github.com/remix-run/react-router/pull/10573))
-- Fix `unstable_useBlocker` key issues in `StrictMode` ([#10573](https://github.com/remix-run/react-router/pull/10573))
-- Fix `generatePath` when passed a numeric `0` value parameter ([#10612](https://github.com/remix-run/react-router/pull/10612))
-- Fix `tsc --skipLibCheck:false` issues on React 17 ([#10622](https://github.com/remix-run/react-router/pull/10622))
-- Upgrade `typescript` to 5.1 ([#10581](https://github.com/remix-run/react-router/pull/10581))
+- 当从 `submitter` 元素提交表单时，在现代浏览器中优先使用内置的 `new FormData(form, submitter)` 而非之前的手动方式（支持新 `submitter` 参数的浏览器） ([#9865](https://github.com/remix-run/react-router/pull/9865))
+  - 对于不支持的浏览器，我们继续将提交按钮的条目追加到末尾，并还新增了对 `type="image"` 按钮的基本支持
+  - 如果开发者想要对旧版浏览器的完全规范兼容支持，可以使用 `formdata-submitter-polyfill`
+- 在更新 React Router 状态 _之前_ 调用 `window.history.pushState/replaceState`（而不是之后），以便在 React 17 同步渲染期间 `window.location` 与 `useLocation` 匹配 ([#10448](https://github.com/remix-run/react-router/pull/10448))
+  - ⚠️ 注意：一般来说，应用不应该依赖 `window.location`，而应始终在可能时引用 `useLocation`，因为 `window.location` 不会 100% 的时间保持同步（由于 `popstate` 事件、并发模式等）
+- 避免对尚未完成数据加载的 fetcher 调用 `shouldRevalidate` ([#10623](https://github.com/remix-run/react-router/pull/10623))
+- 从传递给 `<ScrollRestoration getKey>` 的 `location` 中去除 `basename`，以匹配 `useLocation` 的行为 ([#10550](https://github.com/remix-run/react-router/pull/10550))
+- 从传递给 `unstable_useBlocker` 函数的 location 中去除 `basename`，以匹配 `useLocation` 的行为 ([#10573](https://github.com/remix-run/react-router/pull/10573))
+- 修复 `StrictMode` 中的 `unstable_useBlocker` key 问题 ([#10573](https://github.com/remix-run/react-router/pull/10573))
+- 修复传递数字 `0` 值参数时的 `generatePath` 问题 ([#10612](https://github.com/remix-run/react-router/pull/10612))
+- 修复 React 17 上 `tsc --skipLibCheck:false` 的问题 ([#10622](https://github.com/remix-run/react-router/pull/10622))
+- 升级 `typescript` 到 5.1 ([#10581](https://github.com/remix-run/react-router/pull/10581))
 
-**Full Changelog**: [`v6.13.0...v6.14.0`](https://github.com/remix-run/react-router/compare/react-router@6.13.0...react-router@6.14.0)
+**完整更新日志**: [`v6.13.0...v6.14.0`](https://github.com/remix-run/react-router/compare/react-router@6.13.0...react-router@6.14.0)
 
 ## v6.13.0
 
 Date: 2023-06-14
 
-### What's Changed
+### 重要变更
 
-`6.13.0` is really a patch release in spirit but comes with a SemVer minor bump since we added a new future flag.
+`6.13.0` 本质上是一个补丁版本，但由于添加了新的 future 标志，因此使用了 SemVer 次要版本号。
 
 #### `future.v7_startTransition`
 
-The **tl;dr;** is that `6.13.0` is the same as [`6.12.0`](https://github.com/remix-run/react-router/releases/tag/react-router%406.12.0) bue we've moved the usage of `React.startTransition` behind an opt-in `future.v7_startTransition` [future flag](https://reactrouter.com/v6/guides/api-development-strategy) because we found that there are applications in the wild that are currently using `Suspense` in ways that are incompatible with `React.startTransition`.
+简而言之，`6.13.0` 与 [`6.12.0`](https://github.com/remix-run/react-router/releases/tag/react-router%406.12.0) 相同，但我们将 `React.startTransition` 的使用放在了可选启用的 `future.v7_startTransition` [future 标志](https://reactrouter.com/v6/guides/api-development-strategy)之后，因为我们发现现实中有些应用以与 `React.startTransition` 不兼容的方式使用 `Suspense`。
 
-Therefore, in `6.13.0` the default behavior will no longer leverage `React.startTransition`:
+因此，在 `6.13.0` 中默认行为将不再使用 `React.startTransition`：
 
 ```jsx
 <BrowserRouter>
@@ -1075,7 +1072,7 @@ Therefore, in `6.13.0` the default behavior will no longer leverage `React.start
 <RouterProvider router={router} />
 ```
 
-If you wish to enable `React.startTransition`, pass the future flag to your router component:
+如果你希望启用 `React.startTransition`，请将 future 标志传递给你的路由器组件：
 
 ```jsx
 <BrowserRouter future={{ v7_startTransition: true }}>
@@ -1085,122 +1082,117 @@ If you wish to enable `React.startTransition`, pass the future flag to your rout
 <RouterProvider router={router} future={{ v7_startTransition: true }}/>
 ```
 
-We recommend folks adopt this flag sooner rather than later to be better compatible with React concurrent mode, but if you run into issues you can continue without the use of `React.startTransition` until v7. Issues usually boil down to creating net-new promises during the render cycle, so if you run into issues when opting into `React.startTransition`, you should either lift your promise creation out of the render cycle or put it behind a `useMemo`.
+我们建议尽早采用此标志以更好地兼容 React 并发模式，但如果遇到问题，可以继续不使用 `React.startTransition` 直到 v7。问题通常归结为在渲染周期中创建新的 promise，因此如果你在启用 `React.startTransition` 时遇到问题，应该将 promise 的创建移出渲染周期或放在 `useMemo` 之后。
 
-### Minor Changes
+### 次要变更
 
-- Move `React.startTransition` usage behinds a future flag ([#10596](https://github.com/remix-run/react-router/pull/10596))
+- 将 `React.startTransition` 的使用放在 future 标志之后 ([#10596](https://github.com/remix-run/react-router/pull/10596))
 
-### Patch Changes
+### 补丁变更
 
-- Work around webpack/terser `React.startTransition` minification bug in production mode ([#10588](https://github.com/remix-run/react-router/pull/10588))
+- 解决 webpack/terser 在生产模式下的 `React.startTransition` 压缩错误 ([#10588](https://github.com/remix-run/react-router/pull/10588))
 
-**Full Changelog**: [`v6.12.1...v6.13.0`](https://github.com/remix-run/react-router/compare/react-router@6.12.1...react-router@6.13.0)
+**完整更新日志**: [`v6.12.1...v6.13.0`](https://github.com/remix-run/react-router/compare/react-router@6.12.1...react-router@6.13.0)
 
 ## v6.12.1
 
 Date: 2023-06-08
 
 > [!WARNING]
-> Please use version `6.13.0` or later instead of `6.12.0`/`6.12.1`. These versions suffered from some Webpack build/minification issues resulting failed builds or invalid minified code in your production bundles. See [#10569](https://github.com/remix-run/react-router/pull/10569) and [#10579](https://github.com/remix-run/react-router/issues/10579) for more details.
+> 请使用 `6.13.0` 或更高版本代替 `6.12.0`/`6.12.1`。这些版本存在 Webpack 构建/压缩问题，导致构建失败或生产包中出现无效的压缩代码。详见 [#10569](https://github.com/remix-run/react-router/pull/10569) 和 [#10579](https://github.com/remix-run/react-router/issues/10579)。
 
-### Patch Changes
-
-- Adjust feature detection of `React.startTransition` to fix webpack + react 17 compilation error ([#10569](https://github.com/remix-run/react-router/pull/10569))
-
-**Full Changelog**: [`v6.12.0...v6.12.1`](https://github.com/remix-run/react-router/compare/react-router@6.12.0...react-router@6.12.1)
+- 调整 `React.startTransition` 的特性检测以修复 webpack + React 17 的编译错误 ([#10569](https://github.com/remix-run/react-router/pull/10569))
+  **完整更新日志**: [`v6.12.0...v6.12.1`](https://github.com/remix-run/react-router/compare/react-router@6.12.0...react-router@6.12.1)
 
 ## v6.12.0
 
 Date: 2023-06-06
 
 > [!WARNING]
-> Please use version `6.13.0` or later instead of `6.12.0`/`6.12.1`. These versions suffered from some Webpack build/minification issues resulting failed builds or invalid minified code in your production bundles. See [#10569](https://github.com/remix-run/react-router/pull/10569) and [#10579](https://github.com/remix-run/react-router/issues/10579) for more details.
+> 请使用 `6.13.0` 或更高版本代替 `6.12.0`/`6.12.1`。这些版本存在 Webpack 构建/压缩问题，导致构建失败或生产包中出现无效的压缩代码。详见 [#10569](https://github.com/remix-run/react-router/pull/10569) 和 [#10579](https://github.com/remix-run/react-router/issues/10579)。
 
-### What's Changed
+#### 支持 `React.startTransition`
 
-#### `React.startTransition` support
+在 `6.12.0` 中，我们通过将内部路由器状态更新包装在 [`React.startTransition`](https://react.dev/reference/react/startTransition) 中，增强了对挂起组件的支持。这意味着，例如，如果目标路由中的某个组件挂起而你没有提供 [`Suspense`](https://react.dev/reference/react/Suspense) 边界来显示回退内容，React 会延迟新 UI 的渲染并显示旧 UI，直到该异步操作解析完成。这对于等待图片或 CSS 文件加载等场景非常有用（从技术上说，是的，你可以用它来加载数据，但我们仍然建议使用 loader 😀）。有关此用法的快速概览，请查看 [Ryan 在 Twitter 上的演示](https://twitter.com/remix_run/status/1658976420767604736)。
 
-With `6.12.0` we've added better support for suspending components by wrapping the internal router state updates in [`React.startTransition`](https://react.dev/reference/react/startTransition). This means that, for example, if one of your components in a destination route suspends and you have not provided a [`Suspense`](https://react.dev/reference/react/Suspense) boundary to show a fallback, React will delay the rendering of the new UI and show the old UI until that asynchronous operation resolves. This could be useful for waiting for things such as waiting for images or CSS files to load (and technically, yes, you could use it for data loading but we'd still recommend using loaders for that 😀). For a quick overview of this usage, check out [Ryan's demo on Twitter](https://twitter.com/remix_run/status/1658976420767604736).
+### 次要变更
 
-### Minor Changes
+- 将内部路由器状态更新包装在 `React.startTransition` 中 ([#10438](https://github.com/remix-run/react-router/pull/10438))
 
-- Wrap internal router state updates with `React.startTransition` ([#10438](https://github.com/remix-run/react-router/pull/10438))
+### 补丁变更
 
-### Patch Changes
+- 允许在提交的 fetcher 被删除时完成 fetcher 重新验证 ([#10535](https://github.com/remix-run/react-router/pull/10535))
+- 尝试使用不可序列化的 state 执行 `PUSH` 导航时重新抛出 `DOMException`（`DataCloneError`）。([#10427](https://github.com/remix-run/react-router/pull/10427))
+- 确保存在 hash 时仍进行重新验证 ([#10516](https://github.com/remix-run/react-router/pull/10516))
+- 升级 `jest` 和 `jsdom` ([#10453](https://github.com/remix-run/react-router/pull/10453))
+- 更新依赖：
+  - `@remix-run/router@1.6.3`（[更新日志](https://github.com/remix-run/react-router/blob/main/packages/router/CHANGELOG.md#163)）
 
-- Allow fetcher revalidations to complete if submitting fetcher is deleted ([#10535](https://github.com/remix-run/react-router/pull/10535))
-- Re-throw `DOMException` (`DataCloneError`) when attempting to perform a `PUSH` navigation with non-serializable state. ([#10427](https://github.com/remix-run/react-router/pull/10427))
-- Ensure revalidations happen when hash is present ([#10516](https://github.com/remix-run/react-router/pull/10516))
-- Upgrade `jest` and `jsdom` ([#10453](https://github.com/remix-run/react-router/pull/10453))
-- Updated dependencies:
-  - `@remix-run/router@1.6.3` ([Changelog](https://github.com/remix-run/react-router/blob/main/packages/router/CHANGELOG.md#163))
-
-**Full Changelog**: [`v6.11.2...v6.12.0`](https://github.com/remix-run/react-router/compare/react-router@6.11.2...react-router@6.12.0)
+**完整更新日志**: [`v6.11.2...v6.12.0`](https://github.com/remix-run/react-router/compare/react-router@6.11.2...react-router@6.12.0)
 
 ## v6.11.2
 
 Date: 2023-05-17
 
-### Patch Changes
+### 补丁变更
 
-- Fix `basename` duplication in descendant `<Routes>` inside a `<RouterProvider>` ([#10492](https://github.com/remix-run/react-router/pull/10492))
-- Fix bug where initial data load would not kick off when hash is present ([#10493](https://github.com/remix-run/react-router/pull/10493))
-- Export `SetURLSearchParams` type ([#10444](https://github.com/remix-run/react-router/pull/10444))
-- Fix Remix HMR-driven error boundaries by properly reconstructing new routes and `manifest` in `_internalSetRoutes` ([#10437](https://github.com/remix-run/react-router/pull/10437))
+- 修复在 `<RouterProvider>` 中后代 `<Routes>` 内的 `basename` 重复问题 ([#10492](https://github.com/remix-run/react-router/pull/10492))
+- 修复存在 hash 时初始数据加载不会启动的错误 ([#10493](https://github.com/remix-run/react-router/pull/10493))
+- 导出 `SetURLSearchParams` 类型 ([#10444](https://github.com/remix-run/react-router/pull/10444))
+- 通过在 `_internalSetRoutes` 中正确重建新路由和 `manifest` 来修复 Remix HMR 驱动的错误边界 ([#10437](https://github.com/remix-run/react-router/pull/10437))
 
-**Full Changelog**: [`v6.11.1...v6.11.2`](https://github.com/remix-run/react-router/compare/react-router@6.11.1...react-router@6.11.2)
+**完整更新日志**: [`v6.11.1...v6.11.2`](https://github.com/remix-run/react-router/compare/react-router@6.11.1...react-router@6.11.2)
 
 ## v6.11.1
 
 Date: 2023-05-03
 
-### Patch Changes
+### 补丁变更
 
-- Fix usage of `Component` API within descendant `<Routes>` ([#10434](https://github.com/remix-run/react-router/pull/10434))
-- Fix bug when calling `useNavigate` from `<Routes>` inside a `<RouterProvider>` ([#10432](https://github.com/remix-run/react-router/pull/10432))
-- Fix usage of `<Navigate>` in strict mode when using a data router ([#10435](https://github.com/remix-run/react-router/pull/10435))
-- Fix `basename` handling when navigating without a path ([#10433](https://github.com/remix-run/react-router/pull/10433))
-- "Same hash" navigations no longer re-run loaders to match browser behavior (i.e. `/path#hash -> /path#hash`) ([#10408](https://github.com/remix-run/react-router/pull/10408))
+- 修复后代 `<Routes>` 中 `Component` API 的用法问题 ([#10434](https://github.com/remix-run/react-router/pull/10434))
+- 修复从 `<RouterProvider>` 内部的 `<Routes>` 调用 `useNavigate` 的错误 ([#10432](https://github.com/remix-run/react-router/pull/10432))
+- 修复使用数据路由器时严格模式下 `<Navigate>` 的用法问题 ([#10435](https://github.com/remix-run/react-router/pull/10435))
+- 修复在没有路径时导航的 `basename` 处理问题 ([#10433](https://github.com/remix-run/react-router/pull/10433))
+- “相同 hash” 导航不再重新运行 loader 以匹配浏览器行为（即 `/path#hash -> /path#hash`） ([#10408](https://github.com/remix-run/react-router/pull/10408))
 
-**Full Changelog**: [`v6.11.0...v6.11.1`](https://github.com/remix-run/react-router/compare/react-router@6.11.0...react-router@6.11.1)
+**完整更新日志**: [`v6.11.0...v6.11.1`](https://github.com/remix-run/react-router/compare/react-router@6.11.0...react-router@6.11.1)
 
 ## v6.11.0
 
 Date: 2023-04-28
 
-### Minor Changes
+### 次要变更
 
-- Enable `basename` support in `useFetcher` ([#10336](https://github.com/remix-run/react-router/pull/10336))
-  - If you were previously working around this issue by manually prepending the `basename` then you will need to remove the manually prepended `basename` from your `fetcher` calls (`fetcher.load('/basename/route') -> fetcher.load('/route')`)
-- Updated dependencies:
-  - `@remix-run/router@1.6.0` ([Changelog](https://github.com/remix-run/react-router/blob/main/packages/router/CHANGELOG.md#160))
+- 在 `useFetcher` 中启用 `basename` 支持 ([#10336](https://github.com/remix-run/react-router/pull/10336))
+  - 如果你之前通过手动添加 `basename` 前缀来解决此问题，那么你需要从你的 `fetcher` 调用中移除手动添加的 `basename`（`fetcher.load('/basename/route') -> fetcher.load('/route')`）
+- 更新依赖：
+  - `@remix-run/router@1.6.0`（[更新日志](https://github.com/remix-run/react-router/blob/main/packages/router/CHANGELOG.md#160)）
 
-### Patch Changes
+### 补丁变更
 
-- When using a `RouterProvider`, `useNavigate`/`useSubmit`/`fetcher.submit` are now stable across location changes, since we can handle relative routing via the `@remix-run/router` instance and get rid of our dependence on `useLocation()` ([#10336](https://github.com/remix-run/react-router/pull/10336))
-  - When using `BrowserRouter`, these hooks remain unstable across location changes because they still rely on `useLocation()`
-- Fetchers should no longer revalidate on search params changes or routing to the same URL, and will only revalidate on `action` submissions or `router.revalidate` calls ([#10344](https://github.com/remix-run/react-router/pull/10344))
-- Fix inadvertent re-renders when using `Component` instead of `element` on a route definition ([#10287](https://github.com/remix-run/react-router/pull/10287))
-- Fail gracefully on `<Link to="//">` and other invalid URL values ([#10367](https://github.com/remix-run/react-router/pull/10367))
-- Switched from `useSyncExternalStore` to `useState` for internal `@remix-run/router` router state syncing in `<RouterProvider>`. We found some [subtle bugs](https://codesandbox.io/s/use-sync-external-store-loop-9g7b81) where router state updates got propagated _before_ other normal `useState` updates, which could lead to foot guns in `useEffect` calls. ([#10377](https://github.com/remix-run/react-router/pull/10377), [#10409](https://github.com/remix-run/react-router/pull/10409))
-- Log loader/action errors caught by the default error boundary to the console in dev for easier stack trace evaluation ([#10286](https://github.com/remix-run/react-router/pull/10286))
-- Fix bug preventing rendering of descendant `<Routes>` when `RouterProvider` errors existed ([#10374](https://github.com/remix-run/react-router/pull/10374))
-- Fix detection of `useNavigate` in the render cycle by setting the `activeRef` in a layout effect, allowing the `navigate` function to be passed to child components and called in a `useEffect` there ([#10394](https://github.com/remix-run/react-router/pull/10394))
-- Allow `useRevalidator()` to resolve a loader-driven error boundary scenario ([#10369](https://github.com/remix-run/react-router/pull/10369))
-- Enhance `LoaderFunction`/`ActionFunction` return type to prevent `undefined` from being a valid return value ([#10267](https://github.com/remix-run/react-router/pull/10267))
-- Ensure proper 404 error on `fetcher.load` call to a route without a `loader` ([#10345](https://github.com/remix-run/react-router/pull/10345))
-- Decouple `AbortController` usage between revalidating fetchers and the thing that triggered them such that the unmount/deletion of a revalidating fetcher doesn't impact the ongoing triggering navigation/revalidation ([#10271](https://github.com/remix-run/react-router/pull/10271))
+- 使用 `RouterProvider` 时，`useNavigate`/`useSubmit`/`fetcher.submit` 现在在 location 变化时保持稳定，因为我们可以通过 `@remix-run/router` 实例处理相对路由，不再依赖 `useLocation()` ([#10336](https://github.com/remix-run/react-router/pull/10336))
+  - 使用 `BrowserRouter` 时，这些 Hook 在 location 变化时仍然不稳定，因为它们仍然依赖 `useLocation()`
+- Fetcher 不应再在搜索参数变化或导航到相同 URL 时重新验证，仅在 `action` 提交或 `router.revalidate` 调用时重新验证 ([#10344](https://github.com/remix-run/react-router/pull/10344))
+- 修复在路由定义上使用 `Component` 代替 `element` 时的不必要重新渲染 ([#10287](https://github.com/remix-run/react-router/pull/10287))
+- 对 `<Link to="//">` 和其他无效 URL 值优雅降级 ([#10367](https://github.com/remix-run/react-router/pull/10367))
+- 从 `useSyncExternalStore` 切换到 `useState` 用于 `<RouterProvider>` 中内部 `@remix-run/router` 路由器状态同步。我们发现了一些[微妙的错误](https://codesandbox.io/s/use-sync-external-store-loop-9g7b81)，其中路由器状态更新会在其他正常 `useState` 更新 _之前_ 传播，这可能导致 `useEffect` 调用中的问题。([#10377](https://github.com/remix-run/react-router/pull/10377), [#10409](https://github.com/remix-run/react-router/pull/10409))
+- 在开发环境中将被默认错误边界捕获的 loader/action 错误记录到控制台，以便更容易地评估堆栈跟踪 ([#10286](https://github.com/remix-run/react-router/pull/10286))
+- 修复当 `RouterProvider` 存在错误时阻止后代 `<Routes>` 渲染的错误 ([#10374](https://github.com/remix-run/react-router/pull/10374))
+- 通过在布局效果中设置 `activeRef` 来修复渲染周期中 `useNavigate` 的检测，允许将 `navigate` 函数传递给子组件并在 `useEffect` 中调用 ([#10394](https://github.com/remix-run/react-router/pull/10394))
+- 允许 `useRevalidator()` 解决 loader 驱动的错误边界场景 ([#10369](https://github.com/remix-run/react-router/pull/10369))
+- 增强 `LoaderFunction`/`ActionFunction` 返回类型以防止 `undefined` 成为有效的返回值 ([#10267](https://github.com/remix-run/react-router/pull/10267))
+- 确保对没有 `loader` 的路由的 `fetcher.load` 调用返回正确的 404 错误 ([#10345](https://github.com/remix-run/react-router/pull/10345))
+- 解耦重新验证 fetcher 和触发它们的事物之间的 `AbortController` 用法，使得卸载/删除重新验证的 fetcher 不会影响正在进行的触发导航/重新验证 ([#10271](https://github.com/remix-run/react-router/pull/10271))
 
-**Full Changelog**: [`v6.10.0...v6.11.0`](https://github.com/remix-run/react-router/compare/react-router@6.10.0...react-router@6.11.0)
+**完整更新日志**: [`v6.10.0...v6.11.0`](https://github.com/remix-run/react-router/compare/react-router@6.10.0...react-router@6.11.0)
 
 ## v6.10.0
 
 Date: 2023-03-29
 
-### What's Changed
+### 重要变更
 
-We recently published a post over on the Remix Blog titled ["Future Proofing Your Remix App"](https://remix.run/blog/future-flags) that goes through our strategy to ensure smooth upgrades for your Remix and React Router apps going forward. React Router `6.10.0` adds support for these flags (for data routers) which you can specify when you create your router:
+我们最近在 Remix 博客上发布了一篇名为 ["给你的 Remix 应用做未来保障"](https://remix.run/blog/future-flags) 的文章，介绍了我们确保 Remix 和 React Router 应用顺利升级的策略。React Router `6.10.0` 为这些标志（用于数据路由器）添加了支持，你可以在创建路由器时指定：
 
 ```js
 const router = createBrowserRouter(routes, {
@@ -1210,43 +1202,43 @@ const router = createBrowserRouter(routes, {
 });
 ```
 
-You can also check out the docs [here](https://reactrouter.com/en/dev/guides/api-development-strategy) and [here](https://reactrouter.com/en/dev/routers/create-browser-router#future).
+你还可以查看[这里](https://reactrouter.com/en/dev/guides/api-development-strategy)和[这里](https://reactrouter.com/en/dev/routers/create-browser-router#future)的文档。
 
-### Minor Changes
+### 次要变更
 
 #### `future.v7_normalizeFormMethod`
 
-The first future flag being introduced is `future.v7_normalizeFormMethod` which will normalize the exposed `useNavigation()/useFetcher()` `formMethod` fields as uppercase HTTP methods to align with the `fetch()` (and some Remix) behavior. ([#10207](https://github.com/remix-run/react-router/pull/10207))
+引入的第一个 future 标志是 `future.v7_normalizeFormMethod`，它将暴露的 `useNavigation()/useFetcher()` 的 `formMethod` 字段规范化为大写 HTTP 方法，以与 `fetch()`（以及部分 Remix）的行为保持一致。([#10207](https://github.com/remix-run/react-router/pull/10207))
 
-- When `future.v7_normalizeFormMethod` is unspecified or set to `false` (default v6 behavior),
-  - `useNavigation().formMethod` is lowercase
-  - `useFetcher().formMethod` is lowercase
-- When `future.v7_normalizeFormMethod === true`:
-  - `useNavigation().formMethod` is UPPERCASE
-  - `useFetcher().formMethod` is UPPERCASE
+- 当 `future.v7_normalizeFormMethod` 未指定或设置为 `false`（默认 v6 行为）时，
+  - `useNavigation().formMethod` 是小写
+  - `useFetcher().formMethod` 是小写
+- 当 `future.v7_normalizeFormMethod === true` 时：
+  - `useNavigation().formMethod` 是大写
+  - `useFetcher().formMethod` 是大写
 
-### Patch Changes
+### 补丁变更
 
-- Fix `createStaticHandler` to also check for `ErrorBoundary` on routes in addition to `errorElement` ([#10190](https://github.com/remix-run/react-router/pull/10190))
-- Fix route ID generation when using Fragments in `createRoutesFromElements` ([#10193](https://github.com/remix-run/react-router/pull/10193))
-- Provide fetcher submission to `shouldRevalidate` if the fetcher action redirects ([#10208](https://github.com/remix-run/react-router/pull/10208))
-- Properly handle `lazy()` errors during router initialization ([#10201](https://github.com/remix-run/react-router/pull/10201))
-- Remove `instanceof` check for `DeferredData` to be resilient to ESM/CJS boundaries in SSR bundling scenarios ([#10247](https://github.com/remix-run/react-router/pull/10247))
-- Update to latest `@remix-run/web-fetch@4.3.3` ([#10216](https://github.com/remix-run/react-router/pull/10216))
+- 修复 `createStaticHandler` 以同时检查路由上的 `ErrorBoundary`（除了 `errorElement`） ([#10190](https://github.com/remix-run/react-router/pull/10190))
+- 修复在 `createRoutesFromElements` 中使用 Fragment 时的路由 ID 生成问题 ([#10193](https://github.com/remix-run/react-router/pull/10193))
+- 如果 fetcher action 重定向，则将 fetcher 提交信息传递给 `shouldRevalidate` ([#10208](https://github.com/remix-run/react-router/pull/10208))
+- 正确处理路由器初始化期间的 `lazy()` 错误 ([#10201](https://github.com/remix-run/react-router/pull/10201))
+- 移除对 `DeferredData` 的 `instanceof` 检查以适应 SSR 打包场景中的 ESM/CJS 边界 ([#10247](https://github.com/remix-run/react-router/pull/10247))
+- 更新到最新的 `@remix-run/web-fetch@4.3.3` ([#10216](https://github.com/remix-run/react-router/pull/10216))
 
-**Full Changelog**: [`v6.9.0...v6.10.0`](https://github.com/remix-run/react-router/compare/react-router@6.9.0...react-router@6.10.0)
+**完整更新日志**: [`v6.9.0...v6.10.0`](https://github.com/remix-run/react-router/compare/react-router@6.9.0...react-router@6.10.0)
 
 ## v6.9.0
 
 Date: 2023-03-10
 
-### What's Changed
+### 重要变更
 
-#### `Component`/`ErrorBoundary` route properties
+#### `Component`/`ErrorBoundary` 路由属性
 
-React Router now supports an alternative way to define your route `element` and `errorElement` fields as React Components instead of React Elements. You can instead pass a React Component to the new `Component` and `ErrorBoundary` fields if you choose. There is no functional difference between the two, so use whichever approach you prefer 😀. You shouldn't be defining both, but if you do `Component`/`ErrorBoundary` will "win"
+React Router 现在支持一种替代方式来定义路由的 `element` 和 `errorElement` 字段，即使用 React 组件而非 React 元素。你可以将 React 组件传递给新的 `Component` 和 `ErrorBoundary` 字段。两者在功能上没有区别，你可以选择你喜欢的方式 😀。不应该同时定义两者，但如果你这样做了，`Component`/`ErrorBoundary` 会“获胜”
 
-**Example JSON Syntax**
+**JSON 语法示例**
 
 ```jsx
 // Both of these work the same:
@@ -1266,7 +1258,7 @@ function Home() { ... }
 function HomeError() { ... }
 ```
 
-**Example JSX Syntax**
+**JSX 语法示例**
 
 ```jsx
 // Both of these work the same:
@@ -1282,13 +1274,13 @@ function Home() { ... }
 function HomeError() { ... }
 ```
 
-#### Introducing Lazy Route Modules
+#### 引入懒加载路由模块
 
-In order to keep your application bundles small and support code-splitting of your routes, we've introduced a new `lazy()` route property. This is an async function that resolves the non-route-matching portions of your route definition (`loader`, `action`, `element`/`Component`, `errorElement`/`ErrorBoundary`, `shouldRevalidate`, `handle`).
+为了保持你的应用包体积较小并支持路由的代码分割，我们引入了新的 `lazy()` 路由属性。这是一个异步函数，解析路由定义中非路由匹配的部分（`loader`、`action`、`element`/`Component`、`errorElement`/`ErrorBoundary`、`shouldRevalidate`、`handle`）。
 
-Lazy routes are resolved on initial load and during the `loading` or `submitting` phase of a navigation or fetcher call. You cannot lazily define route-matching properties (`path`, `index`, `children`) since we only execute your lazy route functions after we've matched known routes.
+懒加载路由在初始加载以及导航或 fetcher 调用的 `loading` 或 `submitting` 阶段被解析。你不能懒加载定义路由匹配属性（`path`、`index`、`children`），因为我们只在匹配已知路由后才执行你的懒加载路由函数。
 
-Your `lazy` functions will typically return the result of a dynamic import.
+你的 `lazy` 函数通常会返回动态导入的结果。
 
 ```jsx
 // In this example, we assume most folks land on the homepage so we include that
@@ -1303,7 +1295,7 @@ let routes = createRoutesFromElements(
 );
 ```
 
-Then in your lazy route modules, export the properties you want defined for the route:
+然后在你的懒加载路由模块中，导出你希望为路由定义的属性：
 
 ```jsx
 export async function loader({ request }) {
@@ -1336,59 +1328,59 @@ export function ErrorBoundary() {
 }
 ```
 
-An example of this in action can be found in the [`examples/lazy-loading-router-provider`](https://github.com/remix-run/react-router/tree/main/examples/lazy-loading-router-provider) directory of the repository. For more info, check out the [`lazy` docs](https://reactrouter.com/v6/route/lazy).
+可以在仓库的 [`examples/lazy-loading-router-provider`](https://github.com/remix-run/react-router/tree/main/examples/lazy-loading-router-provider) 目录中找到此功能的使用示例。更多信息请查看 [`lazy` 文档](https://reactrouter.com/v6/route/lazy)。
 
-🙌 Huge thanks to @rossipedia for the [Initial Proposal](https://github.com/remix-run/react-router/discussions/9826) and [POC Implementation](https://github.com/remix-run/react-router/pull/9830).
+🙌 非常感谢 @rossipedia 的[初始提案](https://github.com/remix-run/react-router/discussions/9826)和 [POC 实现](https://github.com/remix-run/react-router/pull/9830)。
 
-### Minor Changes
+### 次要变更
 
-- Add support for `route.Component`/`route.ErrorBoundary` properties ([#10045](https://github.com/remix-run/react-router/pull/10045))
-- Add support for `route.lazy` ([#10045](https://github.com/remix-run/react-router/pull/10045))
+- 新增 `route.Component`/`route.ErrorBoundary` 属性支持 ([#10045](https://github.com/remix-run/react-router/pull/10045))
+- 新增 `route.lazy` 支持 ([#10045](https://github.com/remix-run/react-router/pull/10045))
 
-### Patch Changes
+### 补丁变更
 
-- Improve memoization for context providers to avoid unnecessary re-renders ([#9983](https://github.com/remix-run/react-router/pull/9983))
-- Fix `generatePath` incorrectly applying parameters in some cases ([#10078](https://github.com/remix-run/react-router/pull/10078))
-- `[react-router-dom-v5-compat]` Add missed data router API re-exports ([#10171](https://github.com/remix-run/react-router/pull/10171))
+- 改善上下文提供者的记忆化以避免不必要的重新渲染 ([#9983](https://github.com/remix-run/react-router/pull/9983))
+- 修复 `generatePath` 在某些情况下错误应用参数的问题 ([#10078](https://github.com/remix-run/react-router/pull/10078))
+- `[react-router-dom-v5-compat]` 添加缺失的数据路由器 API 重新导出 ([#10171](https://github.com/remix-run/react-router/pull/10171))
 
-**Full Changelog**: [`v6.8.2...v6.9.0`](https://github.com/remix-run/react-router/compare/react-router@6.8.2...react-router@6.9.0)
+**完整更新日志**: [`v6.8.2...v6.9.0`](https://github.com/remix-run/react-router/compare/react-router@6.8.2...react-router@6.9.0)
 
 ## v6.8.2
 
 Date: 2023-02-27
 
-### Patch Changes
+### 补丁变更
 
-- Treat same-origin absolute URLs in `<Link to>` as external if they are outside of the router `basename` ([#10135](https://github.com/remix-run/react-router/pull/10135))
-- Correctly perform a hard redirect for same-origin absolute URLs outside of the router `basename` ([#10076](https://github.com/remix-run/react-router/pull/10076))
-- Fix SSR of absolute `<Link to>` urls ([#10112](https://github.com/remix-run/react-router/pull/10112))
-- Properly escape HTML characters in `StaticRouterProvider` serialized hydration data ([#10068](https://github.com/remix-run/react-router/pull/10068))
-- Fix `useBlocker` to return `IDLE_BLOCKER` during SSR ([#10046](https://github.com/remix-run/react-router/pull/10046))
-- Ensure status code and headers are maintained for `defer` loader responses in `createStaticHandler`'s `query()` method ([#10077](https://github.com/remix-run/react-router/pull/10077))
-- Change `invariant` to an `UNSAFE_invariant` export since it's only intended for internal use ([#10066](https://github.com/remix-run/react-router/pull/10066))
+- 将 `<Link to>` 中与当前源相同但在路由器 `basename` 之外的绝对 URL 视为外部链接 ([#10135](https://github.com/remix-run/react-router/pull/10135))
+- 对于路由器 `basename` 之外的同源绝对 URL，正确执行硬重定向 ([#10076](https://github.com/remix-run/react-router/pull/10076))
+- 修复绝对 `<Link to>` URL 的 SSR 问题 ([#10112](https://github.com/remix-run/react-router/pull/10112))
+- 正确转义 `StaticRouterProvider` 序列化水合数据中的 HTML 字符 ([#10068](https://github.com/remix-run/react-router/pull/10068))
+- 修复 `useBlocker` 在 SSR 期间返回 `IDLE_BLOCKER` 的问题 ([#10046](https://github.com/remix-run/react-router/pull/10046))
+- 确保 `createStaticHandler` 的 `query()` 方法中 `defer` loader 响应保留状态码和 headers ([#10077](https://github.com/remix-run/react-router/pull/10077))
+- 将 `invariant` 改为 `UNSAFE_invariant` 导出，因为它仅用于内部使用 ([#10066](https://github.com/remix-run/react-router/pull/10066))
 
-**Full Changelog**: [`v6.8.1...v6.8.2`](https://github.com/remix-run/react-router/compare/react-router@6.8.1...react-router@6.8.2)
+**完整更新日志**: [`v6.8.1...v6.8.2`](https://github.com/remix-run/react-router/compare/react-router@6.8.1...react-router@6.8.2)
 
 ## v6.8.1
 
 Date: 2023-02-06
 
-### Patch Changes
+### 补丁变更
 
-- Remove inaccurate console warning for POP navigations and update active blocker logic ([#10030](https://github.com/remix-run/react-router/pull/10030))
-- Only check for differing origin on absolute URL redirects ([#10033](https://github.com/remix-run/react-router/pull/10033))
-- Improved absolute url detection in `Link` component (now also supports `mailto:` urls) ([#9994](https://github.com/remix-run/react-router/pull/9994))
-- Fix partial object (search or hash only) pathnames losing current path value ([#10029](https://github.com/remix-run/react-router/pull/10029))
+- 移除 POP 导航的不准确控制台警告并更新活跃 blocker 逻辑 ([#10030](https://github.com/remix-run/react-router/pull/10030))
+- 仅在绝对 URL 重定向时检查不同的 origin ([#10033](https://github.com/remix-run/react-router/pull/10033))
+- 改进 `Link` 组件中的绝对 URL 检测（现在还支持 `mailto:` URL） ([#9994](https://github.com/remix-run/react-router/pull/9994))
+- 修复部分对象（仅包含 search 或 hash）的路径名丢失当前路径值的问题 ([#10029](https://github.com/remix-run/react-router/pull/10029))
 
-**Full Changelog**: [`v6.8.0...v6.8.1`](https://github.com/remix-run/react-router/compare/react-router@6.8.0...react-router@6.8.1)
+**完整更新日志**: [`v6.8.0...v6.8.1`](https://github.com/remix-run/react-router/compare/react-router@6.8.0...react-router@6.8.1)
 
 ## v6.8.0
 
 Date: 2023-01-26
 
-### Minor Changes
+### 次要变更
 
-Support absolute URLs in `<Link to>`. If the URL is for the current origin, it will still do a client-side navigation. If the URL is for a different origin then it will do a fresh document request for the new origin. ([#9900](https://github.com/remix-run/react-router/pull/9900))
+支持 `<Link to>` 中的绝对 URL。如果 URL 是当前源的，仍会执行客户端导航。如果 URL 是不同源的，则会对新源执行全新的文档请求。([#9900](https://github.com/remix-run/react-router/pull/9900))
 
 ```tsx
 <Link to="https://neworigin.com/some/path">    {/* Document request */}
@@ -1396,126 +1388,126 @@ Support absolute URLs in `<Link to>`. If the URL is for the current origin, it w
 <Link to="https://www.currentorigin.com/path"> {/* Client-side navigation */}
 ```
 
-### Patch Changes
+### 补丁变更
 
-- Fixes 2 separate issues for revalidating fetcher `shouldRevalidate` calls ([#9948](https://github.com/remix-run/react-router/pull/9948))
-  - The `shouldRevalidate` function was only being called for _explicit_ revalidation scenarios (after a mutation, manual `useRevalidator` call, or an `X-Remix-Revalidate` header used for cookie setting in Remix). It was not properly being called on _implicit_ revalidation scenarios that also apply to navigation `loader` revalidation, such as a change in search params or clicking a link for the page we're already on. It's now correctly called in those additional scenarios.
-  - The parameters being passed were incorrect and inconsistent with one another since the `current*`/`next*` parameters reflected the static `fetcher.load` URL (and thus were identical). Instead, they should have reflected the navigation that triggered the revalidation (as the `form*` parameters did). These parameters now correctly reflect the triggering navigation.
-- Fix bug with search params removal via `useSearchParams` ([#9969](https://github.com/remix-run/react-router/pull/9969))
-- Respect `preventScrollReset` on `<fetcher.Form>` ([#9963](https://github.com/remix-run/react-router/pull/9963))
-- Fix navigation for hash routers on manual URL changes ([#9980](https://github.com/remix-run/react-router/pull/9980))
-- Use `pagehide` instead of `beforeunload` for `<ScrollRestoration>`. This has better cross-browser support, specifically on Mobile Safari. ([#9945](https://github.com/remix-run/react-router/pull/9945))
-- Do not short circuit on hash change only mutation submissions ([#9944](https://github.com/remix-run/react-router/pull/9944))
-- Remove `instanceof` check from `isRouteErrorResponse` to avoid bundling issues on the server ([#9930](https://github.com/remix-run/react-router/pull/9930))
-- Detect when a `defer` call only contains critical data and remove the `AbortController` ([#9965](https://github.com/remix-run/react-router/pull/9965))
-- Send the name as the value when url-encoding `File` `FormData` entries ([#9867](https://github.com/remix-run/react-router/pull/9867))
-- `react-router-dom-v5-compat` - Fix SSR `useLayoutEffect` `console.error` when using `CompatRouter` ([#9820](https://github.com/remix-run/react-router/pull/9820))
+- 修复 2 个关于重新验证 fetcher 的 `shouldRevalidate` 调用的独立问题 ([#9948](https://github.com/remix-run/react-router/pull/9948))
+  - `shouldRevalidate` 函数之前仅在 _显式_ 重新验证场景（mutation 之后、手动 `useRevalidator` 调用、或 Remix 中用于 cookie 设置的 `X-Remix-Revalidate` header）中被调用。它未被正确地在 _隐式_ 重新验证场景（同样适用于导航 `loader` 重新验证的场景，如搜索参数变化或点击当前页面的链接）中调用。现在在这些额外场景中也会被正确调用。
+  - 传递的参数之前不正确且彼此不一致，因为 `current*`/`next*` 参数反映的是静态的 `fetcher.load` URL（因此是相同的）。它们应该反映触发重新验证的导航（就像 `form*` 参数那样）。现在这些参数正确地反映触发导航。
+- 修复通过 `useSearchParams` 删除搜索参数的错误 ([#9969](https://github.com/remix-run/react-router/pull/9969))
+- 在 `<fetcher.Form>` 上尊重 `preventScrollReset` ([#9963](https://github.com/remix-run/react-router/pull/9963))
+- 修复手动 URL 更改时 hash 路由器的导航问题 ([#9980](https://github.com/remix-run/react-router/pull/9980))
+- 将 `<ScrollRestoration>` 从 `beforeunload` 改为 `pagehide`。这具有更好的跨浏览器支持，特别是在 Mobile Safari 上。([#9945](https://github.com/remix-run/react-router/pull/9945))
+- 不在仅有 hash 变化的 mutation 提交时短路 ([#9944](https://github.com/remix-run/react-router/pull/9944))
+- 从 `isRouteErrorResponse` 中移除 `instanceof` 检查以避免服务器端打包问题 ([#9930](https://github.com/remix-run/react-router/pull/9930))
+- 检测 `defer` 调用仅包含关键数据时移除 `AbortController` ([#9965](https://github.com/remix-run/react-router/pull/9965))
+- 在 URL 编码 `File` `FormData` 条目时发送 name 作为 value ([#9867](https://github.com/remix-run/react-router/pull/9867))
+- `react-router-dom-v5-compat` - 修复使用 `CompatRouter` 时 SSR `useLayoutEffect` 的 `console.error` ([#9820](https://github.com/remix-run/react-router/pull/9820))
 
-**Full Changelog**: [`v6.7.0...v6.8.0`](https://github.com/remix-run/react-router/compare/react-router@6.7.0...react-router@6.8.0)
+**完整更新日志**: [`v6.7.0...v6.8.0`](https://github.com/remix-run/react-router/compare/react-router@6.7.0...react-router@6.8.0)
 
 ## v6.7.0
 
 Date: 2023-01-18
 
-### Minor Changes
+### 次要变更
 
-- Add `unstable_useBlocker`/`unstable_usePrompt` hooks for blocking navigations within the app's location origin ([#9709](https://github.com/remix-run/react-router/pull/9709), [#9932](https://github.com/remix-run/react-router/pull/9932))
-- Add `preventScrollReset` prop to `<Form>` ([#9886](https://github.com/remix-run/react-router/pull/9886))
+- 新增 `unstable_useBlocker`/`unstable_usePrompt` Hook，用于在应用的 location origin 内阻止导航 ([#9709](https://github.com/remix-run/react-router/pull/9709), [#9932](https://github.com/remix-run/react-router/pull/9932))
+- 为 `<Form>` 新增 `preventScrollReset` prop ([#9886](https://github.com/remix-run/react-router/pull/9886))
 
-### Patch Changes
+### 补丁变更
 
-- Added pass-through event listener options argument to `useBeforeUnload` ([#9709](https://github.com/remix-run/react-router/pull/9709))
-- Fix `generatePath` when optional params are present ([#9764](https://github.com/remix-run/react-router/pull/9764))
-- Update `<Await>` to accept `ReactNode` as children function return result ([#9896](https://github.com/remix-run/react-router/pull/9896))
-- Improved absolute redirect url detection in actions/loaders ([#9829](https://github.com/remix-run/react-router/pull/9829))
-- Fix URL creation with memory histories ([#9814](https://github.com/remix-run/react-router/pull/9814))
-- Fix scroll reset if a submission redirects ([#9886](https://github.com/remix-run/react-router/pull/9886))
-- Fix 404 bug with same-origin absolute redirects ([#9913](https://github.com/remix-run/react-router/pull/9913))
-- Streamline `jsdom` bug workaround in tests ([#9824](https://github.com/remix-run/react-router/pull/9824))
+- 为 `useBeforeUnload` 添加传透事件监听器选项参数 ([#9709](https://github.com/remix-run/react-router/pull/9709))
+- 修复存在可选参数时 `generatePath` 的问题 ([#9764](https://github.com/remix-run/react-router/pull/9764))
+- 更新 `<Await>` 以接受 `ReactNode` 作为 children 函数返回结果 ([#9896](https://github.com/remix-run/react-router/pull/9896))
+- 改进 action/loader 中绝对重定向 URL 的检测 ([#9829](https://github.com/remix-run/react-router/pull/9829))
+- 修复使用 memory history 时的 URL 创建问题 ([#9814](https://github.com/remix-run/react-router/pull/9814))
+- 修复提交重定向时的滚动重置问题 ([#9886](https://github.com/remix-run/react-router/pull/9886))
+- 修复同源绝对重定向的 404 错误 ([#9913](https://github.com/remix-run/react-router/pull/9913))
+- 简化测试中的 `jsdom` 错误解决方案 ([#9824](https://github.com/remix-run/react-router/pull/9824))
 
-**Full Changelog**: [`v6.6.2...v6.7.0`](https://github.com/remix-run/react-router/compare/react-router@6.6.2...react-router@6.7.0)
+**完整更新日志**: [`v6.6.2...v6.7.0`](https://github.com/remix-run/react-router/compare/react-router@6.6.2...react-router@6.7.0)
 
 ## v6.6.2
 
 Date: 2023-01-09
 
-### Patch Changes
+### 补丁变更
 
-- Ensure `useId` consistency during SSR ([#9805](https://github.com/remix-run/react-router/pull/9805))
+- 确保 SSR 期间 `useId` 的一致性 ([#9805](https://github.com/remix-run/react-router/pull/9805))
 
-**Full Changelog**: [`v6.6.1...v6.6.2`](https://github.com/remix-run/react-router/compare/react-router@6.6.1...react-router@6.6.2)
+**完整更新日志**: [`v6.6.1...v6.6.2`](https://github.com/remix-run/react-router/compare/react-router@6.6.1...react-router@6.6.2)
 
 ## v6.6.1
 
 Date: 2022-12-23
 
-### Patch Changes
+### 补丁变更
 
-- Include submission info in `shouldRevalidate` on action redirects ([#9777](https://github.com/remix-run/react-router/pull/9777), [#9782](https://github.com/remix-run/react-router/pull/9782))
-- Reset `actionData` on action redirect to current location ([#9772](https://github.com/remix-run/react-router/pull/9772))
+- 在 action 重定向时将提交信息包含在 `shouldRevalidate` 中 ([#9777](https://github.com/remix-run/react-router/pull/9777), [#9782](https://github.com/remix-run/react-router/pull/9782))
+- 在 action 重定向到当前位置时重置 `actionData` ([#9772](https://github.com/remix-run/react-router/pull/9772))
 
-**Full Changelog**: [`v6.6.0...v6.6.1`](https://github.com/remix-run/react-router/compare/react-router@6.6.0...react-router@6.6.1)
+**完整更新日志**: [`v6.6.0...v6.6.1`](https://github.com/remix-run/react-router/compare/react-router@6.6.0...react-router@6.6.1)
 
 ## v6.6.0
 
 Date: 2022-12-21
 
-### What's Changed
+### 重要变更
 
-This minor release is primarily to stabilize our SSR APIs for Data Routers now that we've wired up the new `RouterProvider` in Remix as part of the [React Router-ing Remix](https://remix.run/blog/react-routering-remix) work.
+本次要版本主要是为了稳定化数据路由器的 SSR API，因为我们已经在 Remix 中作为 [React Router-ing Remix](https://remix.run/blog/react-routering-remix) 工作的一部分接入了新的 `RouterProvider`。
 
-### Minor Changes
+### 次要变更
 
-- Remove `unstable_` prefix from `createStaticHandler`/`createStaticRouter`/`StaticRouterProvider` ([#9738](https://github.com/remix-run/react-router/pull/9738))
-- Add `useBeforeUnload()` hook ([#9664](https://github.com/remix-run/react-router/pull/9664))
+- 移除 `createStaticHandler`/`createStaticRouter`/`StaticRouterProvider` 的 `unstable_` 前缀 ([#9738](https://github.com/remix-run/react-router/pull/9738))
+- 新增 `useBeforeUnload()` Hook ([#9664](https://github.com/remix-run/react-router/pull/9664))
 
-### Patch Changes
+### 补丁变更
 
-- Support uppercase `<Form method>` and `useSubmit` method values ([#9664](https://github.com/remix-run/react-router/pull/9664))
-- Fix `<button formmethod>` form submission overriddes ([#9664](https://github.com/remix-run/react-router/pull/9664))
-- Fix explicit `replace` on submissions and `PUSH` on submission to new paths ([#9734](https://github.com/remix-run/react-router/pull/9734))
-- Prevent `useLoaderData` usage in `errorElement` ([#9735](https://github.com/remix-run/react-router/pull/9735))
-- Proper hydration of `Error` objects from `StaticRouterProvider` ([#9664](https://github.com/remix-run/react-router/pull/9664))
-- Skip initial scroll restoration for SSR apps with `hydrationData` ([#9664](https://github.com/remix-run/react-router/pull/9664))
-- Fix a few bugs where loader/action data wasn't properly cleared on errors ([#9735](https://github.com/remix-run/react-router/pull/9735))
+- 支持大写的 `<Form method>` 和 `useSubmit` method 值 ([#9664](https://github.com/remix-run/react-router/pull/9664))
+- 修复 `<button formmethod>` 表单提交覆盖问题 ([#9664](https://github.com/remix-run/react-router/pull/9664))
+- 修复提交时的显式 `replace` 和导航到新路径时的 `PUSH` ([#9734](https://github.com/remix-run/react-router/pull/9734))
+- 阻止在 `errorElement` 中使用 `useLoaderData` ([#9735](https://github.com/remix-run/react-router/pull/9735))
+- 从 `StaticRouterProvider` 正确水合 `Error` 对象 ([#9664](https://github.com/remix-run/react-router/pull/9664))
+- 对于带有 `hydrationData` 的 SSR 应用，跳过初始滚动恢复 ([#9664](https://github.com/remix-run/react-router/pull/9664))
+- 修复错误时 loader/action 数据未被正确清除的几个错误 ([#9735](https://github.com/remix-run/react-router/pull/9735))
 
-**Full Changelog**: [`v6.5.0...v6.6.0`](https://github.com/remix-run/react-router/compare/react-router@6.5.0...react-router@6.6.0)
+**完整更新日志**: [`v6.5.0...v6.6.0`](https://github.com/remix-run/react-router/compare/react-router@6.5.0...react-router@6.6.0)
 
 ## v6.5.0
 
 Date: 2022-12-16
 
-### What's Changed
+### 重要变更
 
-This release introduces support for [Optional Route Segments](https://github.com/remix-run/react-router/issues/9546). Now, adding a `?` to the end of any path segment will make that entire segment optional. This works for both static segments and dynamic parameters.
+本次发布引入了对[可选路由段](https://github.com/remix-run/react-router/issues/9546)的支持。现在，在任何路径段末尾添加 `?` 会使该整个段变为可选的。这对静态段和动态参数都适用。
 
-**Optional Params Examples**
+**可选参数示例**
 
-- `<Route path=":lang?/about>` will match:
+- `<Route path=":lang?/about>` 将匹配：
   - `/:lang/about`
   - `/about`
-- `<Route path="/multistep/:widget1?/widget2?/widget3?">` will match:
+- `<Route path="/multistep/:widget1?/widget2?/widget3?">` 将匹配：
   - `/multistep`
   - `/multistep/:widget1`
   - `/multistep/:widget1/:widget2`
   - `/multistep/:widget1/:widget2/:widget3`
 
-**Optional Static Segment Example**
+**可选静态段示例**
 
-- `<Route path="/home?">` will match:
+- `<Route path="/home?">` 将匹配：
   - `/`
   - `/home`
-- `<Route path="/fr?/about">` will match:
+- `<Route path="/fr?/about">` 将匹配：
   - `/about`
   - `/fr/about`
 
-### Minor Changes
+### 次要变更
 
-- Allows optional routes and optional static segments ([#9650](https://github.com/remix-run/react-router/pull/9650))
+- 允许可选路由和可选静态段 ([#9650](https://github.com/remix-run/react-router/pull/9650))
 
-### Patch Changes
+### 补丁变更
 
-- Stop incorrectly matching on partial named parameters, i.e. `<Route path="prefix-:param">`, to align with how splat parameters work. If you were previously relying on this behavior then it's recommended to extract the static portion of the path at the `useParams` call site: ([#9506](https://github.com/remix-run/react-router/pull/9506))
+- 停止对部分命名参数的错误匹配，即 `<Route path="prefix-:param">`，以与 splat 参数的行为保持一致。如果你之前依赖了这种行为，建议在 `useParams` 调用处提取路径的静态部分：([#9506](https://github.com/remix-run/react-router/pull/9506))
 
 ```jsx
 // Old behavior at URL /prefix-123
@@ -1537,225 +1529,225 @@ function Comp() {
 }
 ```
 
-- Persist `headers` on `loader` `request`'s after SSR document `action` request ([#9721](https://github.com/remix-run/react-router/pull/9721))
-- Fix requests sent to revalidating loaders so they reflect a GET request ([#9660](https://github.com/remix-run/react-router/pull/9660))
-- Fix issue with deeply nested optional segments ([#9727](https://github.com/remix-run/react-router/pull/9727))
-- GET forms now expose a submission on the loading navigation ([#9695](https://github.com/remix-run/react-router/pull/9695))
-- Fix error boundary tracking for multiple errors bubbling to the same boundary ([#9702](https://github.com/remix-run/react-router/pull/9702))
+- 在 SSR 文档 `action` 请求后，在 `loader` `request` 上保留 `headers` ([#9721](https://github.com/remix-run/react-router/pull/9721))
+- 修复发送给重新验证 loader 的请求以确保它们反映 GET 请求 ([#9660](https://github.com/remix-run/react-router/pull/9660))
+- 修复深层嵌套可选段的问题 ([#9727](https://github.com/remix-run/react-router/pull/9727))
+- GET 表单现在在加载导航中暴露提交信息 ([#9695](https://github.com/remix-run/react-router/pull/9695))
+- 修复多个错误冒泡到同一个边界时的错误边界追踪问题 ([#9702](https://github.com/remix-run/react-router/pull/9702))
 
-**Full Changelog**: [`v6.4.5...v6.5.0`](https://github.com/remix-run/react-router/compare/react-router@6.4.5...react-router@6.5.0)
+**完整更新日志**: [`v6.4.5...v6.5.0`](https://github.com/remix-run/react-router/compare/react-router@6.4.5...react-router@6.5.0)
 
 ## v6.4.5
 
 Date: 2022-12-07
 
-### Patch Changes
+### 补丁变更
 
-- Fix requests sent to revalidating loaders so they reflect a `GET` request ([#9680](https://github.com/remix-run/react-router/pull/9680))
-- Remove `instanceof Response` checks in favor of `isResponse` ([#9690](https://github.com/remix-run/react-router/pull/9690))
-- Fix `URL` creation in Cloudflare Pages or other non-browser-environments ([#9682](https://github.com/remix-run/react-router/pull/9682), [#9689](https://github.com/remix-run/react-router/pull/9689))
-- Add `requestContext` support to static handler `query`/`queryRoute` ([#9696](https://github.com/remix-run/react-router/pull/9696))
-  - Note that the unstable API of `queryRoute(path, routeId)` has been changed to `queryRoute(path, { routeId, requestContext })`
+- 修复发送给重新验证 loader 的请求以确保它们反映 `GET` 请求 ([#9680](https://github.com/remix-run/react-router/pull/9680))
+- 移除 `instanceof Response` 检查，改用 `isResponse` ([#9690](https://github.com/remix-run/react-router/pull/9690))
+- 修复 Cloudflare Pages 或其他非浏览器环境中的 `URL` 创建问题 ([#9682](https://github.com/remix-run/react-router/pull/9682), [#9689](https://github.com/remix-run/react-router/pull/9689))
+- 为静态处理器的 `query`/`queryRoute` 添加 `requestContext` 支持 ([#9696](https://github.com/remix-run/react-router/pull/9696))
+  - 注意：`queryRoute(path, routeId)` 的不稳定 API 已更改为 `queryRoute(path, { routeId, requestContext })`
 
-**Full Changelog**: [`v6.4.4...v6.4.5`](https://github.com/remix-run/react-router/compare/react-router@6.4.4...react-router@6.4.5)
+**完整更新日志**: [`v6.4.4...v6.4.5`](https://github.com/remix-run/react-router/compare/react-router@6.4.4...react-router@6.4.5)
 
 ## v6.4.4
 
 Date: 2022-11-30
 
-### Patch Changes
+### 补丁变更
 
-- Throw an error if an `action`/`loader` function returns `undefined` as revalidations need to know whether the loader has previously been executed. `undefined` also causes issues during SSR stringification for hydration. You should always ensure your `loader`/`action` returns a value, and you may return `null` if you don't wish to return anything. ([#9511](https://github.com/remix-run/react-router/pull/9511))
-- Properly handle redirects to external domains ([#9590](https://github.com/remix-run/react-router/pull/9590), [#9654](https://github.com/remix-run/react-router/pull/9654))
-- Preserve the HTTP method on 307/308 redirects ([#9597](https://github.com/remix-run/react-router/pull/9597))
-- Support `basename` in static data routers ([#9591](https://github.com/remix-run/react-router/pull/9591))
-- Enhanced `ErrorResponse` bodies to contain more descriptive text in internal 403/404/405 scenarios
-- Fix issues with encoded characters in `NavLink` and descendant `<Routes>` ([#9589](https://github.com/remix-run/react-router/pull/9589), [#9647](https://github.com/remix-run/react-router/pull/9647))
-- Properly serialize/deserialize `ErrorResponse` instances when using built-in hydration ([#9593](https://github.com/remix-run/react-router/pull/9593))
-- Support `basename` in static data routers ([#9591](https://github.com/remix-run/react-router/pull/9591))
-- Updated dependencies:
+- 如果 `action`/`loader` 函数返回 `undefined`，则抛出错误，因为重新验证需要知道 loader 是否已经执行过。`undefined` 还会在 SSR 序列化用于水合时引发问题。你应该始终确保 `loader`/`action` 返回一个值，如果不想返回任何内容可以返回 `null`。([#9511](https://github.com/remix-run/react-router/pull/9511))
+- 正确处理到外部域名的重定向 ([#9590](https://github.com/remix-run/react-router/pull/9590), [#9654](https://github.com/remix-run/react-router/pull/9654))
+- 在 307/308 重定向时保留 HTTP 方法 ([#9597](https://github.com/remix-run/react-router/pull/9597))
+- 在静态数据路由器中支持 `basename` ([#9591](https://github.com/remix-run/react-router/pull/9591))
+- 增强 `ErrorResponse` 身体内容，在内部 403/404/405 场景中包含更多描述性文本
+- 修复 `NavLink` 和后代 `<Routes>` 中编码字符的问题 ([#9589](https://github.com/remix-run/react-router/pull/9589), [#9647](https://github.com/remix-run/react-router/pull/9647))
+- 使用内置水合时正确序列化/反序列化 `ErrorResponse` 实例 ([#9593](https://github.com/remix-run/react-router/pull/9593))
+- 在静态数据路由器中支持 `basename` ([#9591](https://github.com/remix-run/react-router/pull/9591))
+- 更新依赖：
   - `@remix-run/router@1.0.4`
   - `react-router@6.4.4`
 
-**Full Changelog**: [`v6.4.3...v6.4.4`](https://github.com/remix-run/react-router/compare/react-router-dom@6.4.3...react-router-dom@6.4.4)
+**完整更新日志**: [`v6.4.3...v6.4.4`](https://github.com/remix-run/react-router/compare/react-router-dom@6.4.3...react-router-dom@6.4.4)
 
 ## v6.4.3
 
 Date: 2022-11-01
 
-### Patch Changes
+### 补丁变更
 
-- Generate correct `<a href>` values when using `createHashRouter` ([#9409](https://github.com/remix-run/react-router/pull/9409))
-- Better handle encoding/matching with special characters in URLs and route paths ([#9477](https://github.com/remix-run/react-router/pull/9477), [#9496](https://github.com/remix-run/react-router/pull/9496))
-- Generate correct `formAction` pathnames when an `index` route also has a `path` ([#9486](https://github.com/remix-run/react-router/pull/9486))
-- Respect `relative=path` prop on `NavLink` ([#9453](https://github.com/remix-run/react-router/pull/9453))
-- Fix `NavLink` behavior for root urls ([#9497](https://github.com/remix-run/react-router/pull/9497))
-- `useRoutes` should be able to return `null` when passing `locationArg` ([#9485](https://github.com/remix-run/react-router/pull/9485))
-- Fix `initialEntries` type in `createMemoryRouter` ([#9498](https://github.com/remix-run/react-router/pull/9498))
-- Support `basename` and relative routing in `loader`/`action` redirects ([#9447](https://github.com/remix-run/react-router/pull/9447))
-- Ignore pathless layout routes when looking for proper submission `action` function ([#9455](https://github.com/remix-run/react-router/pull/9455))
-- Add UMD build for `@remix-run/router` ([#9446](https://github.com/remix-run/react-router/pull/9446))
-- Fix `createURL` in local file execution in Firefox ([#9464](https://github.com/remix-run/react-router/pull/9464))
+- 在使用 `createHashRouter` 时生成正确的 `<a href>` 值 ([#9409](https://github.com/remix-run/react-router/pull/9409))
+- 更好地处理 URL 和路由路径中特殊字符的编码/匹配 ([#9477](https://github.com/remix-run/react-router/pull/9477), [#9496](https://github.com/remix-run/react-router/pull/9496))
+- 当 `index` 路由还有 `path` 时生成正确的 `formAction` 路径名 ([#9486](https://github.com/remix-run/react-router/pull/9486))
+- 在 `NavLink` 上尊重 `relative=path` prop ([#9453](https://github.com/remix-run/react-router/pull/9453))
+- 修复根 URL 的 `NavLink` 行为 ([#9497](https://github.com/remix-run/react-router/pull/9497))
+- 传递 `locationArg` 时 `useRoutes` 应能够返回 `null` ([#9485](https://github.com/remix-run/react-router/pull/9485))
+- 修复 `createMemoryRouter` 中 `initialEntries` 的类型 ([#9498](https://github.com/remix-run/react-router/pull/9498))
+- 在 `loader`/`action` 重定向中支持 `basename` 和相对路由 ([#9447](https://github.com/remix-run/react-router/pull/9447))
+- 在查找正确的提交 `action` 函数时忽略无路径的布局路由 ([#9455](https://github.com/remix-run/react-router/pull/9455))
+- 为 `@remix-run/router` 添加 UMD 构建 ([#9446](https://github.com/remix-run/react-router/pull/9446))
+- 修复 Firefox 中本地文件执行时的 `createURL` 问题 ([#9464](https://github.com/remix-run/react-router/pull/9464))
 
-**Full Changelog**: [`v6.4.2...v6.4.3`](https://github.com/remix-run/react-router/compare/react-router@6.4.2...react-router@6.4.3)
+**完整更新日志**: [`v6.4.2...v6.4.3`](https://github.com/remix-run/react-router/compare/react-router@6.4.2...react-router@6.4.3)
 
 ## v6.4.2
 
 Date: 2022-10-06
 
-### Patch Changes
+### 补丁变更
 
-- Respect `basename` in `useFormAction` ([#9352](https://github.com/remix-run/react-router/pull/9352))
-- Fix `IndexRouteObject` and `NonIndexRouteObject` types to make `hasErrorElement` optional ([#9394](https://github.com/remix-run/react-router/pull/9394))
-- Enhance console error messages for invalid usage of data router hooks ([#9311](https://github.com/remix-run/react-router/pull/9311))
-- If an index route has children, it will result in a runtime error. We have strengthened our `RouteObject`/`RouteProps` types to surface the error in TypeScript. ([#9366](https://github.com/remix-run/react-router/pull/9366))
+- 在 `useFormAction` 中尊重 `basename` ([#9352](https://github.com/remix-run/react-router/pull/9352))
+- 修复 `IndexRouteObject` 和 `NonIndexRouteObject` 类型，使 `hasErrorElement` 为可选 ([#9394](https://github.com/remix-run/react-router/pull/9394))
+- 增强数据路由器 Hook 无效使用时的控制台错误信息 ([#9311](https://github.com/remix-run/react-router/pull/9311))
+- 如果 index 路由有 children，会导致运行时错误。我们加强了 `RouteObject`/`RouteProps` 类型以在 TypeScript 中提前暴露此错误。([#9366](https://github.com/remix-run/react-router/pull/9366))
 
-**Full Changelog**: [`v6.4.1...v6.4.2`](https://github.com/remix-run/react-router/compare/react-router@6.4.1...react-router@6.4.2)
+**完整更新日志**: [`v6.4.1...v6.4.2`](https://github.com/remix-run/react-router/compare/react-router@6.4.1...react-router@6.4.2)
 
 ## v6.4.1
 
 Date: 2022-09-22
 
-### Patch Changes
+### 补丁变更
 
-- Preserve state from `initialEntries` ([#9288](https://github.com/remix-run/react-router/pull/9288))
-- Preserve `?index` for fetcher get submissions to index routes ([#9312](https://github.com/remix-run/react-router/pull/9312))
+- 保留 `initialEntries` 中的 state ([#9288](https://github.com/remix-run/react-router/pull/9288))
+- 保留 fetcher get 提交到 index 路由时的 `?index` ([#9312](https://github.com/remix-run/react-router/pull/9312))
 
-**Full Changelog**: [`v6.4.0...v6.4.1`](https://github.com/remix-run/react-router/compare/react-router@6.4.0...react-router@6.4.1)
+**完整更新日志**: [`v6.4.0...v6.4.1`](https://github.com/remix-run/react-router/compare/react-router@6.4.0...react-router@6.4.1)
 
 ## v6.4.0
 
 Date: 2022-09-13
 
-### What's Changed
+### 重要变更
 
-#### Remix Data APIs
+#### Remix 数据 API
 
-Whoa this is a big one! `6.4.0` brings all the data loading and mutation APIs over from Remix. Here's a quick high level overview, but it's recommended you go check out the [docs](https://reactrouter.com/), especially the [feature overview](https://reactrouter.com/en/6.4.0/start/overview) and the [tutorial](https://reactrouter.com/en/6.4.0/start/tutorial).
+哇，这是一个大版本！`6.4.0` 将所有数据加载和变更 API 从 Remix 移植过来。以下是快速概览，但建议你查看[文档](https://reactrouter.com/)，特别是[功能概览](https://reactrouter.com/en/6.4.0/start/overview)和[教程](https://reactrouter.com/en/6.4.0/start/tutorial)。
 
-**New `react-router` APIs**
+**新的 `react-router` API**
 
-- Create your router with `createMemoryRouter`
-- Render your router with `<RouterProvider>`
-- Load data with a Route `loader` and mutate with a Route `action`
-- Handle errors with Route `errorElement`
-- Defer non-critical data with `defer` and `Await`
+- 使用 `createMemoryRouter` 创建路由器
+- 使用 `<RouterProvider>` 渲染路由器
+- 使用路由 `loader` 加载数据，使用路由 `action` 进行变更
+- 使用路由 `errorElement` 处理错误
+- 使用 `defer` 和 `Await` 延迟加载非关键数据
 
-**New `react-router-dom` APIs**
+**新的 `react-router-dom` API**
 
-- Create your router with `createBrowserRouter`/`createHashRouter`
-- Submit data with the new `<Form>` component
-- Perform in-page data loads and mutations with `useFetcher()`
-- Defer non-critical data with `defer` and `Await`
-- Manage scroll position with `<ScrollRestoration>`
-- Perform path-relative navigations with `<Link relative="path">` ([#9160](https://github.com/remix-run/react-router/pull/9160))
+- 使用 `createBrowserRouter`/`createHashRouter` 创建路由器
+- 使用新的 `<Form>` 组件提交数据
+- 使用 `useFetcher()` 执行页内数据加载和变更
+- 使用 `defer` 和 `Await` 延迟加载非关键数据
+- 使用 `<ScrollRestoration>` 管理滚动位置
+- 使用 `<Link relative="path">` 执行基于路径的相对导航 ([#9160](https://github.com/remix-run/react-router/pull/9160))
 
-### Patch Changes
+### 补丁变更
 
-- Path resolution is now trailing slash agnostic ([#8861](https://github.com/remix-run/react-router/pull/8861))
-- `useLocation` returns the scoped location inside a `<Routes location>` component ([#9094](https://github.com/remix-run/react-router/pull/9094))
-- Respect the `<Link replace>` prop if it is defined ([#8779](https://github.com/remix-run/react-router/pull/8779))
+- 路径解析现在与尾部斜杠无关 ([#8861](https://github.com/remix-run/react-router/pull/8861))
+- `useLocation` 在 `<Routes location>` 组件内返回作用域内的 location ([#9094](https://github.com/remix-run/react-router/pull/9094))
+- 如果定义了 `<Link replace>` prop，则尊重该 prop ([#8779](https://github.com/remix-run/react-router/pull/8779))
 
-**Full Changelog**: [`v6.3.0...v6.4.0`](https://github.com/remix-run/react-router/compare/v6.3.0...react-router%406.4.0)
+**完整更新日志**: [`v6.3.0...v6.4.0`](https://github.com/remix-run/react-router/compare/v6.3.0...react-router%406.4.0)
 
 ## v6.3.0
 
 Date: 2022-03-31
 
-### Minor Changes
+### 次要变更
 
-- Added the v5 to v6 backwards compatibility package 💜 ([#8752](https://github.com/remix-run/react-router/pull/8752)). The official guide can be found [in this discussion](https://github.com/remix-run/react-router/discussions/8753)
+- 添加了 v5 到 v6 的向后兼容包 💜 ([#8752](https://github.com/remix-run/react-router/pull/8752))。官方指南可以在[此讨论](https://github.com/remix-run/react-router/discussions/8753)中找到
 
-**Full Changelog**: [`v6.2.2...v6.3.0`](https://github.com/remix-run/react-router/compare/v6.2.2...v6.3.0)
+**完整更新日志**: [`v6.2.2...v6.3.0`](https://github.com/remix-run/react-router/compare/v6.2.2...v6.3.0)
 
 ## v6.2.2
 
 Date: 2022-02-28
 
-### Patch Changes
+### 补丁变更
 
-- Fixed nested splat routes that begin with special URL-safe characters ([#8563](https://github.com/remix-run/react-router/pull/8563))
-- Fixed a bug where index routes were missing route context in some cases ([#8497](https://github.com/remix-run/react-router/pull/8497))
+- 修复了以特殊 URL 安全字符开头的嵌套 splat 路由 ([#8563](https://github.com/remix-run/react-router/pull/8563))
+- 修复了某些情况下 index 路由缺少路由上下文的错误 ([#8497](https://github.com/remix-run/react-router/pull/8497))
 
-**Full Changelog**: [`v6.2.1...v6.2.2`](https://github.com/remix-run/react-router/compare/v6.2.1...v6.2.2)
+**完整更新日志**: [`v6.2.1...v6.2.2`](https://github.com/remix-run/react-router/compare/v6.2.1...v6.2.2)
 
 ## v6.2.1
 
 Date: 2021-12-17
 
-### Patch Changes
+### 补丁变更
 
-- This release updates the internal `history` dependency to `5.2.0`.
+- 本次发布更新了内部 `history` 依赖至 `5.2.0`。
 
-**Full Changelog**: [`v6.2.0...v6.2.1`](https://github.com/remix-run/react-router/compare/v6.2.0...v6.2.1)
+**完整更新日志**: [`v6.2.0...v6.2.1`](https://github.com/remix-run/react-router/compare/v6.2.0...v6.2.1)
 
 ## v6.2.0
 
 Date: 2021-12-17
 
-### Minor Changes
+### 次要变更
 
-- We now use statically analyzable CJS exports. This enables named imports in Node ESM scripts ([See the commit](https://github.com/remix-run/react-router/commit/29c7fc8b5f853b0b06ecd0f5682a9bbe6eca0715)).
+- 我们现在使用静态可分析的 CJS 导出。这允许在 Node ESM 脚本中使用命名导入（[查看提交](https://github.com/remix-run/react-router/commit/29c7fc8b5f853b0b06ecd0f5682a9bbe6eca0715)）。
 
-### Patch Changes
+### 补丁变更
 
-- Fixed the `RouteProps` `element` type, which should be a `ReactNode` ([#8473](https://github.com/remix-run/react-router/pull/8473))
-- Fixed a bug with `useOutlet` for top-level routes ([#8483](https://github.com/remix-run/react-router/pull/8483))
+- 修复了 `RouteProps` 的 `element` 类型，应为 `ReactNode` ([#8473](https://github.com/remix-run/react-router/pull/8473))
+- 修复了顶层路由的 `useOutlet` 错误 ([#8483](https://github.com/remix-run/react-router/pull/8483))
 
-**Full Changelog**: [`v6.1.1...v6.2.0`](https://github.com/remix-run/react-router/compare/v6.1.1...v6.2.0)
+**完整更新日志**: [`v6.1.1...v6.2.0`](https://github.com/remix-run/react-router/compare/v6.1.1...v6.2.0)
 
 ## v6.1.1
 
 Date: 2021-12-11
 
-### Patch Changes
+### 补丁变更
 
-- In v6.1.0 we inadvertently shipped a new, undocumented API that will likely introduce bugs ([#7586](https://github.com/remix-run/react-router/pull/7586)). We have flagged `HistoryRouter` as `unstable_HistoryRouter`, as this API will likely need to change before a new major release.
+- 在 v6.1.0 中我们无意中发布了一个新的、未记录的 API，这可能会引入错误 ([#7586](https://github.com/remix-run/react-router/pull/7586))。我们已将 `HistoryRouter` 标记为 `unstable_HistoryRouter`，因为此 API 在新的主版本发布前可能需要更改。
 
-**Full Changelog**: [`v6.1.0...v6.1.1`](https://github.com/remix-run/react-router/compare/v6.1.0...v6.1.1)
+**完整更新日志**: [`v6.1.0...v6.1.1`](https://github.com/remix-run/react-router/compare/v6.1.0...v6.1.1)
 
 ## v6.1.0
 
 Date: 2021-12-10
 
-### Minor Changes
+### 次要变更
 
-- `<Outlet>` can now receive a `context` prop. This value is passed to child routes and is accessible via the new `useOutletContext` hook. See [the API docs](https://reactrouter.com/docs/en/v6/api#useoutletcontext) for details. ([#8461](https://github.com/remix-run/react-router/pull/8461))
-- `<NavLink>` can now receive a child function for access to its props. ([#8164](https://github.com/remix-run/react-router/pull/8164))
-- Improved TypeScript signature for `useMatch` and `matchPath`. For example, when you call `useMatch("foo/:bar/:baz")`, the path is parsed and the return type will be `PathMatch<"bar" | "baz">`. ([#8030](https://github.com/remix-run/react-router/pull/8030))
+- `<Outlet>` 现在可以接收 `context` prop。该值会传递给子路由，并可通过新的 `useOutletContext` Hook 访问。详见 [API 文档](https://reactrouter.com/docs/en/v6/api#useoutletcontext)。([#8461](https://github.com/remix-run/react-router/pull/8461))
+- `<NavLink>` 现在可以接收子函数来访问其 props。([#8164](https://github.com/remix-run/react-router/pull/8164))
+- 改进了 `useMatch` 和 `matchPath` 的 TypeScript 类型签名。例如，当你调用 `useMatch("foo/:bar/:baz")` 时，路径会被解析，返回类型将是 `PathMatch<"bar" | "baz">`。([#8030](https://github.com/remix-run/react-router/pull/8030))
 
-### Patch Changes
+### 补丁变更
 
-- Fixed a bug that broke support for base64 encoded IDs on nested routes ([#8291](https://github.com/remix-run/react-router/pull/8291))
-- A few error message improvements ([#8202](https://github.com/remix-run/react-router/pull/8202))
+- 修复了嵌套路由中 base64 编码 ID 支持的错误 ([#8291](https://github.com/remix-run/react-router/pull/8291))
+- 一些错误信息的改进 ([#8202](https://github.com/remix-run/react-router/pull/8202))
 
-**Full Changelog**: [`v6.0.2...v6.1.0`](https://github.com/remix-run/react-router/compare/v6.0.2...v6.1.0)
+**完整更新日志**: [`v6.0.2...v6.1.0`](https://github.com/remix-run/react-router/compare/v6.0.2...v6.1.0)
 
 ## v6.0.2
 
 Date: 2021-11-09
 
-### Patch Changes
+### 补丁变更
 
-- Added the `reloadDocument` prop to `<Link>`. This allows `<Link>` to function like a normal anchor tag by reloading the document after navigation while maintaining the relative `to` resolution ([#8283](https://github.com/remix-run/react-router/pull/8283))
+- 为 `<Link>` 添加了 `reloadDocument` prop。这允许 `<Link>` 在导航后重新加载文档（像普通锚点标签一样），同时保持相对 `to` 解析 ([#8283](https://github.com/remix-run/react-router/pull/8283))
 
-**Full Changelog**: [`v6.0.1...v6.0.2`](https://github.com/remix-run/react-router/compare/v6.0.1...v6.0.2)
+**完整更新日志**: [`v6.0.1...v6.0.2`](https://github.com/remix-run/react-router/compare/v6.0.1...v6.0.2)
 
 ## v6.0.1
 
 Date: 2021-11-05
 
-### Patch Changes
+### 补丁变更
 
-- Add a default `<StaticRouter location>` value ([#8243](https://github.com/remix-run/react-router/pull/8243))
-- Add invariant for using `<Route>` inside `<Routes>` to help people make the change ([#8238](https://github.com/remix-run/react-router/pull/8238))
+- 为 `<StaticRouter location>` 添加默认值 ([#8243](https://github.com/remix-run/react-router/pull/8243))
+- 添加在 `<Routes>` 内使用 `<Route>` 的 invariant 检查以帮助用户进行迁移 ([#8238](https://github.com/remix-run/react-router/pull/8238))
 
-**Full Changelog**: [`v6.0.0...v6.0.1`](https://github.com/remix-run/react-router/compare/v6.0.0...v6.0.1)
+**完整更新日志**: [`v6.0.0...v6.0.1`](https://github.com/remix-run/react-router/compare/v6.0.0...v6.0.1)
 
 ## v6.0.0
 
 Date: 2021-11-03
 
-React Router v6 is here!
+React Router v6 来了！
 
-Please go read [our blog post for more information on all the great stuff in v6](https://remix.run/blog/react-router-v6) including [notes about how to upgrade from React Router v5](https://remix.run/blog/react-router-v6#upgrading-to-react-router-v6) and Reach Router.
+请阅读[我们的博客文章了解 v6 中所有精彩内容](https://remix.run/blog/react-router-v6)，包括[从 React Router v5 升级的注意事项](https://remix.run/blog/react-router-v6#upgrading-to-react-router-v6)以及 Reach Router 的迁移指南。

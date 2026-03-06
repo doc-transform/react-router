@@ -5,11 +5,11 @@ title: StaticRouter
 # `<StaticRouter>`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function StaticRouter(
-  props: StaticRouterProps
+  props: StaticRouterProps,
 ): React.ReactElement;
 
 interface StaticRouterProps {
@@ -21,9 +21,9 @@ interface StaticRouterProps {
 
 </details>
 
-`<StaticRouter>` is used to render a React Router web app in [node][node]. Provide the current location via the `location` prop.
+`<StaticRouter>` 用于在 [Node.js][node] 中渲染 React Router Web 应用。通过 `location` 属性提供当前位置。
 
-- `<StaticRouter location>` defaults to `"/"`
+- `<StaticRouter location>` 默认为 `"/"`
 
 ```tsx
 import * as React from "react";
@@ -34,8 +34,8 @@ import http from "http";
 function requestHandler(req, res) {
   let html = ReactDOMServer.renderToString(
     <StaticRouter location={req.url}>
-      {/* The rest of your app goes here */}
-    </StaticRouter>
+      {/* 你的应用的其余部分放在这里 */}
+    </StaticRouter>,
   );
 
   res.write(html);

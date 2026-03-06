@@ -11,7 +11,7 @@ title: matchRoutes
 declare function matchRoutes(
   routes: RouteObject[],
   location: Partial<Location> | string,
-  basename?: string
+  basename?: string,
 ): RouteMatch[] | null;
 
 interface RouteMatch<ParamKey extends string = string> {
@@ -23,9 +23,9 @@ interface RouteMatch<ParamKey extends string = string> {
 
 </details>
 
-`matchRoutes` runs the route matching algorithm for a set of routes against a given [`location`][location] to see which routes (if any) match. If it finds a match, an array of `RouteMatch` objects is returned, one for each route that matched.
+`matchRoutes` 对一组路由运行路由匹配算法，以查看哪些路由（如果有）与给定的 [`location`][location] 匹配。如果找到匹配，则返回一个 `RouteMatch` 对象数组，每个匹配的路由对应一个。
 
-This is the heart of React Router's matching algorithm. It is used internally by [`useRoutes`][useroutes] and the [`<Routes>` component][routes] to determine which routes match the current location. It can also be useful in some situations where you want to manually match a set of routes.
+这是 React Router 匹配算法的核心。它在 [`useRoutes`][useroutes] 和 [`<Routes>` 组件][routes] 内部使用，用于确定哪些路由与当前位置匹配。在某些你需要手动匹配一组路由的场景中，它也很有用。
 
 [location]: ./location
 [useroutes]: ../hooks/use-routes

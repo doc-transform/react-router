@@ -5,7 +5,7 @@ title: useNavigationType
 # `useNavigationType`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useNavigationType(): NavigationType;
@@ -15,4 +15,4 @@ type NavigationType = "POP" | "PUSH" | "REPLACE";
 
 </details>
 
-This hook returns the current type of navigation or how the user came to the current page; either via a pop, push, or replace action on the history stack.
+此 hook 返回当前的导航类型，即用户如何到达当前页面；通过历史栈上的 pop、push 或 replace 操作。

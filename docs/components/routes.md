@@ -4,7 +4,7 @@ title: Routes
 
 # `<Routes>`
 
-Rendered anywhere in the app, `<Routes>` will match a set of child routes from the current [location][location].
+在应用中的任何位置渲染，`<Routes>` 会根据当前 [location][location] 匹配一组子路由。
 
 ```tsx
 interface RoutesProps {
@@ -17,9 +17,9 @@ interface RoutesProps {
 </Routes>;
 ```
 
-<docs-info>If you're using a data router like [`createBrowserRouter`][createbrowserrouter] it is uncommon to use this component as routes defined as part of a descendant `<Routes>` tree cannot leverage the [Data APIs][data-apis] available to [`RouterProvider`][router-provider] apps. You **can and should** use this component within your `RouterProvider` application [while you are migrating][migrating-to-router-provider].</docs-info>
+<docs-info>如果你使用的是像 [`createBrowserRouter`][createbrowserrouter] 这样的数据路由器，通常不会使用此组件，因为作为后代 `<Routes>` 树一部分定义的路由无法使用 [`RouterProvider`][router-provider] 应用中可用的[数据 API][data-apis]。你**可以且应该**在[迁移到 RouterProvider][migrating-to-router-provider] 期间在 `RouterProvider` 应用中使用此组件。</docs-info>
 
-Whenever the location changes, `<Routes>` looks through all its child routes to find the best match and renders that branch of the UI. `<Route>` elements may be nested to indicate nested UI, which also correspond to nested URL paths. Parent routes render their child routes by rendering an [`<Outlet>`][outlet].
+每当 location 发生变化时，`<Routes>` 会遍历其所有子路由以找到最佳匹配，并渲染该 UI 分支。`<Route>` 元素可以嵌套以表示嵌套 UI，这也对应于嵌套的 URL 路径。父路由通过渲染 [`<Outlet>`][outlet] 来渲染其子路由。
 
 ```tsx
 <Routes>

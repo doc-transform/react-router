@@ -4,6 +4,6 @@ title: createRoutesFromChildren
 
 # `createRoutesFromChildren`
 
-Alias for [`createRoutesFromElements`][createroutesfromelements]
+[`createRoutesFromElements`][createroutesfromelements] 的别名。
 
 [createroutesfromelements]: ./create-routes-from-elements

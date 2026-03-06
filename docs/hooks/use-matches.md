@@ -5,7 +5,7 @@ new: true
 
 # `useMatches`
 
-Returns the current route matches on the page. This is most useful for creating abstractions in parent layouts to get access to their child route's data.
+返回页面上当前的路由匹配项。这在父布局中创建抽象以访问其子路由数据时最为有用。
 
 ```js
 import { useMatches } from "react-router-dom";
@@ -16,34 +16,34 @@ function SomeComponent() {
 }
 ```
 
-A `match` has the following shape:
+一个 `match` 具有以下结构：
 
 ```js
 {
-  // route id
+  // 路由 id
   id,
 
-  // the portion of the URL the route matched
+  // 路由匹配的 URL 部分
   pathname,
 
-  // the data from the loader
+  // 来自 loader 的数据
   data,
 
-  // the parsed params from the URL
+  // 从 URL 解析的参数
   params,
 
-  // the <Route handle> with any app specific data
+  // <Route handle> 以及任何应用特定数据
   handle,
 };
 ```
 
-Pairing `<Route handle>` with `useMatches` gets very powerful since you can put whatever you want on a route `handle` and have access to `useMatches` anywhere.
+将 `<Route handle>` 与 `useMatches` 配合使用非常强大，因为你可以在路由 `handle` 上放置任何你想要的内容，并在任何地方访问 `useMatches`。
 
-<docs-warning>`useMatches` only works with a data router like [`createBrowserRouter`][createbrowserrouter], since they know the full route tree up front and can provide all of the current matches. Additionally, `useMatches` will not match down into any descendant route trees since the router isn't aware of the descendant routes.</docs-warning>
+<docs-warning>`useMatches` 仅在数据路由器（如 [`createBrowserRouter`][createbrowserrouter]）中有效，因为它们预先知道完整的路由树并可以提供所有当前的匹配项。此外，`useMatches` 不会匹配任何后代路由树，因为路由器不知道后代路由。</docs-warning>
 
-## Breadcrumbs
+## 面包屑导航
 
-The proverbial use case here is adding breadcrumbs to a parent layout that uses data from the child routes.
+这里的典型用例是在父布局中添加面包屑导航，使用子路由的数据。
 
 ```jsx filename=app.jsx
 <Route element={<Root />}>
@@ -52,10 +52,10 @@ The proverbial use case here is adding breadcrumbs to a parent layout that uses 
     element={<Messages />}
     loader={loadMessages}
     handle={{
-      // you can put whatever you want on a route handle
-      // here we use "crumb" and return some elements,
-      // this is what we'll render in the breadcrumbs
-      // for this route
+      // 你可以在路由 handle 上放置任何你想要的内容
+      // 这里我们使用 "crumb" 并返回一些元素，
+      // 这是我们将在面包屑导航中渲染的内容
+      // 对于这个路由
       crumb: () => <Link to="/messages">Messages</Link>,
     }}
   >
@@ -64,10 +64,10 @@ The proverbial use case here is adding breadcrumbs to a parent layout that uses 
       element={<Thread />}
       loader={loadThread}
       handle={{
-        // `crumb` is your own abstraction, we decided
-        // to make this one a function so we can pass
-        // the data from the loader to it so that our
-        // breadcrumb is made up of dynamic content
+        // `crumb` 是你自己的抽象，我们决定
+        // 将其设置为一个函数，因此我们可以传递
+        // 来自 loader 的数据到它，因此我们的
+        // 面包屑导航由动态内容组成
         crumb: (data) => <span>{data.threadName}</span>,
       }}
     />
@@ -75,16 +75,16 @@ The proverbial use case here is adding breadcrumbs to a parent layout that uses 
 </Route>
 ```
 
-Now we can create a `Breadcrumbs` component that takes advantage of our home-grown `crumb` abstraction with `useMatches` and `handle`.
+现在我们可以创建一个 `Breadcrumbs` 组件，利用我们自定义的 `crumb` 抽象以及 `useMatches` 和 `handle`。
 
 ```tsx filename=components/breadcrumbs.jsx
 function Breadcrumbs() {
   let matches = useMatches();
   let crumbs = matches
-    // first get rid of any matches that don't have handle and crumb
+    // 首先去掉任何没有 handle 和 crumb 的匹配项
     .filter((match) => Boolean(match.handle?.crumb))
-    // now map them into an array of elements, passing the loader
-    // data to each one
+    // 现在将它们映射为元素数组，将 loader
+    // 数据传递给每个元素
     .map((match) => match.handle.crumb(match.data));
 
   return (
@@ -97,6 +97,6 @@ function Breadcrumbs() {
 }
 ```
 
-Now you can render `<Breadcrumbs/>` anywhere you want, probably in the root component.
+现在你可以在任何你想要的地方渲染 `<Breadcrumbs/>`，大概是在根组件中。
 
 [createbrowserrouter]: ../routers/create-browser-router

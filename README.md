@@ -1,38 +1,38 @@
-# Welcome to React Router &middot; [![npm package][npm-badge]][npm] [![build][build-badge]][build]
+# 欢迎来到 React Router &middot; [![npm package][npm-badge]][npm] [![build][build-badge]][build]
 
 [npm-badge]: https://img.shields.io/npm/v/react-router-dom.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/react-router-dom
 [build-badge]: https://img.shields.io/github/actions/workflow/status/remix-run/react-router/test.yml?branch=dev&style=square
 [build]: https://github.com/remix-run/react-router/actions/workflows/test.yml
 
-React Router is a lightweight, fully-featured routing library for the [React](https://reactjs.org) JavaScript library. React Router runs everywhere that React runs; on the web, on the server (using node.js), and on React Native.
+React Router 是一个轻量级、功能齐全的 [React](https://reactjs.org) JavaScript 库路由解决方案。React Router 可以在所有 React 运行的地方使用：Web 端、服务器端（使用 node.js）以及 React Native。
 
-If you're new to React Router, we recommend you start with [the tutorial](https://reactrouter.com/v6/start/tutorial).
+如果你是 React Router 的新手，建议从[教程](https://reactrouter.com/v6/start/tutorial)开始。
 
-If you're migrating to v6 from v5 (or v4, which is the same as v5), check out [the migration guide](/docs/upgrading/v5.md). If you're migrating from Reach Router, check out [the migration guide for Reach Router](/docs/upgrading/reach.md). If you need to find the code for v5, [it is on the `v5` branch](https://github.com/remix-run/react-router/tree/v5).
+如果你正在从 v5（或 v4，与 v5 相同）迁移到 v6，请查看[迁移指南](/docs/upgrading/v5.md)。如果你正在从 Reach Router 迁移，请查看 [Reach Router 迁移指南](/docs/upgrading/reach.md)。如果你需要查找 v5 的代码，[它在 `v5` 分支上](https://github.com/remix-run/react-router/tree/v5)。
 
-Documentation for v6 can be found [on our website](https://reactrouter.com/).
+v6 的文档可以在[我们的网站](https://reactrouter.com/)上找到。
 
-## Contributing
+## 参与贡献
 
-There are many different ways to contribute to React Router's development. If you're interested, check out [our contributing guidelines](CONTRIBUTING.md) to learn how you can get involved.
+有很多不同的方式可以参与 React Router 的开发。如果你有兴趣，请查看[我们的贡献指南](CONTRIBUTING.md)了解如何参与。
 
-## Packages
+## 包
 
-This repository is a monorepo containing the following packages:
+本仓库是一个 monorepo，包含以下包：
 
 - [`react-router`](/packages/react-router)
 - [`react-router-dom`](/packages/react-router-dom)
 - [`react-router-native`](/packages/react-router-native)
 
-## Changes
+## 变更记录
 
-Detailed release notes for a given version can be found [on our releases page](https://github.com/remix-run/react-router/releases).
+给定版本的详细发布说明可以在[我们的发布页面](https://github.com/remix-run/react-router/releases)找到。
 
-## Funding
+## 资金支持
 
-You may provide financial support for this project by donating [via Open Collective](https://opencollective.com/react-router). Thank you for your support!
+你可以通过 [Open Collective](https://opencollective.com/react-router) 捐赠来为本项目提供资金支持。感谢你的支持！
 
-## About
+## 关于
 
-React Router is developed and maintained by [Remix Software](https://remix.run) and many [amazing contributors](https://github.com/remix-run/react-router/graphs/contributors).
+React Router 由 [Remix Software](https://remix.run) 和许多[优秀的贡献者](https://github.com/remix-run/react-router/graphs/contributors)开发和维护。

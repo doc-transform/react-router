@@ -6,18 +6,18 @@ new: true
 # `useFormAction`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useFormAction(
   action?: string,
-  { relative }: { relative?: RelativeRoutingType } = {}
+  { relative }: { relative?: RelativeRoutingType } = {},
 ): string;
 ```
 
 </details>
 
-This hook is used internally in [`<Form>`][form] to automatically resolve default and relative actions to the current route in context. While uncommon, you can use it directly to do things like compute the correct action for a `<button formAction>` to change the action of the button's `<Form>`. <small>(Yes, HTML buttons can change the action of their form!)</small>
+此 hook 在 [`<Form>`][form] 内部使用，自动将默认和相对 action 解析到上下文中的当前路由。虽然不常见，但你可以直接使用它来执行一些操作，例如计算 `<button formAction>` 的正确 action 来更改按钮所在 `<Form>` 的 action。<small>（是的，HTML 按钮可以更改其表单的 action！）</small>
 
 ```tsx
 import { useFormAction } from "react-router-dom";
@@ -34,7 +34,7 @@ function DeleteButton() {
 }
 ```
 
-It's also useful for automatically resolving the action for [`submit`][usesubmit] and [`fetcher.submit`][usefetchersubmit].
+它也可用于自动解析 [`submit`][usesubmit] 和 [`fetcher.submit`][usefetchersubmit] 的 action。
 
 ```tsx
 let submit = useSubmit();

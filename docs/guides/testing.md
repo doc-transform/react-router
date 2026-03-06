@@ -1,18 +1,18 @@
 ---
-title: Testing
+title: 测试
 hidden: true
 ---
 
-# Testing With Mocha
+# 使用 Mocha 进行测试
 
-## Getting Setup
-
-TODO
-
-## Testing Routes
+## 环境搭建
 
 TODO
 
-## Testing Links and Navigation
+## 测试路由
+
+TODO
+
+## 测试链接和导航
 
 TODO

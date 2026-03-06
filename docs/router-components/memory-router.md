@@ -5,11 +5,11 @@ title: MemoryRouter
 # `<MemoryRouter>`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function MemoryRouter(
-  props: MemoryRouterProps
+  props: MemoryRouterProps,
 ): React.ReactElement;
 
 interface MemoryRouterProps {
@@ -23,16 +23,15 @@ interface MemoryRouterProps {
 
 </details>
 
-A `<MemoryRouter>` stores its locations internally in an array. Unlike `<BrowserHistory>` and `<HashHistory>`, it isn't tied to an external source, like the history stack in a browser. This makes it ideal for scenarios where you need complete control over the history stack, like testing.
+`<MemoryRouter>` 将其位置信息存储在内部的数组中。与 `<BrowserHistory>` 和 `<HashHistory>` 不同，它不依赖于外部来源（如浏览器中的历史栈）。这使得它非常适合需要完全控制历史栈的场景，比如测试。
 
-- `<MemoryRouter initialEntries>` defaults to `["/"]` (a single entry at the root `/` URL)
-- `<MemoryRouter initialIndex>` defaults to the last index of `initialEntries`
+- `<MemoryRouter initialEntries>` 默认为 `["/"]`（根 `/` URL 处的单个条目）
+- `<MemoryRouter initialIndex>` 默认为 `initialEntries` 的最后一个索引
 
-> **Tip:**
+> **提示：**
 >
-> Most of React Router's tests are written using a `<MemoryRouter>` as the
-> source of truth, so you can see some great examples of using it by just
-> [browsing through our tests][tests].
+> React Router 的大多数测试都使用 `<MemoryRouter>` 作为数据源，
+> 因此你可以通过[浏览我们的测试][tests]看到很多使用它的优秀示例。
 
 ```tsx
 import * as React from "react";
@@ -52,7 +51,7 @@ describe("My app", () => {
             <Route path=":id" element={<UserProfile />} />
           </Route>
         </Routes>
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(renderer.toJSON()).toMatchSnapshot();
@@ -62,14 +61,14 @@ describe("My app", () => {
 
 ## `basename`
 
-Configure your application to run underneath a specific basename in the URL:
+配置你的应用在 URL 中的特定基础路径下运行：
 
 ```jsx
 function App() {
   return (
     <MemoryRouter basename="/app">
       <Routes>
-        <Route path="/" /> {/* 👈 Renders at /app/ */}
+        <Route path="/" /> {/* 👈 在 /app/ 下渲染 */}
       </Routes>
     </MemoryRouter>
   );
@@ -78,7 +77,7 @@ function App() {
 
 ## `future`
 
-An optional set of [Future Flags][api-development-strategy] to enable. We recommend opting into newly released future flags sooner rather than later to ease your eventual migration to v7.
+一组可选的 [Future Flags][api-development-strategy]。我们建议尽早启用新发布的 future flag，以便将来更顺利地迁移到 v7。
 
 ```jsx
 function App() {

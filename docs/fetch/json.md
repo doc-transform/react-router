@@ -5,7 +5,7 @@ new: true
 
 # `json`
 
-A shortcut for:
+以下写法的快捷方式：
 
 ```jsx
 new Response(JSON.stringify(someValue), {
@@ -15,7 +15,7 @@ new Response(JSON.stringify(someValue), {
 });
 ```
 
-Typically used in loaders:
+通常在 loader 中使用：
 
 ```jsx
 import { json } from "react-router-dom";
@@ -26,8 +26,8 @@ const loader = async () => {
 };
 ```
 
-See also:
+另请参阅：
 
-- [Returning Responses from Loaders][responses]
+- [从 Loader 返回 Response][responses]
 
 [responses]: ../route/loader#returning-responses

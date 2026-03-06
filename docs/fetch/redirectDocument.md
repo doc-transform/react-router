@@ -5,9 +5,9 @@ new: true
 
 # `redirectDocument`
 
-This is a small wrapper around [`redirect`][redirect] that will trigger a document-level redirect to the new location instead of a client-side navigation.
+这是对 [`redirect`][redirect] 的一个小型包装，它会触发文档级别的重定向到新位置，而不是客户端导航。
 
-This is most useful when you have a React Router app living next to a separate app on the same domain and need to redirect from the React Router app to the other app via `window.location` instead of a React Router navigation:
+当你的 React Router 应用与同一域名上的另一个独立应用共存时，这最为有用。你需要从 React Router 应用通过 `window.location` 重定向到另一个应用，而不是使用 React Router 导航：
 
 ```jsx
 import { redirectDocument } from "react-router-dom";
@@ -21,18 +21,18 @@ const loader = async () => {
 };
 ```
 
-## Type Declaration
+## 类型声明
 
 ```ts
 type RedirectFunction = (
   url: string,
-  init?: number | ResponseInit
+  init?: number | ResponseInit,
 ) => Response;
 ```
 
 ## `url`
 
-The URL to redirect to.
+要重定向到的 URL。
 
 ```js
 redirectDocument("/otherapp/login");
@@ -40,7 +40,7 @@ redirectDocument("/otherapp/login");
 
 ## `init`
 
-The [Response][response] options to be used in the response.
+响应中要使用的 [Response][response] 选项。
 
 [response]: https://developer.mozilla.org/en-US/docs/Web/API/Response/Response
 [redirect]: ./redirect

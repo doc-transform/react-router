@@ -1,23 +1,23 @@
 ---
-title: Picking a Router
+title: 选择路由器
 order: 1
 new: true
 ---
 
-# Picking a Router
+# 选择路由器
 
-While your app will only use a single router, several routers are available depending on the environment your app is running in. This document should help you figure out which one to use.
+虽然你的应用只会使用一个路由器，但根据应用运行的环境，有多种路由器可供选择。本文档应该能帮助你确定使用哪一个。
 
-## Using v6.4 Data APIs
+## 使用 v6.4 数据 API
 
-In v6.4, new routers were introduced that support the new [data APIs][data-apis]:
+在 v6.4 中，引入了支持新[数据 API][data-apis] 的新路由器：
 
 - [`createBrowserRouter`][createbrowserrouter]
 - [`createMemoryRouter`][creatememoryrouter]
 - [`createHashRouter`][createhashrouter]
 - [`createStaticRouter`][createstaticrouter]
 
-The following routers do not support the data APIs:
+以下路由器不支持数据 API：
 
 - [`<BrowserRouter>`][browserrouter]
 - [`<MemoryRouter>`][memoryrouter]
@@ -25,9 +25,9 @@ The following routers do not support the data APIs:
 - [`<NativeRouter>`][nativerouter]
 - [`<StaticRouter>`][staticrouter]
 
-We recommend updating your app to use one of the new routers from 6.4. The data APIs are currently not supported in React Native, but should be eventually.
+我们建议将你的应用更新为使用 6.4 的新路由器之一。数据 API 目前在 React Native 中不受支持，但最终应该会支持。
 
-The easiest way to quickly update to a v6.4 is to get the help from [`createRoutesFromElements`][createroutesfromelements] so you don't need to convert your `<Route>` elements to route objects.
+快速更新到 v6.4 的最简单方式是借助 [`createRoutesFromElements`][createroutesfromelements]，这样你就不需要将 `<Route>` 元素转换为路由对象。
 
 ```jsx
 import {
@@ -41,52 +41,52 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
       <Route path="dashboard" element={<Dashboard />} />
-      {/* ... etc. */}
-    </Route>
-  )
+      {/* ... 等等 */}
+    </Route>,
+  ),
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 ```
 
-## Web Projects
+## Web 项目
 
-We recommend all web projects use [`createBrowserRouter`][createbrowserrouter].
+我们推荐所有 Web 项目使用 [`createBrowserRouter`][createbrowserrouter]。
 
-It uses the full URL instead of the hash urls (`#this/stuff`) common in web apps before `history.pushState` was standardized. Full URLs are better for SEO, better for server rendering, and are just more compatible with the rest of the web platform.
+它使用完整 URL 而不是 Web 应用中 `history.pushState` 标准化之前常见的哈希 URL（`#this/stuff`）。完整 URL 对 SEO 更好，对服务端渲染更好，并且与 Web 平台的其余部分更兼容。
 
-If you're hosting your app on a static file server, you'll need to configure it to send all requests to your `index.html` to avoid getting 404s.
+如果你将应用托管在静态文件服务器上，你需要将其配置为将所有请求发送到 `index.html`，以避免出现 404 错误。
 
-If for some reason you can't use the full URL, [`createHashRouter`][createhashrouter] is the next best thing.
+如果出于某种原因你无法使用完整 URL，[`createHashRouter`][createhashrouter] 是次佳选择。
 
-If you're not interested in the data APIs, you can continue to use [`<BrowserRouter>`][browserrouter] or, if you can't use full URLs, [`<HashRouter>`][hashrouter].
+如果你对数据 API 不感兴趣，可以继续使用 [`<BrowserRouter>`][browserrouter]，或者如果你无法使用完整 URL，使用 [`<HashRouter>`][hashrouter]。
 
-## Testing
+## 测试
 
-Testing components that use React Router APIs is easiest with [`createMemoryRouter`][creatememoryrouter] or [`<MemoryRouter>`][memoryrouter] instead of the routers you use in your app that require DOM history APIs.
+使用 React Router API 的组件测试用 [`createMemoryRouter`][creatememoryrouter] 或 [`<MemoryRouter>`][memoryrouter] 是最简单的，而不是使用你在应用中需要 DOM history API 的路由器。
 
-Some of the React Router APIs internally use `fetch`, which is only supported starting from Node.js v18. If your project uses v17 or lower, you should add a `fetch` polyfill manually. One way to do that, is to install [`whatwg-fetch`](https://www.npmjs.com/package/whatwg-fetch) and add it to your `jest.config.js` file like so:
+React Router 的一些 API 内部使用 `fetch`，仅从 Node.js v18 开始支持。如果你的项目使用 v17 或更低版本，你应该手动添加 `fetch` polyfill。一种方法是安装 [`whatwg-fetch`](https://www.npmjs.com/package/whatwg-fetch) 并将其添加到 `jest.config.js` 文件中：
 
 ```js
 module.exports = {
   setupFiles: ["whatwg-fetch"],
-  // ...rest of the config
+  // ...其余配置
 };
 ```
 
 ## React Native
 
-You will use [`<NativeRouter>`][nativerouter] from React Native projects.
+你将在 React Native 项目中使用 [`<NativeRouter>`][nativerouter]。
 
-The data APIs from v6.4 are currently not supported in React Native, but should be eventually.
+v6.4 的数据 API 目前在 React Native 中不受支持，但最终应该会支持。
 
-## Data APIs
+## 数据 API
 
-The following APIs are introduced in React Router 6.4 and will only work when using a data router:
+以下 API 在 React Router 6.4 中引入，仅在使用数据路由器时有效：
 
 - [`route.action`][action]
 - [`route.errorElement`][errorelement]
@@ -110,7 +110,7 @@ The following APIs are introduced in React Router 6.4 and will only work when us
 - [`useRouteLoaderData`][userouteloaderdata]
 - [`useSubmit`][usesubmit]
 - [`useBlocker`][useblocker]
-- `startViewTransition` support on [Link][viewtransition-link] and [useNavigate][viewtransition-navigate]
+- 在 [Link][viewtransition-link] 和 [useNavigate][viewtransition-navigate] 上支持 `startViewTransition`
 
 [createbrowserrouter]: ./create-browser-router
 [createhashrouter]: ./create-hash-router

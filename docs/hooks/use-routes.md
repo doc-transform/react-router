@@ -5,7 +5,7 @@ title: useRoutes
 # `useRoutes`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useRoutes(
@@ -16,9 +16,9 @@ declare function useRoutes(
 
 </details>
 
-The `useRoutes` hook is the functional equivalent of [`<Routes>`][routes], but it uses JavaScript objects instead of `<Route>` elements to define your routes. These objects have the same properties as normal [`<Route>` elements][route], but they don't require JSX.
+`useRoutes` hook 是 [`<Routes>`][routes] 的函数式等价物，但它使用 JavaScript 对象而不是 `<Route>` 元素来定义路由。这些对象具有与普通 [`<Route>` 元素][route]相同的属性，但不需要 JSX。
 
-The return value of `useRoutes` is either a valid React element you can use to render the route tree, or `null` if nothing matched.
+`useRoutes` 的返回值要么是可用于渲染路由树的有效 React 元素，要么在没有匹配时为 `null`。
 
 ```tsx
 import * as React from "react";

@@ -4,7 +4,7 @@ title: createRoutesFromElements
 
 # `createRoutesFromElements`
 
-`createRoutesFromElements` is a helper that creates route objects from `<Route>` elements. It's useful if you prefer to create your routes as JSX instead of objects.
+`createRoutesFromElements` 是一个辅助函数，用于从 `<Route>` 元素创建路由对象。如果你更喜欢用 JSX 而不是对象来创建路由，它会很有用。
 
 ```jsx
 import {
@@ -20,8 +20,8 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="about" element={<About />} />
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 // Instead of this:
@@ -43,13 +43,13 @@ const router = createBrowserRouter([
 ]);
 ```
 
-It's also used internally by [`<Routes>`][routes] to generate a route objects from its [`<Route>`][route] children.
+它也在 [`<Routes>`][routes] 内部使用，用于从其 [`<Route>`][route] 子元素生成路由对象。
 
-## Type declaration
+## 类型声明
 
 ```tsx
 declare function createRoutesFromElements(
-  children: React.ReactNode
+  children: React.ReactNode,
 ): RouteObject[];
 
 interface RouteObject {

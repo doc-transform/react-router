@@ -1,17 +1,17 @@
 ---
-title: Index Query Param
+title: Index 查询参数
 new: true
 ---
 
-# Index Query Param
+# Index 查询参数
 
-You may find a wild `?index` appear in the URL of your app when submitting forms.
+你可能会发现在提交表单时，应用的 URL 中出现了一个奇怪的 `?index`。
 
-Because of nested routes, multiple routes in your route hierarchy can match the URL. Unlike navigations where all matching route loaders are called to build up the UI, when a form is submitted _only one action is called_.
+由于嵌套路由的存在，路由层级中的多个路由可以匹配 URL。与导航不同（导航时所有匹配路由的 loader 都会被调用以构建 UI），当表单提交时 _只会调用一个 action_。
 
-Because index routes share the same URL as their parent, the `?index` param lets you disambiguate between the two.
+因为 index 路由与其父路由共享相同的 URL，`?index` 参数让你可以在两者之间消除歧义。
 
-For example, consider the following router and forms:
+例如，考虑以下路由器和表单：
 
 ```jsx
 createBrowserRouter([
@@ -33,9 +33,9 @@ createBrowserRouter([
 <Form method="post" action="/projects?index" />;
 ```
 
-The `?index` param will submit to the index route, the action without the index param will submit to the parent route.
+`?index` 参数会提交到 index 路由，不带 index 参数的 action 会提交到父路由。
 
-When a `<Form>` is rendered in an index route without an `action`, the `?index` param will automatically be appended so that the form posts to the index route. The following form, when submitted, will post to `/projects?index` because it is rendered in the context of the projects index route:
+当 `<Form>` 在没有 `action` 的 index 路由中渲染时，`?index` 参数会自动追加，以便表单提交到 index 路由。以下表单在提交时会发送到 `/projects?index`，因为它是在 projects index 路由的上下文中渲染的：
 
 ```tsx
 function ProjectsIndex() {
@@ -43,9 +43,9 @@ function ProjectsIndex() {
 }
 ```
 
-If you moved the code to the `ProjectsLayout` route, it would instead post to `/projects`.
+如果你将代码移到 `ProjectsLayout` 路由，它会改为提交到 `/projects`。
 
-This applies to `<Form>` and all of its cousins:
+这适用于 `<Form>` 及其所有相关 API：
 
 ```tsx
 let submit = useSubmit();

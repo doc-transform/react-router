@@ -9,10 +9,10 @@ title: renderMatches
 
 ```tsx
 declare function renderMatches(
-  matches: RouteMatch[] | null
+  matches: RouteMatch[] | null,
 ): React.ReactElement | null;
 ```
 
 </details>
 
-`renderMatches` renders the result of `matchRoutes()` into a React element.
+`renderMatches` 将 `matchRoutes()` 的结果渲染为 React 元素。

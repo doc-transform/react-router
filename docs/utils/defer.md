@@ -5,7 +5,7 @@ new: true
 
 # `defer`
 
-This utility allows you to defer values returned from loaders by passing promises instead of resolved values.
+此工具函数允许你通过传递 promise 而非已解析的值，从 loader 中延迟返回数据。
 
 ```jsx
 async function loader() {
@@ -15,6 +15,6 @@ async function loader() {
 }
 ```
 
-See the [Deferred Guide][deferred guide] for more information.
+更多信息请参见[延迟数据指南][deferred guide]。
 
 [deferred guide]: ../guides/deferred

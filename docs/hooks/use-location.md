@@ -5,7 +5,7 @@ title: useLocation
 # `useLocation`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useLocation(): Location;
@@ -24,7 +24,7 @@ interface Path {
 
 </details>
 
-This hook returns the current [`location`][location] object. This can be useful if you'd like to perform some side effect whenever the current location changes.
+此 hook 返回当前的 [`location`][location] 对象。如果你想在当前位置发生变化时执行某些副作用，这会很有用。
 
 ```tsx
 import * as React from 'react';
@@ -44,27 +44,27 @@ function App() {
 }
 ```
 
-## Properties
+## 属性
 
 ### `location.hash`
 
-The hash of the current URL.
+当前 URL 的哈希部分。
 
 ### `location.key`
 
-The unique key of this location.
+此位置的唯一键。
 
 ### `location.pathname`
 
-The path of the current URL.
+当前 URL 的路径。
 
 ### `location.search`
 
-The query string of the current URL.
+当前 URL 的查询字符串。
 
 ### `location.state`
 
-The state value of the location created by [`<Link state>`][link-state] or [`navigate`][navigate].
+由 [`<Link state>`][link-state] 或 [`navigate`][navigate] 创建的位置的 state 值。
 
 [link-state]: ../components/link#state
 [location]: ../utils/location

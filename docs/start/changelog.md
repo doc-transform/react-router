@@ -1,9 +1,9 @@
 ---
-title: Changelog
+title: 更新日志
 ---
 
-# Changelog
+# 更新日志
 
-See the detailed changelog for each release on [GitHub][changelog].
+请在 [GitHub][changelog] 上查看每个版本的详细更新日志。
 
 [changelog]: https://github.com/remix-run/react-router/blob/main/CHANGELOG.md

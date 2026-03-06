@@ -9,10 +9,10 @@ title: createSearchParams
 
 ```tsx
 declare function createSearchParams(
-  init?: URLSearchParamsInit
+  init?: URLSearchParamsInit,
 ): URLSearchParams;
 ```
 
 </details>
 
-`createSearchParams` is a thin wrapper around [`new URLSearchParams(init)`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/URLSearchParams) that adds support for using objects with array values. This is the same function that `useSearchParams` uses internally for creating `URLSearchParams` objects from `URLSearchParamsInit` values.
+`createSearchParams` 是 [`new URLSearchParams(init)`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/URLSearchParams) 的轻量封装，增加了对值为数组的对象的支持。这与 `useSearchParams` 内部使用的函数相同，用于从 `URLSearchParamsInit` 值创建 `URLSearchParams` 对象。

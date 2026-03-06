@@ -5,7 +5,7 @@ title: useNavigate
 # `useNavigate`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useNavigate(): NavigateFunction;
@@ -29,9 +29,9 @@ type RelativeRoutingType = "route" | "path";
 
 </details>
 
-<docs-warning>It's usually better to use [`redirect`][redirect] in [`loaders`][loaders] and [`actions`][actions] than this hook</docs-warning>
+<docs-warning>通常在 [`loaders`][loaders] 和 [`actions`][actions] 中使用 [`redirect`][redirect] 比使用此 hook 更好</docs-warning>
 
-The `useNavigate` hook returns a function that lets you navigate programmatically, for example in an effect:
+`useNavigate` hook 返回一个函数，让你可以以编程方式进行导航，例如在 effect 中：
 
 ```tsx
 import { useNavigate } from "react-router-dom";
@@ -49,20 +49,20 @@ function useLogoutTimer() {
 }
 ```
 
-The `navigate` function has two signatures:
+`navigate` 函数有两种签名：
 
-- Either pass a `To` value (same type as `<Link to>`) with an optional second `options` argument (similar to the props you can pass to [`<Link>`][link]), or
-- Pass the delta you want to go in the history stack. For example, `navigate(-1)` is equivalent to hitting the back button
+- 传递一个 `To` 值（与 `<Link to>` 类型相同）和一个可选的第二个 `options` 参数（类似于你可以传递给 [`<Link>`][link] 的 props），或者
+- 传递你想要在历史栈中移动的增量。例如，`navigate(-1)` 等同于点击后退按钮
 
-<docs-info>Please see the [Splat Paths][relativesplatpath] section on the `useResolvedPath` docs for a note on the behavior of the `future.v7_relativeSplatPath` future flag for relative `useNavigate()` behavior within splat routes</docs-info>
+<docs-info>请参阅 `useResolvedPath` 文档中的[通配符路径][relativesplatpath]部分，了解 `future.v7_relativeSplatPath` future flag 对通配符路由内相对 `useNavigate()` 行为的说明</docs-info>
 
 ## `options.replace`
 
-Specifying `replace: true` will cause the navigation to replace the current entry in the history stack instead of adding a new one.
+指定 `replace: true` 将导致导航替换历史栈中的当前条目，而不是添加新条目。
 
 ## `options.state`
 
-You may include an optional `state` value to store in [history state][history-state], which you can then access on the destination route via [`useLocation`][use-location]. For example:
+你可以包含一个可选的 `state` 值存储在 [history state][history-state] 中，然后可以通过 [`useLocation`][use-location] 在目标路由上访问它。例如：
 
 ```tsx
 navigate("/new-route", { state: { key: "value" } });
@@ -70,11 +70,11 @@ navigate("/new-route", { state: { key: "value" } });
 
 ## `options.preventScrollReset`
 
-When using the [`<ScrollRestoration>`][scrollrestoration] component, you can disable resetting the scroll to the top of the page via `options.preventScrollReset`
+使用 [`<ScrollRestoration>`][scrollrestoration] 组件时，你可以通过 `options.preventScrollReset` 禁用将滚动位置重置到页面顶部。
 
 ## `options.relative`
 
-By default, navigation is relative to the route hierarchy (`relative: "route"`), so `..` will go up one `Route` level. Occasionally, you may find that you have matching URL patterns that do not make sense to be nested, and you'd prefer to use relative _path_ routing. You can opt into this behavior with `relative: "path"`:
+默认情况下，导航相对于路由层次结构（`relative: "route"`），所以 `..` 会向上一个 `Route` 层级。偶尔你可能会遇到匹配的 URL 模式不适合嵌套的情况，这时你可能更希望使用相对*路径*路由。你可以通过 `relative: "path"` 来选择此行为：
 
 ```jsx
 // Contact and EditContact do not share additional UI layout
@@ -93,9 +93,9 @@ function EditContact() {
 }
 ```
 
-Please note that `relative: "path"` only impacts the resolution of a relative path. It does not change the "starting" location for that relative path resolution. This resolution is always relative to the current location in the Route hierarchy (i.e., the route `useNavigate` is called in).
+请注意，`relative: "path"` 只影响相对路径的解析。它不会改变该相对路径解析的"起始"位置。解析始终相对于 Route 层次结构中的当前位置（即调用 `useNavigate` 的路由）。
 
-If you wish to use path-relative routing against the current URL instead of the route hierarchy, you can do that with the current [`location`][use-location] and the `URL` constructor (note the trailing slash behavior):
+如果你希望相对于当前 URL 而不是路由层次结构使用路径相对路由，你可以使用当前 [`location`][use-location] 和 `URL` 构造函数来实现（注意末尾斜杠的行为）：
 
 ```js
 // Assume the current URL is https://remix.run/docs/en/main/start/quickstart
@@ -116,15 +116,15 @@ new URL("..", window.origin + location.pathname + "/");
 
 ## `options.flushSync`
 
-The `flushSync` option tells React Router DOM to wrap the initial state update for this navigation in a [`ReactDOM.flushSync`][flush-sync] call instead of the default [`React.startTransition`][start-transition]. This allows you to perform synchronous DOM actions immediately after the update is flushed to the DOM.
+`flushSync` 选项告诉 React Router DOM 将此导航的初始状态更新包装在 [`ReactDOM.flushSync`][flush-sync] 调用中，而不是默认的 [`React.startTransition`][start-transition] 中。这允许你在更新刷新到 DOM 后立即执行同步 DOM 操作。
 
-<docs-warning>`flushSync` only works when using a data router, see [Picking a Router][picking-a-router]</docs-warning>
+<docs-warning>`flushSync` 仅在使用数据路由器时有效，参见[选择路由器][picking-a-router]</docs-warning>
 
 ## `options.viewTransition`
 
-The `viewTransition` option enables a [View Transition][view-transitions] for this navigation by wrapping the final state update in `document.startViewTransition()`. If you need to apply specific styles for this view transition, you will also need to leverage the [`useViewTransitionState()`][use-view-transition-state].
+`viewTransition` 选项通过将最终状态更新包装在 `document.startViewTransition()` 中来为此导航启用[视图过渡][view-transitions]。如果你需要为此视图过渡应用特定的样式，你还需要使用 [`useViewTransitionState()`][use-view-transition-state]。
 
-<docs-warning>`viewTransition` only works when using a data router, see [Picking a Router][picking-a-router]</docs-warning>
+<docs-warning>`viewTransition` 仅在使用数据路由器时有效，参见[选择路由器][picking-a-router]</docs-warning>
 
 [link]: ../components/link
 [redirect]: ../fetch/redirect

@@ -5,7 +5,7 @@ new: true
 
 # `createStaticRouter`
 
-`createStaticRouter` is used when you want to leverage a [data router][picking-a-router] for rendering on your server (i.e., [Node][node] or another Javascript runtime). For a more complete overview, please refer to the [Server-Side Rendering][ssr] guide.
+`createStaticRouter` 用于当你想利用[数据路由器][picking-a-router]在服务器上（即 [Node][node] 或其他 JavaScript 运行时）进行渲染时使用。更完整的概述请参阅[服务端渲染][ssr]指南。
 
 ```jsx lines=[3,31]
 import {
@@ -45,12 +45,12 @@ export async function renderHtml(req) {
         router={router}
         context={context}
       />
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }
 ```
 
-## Type Declaration
+## 类型声明
 
 ```ts
 declare function createStaticRouter(
@@ -60,13 +60,13 @@ declare function createStaticRouter(
     future?: {
       v7_partialHydration?: boolean;
     };
-  }
+  },
 ): Router;
 ```
 
 ## `opts.future`
 
-An optional set of [Future Flags][api-development-strategy] to enable for this Static Router. We recommend opting into newly released future flags sooner rather than later to ease your eventual migration to v7.
+一组可选的 [Future Flags][api-development-strategy]，用于为此 Static Router 启用。我们建议尽早启用新发布的 future flag，以便将来更顺利地迁移到 v7。
 
 ```js
 const router = createBrowserRouter(routes, {
@@ -77,13 +77,13 @@ const router = createBrowserRouter(routes, {
 });
 ```
 
-The following future flags are currently available:
+当前可用的 future flag：
 
-| Flag                                      | Description                                        |
-| ----------------------------------------- | -------------------------------------------------- |
-| [`v7_partialHydration`][partialhydration] | Support partial hydration for Server-rendered apps |
+| Flag                                      | 描述                         |
+| ----------------------------------------- | ---------------------------- |
+| [`v7_partialHydration`][partialhydration] | 支持服务端渲染应用的部分注水 |
 
-**See also:**
+**另请参阅：**
 
 - [`createStaticHandler`][createstatichandler]
 - [`<StaticRouterProvider>`][staticrouterprovider]

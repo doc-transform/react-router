@@ -2,11 +2,11 @@
 title: Route
 ---
 
-# Route APIs
+# Route API
 
-Because the API and use cases for `<Route />` includes data loading, mutations, and more, `<Route>` has its own documentation category.
+由于 `<Route />` 的 API 和用例涵盖了数据加载、数据变更等功能，`<Route>` 有其独立的文档分类。
 
-Please refer to:
+请参阅：
 
 - [`<Route>`][route]
 - [`loader`][loader]

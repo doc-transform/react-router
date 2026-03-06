@@ -5,21 +5,21 @@ title: useHref
 # `useHref`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useHref(
   to: To,
-  options?: { relative?: RelativeRoutingType }
+  options?: { relative?: RelativeRoutingType },
 ): string;
 ```
 
 </details>
 
-The `useHref` hook returns a URL that may be used to link to the given `to` location, even outside of React Router.
+`useHref` hook 返回一个可用于链接到给定 `to` 位置的 URL，甚至可以在 React Router 之外使用。
 
-<docs-info>You may be interested in taking a look at the source for the `<Link>` component in `react-router-dom` to see how it uses `useHref` internally to determine its own `href` value</docs-info>
+<docs-info>你可能有兴趣查看 `react-router-dom` 中 `<Link>` 组件的源码，了解它如何在内部使用 `useHref` 来确定自己的 `href` 值</docs-info>
 
-<docs-info>Please see the [Splat Paths][relativesplatpath] section on the `useResolvedPath` docs for a note on the behavior of the `future.v7_relativeSplatPath` future flag for relative `useHref()` behavior within splat routes</docs-info>
+<docs-info>请参阅 `useResolvedPath` 文档中的 [通配符路径][relativesplatpath] 部分，了解 `future.v7_relativeSplatPath` future flag 对通配符路由内相对 `useHref()` 行为的说明</docs-info>
 
 [relativesplatpath]: ../hooks/use-resolved-path#splat-paths

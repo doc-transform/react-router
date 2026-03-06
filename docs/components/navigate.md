@@ -5,7 +5,7 @@ title: Navigate
 # `<Navigate>`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function Navigate(props: NavigateProps): null;
@@ -20,9 +20,9 @@ interface NavigateProps {
 
 </details>
 
-A `<Navigate>` element changes the current location when it is rendered. It's a component wrapper around [`useNavigate`][use-navigate], and accepts all the same arguments as props.
+`<Navigate>` 元素在渲染时会改变当前位置。它是 [`useNavigate`][use-navigate] 的组件包装器，接受所有相同的参数作为 props。
 
-<docs-info>Having a component-based version of the `useNavigate` hook makes it easier to use this feature in a [`React.Component`](https://reactjs.org/docs/react-component.html) subclass where hooks are not able to be used.</docs-info>
+<docs-info>拥有基于组件的 `useNavigate` hook 版本，使得在无法使用 hook 的 [`React.Component`](https://reactjs.org/docs/react-component.html) 子类中更容易使用此功能。</docs-info>
 
 ```tsx
 import * as React from "react";

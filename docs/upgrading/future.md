@@ -1,18 +1,18 @@
 ---
-title: Current Future Flags
+title: 当前 Future Flags
 order: 1
 new: true
 ---
 
 # Future Flags
 
-The following future flags are stable and ready to adopt. To read more about future flags see [Development Strategy](../guides/api-development-strategy)
+以下 future flags 已稳定并可以采用。要了解更多关于 future flags 的信息，请参阅 [API 开发策略](../guides/api-development-strategy)
 
-## Update to latest v6.x
+## 更新到最新的 v6.x
 
-First update to the latest minor version of v6.x to have the latest future flags.
+首先更新到 v6.x 的最新次要版本以获取最新的 future flags。
 
-👉 **Update to latest v6**
+👉 **更新到最新的 v6**
 
 ```shellscript nonumber
 npm install react-router-dom@6
@@ -20,13 +20,13 @@ npm install react-router-dom@6
 
 ## v7_relativeSplatPath
 
-**Background**
+**背景**
 
-Changes the relative path matching and linking for multi-segment splats paths like `dashboard/*` (vs. just `*`). [View the CHANGELOG](https://github.com/remix-run/react-router/blob/main/packages/react-router-dom/CHANGELOG.md#minor-changes-2) for more information.
+更改了像 `dashboard/*`（相对于仅 `*`）这样的多段 splat 路径的相对路径匹配和链接行为。[查看 CHANGELOG](https://github.com/remix-run/react-router/blob/main/packages/react-router-dom/CHANGELOG.md#minor-changes-2) 了解更多信息。
 
-👉 **Enable the flag**
+👉 **启用该 flag**
 
-Enabling the flag depends on the type of router:
+启用 flag 取决于路由器类型：
 
 ```tsx
 <BrowserRouter
@@ -44,13 +44,13 @@ createBrowserRouter(routes, {
 });
 ```
 
-**Update your Code**
+**更新你的代码**
 
-If you have any routes with a path + a splat like `<Route path="dashboard/*">` and has relative links like `<Link to="relative">` or `<Link to="../relative">` beneath it, you will need to update your code.
+如果你有任何包含 path + splat 的路由，像 `<Route path="dashboard/*">`，并且在其下方有相对链接像 `<Link to="relative">` 或 `<Link to="../relative">`，你需要更新你的代码。
 
-👉 **Split the `<Route>` into two**
+👉 **将 `<Route>` 拆分为两个**
 
-Split any multi-segment splat `<Route>` into a parent route with the path and a child route with the splat:
+将任何多段 splat `<Route>` 拆分为一个带 path 的父路由和一个带 splat 的子路由：
 
 ```diff
 <Routes>
@@ -74,9 +74,9 @@ createBrowserRouter([
 ]);
 ```
 
-👉 **Update relative links**
+👉 **更新相对链接**
 
-Update any `<Link>` elements within that route tree to include the extra `..` relative segment to continue linking to the same place:
+更新该路由树内的任何 `<Link>` 元素，添加额外的 `..` 相对路径段，以继续链接到相同的位置：
 
 ```diff
 function Dashboard() {
@@ -107,11 +107,11 @@ function Dashboard() {
 
 ## v7_startTransition
 
-**Background**
+**背景**
 
-This uses `React.useTransition` instead of `React.useState` for Router state updates. View the [CHANGELOG](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#v7_starttransition) for more information.
+使用 `React.useTransition` 而不是 `React.useState` 来处理 Router 状态更新。查看 [CHANGELOG](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#v7_starttransition) 了解更多信息。
 
-👉 **Enable the flag**
+👉 **启用该 flag**
 
 ```tsx
 <BrowserRouter
@@ -128,21 +128,21 @@ This uses `React.useTransition` instead of `React.useState` for Router state upd
 />
 ```
 
-👉 **Update your Code**
+👉 **更新你的代码**
 
-You don't need to update anything unless you are using `React.lazy` _inside_ of a component.
+你不需要更新任何内容，除非你在组件*内部*使用了 `React.lazy`。
 
-Using `React.lazy` inside of a component is incompatible with `React.useTransition` (or other code that makes promises inside of components). Move `React.lazy` to the module scope and stop making promises inside of components. This is not a limitation of React Router but rather incorrect usage of React.
+在组件内部使用 `React.lazy` 与 `React.useTransition`（或其他在组件内部创建 promise 的代码）不兼容。将 `React.lazy` 移到模块作用域，不要在组件内部创建 promise。这不是 React Router 的限制，而是 React 的不正确用法。
 
 ## v7_fetcherPersist
 
-<docs-warning>If you are not using a `createBrowserRouter` you can skip this</docs-warning>
+<docs-warning>如果你没有使用 `createBrowserRouter`，可以跳过此部分</docs-warning>
 
-**Background**
+**背景**
 
-The fetcher lifecycle is now based on when it returns to an idle state rather than when its owner component unmounts: [View the CHANGELOG](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#persistence-future-flag-futurev7_fetcherpersist) for more information.
+fetcher 的生命周期现在基于它返回空闲状态的时间，而不是其拥有者组件卸载的时间：[查看 CHANGELOG](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#persistence-future-flag-futurev7_fetcherpersist) 了解更多信息。
 
-**Enable the Flag**
+**启用该 Flag**
 
 ```tsx
 createBrowserRouter(routes, {
@@ -152,17 +152,17 @@ createBrowserRouter(routes, {
 });
 ```
 
-**Update your Code**
+**更新你的代码**
 
-It's unlikely to affect your app. You may want to check any usage of `useFetchers` as they may persist longer than they did before. Depending on what you're doing, you may render something longer than before.
+不太可能影响你的应用。你可能需要检查 `useFetchers` 的所有用法，因为它们可能会比之前持续更长时间。根据你的具体用法，你可能会渲染某些内容比之前更长时间。
 
 ## v7_normalizeFormMethod
 
-<docs-warning>If you are not using a `createBrowserRouter` you can skip this</docs-warning>
+<docs-warning>如果你没有使用 `createBrowserRouter`，可以跳过此部分</docs-warning>
 
-This normalizes `formMethod` fields as uppercase HTTP methods to align with the `fetch()` behavior. [View the CHANGELOG](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#futurev7_normalizeformmethod) for more information.
+此 flag 将 `formMethod` 字段规范化为大写 HTTP 方法，以与 `fetch()` 行为保持一致。[查看 CHANGELOG](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#futurev7_normalizeformmethod) 了解更多信息。
 
-👉 **Enable the Flag**
+👉 **启用该 Flag**
 
 ```tsx
 createBrowserRouter(routes, {
@@ -172,11 +172,11 @@ createBrowserRouter(routes, {
 });
 ```
 
-**Update your Code**
+**更新你的代码**
 
-If any of your code is checking for lowercase HTTP methods, you will need to update it to check for uppercase HTTP methods (or call `toLowerCase()` on it).
+如果你的代码中有检查小写 HTTP 方法的地方，你需要更新为检查大写 HTTP 方法（或对其调用 `toLowerCase()`）。
 
-👉 **Compare `formMethod` to UPPERCASE**
+👉 **将 `formMethod` 与大写进行比较**
 
 ```diff
 -useNavigation().formMethod === "post"
@@ -187,11 +187,11 @@ If any of your code is checking for lowercase HTTP methods, you will need to upd
 
 ## v7_partialHydration
 
-<docs-warning>If you are not using a `createBrowserRouter` you can skip this</docs-warning>
+<docs-warning>如果你没有使用 `createBrowserRouter`，可以跳过此部分</docs-warning>
 
-This allows SSR frameworks to provide only partial hydration data. It's unlikely you need to worry about this, just turn the flag on. [View the CHANGELOG](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#partial-hydration) for more information.
+此 flag 允许 SSR 框架仅提供部分注水数据。你很可能不需要担心这个，只需打开该 flag 即可。[查看 CHANGELOG](https://github.com/remix-run/react-router/blob/main/CHANGELOG.md#partial-hydration) 了解更多信息。
 
-👉 **Enable the Flag**
+👉 **启用该 Flag**
 
 ```tsx
 createBrowserRouter(routes, {
@@ -201,11 +201,11 @@ createBrowserRouter(routes, {
 });
 ```
 
-**Update your Code**
+**更新你的代码**
 
-With partial hydration, you need to provide a `HydrateFallback` component to render during initial hydration. Additionally, if you were using `fallbackElement` before, you need to remove it as it is now deprecated. In most cases, you will want to reuse the `fallbackElement` as the `HydrateFallback`.
+使用部分注水时，你需要提供一个 `HydrateFallback` 组件在初始注水期间渲染。此外，如果你之前使用了 `fallbackElement`，需要移除它，因为它已被弃用。在大多数情况下，你会希望复用 `fallbackElement` 作为 `HydrateFallback`。
 
-👉 **Replace `fallbackElement` with `HydrateFallback`**
+👉 **用 `HydrateFallback` 替换 `fallbackElement`**
 
 ```diff
 const router = createBrowserRouter(
@@ -230,11 +230,11 @@ const router = createBrowserRouter(
 
 ## v7_skipActionErrorRevalidation
 
-<docs-warning>If you are not using a `createBrowserRouter` you can skip this</docs-warning>
+<docs-warning>如果你没有使用 `createBrowserRouter`，可以跳过此部分</docs-warning>
 
-When this flag is enabled, loaders will no longer revalidate by default after an action throws/returns a `Response` with a `4xx`/`5xx` status code. You may opt-into revalidation in these scenarios via `shouldRevalidate` and the `actionStatus` parameter.
+当启用此 flag 时，loader 将不再在 action 抛出/返回 `4xx`/`5xx` 状态码的 `Response` 后默认重新验证。你可以通过 `shouldRevalidate` 和 `actionStatus` 参数在这些场景中选择性启用重新验证。
 
-👉 **Enable the Flag**
+👉 **启用该 Flag**
 
 ```tsx
 createBrowserRouter(routes, {
@@ -244,11 +244,11 @@ createBrowserRouter(routes, {
 });
 ```
 
-**Update your Code**
+**更新你的代码**
 
-In most cases, you probably won't have to make changes to your app code. Usually, if an action errors, it's unlikely data was mutated and needs revalidation. If any of your code _does_ mutate data in action error scenarios you have 2 options:
+在大多数情况下，你可能不需要修改应用代码。通常，如果 action 出错，数据不太可能已被变更并需要重新验证。如果你的代码确实在 action 错误场景中变更了数据，你有两个选择：
 
-👉 **Option 1: Change the `action` to avoid mutations in error scenarios**
+👉 **选择 1：修改 `action` 以避免在错误场景中进行变更**
 
 ```js
 // Before
@@ -273,7 +273,7 @@ async function action() {
 }
 ```
 
-👉 **Option 2: Opt-into revalidation via `shouldRevalidate` and `actionStatus`**
+👉 **选择 2：通过 `shouldRevalidate` 和 `actionStatus` 选择性启用重新验证**
 
 ```js
 async function action() {

@@ -5,7 +5,7 @@ title: unstable_usePrompt
 # `unstable_usePrompt`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function unstable_usePrompt({
@@ -42,18 +42,18 @@ enum HistoryAction {
 
 </details>
 
-The `unstable_usePrompt` hook allows you to prompt the user for confirmation via [`window.confirm`][window-confirm] prior to navigating away from the current location.
+`unstable_usePrompt` hook 允许你在用户从当前位置导航离开之前，通过 [`window.confirm`][window-confirm] 提示用户确认。
 
 <docs-info>
-This only works for client-side navigations within your React Router application and will not block document requests. To prevent document navigations you will need to add your own <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event" target="_blank">`beforeunload`</a> event handler.
+这仅适用于 React Router 应用内的客户端导航，不会阻止文档请求。要阻止文档导航，你需要添加自己的 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event" target="_blank">`beforeunload`</a> 事件处理器。
 </docs-info>
 
 <docs-warning>
-Blocking a user from navigating is a bit of an anti-pattern, so please carefully consider any usage of this hook and use it sparingly. In the de-facto use case of preventing a user navigating away from a half-filled form, you might consider persisting unsaved state to `sessionStorage` and automatically re-filling it if they return instead of blocking them from navigating away.
+阻止用户导航在某种程度上是一种反模式，因此请仔细考虑此 hook 的使用场景并谨慎使用。在阻止用户从填写了一半的表单中导航离开的典型用例中，你可能需要考虑将未保存的状态持久化到 `sessionStorage`，并在用户返回时自动重新填充，而不是阻止他们导航离开。
 </docs-warning>
 
 <docs-warning>
-We do not plan to remove the `unstable_` prefix from this hook because the behavior is non-deterministic across browsers when the prompt is open, so React Router cannot guarantee correct behavior in all scenarios.  To avoid this non-determinism, we recommend using `useBlocker` instead which also gives you control over the confirmation UX.
+我们不打算从此 hook 中移除 `unstable_` 前缀，因为当提示框打开时，跨浏览器的行为是不确定的，所以 React Router 无法保证在所有场景中都能正确运行。为了避免这种不确定性，我们建议使用 `useBlocker` 代替，它也能让你控制确认 UX。
 </docs-warning>
 
 ```tsx

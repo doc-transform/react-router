@@ -5,20 +5,20 @@ title: Outlet
 # `<Outlet>`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 interface OutletProps {
   context?: unknown;
 }
 declare function Outlet(
-  props: OutletProps
+  props: OutletProps,
 ): React.ReactElement | null;
 ```
 
 </details>
 
-An `<Outlet>` should be used in parent route elements to render their child route elements. This allows nested UI to show up when child routes are rendered. If the parent route matched exactly, it will render a child index route or nothing if there is no index route.
+`<Outlet>` 应在父路由元素中使用，用于渲染其子路由元素。这使得嵌套 UI 能够在子路由渲染时显示出来。如果父路由精确匹配，它将渲染子索引路由，如果没有索引路由则不渲染任何内容。
 
 ```tsx
 function Dashboard() {
@@ -26,8 +26,8 @@ function Dashboard() {
     <div>
       <h1>Dashboard</h1>
 
-      {/* This element will render either <DashboardMessages> when the URL is
-          "/messages", <DashboardTasks> at "/tasks", or null if it is "/"
+      {/* 此元素将在 URL 为 "/messages" 时渲染 <DashboardMessages>，
+          在 "/tasks" 时渲染 <DashboardTasks>，在 "/" 时渲染 null
       */}
       <Outlet />
     </div>

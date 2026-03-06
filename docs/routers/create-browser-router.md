@@ -5,11 +5,11 @@ new: true
 
 # `createBrowserRouter`
 
-This is the recommended router for all React Router web projects. It uses the [DOM History API][historyapi] to update the URL and manage the history stack.
+这是所有 React Router Web 项目推荐使用的路由器。它使用 [DOM History API][historyapi] 来更新 URL 和管理历史栈。
 
-It also enables the v6.4 data APIs like [loaders][loader], [actions][action], [fetchers][fetcher] and more.
+它还启用了 v6.4 的数据 API，如 [loader][loader]、[action][action]、[fetcher][fetcher] 等。
 
-<docs-info>Due to the decoupling of fetching and rendering in the design of the data APIs, you should create your router outside of the React tree with a statically defined set of routes. For more information on this design, please see the [Remixing React Router][remixing-react-router] blog post and the [When to Fetch][when-to-fetch] conference talk.</docs-info>
+<docs-info>由于数据 API 的设计将获取和渲染解耦，你应该在 React 树之外使用静态定义的路由集合来创建路由器。关于此设计的更多信息，请参阅 [Remixing React Router][remixing-react-router] 博客文章和 [When to Fetch][when-to-fetch] 会议演讲。</docs-info>
 
 ```tsx lines=[4,11-24]
 import * as React from "react";
@@ -38,11 +38,11 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <RouterProvider router={router} />,
 );
 ```
 
-## Type Declaration
+## 类型声明
 
 ```tsx
 function createBrowserRouter(
@@ -54,13 +54,13 @@ function createBrowserRouter(
     dataStrategy?: DataStrategyFunction;
     patchRoutesOnNavigation?: PatchRoutesOnNavigationFunction;
     window?: Window;
-  }
+  },
 ): RemixRouter;
 ```
 
 ## `routes`
 
-An array of [`Route`][route] objects with nested routes on the `children` property.
+一个 [`Route`][route] 对象的数组，嵌套路由在 `children` 属性上。
 
 ```jsx
 createBrowserRouter([
@@ -81,7 +81,7 @@ createBrowserRouter([
 
 ## `opts.basename`
 
-The basename of the app for situations where you can't deploy to the root of the domain, but a sub directory.
+当你无法部署到域名根目录而只能部署到子目录时，应用的基础路径名。
 
 ```jsx
 createBrowserRouter(routes, {
@@ -89,7 +89,7 @@ createBrowserRouter(routes, {
 });
 ```
 
-The trailing slash will be respected when linking to the root:
+链接到根路径时会尊重末尾的斜杠：
 
 ```jsx
 createBrowserRouter(routes, {
@@ -105,7 +105,7 @@ createBrowserRouter(routes, {
 
 ## `opts.future`
 
-An optional set of [Future Flags][api-development-strategy] to enable for this Router. We recommend opting into newly released future flags sooner rather than later to ease your eventual migration to v7.
+一组可选的 [Future Flags][api-development-strategy]，用于为此 Router 启用。我们建议尽早启用新发布的 future flag，以便将来更顺利地迁移到 v7。
 
 ```js
 const router = createBrowserRouter(routes, {
@@ -116,20 +116,20 @@ const router = createBrowserRouter(routes, {
 });
 ```
 
-The following future flags are currently available:
+当前可用的 future flag：
 
-| Flag                                        | Description                                                             |
-| ------------------------------------------- | ----------------------------------------------------------------------- |
-| `v7_fetcherPersist`                         | Delay active fetcher cleanup until they return to an `idle` state       |
-| `v7_normalizeFormMethod`                    | Normalize `useNavigation().formMethod` to be an uppercase HTTP Method   |
-| `v7_partialHydration`                       | Support partial hydration for Server-rendered apps                      |
-| `v7_prependBasename`                        | Prepend the router basename to navigate/fetch paths                     |
-| [`v7_relativeSplatPath`][relativesplatpath] | Fix buggy relative path resolution in splat routes                      |
-| `v7_skipActionErrorRevalidation`            | Do not revalidate by default if the action returns a 4xx/5xx `Response` |
+| Flag                                        | 描述                                                   |
+| ------------------------------------------- | ------------------------------------------------------ |
+| `v7_fetcherPersist`                         | 延迟活跃 fetcher 的清理直到它们返回 `idle` 状态        |
+| `v7_normalizeFormMethod`                    | 将 `useNavigation().formMethod` 规范化为大写 HTTP 方法 |
+| `v7_partialHydration`                       | 支持服务端渲染应用的部分注水                           |
+| `v7_prependBasename`                        | 在导航/获取路径前添加路由器 basename                   |
+| [`v7_relativeSplatPath`][relativesplatpath] | 修复通配符路由中相对路径解析的 bug                     |
+| `v7_skipActionErrorRevalidation`            | 如果 action 返回 4xx/5xx `Response` 则默认不重新验证   |
 
 ## `opts.hydrationData`
 
-When [Server-Rendering][ssr] and [opting-out of automatic hydration][hydrate-false], the `hydrationData` option allows you to pass in hydration data from your server-render. This will almost always be a subset of data from the `StaticHandlerContext` value you get back from [handler.query][query]:
+当[服务端渲染][ssr]并[选择退出自动注水][hydrate-false]时，`hydrationData` 选项允许你传入服务端渲染的注水数据。这几乎总是你从 [handler.query][query] 获取的 `StaticHandlerContext` 值的数据子集：
 
 ```js
 const router = createBrowserRouter(routes, {
@@ -142,16 +142,16 @@ const router = createBrowserRouter(routes, {
 });
 ```
 
-### Partial Hydration Data
+### 部分注水数据
 
-You will almost always include a complete set of `loaderData` to hydrate a server-rendered app. But in advanced use-cases (such as Remix's [`clientLoader`][clientloader]), you may want to include `loaderData` for only _some_ routes that were rendered on the server. If you want to enable partial `loaderData` and opt-into granular [`route.HydrateFallback`][hydratefallback] usage, you will need to enable the `future.v7_partialHydration` flag. Prior to this flag, any provided `loaderData` was assumed to be complete and would not result in the execution of route loaders on initial hydration.
+你几乎总是会包含完整的 `loaderData` 来注水服务端渲染的应用。但在高级用例中（如 Remix 的 [`clientLoader`][clientloader]），你可能只想为服务端渲染的*部分*路由包含 `loaderData`。如果你想启用部分 `loaderData` 并选择使用细粒度的 [`route.HydrateFallback`][hydratefallback]，你需要启用 `future.v7_partialHydration` 标志。在此标志之前，提供的任何 `loaderData` 都被假定为完整的，不会导致初始注水时执行路由 loader。
 
-When this flag is specified, loaders will run on initial hydration in 2 scenarios:
+当指定此标志时，loader 将在初始注水时在以下 2 种场景中运行：
 
-- No hydration data is provided
-  - In these cases the `HydrateFallback` component will render on initial hydration
-- The `loader.hydrate` property is set to `true`
-  - This allows you to run the `loader` even if you did not render a fallback on initial hydration (i.e., to prime a cache with hydration data)
+- 没有提供注水数据
+  - 在这些情况下，`HydrateFallback` 组件将在初始注水时渲染
+- `loader.hydrate` 属性被设置为 `true`
+  - 这允许你即使没有在初始注水时渲染后备组件也运行 `loader`（即，用注水数据填充缓存）
 
 ```js
 const router = createBrowserRouter(
@@ -180,25 +180,25 @@ const router = createBrowserRouter(
         // No index data provided
       },
     },
-  }
+  },
 );
 ```
 
 ## `opts.dataStrategy`
 
-<docs-warning>This is a low-level API intended for advanced use-cases. This overrides React Router's internal handling of `loader`/`action` execution, and if done incorrectly will break your app code. Please use with caution and perform the appropriate testing.</docs-warning>
+<docs-warning>这是一个为高级用例设计的低级 API。它会覆盖 React Router 内部对 `loader`/`action` 执行的处理，如果使用不当将会破坏你的应用代码。请谨慎使用并进行适当的测试。</docs-warning>
 
-By default, React Router is opinionated about how your data is loaded/submitted - and most notably, executes all of your loaders in parallel for optimal data fetching. While we think this is the right behavior for most use-cases, we realize that there is no "one size fits all" solution when it comes to data fetching for the wide landscape of application requirements.
+默认情况下，React Router 对你的数据如何加载/提交有其特定的处理方式——最显著的是并行执行所有 loader 以实现最优数据获取。虽然我们认为这是大多数用例的正确行为，但我们认识到对于广泛的应用需求而言，数据获取没有“一个尺寸适合所有人”的解决方案。
 
-The `dataStrategy` option gives you full control over how your loaders and actions are executed and lays the foundation to build in more advanced APIs such as middleware, context, and caching layers. Over time, we expect that we'll leverage this API internally to bring more first class APIs to React Router, but until then (and beyond), this is your way to add more advanced functionality for your applications data needs.
+`dataStrategy` 选项让你完全控制 loader 和 action 的执行方式，并为构建更高级的 API（如中间件、上下文和缓存层）奠定了基础。随着时间推移，我们期望在内部利用此 API 为 React Router 带来更多一等公民 API，但在此之前（以及之后），这是你为应用的数据需求添加更高级功能的方式。
 
-### Type Declaration
+### 类型声明
 
 ```ts
 interface DataStrategyFunction {
-  (args: DataStrategyFunctionArgs): Promise<
-    Record<string, DataStrategyResult>
-  >;
+  (
+    args: DataStrategyFunctionArgs,
+  ): Promise<Record<string, DataStrategyResult>>;
 }
 
 interface DataStrategyFunctionArgs<Context = any> {
@@ -217,8 +217,8 @@ interface DataStrategyMatch
   shouldLoad: boolean;
   resolve: (
     handlerOverride?: (
-      handler: (ctx?: unknown) => DataFunctionReturnValue
-    ) => Promise<DataStrategyResult>
+      handler: (ctx?: unknown) => DataFunctionReturnValue,
+    ) => Promise<DataStrategyResult>,
   ) => Promise<DataStrategyResult>;
 }
 
@@ -228,39 +228,39 @@ interface DataStrategyResult {
 }
 ```
 
-### Overview
+### 概述
 
-`dataStrategy` receives the same arguments as a `loader`/`action` (`request`, `params`) but it also receives 2 new parameters: `matches` and `fetcherKey`:
+`dataStrategy` 接收与 `loader`/`action` 相同的参数（`request`、`params`），但它还接收 2 个新参数：`matches` 和 `fetcherKey`：
 
-- **`matches`** - An array of the matched routes where each match is extended with 2 new fields for use in the data strategy function:
-  - **`match.shouldLoad`** - A boolean value indicating whether this route handler should be called in this pass
-    - The `matches` array always includes _all_ matched routes even when only _some_ route handlers need to be called so that things like middleware can be implemented
-    - `shouldLoad` is usually only interesting if you are skipping the route handler entirely and implementing custom handler logic - since it lets you determine if that custom logic should run for this route or not
-    - For example:
-      - If you are on `/parent/child/a` and you navigate to `/parent/child/b` - you'll get an array of three matches (`[parent, child, b]`), but only `b` will have `shouldLoad=true` because the data for `parent` and `child` is already loaded
-      - If you are on `/parent/child/a` and you submit to `a`'s `action`, then only `a` will have `shouldLoad=true` for the action execution of `dataStrategy`
-        - After the `action`, `dataStrategy` will be called again for the `loader` revalidation, and all matches will have `shouldLoad=true` (assuming no custom `shouldRevalidate` implementations)
-  - **`match.resolve`** - An async function that will resolve any `route.lazy` implementations and execute the route's handler (if necessary), returning a `DataStrategyResult`
-    - Calling `match.resolve` does not mean you're calling the `loader`/`action` (the "handler") - `resolve` will only call the `handler` internally if needed _and_ if you don't pass your own `handlerOverride` function parameter
-    - It is safe to call `match.resolve` for all matches, even if they have `shouldLoad=false`, and it will no-op if no loading is required
-    - You should generally always call `match.resolve()` for `shouldLoad:true` routes to ensure that any `route.lazy` implementations are processed
-    - See the examples below for how to implement custom handler execution via `match.resolve`
-- **`fetcherKey`** - The key of the fetcher we are calling `dataStrategy` for, otherwise `null` for navigational executions
+- **`matches`** - 匹配路由的数组，每个匹配项扩展了 2 个新字段供数据策略函数使用：
+  - **`match.shouldLoad`** - 一个布尔值，表示是否应在此次传递中调用此路由的处理程序
+    - `matches` 数组始终包含*所有*匹配的路由，即使只有*部分*路由处理程序需要被调用，这样中间件等功能就可以实现
+    - `shouldLoad` 通常只在你完全跳过路由处理程序并实现自定义处理程序逻辑时才有意义——因为它让你确定自定义逻辑是否应该为此路由运行
+    - 例如：
+      - 如果你在 `/parent/child/a` 并导航到 `/parent/child/b` - 你会得到一个三个匹配项的数组（`[parent, child, b]`），但只有 `b` 会有 `shouldLoad=true`，因为 `parent` 和 `child` 的数据已经加载
+      - 如果你在 `/parent/child/a` 并提交到 `a` 的 `action`，那么只有 `a` 会在 `dataStrategy` 的 action 执行中有 `shouldLoad=true`
+        - `action` 之后，`dataStrategy` 会再次被调用进行 `loader` 重新验证，所有匹配项都会有 `shouldLoad=true`（假设没有自定义的 `shouldRevalidate` 实现）
+  - **`match.resolve`** - 一个异步函数，将解析任何 `route.lazy` 实现并执行路由的处理程序（如果需要），返回一个 `DataStrategyResult`
+    - 调用 `match.resolve` 并不意味着你在调用 `loader`/`action`（“处理程序”）—— `resolve` 只会在需要时*并且*你没有传递自己的 `handlerOverride` 函数参数时才在内部调用“处理程序”
+    - 对所有匹配项调用 `match.resolve` 是安全的，即使它们有 `shouldLoad=false`，如果不需要加载它会执行空操作
+    - 你通常应该总是为 `shouldLoad:true` 的路由调用 `match.resolve()` 以确保任何 `route.lazy` 实现都被处理
+    - 请参阅下面的示例了解如何通过 `match.resolve` 实现自定义处理程序执行
+- **`fetcherKey`** - 我们正在为其调用 `dataStrategy` 的 fetcher 的键，否则对于导航执行为 `null`
 
-The `dataStrategy` function should return a key/value object of `routeId -> DataStrategyResult` and should include entries for any routes where a handler was executed. A `DataStrategyResult` indicates if the handler was successful or not based on the `DataStrategyResult["type"]` field. If the returned `DataStrategyResult["result"]` is a `Response`, React Router will unwrap it for you (via `res.json` or `res.text`). If you need to do custom decoding of a `Response` but want to preserve the status code, you can use the `data` utility to return your decoded data along with a `ResponseInit`.
+`dataStrategy` 函数应该返回一个 `routeId -> DataStrategyResult` 的键/值对象，并应该包含任何执行了处理程序的路由的条目。`DataStrategyResult` 根据 `DataStrategyResult["type"]` 字段指示处理程序是否成功。如果返回的 `DataStrategyResult["result"]` 是 `Response`，React Router 会为你解包它（通过 `res.json` 或 `res.text`）。如果你需要对 `Response` 进行自定义解码但想保留状态码，你可以使用 `data` 工具函数将解码后的数据与 `ResponseInit` 一起返回。
 
-### Example Use Cases
+### 示例用例
 
-#### Adding logging
+#### 添加日志
 
-In the simplest case, let's look at hooking into this API to add some logging for when our route loaders/actions execute:
+在最简单的情况下，让我们看看如何钩入此 API 以添加一些日志记录，当路由的 loader/action 执行时：
 
 ```ts
 let router = createBrowserRouter(routes, {
   async dataStrategy({ request, matches }) {
     // Grab only the matches we need to run handlers for
     const matchesToLoad = matches.filter(
-      (m) => m.shouldLoad
+      (m) => m.shouldLoad,
     );
     // Run the handlers in parallel, logging before and after
     const results = await Promise.all(
@@ -269,7 +269,7 @@ let router = createBrowserRouter(routes, {
         // Don't override anything - just resolve route.lazy + call loader
         const result = await match.resolve();
         return result;
-      })
+      }),
     );
 
     // Aggregate the results into a bn object of `routeId -> DataStrategyResult`
@@ -278,19 +278,19 @@ let router = createBrowserRouter(routes, {
         Object.assign(acc, {
           [matchesToLoad[i].route.id]: result,
         }),
-      {}
+      {},
     );
   },
 });
 ```
 
-If you want to avoid the `reduce`, you can manually build up the `results` object, but you'll need to construct the `DataStrategyResult` manually - indicating if the handler was successful or not:
+如果你想避免使用 `reduce`，你可以手动构建 `results` 对象，但你需要手动构造 `DataStrategyResult`——指示处理程序是否成功：
 
 ```ts
 let router = createBrowserRouter(routes, {
   async dataStrategy({ request, matches }) {
     const matchesToLoad = matches.filter(
-      (m) => m.shouldLoad
+      (m) => m.shouldLoad,
     );
     const results = {};
     await Promise.all(
@@ -308,7 +308,7 @@ let router = createBrowserRouter(routes, {
             result: e,
           };
         }
-      })
+      }),
     );
 
     return results;
@@ -316,9 +316,9 @@ let router = createBrowserRouter(routes, {
 });
 ```
 
-#### Middleware
+#### 中间件
 
-Let's define a middleware on each route via `handle` and call middleware sequentially first, then call all loaders in parallel - providing any data made available via the middleware:
+让我们通过 `handle` 在每个路由上定义中间件，先顺序调用中间件，然后并行调用所有 loader——将中间件提供的数据传递给 loader：
 
 ```ts
 const routes = [
@@ -358,7 +358,7 @@ let router = createBrowserRouter(routes, {
       if (match.route.handle?.middleware) {
         await match.route.handle.middleware(
           { request, params },
-          context
+          context,
         );
       }
     }
@@ -371,23 +371,23 @@ let router = createBrowserRouter(routes, {
           // Whatever you pass to `handler` will be passed as the 2nd parameter
           // to your loader/action
           return handler(context);
-        })
-      )
+        }),
+      ),
     );
     return results.reduce(
       (acc, result, i) =>
         Object.assign(acc, {
           [matchesToLoad[i].route.id]: result,
         }),
-      {}
+      {},
     );
   },
 });
 ```
 
-#### Custom Handler
+#### 自定义处理程序
 
-It's also possible you don't even want to define a loader implementation at the route level. Maybe you want to just determine the routes and issue a single GraphQL request for all of your data? You can do that by setting your `route.loader=true` so it qualifies as "having a loader", and then store GQL fragments on `route.handle`:
+你甚至可能不想在路由级别定义 loader 实现。也许你只想确定路由并为所有数据发出单个 GraphQL 请求？你可以通过设置 `route.loader=true` 使其符合“拥有 loader”的条件，然后将 GQL 片段存储在 `route.handle` 上：
 
 ```ts
 const routes = [
@@ -434,15 +434,15 @@ let router = createBrowserRouter(routes, {
 
 ## `opts.patchRoutesOnNavigation`
 
-By default, React Router wants you to provide a full route tree up front via `createBrowserRouter(routes)`. This allows React Router to perform synchronous route matching, execute loaders, and then render route components in the most optimistic manner without introducing waterfalls. The tradeoff is that your initial JS bundle is larger by definition - which may slow down application start-up times as your application grows.
+默认情况下，React Router 希望你通过 `createBrowserRouter(routes)` 预先提供完整的路由树。这允许 React Router 执行同步路由匹配、执行 loader，然后以最优化的方式渲染路由组件，不会引入瀑布式加载。代价是你的初始 JS 包定义上更大——这可能会随着应用的增长而减慢应用启动时间。
 
-To combat this, we introduced [`route.lazy`][route-lazy] in [v6.9.0][6-9-0] which let's you lazily load the route _implementation_ (`loader`, `Component`, etc.) while still providing the route _definition_ aspects up front (`path`, `index`, etc.). This is a good middle ground because React Router still knows about your route definitions (the lightweight part) up front and can perform synchronous route matching, but then delay loading any of the route implementation aspects (the heavier part) until the route is actually navigated to.
+为了解决这个问题，我们在 [v6.9.0][6-9-0] 中引入了 [`route.lazy`][route-lazy]，它允许你懒加载路由*实现*（`loader`、`Component` 等），同时仍然预先提供路由*定义*方面（`path`、`index` 等）。这是一个好的折中方案，因为 React Router 仍然预先了解你的路由定义（轻量的部分）并可以执行同步路由匹配，但会延迟加载任何路由实现方面（较重的部分）直到实际导航到该路由。
 
-In some cases, even this doesn't go far enough. For very large applications, providing all route definitions up front can be prohibitively expensive. Additionally, it might not even be possible to provide all route definitions up front in certain Micro-Frontend or Module-Federation architectures.
+在某些情况下，这仍然不够。对于非常大的应用，预先提供所有路由定义可能代价过高。此外，在某些微前端或模块联邦架构中，甚至可能无法预先提供所有路由定义。
 
-This is where `patchRoutesOnNavigation` comes in ([RFC][fog-of-war-rfc]). This API is for advanced use-cases where you are unable to provide the full route tree up-front and need a way to lazily "discover" portions of the route tree at runtime. This feature is often referred to as ["Fog of War"][fog-of-war] because similar to how video games expand the "world" as you move around - the router would be expanding its routing tree as the user navigated around the app - but would only ever end up loading portions of the tree that the user visited.
+这就是 `patchRoutesOnNavigation` 的用武之地（[RFC][fog-of-war-rfc]）。此 API 适用于无法预先提供完整路由树并需要在运行时延迟“发现”路由树的一部分的高级用例。此功能通常被称为 [“战争迷雾”][fog-of-war]，因为类似于视频游戏如何随着你的移动扩展“世界”——路由器会随着用户在应用中的导航扩展其路由树——但最终只会加载用户访问的部分。
 
-### Type Declaration
+### 类型声明
 
 ```ts
 export interface PatchRoutesOnNavigationFunction {
@@ -451,17 +451,17 @@ export interface PatchRoutesOnNavigationFunction {
     matches: RouteMatch[];
     patch: (
       routeId: string | null,
-      children: RouteObject[]
+      children: RouteObject[],
     ) => void;
   }): void | Promise<void>;
 }
 ```
 
-### Overview
+### 概述
 
-`patchRoutesOnNavigation` will be called anytime React Router is unable to match a `path`. The arguments include the `path`, any partial `matches`, and a `patch` function you can call to patch new routes into the tree at a specific location. This method is executed during the `loading` portion of the navigation for `GET` requests and during the `submitting` portion of the navigation for non-`GET` requests.
+当 React Router 无法匹配 `path` 时，`patchRoutesOnNavigation` 将被调用。参数包括 `path`、任何部分 `matches`以及一个 `patch` 函数，你可以调用它将新路由补丁到树的特定位置。此方法在 `GET` 请求的导航 `loading` 阶段和非 `GET` 请求的导航 `submitting` 阶段执行。
 
-**Patching children into an existing route**
+**将子路由补丁到现有路由**
 
 ```jsx
 const router = createBrowserRouter(
@@ -481,15 +481,15 @@ const router = createBrowserRouter(
         patch("root", [route]);
       }
     },
-  }
+  },
 );
 ```
 
-In the above example, if the user clicks a link to `/a`, React Router won't match any routes initially and will call `patchRoutesOnNavigation` with a `path = "/a"` and a `matches` array containing the root route match. By calling `patch('root', [route])`, the new route will be added to the route tree as a child of the `root` route and React Router will perform matching on the updated routes. This time it will successfully match the `/a` path and the navigation will complete successfully.
+在上面的示例中，如果用户点击一个指向 `/a` 的链接，React Router 最初不会匹配任何路由，并会以 `path = "/a"` 和包含根路由匹配的 `matches` 数组调用 `patchRoutesOnNavigation`。通过调用 `patch('root', [route])`，新路由将作为 `root` 路由的子路由添加到路由树中，React Router 将对更新后的路由执行匹配。这次它将成功匹配 `/a` 路径，导航将成功完成。
 
-**Patching new root-level routes**
+**补丁新的根级路由**
 
-If you need to patch a new route to the top of the tree (i.e., it doesn't have a parent), you can pass `null` as the `routeId`:
+如果你需要将新路由补丁到树的顶部（即它没有父路由），你可以传递 `null` 作为 `routeId`：
 
 ```jsx
 const router = createBrowserRouter(
@@ -509,13 +509,13 @@ const router = createBrowserRouter(
         patch(null, [route]);
       }
     },
-  }
+  },
 );
 ```
 
-**Patching sub-trees asyncronously**
+**异步补丁子树**
 
-You can also perform asynchronous matching to lazily fetch entire sections of your application:
+你还可以执行异步匹配来延迟获取应用的整个部分：
 
 ```jsx
 let router = createBrowserRouter(
@@ -536,15 +536,15 @@ let router = createBrowserRouter(
         patch(null, children);
       }
     },
-  }
+  },
 );
 ```
 
-<docs-info>If in-progress execution of `patchRoutesOnNavigation` is interrupted by a subsequent navigation, then any remaining `patch` calls in the interrupted execution will not update the route tree because the operation was cancelled.</docs-info>
+<docs-info>如果正在执行的 `patchRoutesOnNavigation` 被后续的导航中断，那么被中断的执行中任何剩余的 `patch` 调用将不会更新路由树，因为该操作已被取消。</docs-info>
 
-**Co-locating route discovery with route definition**
+**将路由发现与路由定义放在一起**
 
-If you don't wish to perform your own pseudo-matching, you can leverage the partial `matches` array and the `handle` field on a route to keep the children definitions co-located:
+如果你不希望执行自己的伪匹配，你可以利用部分 `matches` 数组和路由上的 `handle` 字段来将子路由定义与路由定义放在一起：
 
 ```jsx
 let router = createBrowserRouter(
@@ -591,15 +591,15 @@ let router = createBrowserRouter(
         patch(leafRoute.id, children);
       }
     },
-  }
+  },
 );
 ```
 
-### A note on routes with parameters
+### 关于带参数的路由的说明
 
-Because React Router uses ranked routes to find the best match for a given path, there is an interesting ambiguity introduced when only a partial route tree is known at any given point in time. If we match a fully static route such as `path: "/about/contact-us"` then we know we've found the right match since it's composed entirely of static URL segments, and thus we do not need to bother asking for any other potentially higher-scoring routes.
+因为 React Router 使用排名路由来为给定路径找到最佳匹配，当在任何给定时间点只知道部分路由树时，会引入一个有趣的模糊性。如果我们匹配一个完全静态的路由（如 `path: "/about/contact-us"`），那么我们知道我们已找到正确的匹配，因为它完全由静态 URL 片段组成，因此我们不需要费心询问任何其他可能得分更高的路由。
 
-However, routes with parameters (dynamic or splat) can't make this assumption because there might be a not-yet-discovered route tht scores higher. Consider a full route tree such as:
+然而，带参数的路由（动态或通配符）不能做出这种假设，因为可能存在尚未发现的得分更高的路由。考虑一个完整的路由树，如：
 
 ```js
 // Assume this is the full route tree for your app
@@ -620,7 +620,7 @@ const routes = [
 ];
 ```
 
-And then assume we want to use `patchRoutesOnNavigation` to fill this in as the user navigates around:
+然后假设我们想使用 `patchRoutesOnNavigation` 在用户导航时填充它：
 
 ```js
 // Start with only the index route
@@ -649,15 +649,15 @@ const router = createBrowserRouter(
         ]);
       }
     },
-  }
+  },
 );
 ```
 
-If the user were to a blog post first (i.e., `/blog/my-post`) we would patch in the `:slug` route. Then if the user navigated to `/blog/new` to write a new post, we'd match `/blog/:slug` but it wouldn't be the _right_ match! We need to call `patchRoutesOnNavigation` just in case there exists a higher-scoring route we've not yet discovered, which in this case there is.
+如果用户先访问一篇博客文章（即 `/blog/my-post`），我们会补丁 `:slug` 路由。然后如果用户导航到 `/blog/new` 来写新文章，我们会匹配 `/blog/:slug` 但它不是*正确的*匹配！我们需要调用 `patchRoutesOnNavigation` 以防存在尚未发现的得分更高的路由，在这种情况下确实存在。
 
-So, anytime React Router matches a path that contains at least one param, it will call `patchRoutesOnNavigation` and match routes again just to confirm it has found the best match.
+因此，任何时候 React Router 匹配到的路径包含至少一个参数时，它会调用 `patchRoutesOnNavigation` 并再次匹配路由，以确认已找到最佳匹配。
 
-If your `patchRoutesOnNavigation` implementation is expensive or making side-effect `fetch` calls to a backend server, you may want to consider tracking previously seen routes to avoid over-fetching in cases where you know the proper route has already been found. This can usually be as simple as maintaining a small cache of prior `path` values for which you've already patched in the right routes:
+如果你的 `patchRoutesOnNavigation` 实现开销较大或者向后端服务器发起副作用的 `fetch` 调用，你可能需要考虑跟踪之前见过的路由，以避免在你知道已经找到正确路由的情况下过度获取。这通常可以简单地维护一个小型缓存，记录之前已经补丁了正确路由的 `path` 值：
 
 ```js
 let discoveredRoutes = new Set();
@@ -679,7 +679,7 @@ const router = createBrowserRouter(routes, {
 
 ## `opts.window`
 
-Useful for environments like browser devtool plugins or testing to use a different window than the global `window`.
+对于浏览器开发工具插件或测试等需要使用与全局 `window` 不同的窗口的环境很有用。
 
 [loader]: ../route/loader
 [action]: ../route/action

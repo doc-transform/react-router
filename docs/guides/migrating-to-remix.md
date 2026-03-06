@@ -1,8 +1,8 @@
 ---
-title: Migrating to Remix
+title: 迁移到 Remix
 hidden: true
 ---
 
-# Migrating to Remix
+# 迁移到 Remix
 
-<docs-info>This doc is a stub</docs-info>
+<docs-info>本文档是占位文档</docs-info>

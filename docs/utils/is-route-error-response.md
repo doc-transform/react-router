@@ -5,7 +5,7 @@ new: true
 
 # `isRouteErrorResponse`
 
-This returns `true` if a [route error][routeerror] is a _route error response_.
+如果[路由错误][routeerror]是一个*路由错误响应*，则返回 `true`。
 
 ```jsx
 import { isRouteErrorResponse } from "react-router-dom";
@@ -27,7 +27,7 @@ function ErrorBoundary() {
 }
 ```
 
-When a response is thrown from an action or loader, it will be unwrapped into an `ErrorResponse` so that your component doesn't have to deal with the complexity of unwrapping it (which would require React state and effects to deal with the promise returned from `res.json()`)
+当从 action 或 loader 中抛出一个 response 时，它会被解包为 `ErrorResponse`，这样你的组件就不必处理解包的复杂性（否则需要 React state 和 effects 来处理 `res.json()` 返回的 promise）
 
 ```jsx
 import { json } from "react-router-dom";
@@ -37,7 +37,7 @@ import { json } from "react-router-dom";
   action={() => {
     throw json(
       { message: "email is required" },
-      { status: 400 }
+      { status: 400 },
     );
   }}
 />;
@@ -51,6 +51,6 @@ function ErrorBoundary() {
 }
 ```
 
-<docs-info>If the user visits a route that does not match any routes in the app, React Router itself will throw a 404 response.</docs-info>
+<docs-info>如果用户访问了与应用中任何路由都不匹配的路径，React Router 框架本身会抛出一个 404 响应。</docs-info>
 
 [routeerror]: ../hooks/use-route-error

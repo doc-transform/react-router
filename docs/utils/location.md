@@ -4,6 +4,6 @@ title: Location
 
 # `Location`
 
-The term "location" in React Router refers to [the `Location` interface](https://github.com/remix-run/history/blob/main/docs/api-reference.md#location) from the [history](https://github.com/remix-run/history) library.
+React Router 中的“location”术语指的是 [history](https://github.com/remix-run/history) 库中的 [`Location` 接口](https://github.com/remix-run/history/blob/main/docs/api-reference.md#location)。
 
-<docs-info>The `history` package is React Router's only dependency and many of the core types in React Router come directly from that library including `Location`, `To`, `Path`, and others. You can read more about the history library in [its documentation](https://github.com/remix-run/history/tree/main/docs).</docs-info>
+<docs-info>`history` 包是 React Router 的唯一依赖，React Router 中的许多核心类型直接来自该库，包括 `Location`、`To`、`Path` 等。你可以在 [history 库的文档](https://github.com/remix-run/history/tree/main/docs) 中了解更多信息。</docs-info>

@@ -5,7 +5,7 @@ new: true
 
 # `useActionData`
 
-This hook provides the returned value from the previous navigation's `action` result, or `undefined` if there was no submission.
+此 hook 提供上一次导航中 `action` 的返回值，如果没有提交则返回 `undefined`。
 
 ```tsx
 import { useActionData } from "react-router-dom";
@@ -16,7 +16,7 @@ function SomeComponent() {
 }
 ```
 
-The most common use-case for this hook is form validation errors. If the form isn't right, you can return the errors and let the user try again:
+此 hook 最常见的用例是表单验证错误。如果表单不正确，你可以返回错误并让用户重试：
 
 ```tsx lines=[2,8,47]
 import {

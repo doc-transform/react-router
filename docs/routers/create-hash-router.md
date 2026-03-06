@@ -5,11 +5,11 @@ new: true
 
 # `createHashRouter`
 
-This router is useful if you are unable to configure your web server to direct all traffic to your React Router application. Instead of using normal URLs, it will use the hash (#) portion of the URL to manage the "application URL".
+如果你无法配置 Web 服务器将所有流量定向到 React Router 应用，此路由器很有用。它不使用普通 URL，而是使用 URL 的哈希（#）部分来管理"应用 URL"。
 
-<docs-warning>Using hash URLs is not recommended.</docs-warning>
+<docs-warning>不推荐使用哈希 URL。</docs-warning>
 
-Other than that, it is functionally the same as [`createBrowserRouter`][createbrowserrouter].
+除此之外，它在功能上与 [`createBrowserRouter`][createbrowserrouter] 完全相同。
 
 ```tsx lines=[4,11]
 import * as React from "react";
@@ -38,7 +38,7 @@ const router = createHashRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <RouterProvider router={router} />,
 );
 ```
 

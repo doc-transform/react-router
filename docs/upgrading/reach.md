@@ -1,85 +1,81 @@
 ---
-title: Migrating from @reach/router
+title: 从 @reach/router 迁移
 ---
 
-# Migrating from Reach Router to React Router v6
+# 从 Reach Router 迁移到 React Router v6
 
-<docs-info>This page is a work-in-progress. Please let us know where it
-lacks so we can make the migration as smooth as possible!</docs-info>
+<docs-info>本页面仍在完善中。如果发现缺失的内容，请告诉我们，以便我们让迁移尽可能顺畅！</docs-info>
 
-## Introduction
+## 介绍
 
-When we set out to build React Router v6, from the perspective of `@reach/router` users, we had these goals:
+当我们着手构建 React Router v6 时，从 `@reach/router` 用户的角度，我们有以下目标：
 
-- Keep the bundle size low (turns out we got it smaller than `@reach/router`)
-- Keep the best parts of `@reach/router` (nested routes, and a simplified API via ranked path matching and `navigate`)
-- Update the API to be idiomatic with modern React (AKA hooks).
-- Provide better support for Concurrent Mode and Suspense.
-- Stop doing not-good-enough focus management by default.
+- 保持小的 bundle 体积（结果我们做到了比 `@reach/router` 更小）
+- 保留 `@reach/router` 的最佳部分（嵌套路由，以及通过排名路径匹配和 `navigate` 简化的 API）
+- 更新 API 以符合现代 React 的习惯用法（即 hooks）
+- 为并发模式和 Suspense 提供更好的支持
+- 停止默认的不够好的焦点管理
 
-If we were to make a `@reach/router` v2, it would look pretty much exactly like React Router v6. So, the next version of `@reach/router` _is_ React Router v6. In other words, there will be no `@reach/router` v2, because it would be the same as React Router v6.
+如果我们要制作 `@reach/router` v2，它看起来会和 React Router v6 几乎完全一样。所以，`@reach/router` 的下一个版本*就是* React Router v6。换句话说，不会有 `@reach/router` v2，因为它与 React Router v6 是相同的。
 
-A lot of the API is actually identical between `@reach/router` 1.3 and React Router v6:
+`@reach/router` 1.3 和 React Router v6 之间实际上有很多相同的 API：
 
-- Routes are ranked and matched
-- The nested route config is there
-- `navigate` has the same signature
-- `Link` has the same signature
-- All the hooks in 1.3 are identical (or nearly identical)
+- 路由进行排名匹配
+- 嵌套路由配置保持不变
+- `navigate` 具有相同的签名
+- `Link` 具有相同的签名
+- 1.3 中的所有 hook 都是相同的（或几乎相同）
 
-Most of the changes are just some renames. If you happen to write a codemod, please share it with us and we'll add it to this guide!
+大多数更改只是一些重命名。如果你碰巧写了一个 codemod，请与我们分享，我们会将它添加到本指南中！
 
-## Upgrading Overview
+## 升级概述
 
-In this guide we'll show you how to upgrade each piece of your routing code. We'll do it incrementally so you can make some changes, ship, and then get back to migrating again when it's convenient. We'll also discuss a little bit about "why" the changes were made, what might look like a simple rename actually has bigger reasons behind it.
+在本指南中，我们将向你展示如何升级路由代码的每个部分。我们会渐进地进行，这样你可以做一些更改、发布，然后在方便的时候再回来继续迁移。我们还会稍微讨论一下更改的“原因”，看似简单的重命名背后实际上有更深层的原因。
 
-### First: Non-breaking Updates
+### 第一步：非破坏性更新
 
-We highly encourage you to do the following updates to your code before migrating to React Router v6. These changes don't have to be done all at once across your app, you can simply update one line, commit, and ship. Doing this will greatly reduce the effort when you get to the breaking changes in React Router v6.
+我们强烈建议你在迁移到 React Router v6 之前先对代码进行以下更新。这些更改不必一次性在整个应用中完成，你可以简单地更新一行、提交、发布。这样做会大大减少你在处理 React Router v6 的破坏性更改时的工作量。
 
-1. Upgrade to React v16.8 or greater
-2. Upgrade to `@reach/router` v1.3
-3. Update route components to access data from hooks
-4. Add a `<LocationProvider/>` to the top of the app
+1. 升级到 React v16.8 或更高版本
+2. 升级到 `@reach/router` v1.3
+3. 更新路由组件以从 hook 访问数据
+4. 在应用顶层添加 `<LocationProvider/>`
 
-### Second: Breaking Updates
+### 第二步：破坏性更新
 
-The following changes need to be done all at once across your app.
+以下更改需要在整个应用中一次性完成。
 
 <!-- If it is a significant burden, we have copy/paste wrapper components and hooks in each section that you can import instead of updating all of your application code at once (TODO). -->
 
-1. Upgrade to React Router v6
-2. Update all `<Router>` elements to `<Routes>`
-3. Change `<RouteElement default/>` to `<RouteElement path="*" />`
-4. Fix `<Redirect />`
-5. Implement `<Link getProps />` with hooks
-6. Update `useMatch`, params are on `match.params`
-7. Change `ServerLocation` to `StaticRouter`
+1. 升级到 React Router v6
+2. 将所有 `<Router>` 元素更新为 `<Routes>`
+3. 将 `<RouteElement default/>` 改为 `<RouteElement path="*" />`
+4. 修复 `<Redirect />`
+5. 使用 hook 实现 `<Link getProps />`
+6. 更新 `useMatch`，参数在 `match.params` 上
+7. 将 `ServerLocation` 改为 `StaticRouter`
 
-## Non-Breaking Updates
+## 非破坏性更新
 
-### Upgrade to React v16.8
+### 升级到 React v16.8
 
-React Router v6 makes heavy use of [React
-hooks](https://reactjs.org/docs/hooks-intro.html), so you'll need to be on
-React 16.8 or greater before attempting the upgrade to React Router v6.
+React Router v6 大量使用 [React hooks](https://reactjs.org/docs/hooks-intro.html)，因此你需要先升级到 React 16.8 或更高版本，然后再尝试升级到 React Router v6。
 
-Once you've upgraded to React 16.8, you should deploy your app. Then you can
-come back later and pick up where you left off.
+升级到 React 16.8 后，你应该部署你的应用。然后你可以之后再回来继续。
 
-### Upgrade to `@reach/router` v1.3.3
+### 升级到 `@reach/router` v1.3.3
 
-You should be able to simply install v1.3.3 and then deploy your app.
+你应该可以简单地安装 v1.3.3 然后部署你的应用。
 
 ```sh
 npm install @reach/router@latest
 ```
 
-### Update route components to use hooks
+### 更新路由组件以使用 hook
 
-You can do this step one route component at a time, commit, and deploy. You don't need to update the entire app at once.
+你可以一次一个路由组件地操作，提交并部署。不需要一次性更新整个应用。
 
-In `@reach/router` v1.3 we added hooks to access route data in preparation for React Router v6. If you do this first you'll have a lot less to do when you upgrade to React Router v6.
+在 `@reach/router` v1.3 中，我们添加了 hook 来访问路由数据，为 React Router v6 做准备。如果你先做这一步，你在升级到 React Router v6 时就会少很多工作。
 
 ```jsx
 // @reach/router v1.2
@@ -89,11 +85,11 @@ In `@reach/router` v1.3 we added hooks to access route data in preparation for R
 
 function User(props) {
   let {
-    // route params were accessed from props
+    // 路由参数从 props 中访问
     userId,
     assignmentId,
 
-    // as well as location and navigate
+    // location 和 navigate 也是
     location,
     navigate,
   } = props;
@@ -101,7 +97,7 @@ function User(props) {
   // ...
 }
 
-// @reach/router v1.3 and React Router v6
+// @reach/router v1.3 和 React Router v6
 import {
   useParams,
   useLocation,
@@ -109,7 +105,7 @@ import {
 } from "@reach/router";
 
 function User() {
-  // everything comes from a specific hook now
+  // 现在一切都从特定的 hook 获取
   let { userId, assignmentId } = useParams();
   let location = useLocation();
   let navigate = useNavigate();
@@ -117,17 +113,17 @@ function User() {
 }
 ```
 
-#### Justification
+#### 原因说明
 
-All of this data lives on context already, but accessing it from there was awkward for application code so we dumped it into your props. Hooks made accessing data from context simple so we no longer need to pollute your props with route information.
+所有这些数据已经存在于 context 中，但从那里访问它们对应用代码来说很不方便，所以我们将它们转储到了 props 中。Hook 使得从 context 访问数据变得简单，所以我们不再需要用路由信息污染你的 props。
 
-Not polluting props also helps with TypeScript a bit and also prevents you from wondering where a prop came from when looking at a component. If you're using data from the router, it's completely clear now.
+不污染 props 也对 TypeScript 有一定帮助，还能避免你在查看组件时疑惑某个 prop 从哪里来。如果你使用来自路由器的数据，现在完全清晰。
 
-Also, as a page grows, you naturally break it into multiple components and end up "prop drilling" that data all the way down the tree. Now you can access the route data anywhere in the tree. Not only is it more convenient, but it makes creating router-centric composable abstractions possible. If a custom hook needs the location, it can now simply ask for it with `useLocation()` etc..
+另外，随着页面增长，你自然会将其拆分为多个组件，最终将数据“prop 钻传”到整个树下方。现在你可以在树的任何地方访问路由数据。这不仅更方便，还使得创建以路由为中心的可组合抽象成为可能。如果一个自定义 hook 需要 location，它现在可以简单地通过 `useLocation()` 等来请求。
 
-### Add a LocationProvider
+### 在应用顶层添加 LocationProvider
 
-While `@reach/router` doesn't require a location provider at the top of the application tree, React Router v6 does, so might as well get ready for that now.
+虽然 `@reach/router` 不需要在应用树顶层放置 location provider，但 React Router v6 需要，所以不如现在就做好准备。
 
 ```jsx
 // before
@@ -140,29 +136,29 @@ ReactDOM.render(
   <LocationProvider>
     <App />
   </LocationProvider>,
-  el
+  el,
 );
 ```
 
-#### Justification:
+#### 原因说明：
 
-`@reach/router` uses a global, default history instance that has side effects in the module, which prevents the ability to tree-shake the module whether you use the global or not. Additionally, React Router provides other history types (like hash history) that `@reach/router` doesn't, so it always requires a top-level location provider (in React Router these are `<BrowserRouter/>` and friends).
+`@reach/router` 使用一个全局的、默认的 history 实例，它在模块中有副作用，这阫止了无论你是否使用全局实例都无法对模块进行 tree-shaking。此外，React Router 提供了 `@reach/router` 没有的其他 history 类型（如 hash history），因此它始终需要一个顶层 location provider（在 React Router 中是 `<BrowserRouter/>` 及其同类组件）。
 
-Also, various modules like `Router`, `Link` and `useLocation` rendered outside a `<LocationProvider/>` set up their own URL listener. It's generally not a problem, but every little bit counts. Putting a `<LocationProvider />` at the top allows the app to have a single URL listener.
+另外，各种模块如 `Router`、`Link` 和 `useLocation` 在 `<LocationProvider/>` 外部渲染时会设置它们自己的 URL 监听器。这通常不是问题，但积少成多。在顶层放置一个 `<LocationProvider />` 允许应用拥有单一的 URL 监听器。
 
-## Breaking updates
+## 破坏性更新
 
-This next group of updates need to be done all at once. Fortunately most of it is just a simple rename.
+接下来这组更新需要一次性完成。幸运的是，大部分只是简单的重命名。
 
-You can pull a trick though and use both routers at the same time as you migrate, but you should absolutely not ship your app in this state because they are not interoperable. Your links from one won't work for the other. However, it is nice to be able to make a change and refresh the page to see that you did that one step correctly.
+不过你可以使用一个技巧，在迁移过程中同时使用两个路由器，但你绝对不应该在这种状态下发布你的应用，因为它们不可互操作。一个路由器的链接对另一个无效。然而，能够做一个更改然后刷新页面来确认你正确完成了那一步还是很不错的。
 
-### Install React Router v6
+### 安装 React Router v6
 
 ```sh
 npm install react-router@6 react-router-dom@6
 ```
 
-### Update `LocationProvider` to `BrowserRouter`
+### 将 `LocationProvider` 更新为 `BrowserRouter`
 
 ```jsx
 // @reach/router
@@ -172,7 +168,7 @@ ReactDOM.render(
   <LocationProvider>
     <App />
   </LocationProvider>,
-  el
+  el,
 );
 
 // React Router v6
@@ -182,13 +178,13 @@ ReactDOM.render(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
-  el
+  el,
 );
 ```
 
-### Update `Router` to `Routes`
+### 将 `Router` 更新为 `Routes`
 
-You may have more than one, but usually there's just one somewhere near the top of your app. If you have multiple, go ahead and do this for each one.
+你可能有多个，但通常在应用顶层附近只有一个。如果你有多个，请对每个都执行此操作。
 
 ```jsx
 // @reach/router
@@ -208,9 +204,9 @@ import { Routes, Route } from "react-router-dom";
 </Routes>;
 ```
 
-### Update `default` route prop
+### 更新 `default` 路由属性
 
-The `default` prop told `@reach/router` to use that route if no other routes matched. In React Router v6 you can explain this behavior with a wildcard path.
+`default` 属性告诉 `@reach/router` 如果没有其他路由匹配则使用该路由。在 React Router v6 中，你可以用通配符路径来实现这个行为。
 
 ```jsx
 // @reach/router
@@ -226,13 +222,13 @@ The `default` prop told `@reach/router` to use that route if no other routes mat
 </Routes>
 ```
 
-### `<Redirect/>`, `redirectTo`, `isRedirect`
+### `<Redirect/>`、`redirectTo`、`isRedirect`
 
-Whew ... buckle up for this one. And please save your tomatoes for a homemade margherita pizza instead of throwing them at us.
+哥们... 系好安全带，这个比较复杂。请把你的番茄留着做自制珛格丽特披萨，而不是扔给我们。
 
-We have removed the ability to redirect from React Router. So this means there is no `<Redirect/>`, `redirectTo`, or `isRedirect`, and no replacement APIs either. Please keep reading 😅
+我们已经从 React Router 中移除了重定向的能力。这意味着没有 `<Redirect/>`、`redirectTo` 或 `isRedirect`，也没有替代 API。请继续阅读 😅
 
-Don't confuse redirects with navigating while the user interacts with your app. Navigating in response to user interactions is still supported. When we talk about redirects, we're talking about redirecting while matching:
+不要将重定向与用户与应用交互时的导航混淆。响应用户交互的导航仍然被支持。当我们说重定向时，我们说的是在匹配时进行重定向：
 
 ```jsx
 <Router>
@@ -242,15 +238,15 @@ Don't confuse redirects with navigating while the user interacts with your app. 
 </Router>
 ```
 
-The way redirects work in `@reach/router` was a bit of an experiment. It "throws" redirects and catches it with `componentDidCatch`. This was cool because it caused the entire render tree to stop, and then start over with the new location. Discussions with the React team years ago when we first shipped this project led us to give it a shot.
+`@reach/router` 中重定向的工作方式有点实验性质。它“抛出”重定向并通过 `componentDidCatch` 捕获。这很酷，因为它会导致整个渲染树停止，然后用新的 location 重新开始。多年前我们首次发布这个项目时，与 React 团队的讨论让我们尝试了这种方式。
 
-After bumping into issues (like app level `componentDidCatch`'s needing to rethrow the redirect), we've decided not to do that anymore in React Router v6.
+在碰到一些问题后（比如应用级别的 `componentDidCatch` 需要重新抛出重定向），我们决定在 React Router v6 中不再这样做了。
 
-But we've gone a step farther and concluded that redirects are not even the job of React Router. Your dynamic web server or static file server should be handling this and sending an appropriate response status code like 301 or 302.
+但我们更进一步，得出结论：重定向甚至不是 React Router 的职责。你的动态 Web 服务器或静态文件服务器应该处理这个问题，并发送适当的响应状态码，如 301 或 302。
 
-Having the ability to redirect while matching in React Router at best requires you to configure the redirects in two places (your server and your routes) and at worst encouraged people to only do it in React Router--which doesn't send a status code at all.
+在 React Router 中拥有匹配时重定向的能力，最好的情况是需要你在两个地方配置重定向（服务器和路由），最坏的情况是鼓励人们只在 React Router 中做——这根本不会发送状态码。
 
-We use firebase hosting a lot, so as an example here's how we'd update one of our apps:
+我们经常使用 Firebase 托管，所以举个例子，以下是我们如何更新其中一个应用：
 
 ```jsx
 // @reach/router
@@ -278,15 +274,13 @@ We use firebase hosting a lot, so as an example here's how we'd update one of ou
 }
 ```
 
-This works whether we're server rendering with a serverless function, or if we're using it as a static file server only. All web hosting services provide a way to configure this.
+无论我们是用 serverless 函数进行服务端渲染，还是仅作为静态文件服务器使用，这都可以工作。所有 Web 托管服务都提供了配置此功能的方法。
 
-#### What about clicking Links that aren't updated?
+#### 那没有更新的链接点击时怎么办？
 
-If your app has a `<Link to="/events" />` still hanging around and the user
-clicks it, the server isn't involved since you're using a client-side router.
-You'll need to be more diligent about updating your links 😬.
+如果你的应用中仍然有一个 `<Link to="/events" />`，用户点击它时，服务器不会参与，因为你使用的是客户端路由器。你需要更加勤奢地更新你的链接 😬。
 
-Alternatively, if you want to allow for outdated links, _and you realize you need to configure your redirects on both the client and the server_, go ahead and copy and paste the `Redirect` component we were about to ship but then deleted.
+或者，如果你想允许过时的链接，_并且你意识到需要在客户端和服务器上都配置重定向_，那就复制粘贴我们即将发布但后来删除了的 `Redirect` 组件：
 
 ```jsx
 import { useEffect } from "react";
@@ -300,7 +294,7 @@ function Redirect({ to }) {
   return null;
 }
 
-// usage
+// 用法
 <Routes>
   <Route path="/" element={<Home />} />
   <Route path="/events" element={<Users />} />
@@ -311,13 +305,13 @@ function Redirect({ to }) {
 </Routes>;
 ```
 
-#### Justification
+#### 原因说明
 
-We figured by not providing any redirect API at all, people will be more likely to configure them correctly. We've been accidentally encouraging bad practice for years now and would like to stop 🙈.
+我们认为通过不提供任何重定向 API，人们更有可能正确地配置它们。多年来我们一直在意外地鼓励不好的实践，现在想停下来 🙈。
 
 ### `<Link getProps />`
 
-This prop getter was useful for styling links as "active". Deciding if a link is active is kind of subjective. Sometimes you want it to be active if the URL matches exactly, sometimes you want it active if it matches partially, and there are even more edge cases involving search params and location state.
+这个 prop getter 对于将链接样式化为“活动状态”很有用。判断链接是否活动有些主观。有时你希望它在 URL 完全匹配时活动，有时希望它在部分匹配时活动，还有更多涉及 search params 和 location state 的边缘情况。
 
 ```jsx
 // @reach/router
@@ -350,10 +344,10 @@ function SomeCustomLink() {
 }
 ```
 
-Let's look at some less general examples.
+让我们看一些不那么通用的示例。
 
 ```jsx
-// A custom nav link that is active when the URL matches the link's href exactly
+// 一个当 URL 与链接的 href 完全匹配时活动的自定义导航链接
 
 // @reach/router
 function ExactNavLink(props) {
@@ -367,10 +361,10 @@ function ExactNavLink(props) {
 function ExactNavLink(props) {
   return (
     <Link
-      // If you only need the active state for styling without
-      // overriding the default isActive state, we provide it as
-      // a named argument in a function that can be passed to
-      // either `className` or `style` props
+      // 如果你只需要活动状态用于样式而不需要
+      // 覆盖默认的 isActive 状态，我们将它作为
+      // 命名参数提供在可以传递给
+      // `className` 或 `style` props 的函数中
       className={({ isActive }) =>
         isActive ? "active" : ""
       }
@@ -379,7 +373,7 @@ function ExactNavLink(props) {
   );
 }
 
-// A link that is active when itself or deeper routes are current
+// 一个当自身或更深层路由为当前路由时活动的链接
 
 // @reach/router
 function PartialNavLink(props) {
@@ -393,7 +387,7 @@ function PartialNavLink(props) {
 
 // React Router v6
 function PartialNavLink(props) {
-  // add the wild card to match deeper URLs
+  // 添加通配符以匹配更深层的 URL
   let match = useMatch(props.to + "/*");
   return (
     <Link className={match ? "active" : ""} {...props} />
@@ -401,9 +395,9 @@ function PartialNavLink(props) {
 }
 ```
 
-#### Justification
+#### 原因说明
 
-"Prop getters" are clunky and can almost always be replaced with a hook. This also allows you to use the other hooks, like `useLocation`, and do even more custom things, like making a link active with a search string:
+“Prop getters”很笨拙，几乎总是可以用 hook 替代。这也允许你使用其他 hook，像 `useLocation`，来做更多自定义的事情，比如用 search string 让链接活动：
 
 ```jsx
 function RecentPostsLink(props) {
@@ -419,7 +413,7 @@ function RecentPostsLink(props) {
 
 ### `useMatch`
 
-The signature of `useMatch` is slightly different in React Router v6.
+`useMatch` 的签名在 React Router v6 中略有不同。
 
 ```jsx
 // @reach/router
@@ -427,7 +421,7 @@ let {
   uri,
   path,
 
-  // params are merged into the object with uri and path
+  // 参数从对象中合并了 uri 和 path
   eventId,
 } = useMatch("/events/:eventId");
 
@@ -436,24 +430,24 @@ let {
   url,
   path,
 
-  // params get their own key on the match
+  // 参数有自己的键
   params: { eventId },
 } = useMatch("/events/:eventId");
 ```
 
-Also note the change from `uri -> url`.
+另外注意从 `uri` 到 `url` 的更改。
 
-#### Justification
+#### 原因说明
 
-Just feels cleaner to have the params be separate from URL and path.
+将参数与 URL 和 path 分开只是感觉更整洁。
 
-Also, nobody knows the difference between URL and URI, so we didn't want to start a bunch of pedantic arguments about it. React Router always called it URL, and it's got more production apps, so we used URL instead of URI.
+另外，没人知道 URL 和 URI 的区别，所以我们不想引发一堆学院派的争论。React Router 一直叫它 URL，而且有更多的生产应用，所以我们用了 URL 而不是 URI。
 
 ### `<Match />`
 
-There is no `<Match/>` component in React Router v6. It used render props to compose behavior, but we've got hooks now.
+React Router v6 中没有 `<Match/>` 组件。它使用 render props 来组合行为，但我们现在有 hooks 了。
 
-If you like it, or just don't want to update your code, it's easy to backport:
+如果你喜欢它，或者只是不想更新你的代码，很容易向后移植：
 
 ```jsx
 function Match({ path, children }) {
@@ -464,13 +458,13 @@ function Match({ path, children }) {
 }
 ```
 
-#### Justification
+#### 原因说明
 
-Render props are kinda gross (ew!) now that we have hooks.
+Render props 现在有点难看（噢！），因为我们有 hooks 了。
 
 ### `<ServerLocation />`
 
-Really simple rename here:
+这里真的只是简单重命名：
 
 ```jsx
 // @reach/router
@@ -480,7 +474,7 @@ createServer((req, res) => {
   let markup = ReactDOMServer.renderToString(
     <ServerLocation url={req.url}>
       <App />
-    </ServerLocation>
+    </ServerLocation>,
   );
   req.send(markup);
 });
@@ -493,18 +487,18 @@ createServer((req, res) => {
   let markup = ReactDOMServer.renderToString(
     <StaticRouter location={req.url}>
       <App />
-    </StaticRouter>
+    </StaticRouter>,
   );
   req.send(markup);
 });
 ```
 
-## Feedback!
+## 反馈！
 
-Please let us know if this guide helped:
+请告诉我们本指南是否对你有帮助：
 
-_Open a Pull Request_: Please add any migration we missed that you needed.
+_提交 Pull Request_：请添加任何我们遗漏的但你需要的迁移内容。
 
-_General Feedback_: [@remix_run](https://twitter.com/remix_run) on Twitter, or email [hello@remix.run](mailto:hello@remix.run).
+_常规反馈_：Twitter 上的 [@remix_run](https://twitter.com/remix_run)，或发送邮件到 [hello@remix.run](mailto:hello@remix.run)。
 
-Thanks!
+谢谢！

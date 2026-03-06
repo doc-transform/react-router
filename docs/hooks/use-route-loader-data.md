@@ -5,9 +5,9 @@ new: true
 
 # `useRouteLoaderData`
 
-This hook makes the data at any currently rendered route available anywhere in the tree. This is useful for components deep in the tree needing data from routes much farther up, as well as parent routes needing the data of child routes deeper in the tree.
+此 hook 使当前渲染的任何路由的数据在树中的任何位置都可用。这对于深层组件需要更上层路由的数据，以及父路由需要更深层子路由的数据都很有用。
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
 ```tsx
 import { useRouteLoaderData } from "react-router-dom";
@@ -18,7 +18,7 @@ function SomeComp() {
 }
 ```
 
-React Router stores data internally with deterministic, auto-generated route ids, but you can supply your own route id to make this hook much easier to work with. Consider a router with a route that defines an id:
+React Router 使用确定性的、自动生成的路由 id 在内部存储数据，但你可以提供自己的路由 id 来使此 hook 更容易使用。考虑一个定义了 id 的路由器：
 
 ```tsx [6]
 createBrowserRouter([
@@ -38,12 +38,12 @@ createBrowserRouter([
 ]);
 ```
 
-Now the user is available anywhere else in the app.
+现在用户数据在应用的任何其他地方都可用。
 
 ```tsx
 const user = useRouteLoaderData("root");
 ```
 
-The only data available is the routes that are currently rendered. If you ask for data from a route that is not currently rendered, the hook will return `undefined`.
+唯一可用的数据是当前渲染的路由的数据。如果你请求当前未渲染的路由的数据，此 hook 将返回 `undefined`。
 
 [pickingarouter]: ../routers/picking-a-router

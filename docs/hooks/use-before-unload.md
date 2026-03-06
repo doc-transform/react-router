@@ -5,7 +5,7 @@ new: true
 
 # `useBeforeUnload`
 
-This hook is just a helper around `window.onbeforeunload`. It can be useful to save important application state on the page (to something like the browser's local storage), before the user navigates away from your page. That way if they come back you can restore any stateful information (restore form input values, etc.)
+此 hook 只是 `window.onbeforeunload` 的一个辅助封装。它可以用于在用户从你的页面导航离开之前保存重要的应用状态（到浏览器的本地存储等），这样如果他们返回，你就可以恢复任何有状态的信息（恢复表单输入值等）。
 
 ```tsx lines=[1,7-11]
 import { useBeforeUnload } from "react-router-dom";
@@ -17,7 +17,7 @@ function SomeForm() {
   useBeforeUnload(
     React.useCallback(() => {
       localStorage.stuff = state;
-    }, [state])
+    }, [state]),
   );
 
   // read it in when they return

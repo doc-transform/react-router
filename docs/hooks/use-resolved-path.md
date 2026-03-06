@@ -5,39 +5,39 @@ title: useResolvedPath
 # `useResolvedPath`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useResolvedPath(
   to: To,
-  options?: { relative?: RelativeRoutingType }
+  options?: { relative?: RelativeRoutingType },
 ): Path;
 ```
 
 </details>
 
-This hook resolves the `pathname` of the location in the given `to` value against the pathname of the current location.
+此 hook 将给定 `to` 值中的位置 `pathname` 相对于当前位置的 pathname 进行解析。
 
-This is useful when building links from relative values. For example, check out the source to [`<NavLink>`][navlink] which calls `useResolvedPath` internally to resolve the full pathname of the page being linked to.
+这在从相对值构建链接时很有用。例如，查看 [`<NavLink>`][navlink] 的源码，它在内部调用 `useResolvedPath` 来解析被链接页面的完整路径名。
 
-See [resolvePath][resolvepath] for more information.
+更多信息请参见 [resolvePath][resolvepath]。
 
-## Splat Paths
+## 通配符路径
 
-The original logic for `useResolvedPath` behaved differently for splat paths which in hindsight was incorrect/buggy behavior. This was fixed in [`6.19.0`][release-6.19.0] but it was determined that a large number of existing applications [relied on this behavior][revert-comment] so the fix was reverted in [`6.20.1`][release-6.20.1] and re-introduced in [`6.21.0`][release-6.21.0] behind a `future.v7_relativeSplatPath` [future flag][future-flag]. This will become the default behavior in React Router v7, so it is recommended to update your applications at your convenience to be better prepared for the eventual v7 upgrade.
+`useResolvedPath` 的原始逻辑对通配符路径的处理与其他路径不同，回头看这是不正确的/有缺陷的行为。这在 [`6.19.0`][release-6.19.0] 中被修复，但发现大量现有应用[依赖了此行为][revert-comment]，因此修复在 [`6.20.1`][release-6.20.1] 中被撤销，并在 [`6.21.0`][release-6.21.0] 中通过 `future.v7_relativeSplatPath` [future flag][future-flag] 重新引入。这将成为 React Router v7 的默认行为，因此建议在方便时更新你的应用，以便更好地为最终的 v7 升级做准备。
 
-It should be noted that this is the foundation for all relative routing in React Router, so this applies to the following relative path code flows as well:
+需要注意的是，这是 React Router 中所有相对路由的基础，因此这也适用于以下相对路径代码流：
 
 - `<Link to>`
 - `useNavigate()`
 - `useHref()`
 - `<Form action>`
 - `useSubmit()`
-- Relative path `redirect` responses returned from loaders and actions
+- 从 loader 和 action 返回的相对路径 `redirect` 响应
 
-### Behavior without the flag
+### 未启用 flag 时的行为
 
-When this flag is not enabled, the default behavior is that when resolving relative paths inside of a [splat route (`*`)][splat], the splat portion of the path is ignored. So, given a route tree such as:
+当未启用此 flag 时，默认行为是在解析[通配符路由（`*`）][splat]内部的相对路径时，通配符部分的路径会被忽略。所以，给定如下路由树：
 
 ```jsx
 <BrowserRouter>
@@ -47,14 +47,14 @@ When this flag is not enabled, the default behavior is that when resolving relat
 </BrowserRouter>
 ```
 
-If you are currently at URL `/dashboard/teams`, `useResolvedPath("projects")` inside the `Dashboard` component would resolve to `/dashboard/projects` because the "current" location we are relative to would be considered `/dashboard` _without the "teams" splat value_.
+如果你当前在 URL `/dashboard/teams`，`Dashboard` 组件内的 `useResolvedPath("projects")` 会解析为 `/dashboard/projects`，因为我们相对的“当前”位置被认为是 `/dashboard`，_不包含 "teams" 通配符值_。
 
-This makes for a slight convenience in routing between "sibling" splat routes (`/dashboard/teams`, `/dashboard/projects`, etc.), however it causes other inconsistencies such as:
+这对于在“同级”通配符路由之间（`/dashboard/teams`、`/dashboard/projects` 等）导航提供了一些便利，但会导致其他不一致性，例如：
 
-- `useResolvedPath(".")` no longer resolves to the current location for that route, it actually resolved you "up" to `/dashboard` from `/dashboard/teams`
-- If you changed your route definition to use a dynamic parameter (`<Route path="/dashboard/:widget">`), then any resolved paths inside the `Dashboard` component would break since the dynamic param value is not ignored like the splat value
+- `useResolvedPath(".")` 不再解析为该路由的当前位置，它实际上会从 `/dashboard/teams` “向上”解析到 `/dashboard`
+- 如果你将路由定义更改为使用动态参数（`<Route path="/dashboard/:widget">`），那么 `Dashboard` 组件内的任何解析路径都会中断，因为动态参数值不会像通配符值那样被忽略
 
-And then it gets worse if you define the splat route as a child:
+如果你将通配符路由定义为子路由，情况会更糟糕：
 
 ```jsx
 <BrowserRouter>
@@ -66,14 +66,14 @@ And then it gets worse if you define the splat route as a child:
 </BrowserRouter>
 ```
 
-- Now, `useResolvedPath(".")` and `useResolvedPath("..")` resolve to the exact same path inside `<Dashboard />`
-- If you were using a Data Router and defined an `action` on the splat route, you'd get a 405 error on `<Form>` submissions inside `<Dashboard>` because they (by default) submit to `"."` which would resolve to the parent `/dashboard` route which doesn't have an `action`.
+- 现在，`useResolvedPath(".")` 和 `useResolvedPath("..")` 在 `<Dashboard />` 内部解析为完全相同的路径
+- 如果你使用数据路由器并在通配符路由上定义了 `action`，在 `<Dashboard>` 内部的 `<Form>` 提交会得到 405 错误，因为它们（默认情况下）提交到 `"."`，这会解析到父路由 `/dashboard`，而该路由没有 `action`。
 
-### Behavior with the flag
+### 启用 flag 后的行为
 
-When you enable the flag, this "bug" is fixed so that path resolution is consistent across all route types, and `useResolvedPath(".")` always resolves to the current pathname for the contextual route. This includes any dynamic param or splat param values.
+当你启用此 flag 时，这个“缺陷”会被修复，使得路径解析在所有路由类型之间保持一致，`useResolvedPath(".")` 始终解析为上下文路由的当前路径名。这包括任何动态参数或通配符参数值。
 
-If you want to navigate between "sibling" routes within a splat route, it is suggested you move your splat route to it's own child and use `useResolvedPath("../teams")` and `useResolvedPath("../projects")` parent-relative paths to navigate to sibling `/dashboard` routes. Note that here we also use `index` so that the URL `/dashboard` also renders the `<Dashboard>` component.
+如果你想在通配符路由内的“同级”路由之间导航，建议将通配符路由移到其自己的子路由，并使用 `useResolvedPath("../teams")` 和 `useResolvedPath("../projects")` 父级相对路径来导航到同级的 `/dashboard` 路由。注意，这里我们还使用了 `index`，这样 URL `/dashboard` 也会渲染 `<Dashboard>` 组件。
 
 ```jsx
 <BrowserRouter>

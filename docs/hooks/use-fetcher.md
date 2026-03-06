@@ -5,23 +5,23 @@ new: true
 
 # `useFetcher`
 
-In HTML/HTTP, data mutations and loads are modeled with navigation: `<a href>` and `<form action>`. Both cause a navigation in the browser. The React Router equivalents are [`<Link>`][link] and [`<Form>`][form].
+在 HTML/HTTP 中，数据变更和加载通过导航来建模：`<a href>` 和 `<form action>`。两者都会在浏览器中引起导航。React Router 的等价物是 [`<Link>`][link] 和 [`<Form>`][form]。
 
-But sometimes you want to call a [`loader`][loader] outside of navigation, or call an [`action`][action] (and get the data on the page to revalidate) without changing the URL. Or you need to have multiple mutations in-flight at the same time.
+但有时你希望在导航之外调用 [`loader`][loader]，或者在不改变 URL 的情况下调用 [`action`][action]（并让页面上的数据重新验证）。或者你需要同时进行多个变更。
 
-Many interactions with the server aren't navigation events. This hook lets you plug your UI into your actions and loaders without navigating.
+与服务器的许多交互不是导航事件。此 hook 允许你将 UI 接入你的 action 和 loader 而无需导航。
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
-This is useful when you need to:
+这在以下情况下很有用：
 
-- fetch data not associated with UI routes (popovers, dynamic forms, etc.)
-- submit data to actions without navigating (shared components like a newsletter sign ups)
-- handle multiple concurrent submissions in a list (typical "todo app" list where you can click multiple buttons and all should be pending at the same time)
-- infinite scroll containers
-- and more!
+- 获取与 UI 路由无关的数据（弹出框、动态表单等）
+- 不导航就向 action 提交数据（共享组件，如新闻通讯注册）
+- 处理列表中的多个并发提交（典型的“待办事项”列表，你可以点击多个按钮，所有按钮都应同时处于待处理状态）
+- 无限滚动容器
+- 以及更多！
 
-If you're building a highly interactive, "app like" user interface, you will `useFetcher` often.
+如果你正在构建一个高度交互的、“类似应用”的用户界面，你会经常使用 `useFetcher`。
 
 ```tsx
 import { useFetcher } from "react-router-dom";
@@ -49,22 +49,22 @@ function SomeComponent() {
 }
 ```
 
-Fetchers have a lot of built-in behavior:
+Fetcher 有很多内置行为：
 
-- Automatically handles cancellation on interruptions of the fetch
-- When submitting with POST, PUT, PATCH, DELETE, the action is called first
-  - After the action completes, the data on the page is revalidated to capture any mutations that may have happened, automatically keeping your UI in sync with your server state
-- When multiple fetchers are inflight at once, it will
-  - commit the freshest available data as they each land
-  - ensure no stale loads override fresher data, no matter which order the responses return
-- Handles uncaught errors by rendering the nearest `errorElement` (just like a normal navigation from `<Link>` or `<Form>`)
-- Will redirect the app if your action/loader being called returns a redirect (just like a normal navigation from `<Link>` or `<Form>`)
+- 自动处理 fetch 中断时的取消
+- 使用 POST、PUT、PATCH、DELETE 提交时，会先调用 action
+  - action 完成后，页面上的数据会重新验证以捕获可能发生的任何变更，自动保持 UI 与服务器状态同步
+- 当多个 fetcher 同时进行时，它会
+  - 在每个响应到达时提交最新的可用数据
+  - 确保不会有过时的加载覆盖较新的数据，无论响应以什么顺序返回
+- 通过渲染最近的 `errorElement` 处理未捕获的错误（就像从 `<Link>` 或 `<Form>` 的正常导航一样）
+- 如果被调用的 action/loader 返回重定向，会重定向应用（就像从 `<Link>` 或 `<Form>` 的正常导航一样）
 
-## Options
+## 选项
 
 ### `key`
 
-By default, `useFetcher` generate a unique fetcher scoped to that component (however, it may be looked up in [`useFetchers()`][use-fetchers] while in-flight). If you want to identify a fetcher with your own `key` such that you can access it from elsewhere in your app, you can do that with the `key` option:
+默认情况下，`useFetcher` 会生成一个作用于该组件的唯一 fetcher（但在进行中时可以通过 [`useFetchers()`][use-fetchers] 查找）。如果你想用自己的 `key` 标识一个 fetcher，以便在应用的其他地方访问它，可以使用 `key` 选项：
 
 ```tsx lines=[2,8]
 function AddToBagButton() {
@@ -76,7 +76,7 @@ function AddToBagButton() {
 function CartCount({ count }) {
   const fetcher = useFetcher({ key: "add-to-bag" });
   const inFlightCount = Number(
-    fetcher.formData?.get("quantity") || 0
+    fetcher.formData?.get("quantity") || 0,
   );
   const optimisticCount = count + inFlightCount;
   return (
@@ -88,11 +88,11 @@ function CartCount({ count }) {
 }
 ```
 
-## Components
+## 组件
 
 ### `fetcher.Form`
 
-Just like `<Form>` except it doesn't cause a navigation. <small>(You'll get over the dot in JSX ... we hope!)</small>
+与 `<Form>` 完全相同，只是不会引起导航。<small>（你会习惯 JSX 中的点号的……我们希望！）</small>
 
 ```tsx
 function SomeComponent() {
@@ -105,11 +105,11 @@ function SomeComponent() {
 }
 ```
 
-## Methods
+## 方法
 
 ### `fetcher.load(href, options)`
 
-Loads data from a route loader.
+从路由 loader 加载数据。
 
 ```tsx lines=[8]
 import { useFetcher } from "react-router-dom";
@@ -127,21 +127,21 @@ function SomeComponent() {
 }
 ```
 
-Although a URL might match multiple nested routes, a `fetcher.load()` call will only call the loader on the leaf match (or parent of [index routes][indexsearchparam]).
+虽然一个 URL 可能匹配多个嵌套路由，但 `fetcher.load()` 调用只会调用叶子匹配的 loader（或 [index 路由][indexsearchparam] 的父级）。
 
-If you find yourself calling this function inside of click handlers, you can probably simplify your code by using `<fetcher.Form>` instead.
+如果你发现自己在点击处理器中调用此函数，你可能可以改用 `<fetcher.Form>` 来简化代码。
 
-<docs-info>Any `fetcher.load` calls that are active on the page will be re-executed as part of revalidation (either after a navigation submission, another fetcher submission, or a `useRevalidator()` call)</docs-info>
+<docs-info>页面上任何活跃的 `fetcher.load` 调用都会作为重新验证的一部分被重新执行（无论是导航提交、另一个 fetcher 提交，还是 `useRevalidator()` 调用之后）</docs-info>
 
 #### `options.flushSync`
 
-The `flushSync` option tells React Router DOM to wrap the initial state update for this `fetcher.load` in a [`ReactDOM.flushSync`][flush-sync] call instead of the default [`React.startTransition`][start-transition]. This allows you to perform synchronous DOM actions immediately after the update is flushed to the DOM.
+`flushSync` 选项告诉 React Router DOM 将此 `fetcher.load` 的初始状态更新包装在 [`ReactDOM.flushSync`][flush-sync] 调用中，而不是默认的 [`React.startTransition`][start-transition] 中。这允许你在更新刷新到 DOM 后立即执行同步 DOM 操作。
 
 ### `fetcher.submit()`
 
-The imperative version of `<fetcher.Form>`. If a user interaction should initiate the fetch, you should use `<fetcher.Form>`. But if you, the programmer are initiating the fetch (not in response to a user clicking a button, etc.), then use this function.
+`<fetcher.Form>` 的命令式版本。如果用户交互应该发起 fetch，你应该使用 `<fetcher.Form>`。但如果是你（程序员）发起 fetch（不是响应用户点击按钮等），则使用此函数。
 
-For example, you may want to log the user out after a certain amount of idle time:
+例如，你可能希望在用户空闲一段时间后将其注销：
 
 ```tsx lines=[1,5,10-13]
 import { useFetcher } from "react-router-dom";
@@ -155,32 +155,32 @@ export function useIdleLogout() {
     if (userIsIdle) {
       fetcher.submit(
         { idle: true },
-        { method: "post", action: "/logout" }
+        { method: "post", action: "/logout" },
       );
     }
   }, [userIsIdle]);
 }
 ```
 
-`fetcher.submit` is a wrapper around a [`useSubmit`][use-submit] call for the fetcher instance, so it also accepts the same options as `useSubmit`.
+`fetcher.submit` 是 fetcher 实例的 [`useSubmit`][use-submit] 调用的包装器，因此它也接受与 `useSubmit` 相同的选项。
 
-If you want to submit to an index route, use the [`?index` param][indexsearchparam].
+如果你想提交到 index 路由，请使用 [`?index` 参数][indexsearchparam]。
 
-If you find yourself calling this function inside of click handlers, you can probably simplify your code by using `<fetcher.Form>` instead.
+如果你发现自己在点击处理器中调用此函数，你可能可以改用 `<fetcher.Form>` 来简化代码。
 
-## Properties
+## 属性
 
 ### `fetcher.state`
 
-You can know the state of the fetcher with `fetcher.state`. It will be one of:
+你可以通过 `fetcher.state` 了解 fetcher 的状态。它将是以下之一：
 
-- **idle** - nothing is being fetched.
-- **submitting** - A route action is being called due to a fetcher submission using POST, PUT, PATCH, or DELETE
-- **loading** - The fetcher is calling a loader (from a `fetcher.load`) or is being revalidated after a separate submission or `useRevalidator` call
+- **idle** - 没有正在获取的内容。
+- **submitting** - 由于使用 POST、PUT、PATCH 或 DELETE 的 fetcher 提交，正在调用路由 action
+- **loading** - fetcher 正在调用 loader（通过 `fetcher.load`）或在单独的提交或 `useRevalidator` 调用后正在重新验证
 
 ### `fetcher.data`
 
-The returned data from the loader or action is stored here. Once the data is set, it persists on the fetcher even through reloads and resubmissions.
+从 loader 或 action 返回的数据存储在这里。一旦数据被设置，即使在重新加载和重新提交之后，它也会保留在 fetcher 上。
 
 ```tsx
 function ProductDetails({ product }) {
@@ -211,7 +211,7 @@ function ProductDetails({ product }) {
 
 ### `fetcher.formData`
 
-When using `<fetcher.Form>` or `fetcher.submit()`, the form data is available to build optimistic UI.
+使用 `<fetcher.Form>` 或 `fetcher.submit()` 时，表单数据可用于构建乐观 UI。
 
 ```tsx
 function TaskCheckbox({ task }) {
@@ -244,15 +244,15 @@ function TaskCheckbox({ task }) {
 
 ### `fetcher.json`
 
-When using `fetcher.submit(data, { formEncType: "application/json" })`, the submitted JSON is available via `fetcher.json`.
+使用 `fetcher.submit(data, { formEncType: "application/json" })` 时，提交的 JSON 可通过 `fetcher.json` 获取。
 
 ### `fetcher.text`
 
-When using `fetcher.submit(data, { formEncType: "text/plain" })`, the submitted text is available via `fetcher.text`.
+使用 `fetcher.submit(data, { formEncType: "text/plain" })` 时，提交的文本可通过 `fetcher.text` 获取。
 
 ### `fetcher.formAction`
 
-Tells you the action url the form is being submitted to.
+告诉你表单正在提交到的 action URL。
 
 ```tsx
 <fetcher.Form action="/mark-as-read" />;
@@ -263,7 +263,7 @@ fetcher.formAction; // "mark-as-read"
 
 ### `fetcher.formMethod`
 
-Tells you the method of the form being submitted: get, post, put, patch, or delete.
+告诉你正在提交的表单方法：get、post、put、patch 或 delete。
 
 ```tsx
 <fetcher.Form method="post" />;
@@ -272,7 +272,7 @@ Tells you the method of the form being submitted: get, post, put, patch, or dele
 fetcher.formMethod; // "post"
 ```
 
-<docs-warning>The `fetcher.formMethod` field is lowercase without the `future.v7_normalizeFormMethod` [Future Flag][api-development-strategy]. This is being normalized to uppercase to align with the `fetch()` behavior in v7, so please upgrade your React Router v6 applications to adopt the uppercase HTTP methods.</docs-warning>
+<docs-warning>没有 `future.v7_normalizeFormMethod` [Future Flag][api-development-strategy] 时，`fetcher.formMethod` 字段是小写的。这将在 v7 中规范化为大写以与 `fetch()` 行为保持一致，因此请升级你的 React Router v6 应用以采用大写 HTTP 方法。</docs-warning>
 
 [loader]: ../route/loader
 [action]: ../route/action

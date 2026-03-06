@@ -5,7 +5,7 @@ title: useOutlet
 # `useOutlet`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useOutlet(): React.ReactElement | null;
@@ -13,6 +13,6 @@ declare function useOutlet(): React.ReactElement | null;
 
 </details>
 
-Returns the element for the child route at this level of the route hierarchy. This hook is used internally by [`<Outlet>`][outlet] to render child routes.
+返回路由层次结构中此级别的子路由元素。此 hook 在 [`<Outlet>`][outlet] 内部使用来渲染子路由。
 
 [outlet]: ../components/outlet

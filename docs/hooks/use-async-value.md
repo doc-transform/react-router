@@ -5,7 +5,7 @@ new: true
 
 # `useAsyncValue`
 
-Returns the resolved data from the nearest `<Await>` ancestor component.
+返回最近的 `<Await>` 祖先组件中解析的数据。
 
 ```tsx
 function ProductVariants() {
@@ -13,13 +13,13 @@ function ProductVariants() {
   return <div>{/* ... */}</div>;
 }
 
-// Await creates the context for the value
+// Await 为值创建上下文
 <Await resolve={somePromiseForProductVariants}>
   <ProductVariants />
 </Await>;
 ```
 
-See the [Deferred Data Guide][deferred] and [`<Await>` docs][await docs] for more information.
+更多信息请参阅[延迟数据指南][deferred]和 [`<Await>` 文档][await docs]。
 
 [await docs]: ../components/await
 [deferred]: ../guides/deferred

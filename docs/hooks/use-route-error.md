@@ -5,9 +5,9 @@ new: true
 
 # `useRouteError`
 
-Inside of an [`errorElement`][errorelement], this hook returns anything thrown during an action, loader, or rendering. Note that thrown responses have special treatment, see [`isRouteErrorResponse`][isrouteerrorresponse] for more information.
+在 [`errorElement`][errorelement] 内部，此 hook 返回在 action、loader 或渲染过程中抛出的任何内容。注意，抛出的响应有特殊处理，更多信息请参阅 [`isRouteErrorResponse`][isrouteerrorresponse]。
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
 ```jsx
 function ErrorBoundary() {

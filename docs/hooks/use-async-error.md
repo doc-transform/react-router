@@ -5,7 +5,7 @@ new: true
 
 # `useAsyncError`
 
-Returns the rejection value from the nearest [`<Await>`][await] component.
+返回最近的 [`<Await>`][await] 组件的拒绝值。
 
 ```tsx [4,12]
 import { useAsyncError, Await } from "react-router-dom";
@@ -23,7 +23,7 @@ function ErrorElement() {
 />;
 ```
 
-See the [Deferred Data Guide][deferred] and [`<Await>` docs][await docs] for more information.
+更多信息请参阅[延迟数据指南][deferred]和 [`<Await>` 文档][await docs]。
 
 [await docs]: ../components/await
 [deferred]: ../guides/deferred

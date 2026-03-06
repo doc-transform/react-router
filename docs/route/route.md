@@ -6,39 +6,39 @@ order: 1
 
 # `Route`
 
-Routes are perhaps the most important part of a React Router app. They couple URL segments to components, data loading and data mutations. Through route nesting, complex application layouts and data dependencies become simple and declarative.
+路由可能是 React Router 应用中最重要的部分。它们将 URL 片段与组件、数据加载和数据变更耦合在一起。通过路由嵌套，复杂的应用布局和数据依赖变得简单且声明式。
 
-Routes are objects passed to the router creation functions:
+路由是传递给路由器创建函数的对象：
 
 ```jsx
 const router = createBrowserRouter([
   {
-    // it renders this element
+    // 它渲染此元素
     element: <Team />,
 
-    // when the URL matches this segment
+    // 当 URL 匹配此片段时
     path: "teams/:teamId",
 
-    // with this data loaded before rendering
+    // 在渲染前加载此数据
     loader: async ({ request, params }) => {
       return fetch(
         `/fake/api/teams/${params.teamId}.json`,
-        { signal: request.signal }
+        { signal: request.signal },
       );
     },
 
-    // performing this mutation when data is submitted to it
+    // 当数据提交到此路由时执行此变更
     action: async ({ request }) => {
       return updateFakeTeam(await request.formData());
     },
 
-    // and renders this element in case something went wrong
+    // 当出错时渲染此元素
     errorElement: <ErrorBoundary />,
   },
 ]);
 ```
 
-You can also declare your routes with JSX and [`createRoutesFromElements`][createroutesfromelements], the props to the element are identical to the properties of the route objects:
+你也可以使用 JSX 和 [`createRoutesFromElements`][createroutesfromelements] 来声明路由，元素的 props 与路由对象的属性完全相同：
 
 ```jsx
 const router = createBrowserRouter(
@@ -48,23 +48,23 @@ const router = createBrowserRouter(
       path="teams/:teamId"
       loader={async ({ params }) => {
         return fetch(
-          `/fake/api/teams/${params.teamId}.json`
+          `/fake/api/teams/${params.teamId}.json`,
         );
       }}
       action={async ({ request }) => {
         return updateFakeTeam(await request.formData());
       }}
       errorElement={<ErrorBoundary />}
-    />
-  )
+    />,
+  ),
 );
 ```
 
-Neither style is discouraged and behavior is identical. For the majority of this doc we will use the JSX style because that's what most people are accustomed to in the context of React Router.
+两种风格都不会被反对，行为完全相同。本文档的大部分内容将使用 JSX 风格，因为在 React Router 的上下文中这是大多数人所习惯的。
 
-<docs-info>When using `RouterProvider`, if you do not wish to specify a React element (i.e., `element={<MyComponent />}`) you may specify a `Component` instead (i.e., `Component={MyComponent}`) and React Router will call `createElement` for you internally. You should only do this for `RouterProvider` applications though since using `Component` inside of `<Routes>` will de-optimize React's ability to reuse the created element across renders.</docs-info>
+<docs-info>当使用 `RouterProvider` 时，如果你不想指定 React 元素（即 `element={<MyComponent />}`），你可以改为指定一个 `Component`（即 `Component={MyComponent}`），React Router 将在内部为你调用 `createElement`。不过你应该只在 `RouterProvider` 应用中这样做，因为在 `<Routes>` 中使用 `Component` 会降低 React 跨渲染复用已创建元素的能力。</docs-info>
 
-## Type declaration
+## 类型声明
 
 ```tsx
 interface RouteObject {
@@ -89,51 +89,51 @@ interface RouteObject {
 
 ## `path`
 
-The path pattern to match against the URL to determine if this route matches a URL, link href, or form action.
+用于匹配 URL 的路径模式，以确定此路由是否匹配 URL、链接 href 或表单 action。
 
-### Dynamic Segments
+### 动态片段
 
-If a path segment starts with `:` then it becomes a "dynamic segment". When the route matches the URL, the dynamic segment will be parsed from the URL and provided as `params` to other router APIs.
+如果路径片段以 `:` 开头，它将成为"动态片段"。当路由匹配 URL 时，动态片段将从 URL 中解析出来，并作为 `params` 提供给其他路由器 API。
 
 ```tsx
 <Route
-  // this path will match URLs like
+  // 此路径将匹配以下 URL
   // - /teams/hotspur
   // - /teams/real
   path="/teams/:teamId"
-  // the matching param will be available to the loader
+  // 匹配的参数将提供给 loader
   loader={({ params }) => {
     console.log(params.teamId); // "hotspur"
   }}
-  // and the action
+  // 以及 action
   action={({ params }) => {}}
   element={<Team />}
 />;
 
-// and the element through `useParams`
+// 以及通过 `useParams` 提供给元素
 function Team() {
   let params = useParams();
   console.log(params.teamId); // "hotspur"
 }
 ```
 
-You can have multiple dynamic segments in one route path:
+一个路由路径中可以有多个动态片段：
 
 ```tsx
 <Route path="/c/:categoryId/p/:productId" />;
-// both will be available
+// 两者都可以获取
 params.categoryId;
 params.productId;
 ```
 
-Dynamic segments cannot be "partial":
+动态片段不能是"部分的"：
 
 - 🚫 `"/teams-:teamId"`
 - ✅ `"/teams/:teamId"`
 - 🚫 `"/:category--:productId"`
 - ✅ `"/:productSlug"`
 
-You can still support URL patterns like that, you just have to do a bit of your own parsing:
+你仍然可以支持这样的 URL 模式，只需要自己做一些解析：
 
 ```tsx
 function Product() {
@@ -143,76 +143,76 @@ function Product() {
 }
 ```
 
-### Optional Segments
+### 可选片段
 
-You can make a route segment optional by adding a `?` to the end of the segment.
+你可以通过在片段末尾添加 `?` 来使路由片段变为可选的。
 
 ```tsx
 <Route
-  // this path will match URLs like
+  // 此路径将匹配以下 URL
   // - /categories
   // - /en/categories
   // - /fr/categories
   path="/:lang?/categories"
-  // the matching param might be available to the loader
+  // 匹配的参数可能在 loader 中可用
   loader={({ params }) => {
     console.log(params["lang"]); // "en"
   }}
-  // and the action
+  // 以及 action
   action={({ params }) => {}}
   element={<Categories />}
 />;
 
-// and the element through `useParams`
+// 以及通过 `useParams` 提供给元素
 function Categories() {
   let params = useParams();
   console.log(params.lang);
 }
 ```
 
-You can have optional static segments, too:
+你也可以有可选的静态片段：
 
 ```jsx
 <Route path="/project/task?/:taskId" />
 ```
 
-### Splats
+### 通配符
 
-Also known as "catchall" and "star" segments. If a route path pattern ends with `/*` then it will match any characters following the `/`, including other `/` characters.
+也被称为 "catchall" 和 "star" 片段。如果路由路径模式以 `/*` 结尾，它将匹配 `/` 之后的任何字符，包括其他 `/` 字符。
 
 ```tsx
 <Route
-  // this path will match URLs like
+  // 此路径将匹配以下 URL
   // - /files
   // - /files/one
   // - /files/one/two
   // - /files/one/two/three
   path="/files/*"
-  // the matching param will be available to the loader
+  // 匹配的参数将提供给 loader
   loader={({ params }) => {
     console.log(params["*"]); // "one/two"
   }}
-  // and the action
+  // 以及 action
   action={({ params }) => {}}
   element={<Team />}
 />;
 
-// and the element through `useParams`
+// 以及通过 `useParams` 提供给元素
 function Team() {
   let params = useParams();
   console.log(params["*"]); // "one/two"
 }
 ```
 
-You can destructure the `*`, you just have to assign it a new name. A common name is `splat`:
+你可以解构 `*`，只需要给它分配一个新名称。常用名称是 `splat`：
 
 ```tsx
 let { org, "*": splat } = params;
 ```
 
-### Layout Routes
+### 布局路由
 
-Omitting the path makes this route a "layout route". It participates in UI nesting, but it does not add any segments to the URL.
+省略 path 使此路由成为"布局路由"。它参与 UI 嵌套，但不向 URL 添加任何片段。
 
 ```tsx
 <Route
@@ -228,11 +228,11 @@ Omitting the path makes this route a "layout route". It participates in UI nesti
 </Route>
 ```
 
-In this example, `<h1>Layout</h1>` will be rendered along with each child route's `element` prop, via the layout route's [Outlet][outlet].
+在此示例中，`<h1>Layout</h1>` 将与每个子路由的 `element` 属性一起渲染，通过布局路由的 [Outlet][outlet]。
 
 ## `index`
 
-Determines if the route is an index route. Index routes render into their parent's [Outlet][outlet] at their parent's URL (like a default child route).
+确定路由是否为索引路由。索引路由在其父级的 URL 处渲染到父级的 [Outlet][outlet] 中（类似于默认的子路由）。
 
 ```jsx [2]
 <Route path="/teams" element={<Teams />}>
@@ -241,26 +241,26 @@ Determines if the route is an index route. Index routes render into their parent
 </Route>
 ```
 
-These special routes can be confusing to understand at first, so we have a guide dedicated to them here: [Index Route][indexroute].
+这些特殊路由起初可能会让人困惑，所以我们在这里有一份专门的指南：[索引路由][indexroute]。
 
 ## `children`
 
-<docs-warning>(TODO: need to talk about nesting, maybe even a separate doc)</docs-warning>
+<docs-warning>（TODO: 需要讨论嵌套，可能需要单独的文档）</docs-warning>
 
 ## `caseSensitive`
 
-Instructs the route to match case or not:
+指示路由匹配时是否区分大小写：
 
 ```jsx
 <Route caseSensitive path="/wEll-aCtuA11y" />
 ```
 
-- Will match `"wEll-aCtuA11y"`
-- Will not match `"well-actua11y"`
+- 将匹配 `"wEll-aCtuA11y"`
+- 不会匹配 `"well-actua11y"`
 
 ## `loader`
 
-The route loader is called before the route renders and provides data for the element through [`useLoaderData`][useloaderdata].
+路由 loader 在路由渲染之前被调用，并通过 [`useLoaderData`][useloaderdata] 为元素提供数据。
 
 ```tsx [3-5]
 <Route
@@ -276,13 +276,13 @@ function Team() {
 }
 ```
 
-<docs-warning>If you are not using a data router like [`createBrowserRouter`][createbrowserrouter], this will do nothing</docs-warning>
+<docs-warning>如果你没有使用像 [`createBrowserRouter`][createbrowserrouter] 这样的数据路由器，这将不起作用</docs-warning>
 
-Please see the [loader][loader] documentation for more details.
+请查看 [loader][loader] 文档了解更多细节。
 
 ## `action`
 
-The route action is called when a submission is sent to the route from a [Form][form], [fetcher][fetcher], or [submission][usesubmit].
+当从 [Form][form]、[fetcher][fetcher] 或 [submission][usesubmit] 向路由发送提交时，路由 action 将被调用。
 
 ```tsx [3-5]
 <Route
@@ -294,51 +294,51 @@ The route action is called when a submission is sent to the route from a [Form][
 />
 ```
 
-<docs-warning>If you are not using a data router like [`createBrowserRouter`][createbrowserrouter], this will do nothing</docs-warning>
+<docs-warning>如果你没有使用像 [`createBrowserRouter`][createbrowserrouter] 这样的数据路由器，这将不起作用</docs-warning>
 
-Please see the [action][action] documentation for more details.
+请查看 [action][action] 文档了解更多细节。
 
 ## `element`/`Component`
 
-The React Element/Component to render when the route matches the URL.
+当路由匹配 URL 时要渲染的 React Element/Component。
 
-If you want to create the React Element, use `element`:
+如果你想创建 React Element，使用 `element`：
 
 ```tsx
 <Route path="/for-sale" element={<Properties />} />
 ```
 
-Otherwise use `Component` and React Router will create the React Element for you:
+否则使用 `Component`，React Router 将为你创建 React Element：
 
 ```tsx
 <Route path="/for-sale" Component={Properties} />
 ```
 
-<docs-warning>You should only opt into the `Component` API for data routes via `RouterProvider`. Using this API on a `<Route>` inside `<Routes>` will de-optimize React's ability to reuse the created element across renders.</docs-warning>
+<docs-warning>你应该只在通过 `RouterProvider` 使用数据路由时才选择 `Component` API。在 `<Routes>` 内的 `<Route>` 上使用此 API 会降低 React 跨渲染复用已创建元素的能力。</docs-warning>
 
 ## `errorElement`/`ErrorBoundary`
 
-When a route throws an exception while rendering, in a `loader` or in an `action`, this React Element/Component will render instead of the normal `element`/`Component`.
+当路由在渲染、`loader` 或 `action` 中抛出异常时，将渲染此 React Element/Component 而不是正常的 `element`/`Component`。
 
-If you want to create the React Element on your own, use `errorElement`:
+如果你想自己创建 React Element，使用 `errorElement`：
 
 ```tsx
 <Route
   path="/for-sale"
-  // if this throws an error while rendering
+  // 如果渲染时抛出错误
   element={<Properties />}
-  // or this while loading properties
+  // 或加载属性时
   loader={() => loadProperties()}
-  // or this while creating a property
+  // 或创建属性时
   action={async ({ request }) =>
     createProperty(await request.formData())
   }
-  // then this element will render
+  // 则渲染此元素
   errorElement={<ErrorBoundary />}
 />
 ```
 
-Otherwise use `ErrorBoundary` and React Router will create the React Element for you:
+否则使用 `ErrorBoundary`，React Router 将为你创建 React Element：
 
 ```tsx
 <Route
@@ -352,40 +352,40 @@ Otherwise use `ErrorBoundary` and React Router will create the React Element for
 />
 ```
 
-<docs-warning>If you are not using a data router like [`createBrowserRouter`][createbrowserrouter], this will do nothing</docs-warning>
+<docs-warning>如果你没有使用像 [`createBrowserRouter`][createbrowserrouter] 这样的数据路由器，这将不起作用</docs-warning>
 
-Please see the [errorElement][errorelement] documentation for more details.
+请查看 [errorElement][errorelement] 文档了解更多细节。
 
 ## `hydrateFallbackElement`/`HydrateFallback`
 
-If you are using [Server-Side Rendering][ssr] and you are leveraging [partial hydration][partialhydration], then you can specify an Element/Component to render for non-hydrated routes during the initial hydration of the application.
+如果你使用[服务端渲染][ssr]并利用了[部分注水][partialhydration]，那么你可以为应用初始注水期间未注水的路由指定一个要渲染的 Element/Component。
 
-<docs-warning>If you are not using a data router like [`createBrowserRouter`][createbrowserrouter], this will do nothing</docs-warning>
+<docs-warning>如果你没有使用像 [`createBrowserRouter`][createbrowserrouter] 这样的数据路由器，这将不起作用</docs-warning>
 
-<docs-warning>This is only intended for more advanced uses cases such as Remix's [`clientLoader`][clientloader] functionality. Most SSR apps will not need to leverage these route properties.</docs-warning>
+<docs-warning>这仅适用于更高级的用例，如 Remix 的 [`clientLoader`][clientloader] 功能。大多数 SSR 应用不需要使用这些路由属性。</docs-warning>
 
-Please see the [hydrateFallbackElement][hydratefallbackelement] documentation for more details.
+请查看 [hydrateFallbackElement][hydratefallbackelement] 文档了解更多细节。
 
 ## `handle`
 
-Any application-specific data. Please see the [useMatches][usematches] documentation for details and examples.
+任何应用特定的数据。请参阅 [useMatches][usematches] 文档了解详情和示例。
 
 ## `lazy`
 
-In order to keep your application bundles small and support code-splitting of your routes, each route can provide an async function that resolves the non-route-matching portions of your route definition (`loader`, `action`, `Component`/`element`, `ErrorBoundary`/`errorElement`, etc.).
+为了保持应用包的小体积并支持路由的代码分割，每个路由可以提供一个异步函数来解析路由定义中非路由匹配的部分（`loader`、`action`、`Component`/`element`、`ErrorBoundary`/`errorElement` 等）。
 
-Each `lazy` function will typically return the result of a dynamic import.
+每个 `lazy` 函数通常返回动态导入的结果。
 
 ```jsx
 let routes = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route path="a" lazy={() => import("./a")} />
     <Route path="b" lazy={() => import("./b")} />
-  </Route>
+  </Route>,
 );
 ```
 
-Then in your lazy route modules, export the properties you want defined for the route:
+然后在你的懒加载路由模块中，导出你想要为路由定义的属性：
 
 ```jsx
 export async function loader({ request }) {
@@ -405,9 +405,9 @@ export function Component() {
 }
 ```
 
-<docs-warning>If you are not using a data router like [`createBrowserRouter`][createbrowserrouter], this will do nothing</docs-warning>
+<docs-warning>如果你没有使用像 [`createBrowserRouter`][createbrowserrouter] 这样的数据路由器，这将不起作用</docs-warning>
 
-Please see the [lazy][lazy] documentation for more details.
+请查看 [lazy][lazy] 文档了解更多细节。
 
 [remix]: https://remix.run
 [indexroute]: ../start/concepts#index-routes

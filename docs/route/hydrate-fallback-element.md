@@ -5,11 +5,11 @@ new: true
 
 # `hydrateFallbackElement`
 
-If you are using [Server-Side Rendering][ssr] and you are leveraging [partial hydration][partialhydration], then you can specify an Element/Component to render for non-hydrated routes during the initial hydration of the application.
+如果你使用[服务端渲染][ssr]并利用了[部分注水][partialhydration]，那么你可以为应用初始注水期间未注水的路由指定一个要渲染的 Element/Component。
 
-<docs-info>If you do not wish to specify a React element (i.e., `hydrateFallbackElement={<MyFallback />}`) you may specify an `HydrateFallback` component instead (i.e., `HydrateFallback={MyFallback}`) and React Router will call `createElement` for you internally.</docs-info>
+<docs-info>如果你不想指定 React 元素（即 `hydrateFallbackElement={<MyFallback />}`），你可以改为指定一个 `HydrateFallback` 组件（即 `HydrateFallback={MyFallback}`），React Router 将在内部为你调用 `createElement`。</docs-info>
 
-<docs-warning>This feature only works if using a data router, see [Picking a Router][pickingarouter]</docs-warning>
+<docs-warning>此功能仅在使用数据路由器时有效，参见[选择路由器][pickingarouter]</docs-warning>
 
 ```tsx
 let router = createBrowserRouter(
@@ -38,13 +38,13 @@ let router = createBrowserRouter(
       root: {
         /*...*/
       },
-      // No hydration data provided for the `invoice` route
+      // 没有为 `invoice` 路由提供注水数据
     },
-  }
+  },
 );
 ```
 
-<docs-warning>There is no default fallback and it will just render `null` at that route level, so it is recommended that you always provide your own fallback element.</docs-warning>
+<docs-warning>没有默认的后备组件，该路由层级将只渲染 `null`，因此建议你始终提供自己的后备元素。</docs-warning>
 
 [pickingarouter]: ../routers/picking-a-router
 [ssr]: ../guides/ssr

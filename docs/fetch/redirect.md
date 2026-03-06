@@ -5,7 +5,7 @@ new: true
 
 # `redirect`
 
-Because you can return or throw responses in loaders and actions, you can use `redirect` to redirect to another route.
+由于你可以在 loader 和 action 中返回或抛出响应，因此可以使用 `redirect` 重定向到另一个路由。
 
 ```jsx
 import { redirect } from "react-router-dom";
@@ -19,7 +19,7 @@ const loader = async () => {
 };
 ```
 
-It's really just a shortcut for this:
+它实际上只是以下写法的快捷方式：
 
 ```jsx
 new Response("", {
@@ -30,24 +30,24 @@ new Response("", {
 });
 ```
 
-It's recommended to use `redirect` in loaders and actions rather than `useNavigate` in your components when the redirect is in response to data.
+当重定向是对数据的响应时，建议在 loader 和 action 中使用 `redirect` 而不是在组件中使用 `useNavigate`。
 
-See also:
+另请参阅：
 
-- [Returning Responses from Loaders][responses]
+- [从 Loader 返回 Response][responses]
 
-## Type Declaration
+## 类型声明
 
 ```ts
 type RedirectFunction = (
   url: string,
-  init?: number | ResponseInit
+  init?: number | ResponseInit,
 ) => Response;
 ```
 
 ## `url`
 
-The URL to redirect to.
+要重定向到的 URL。
 
 ```js
 redirect("/login");
@@ -55,7 +55,7 @@ redirect("/login");
 
 ## `init`
 
-The [Response][response] options to be used in the response.
+响应中要使用的 [Response][response] 选项。
 
 [responses]: ../route/loader#returning-responses
 [response]: https://developer.mozilla.org/en-US/docs/Web/API/Response/Response

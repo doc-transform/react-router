@@ -5,11 +5,11 @@ title: HashRouter
 # `<HashRouter>`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function HashRouter(
-  props: HashRouterProps
+  props: HashRouterProps,
 ): React.ReactElement;
 
 interface HashRouterProps {
@@ -22,7 +22,7 @@ interface HashRouterProps {
 
 </details>
 
-`<HashRouter>` is for use in web browsers when the URL should not (or cannot) be sent to the server for some reason. This may happen in some shared hosting scenarios where you do not have full control over the server. In these situations, `<HashRouter>` makes it possible to store the current location in the `hash` portion of the current URL, so it is never sent to the server.
+`<HashRouter>` 适用于在 Web 浏览器中当 URL 因某些原因不应该（或不能）发送到服务器时使用。这可能发生在某些共享主机场景中，你对服务器没有完全的控制权。在这些情况下，`<HashRouter>` 可以将当前位置存储在当前 URL 的 `hash` 部分中，因此它永远不会被发送到服务器。
 
 ```tsx
 import * as React from "react";
@@ -31,24 +31,24 @@ import { HashRouter } from "react-router-dom";
 
 ReactDOM.render(
   <HashRouter>
-    {/* The rest of your app goes here */}
+    {/* 你的应用的其余部分放在这里 */}
   </HashRouter>,
-  root
+  root,
 );
 ```
 
-<docs-warning>We strongly recommend you do not use `HashRouter` unless you absolutely have to.</docs-warning>
+<docs-warning>我们强烈建议你不要使用 `HashRouter`，除非你不得不这样做。</docs-warning>
 
 ## `basename`
 
-Configure your application to run underneath a specific basename in the URL:
+配置你的应用在 URL 中的特定基础路径下运行：
 
 ```jsx
 function App() {
   return (
     <HashRouter basename="/app">
       <Routes>
-        <Route path="/" /> {/* 👈 Renders at /#/app/ */}
+        <Route path="/" /> {/* 👈 在 /#/app/ 下渲染 */}
       </Routes>
     </HashRouter>
   );
@@ -57,7 +57,7 @@ function App() {
 
 ## `future`
 
-An optional set of [Future Flags][api-development-strategy] to enable. We recommend opting into newly released future flags sooner rather than later to ease your eventual migration to v7.
+一组可选的 [Future Flags][api-development-strategy]。我们建议尽早启用新发布的 future flag，以便将来更顺利地迁移到 v7。
 
 ```jsx
 function App() {
@@ -71,7 +71,7 @@ function App() {
 
 ## `window`
 
-`HashRouter` defaults to using the current [document's `defaultView`][defaultview], but it may also be used to track changes to another window's URL, in an `<iframe>`, for example.
+`HashRouter` 默认使用当前 [document 的 `defaultView`][defaultview]，但它也可以用于追踪另一个窗口 URL 的变化，例如在 `<iframe>` 中。
 
 [defaultview]: https://developer.mozilla.org/en-US/docs/Web/API/Document/defaultView
 [api-development-strategy]: ../guides/api-development-strategy

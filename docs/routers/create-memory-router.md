@@ -5,7 +5,7 @@ new: true
 
 # `createMemoryRouter`
 
-Instead of using the browser's history, a memory router manages its own history stack in memory. It's primarily useful for testing and component development tools like Storybook, but can also be used for running React Router in any non-browser environment.
+内存路由器不使用浏览器的 history，而是在内存中管理自己的历史栈。它主要用于测试和组件开发工具（如 Storybook），但也可以在任何非浏览器环境中运行 React Router。
 
 ```jsx lines=[2-3,24-27]
 import {
@@ -40,12 +40,12 @@ test("event route", async () => {
 
   await waitFor(() => screen.getByRole("heading"));
   expect(screen.getByRole("heading")).toHaveTextContent(
-    FAKE_EVENT.name
+    FAKE_EVENT.name,
   );
 });
 ```
 
-## Type Declaration
+## 类型声明
 
 ```tsx
 function createMemoryRouter(
@@ -56,13 +56,13 @@ function createMemoryRouter(
     hydrationData?: HydrationState;
     initialEntries?: InitialEntry[];
     initialIndex?: number;
-  }
+  },
 ): RemixRouter;
 ```
 
 ## `initialEntries`
 
-The initial entries in the history stack. This allows you to start a test (or an app) with multiple locations already in the history stack (for testing a back navigation, etc.)
+历史栈中的初始条目。这允许你在测试（或应用）中以多个位置已在历史栈中的状态启动（用于测试后退导航等）。
 
 ```tsx
 createMemoryRouter(routes, {
@@ -72,17 +72,17 @@ createMemoryRouter(routes, {
 
 ## `initialIndex`
 
-The initial index in the history stack to render. This allows you to start a test at a specific entry. It defaults to the last entry in `initialEntries`.
+要渲染的历史栈中的初始索引。这允许你在特定条目处开始测试。默认为 `initialEntries` 中的最后一个条目。
 
 ```tsx lines=[3]
 createMemoryRouter(routes, {
   initialEntries: ["/", "/events/123"],
-  initialIndex: 1, // start at "/events/123"
+  initialIndex: 1, // 从 "/events/123" 开始
 });
 ```
 
-## Other props
+## 其他属性
 
-For all other props, see [`createBrowserRouter`][createbrowserrouter]
+关于所有其他属性，请参阅 [`createBrowserRouter`][createbrowserrouter]。
 
 [createbrowserrouter]: ./create-browser-router

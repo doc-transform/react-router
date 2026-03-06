@@ -5,7 +5,7 @@ title: useLinkPressHandler
 # `useLinkPressHandler`
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useLinkPressHandler(
@@ -13,13 +13,13 @@ declare function useLinkPressHandler(
   options?: {
     replace?: boolean;
     state?: any;
-  }
+  },
 ): (event: GestureResponderEvent) => void;
 ```
 
 </details>
 
-The `react-router-native` counterpart to `useLinkClickHandler`, `useLinkPressHandler` returns a press event handler for custom `<Link>` navigation.
+`react-router-native` 中与 `useLinkClickHandler` 对应的 hook，`useLinkPressHandler` 返回一个用于自定义 `<Link>` 导航的按压事件处理器。
 
 ```tsx
 import { TouchableHighlight } from "react-native";

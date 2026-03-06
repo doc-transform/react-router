@@ -4,10 +4,10 @@ title: useSearchParams (RN)
 
 # `useSearchParams` (React Native)
 
-<docs-info>This is the React Native version of `useSearchParams`. For the web version, [go here][usesearchparams].</docs-info>
+<docs-info>这是 `useSearchParams` 的 React Native 版本。Web 版本请[前往这里][usesearchparams]。</docs-info>
 
 <details>
-  <summary>Type declaration</summary>
+  <summary>类型声明</summary>
 
 ```tsx
 declare function useSearchParams(
@@ -38,7 +38,7 @@ interface NavigateOptions {
 
 </details>
 
-The `useSearchParams` hook is used to read and modify the query string in the URL for the current location. Like React's own [`useState` hook][usestate], `useSearchParams` returns an array of two values: the current location's [search params][searchparams] and a function that may be used to update them. Just as React's [`useState` hook][usestate], `setSearchParams` also supports [functional updates][functional-updates]. Therefore, you may provide a function that takes a `searchParams` and returns an updated version.
+`useSearchParams` hook 用于读取和修改当前位置 URL 中的查询字符串。与 React 自身的 [`useState` hook][usestate] 类似，`useSearchParams` 返回一个包含两个值的数组：当前位置的 [search params][searchparams] 和一个可用于更新它们的函数。与 React 的 [`useState` hook][usestate] 一样，`setSearchParams` 也支持[函数式更新][functional-updates]。因此，你可以提供一个接收 `searchParams` 并返回更新版本的函数。
 
 ```tsx
 import * as React from "react";
@@ -48,7 +48,7 @@ import { useSearchParams } from "react-router-native";
 function App() {
   let [searchParams, setSearchParams] = useSearchParams();
   let [query, setQuery] = React.useState(
-    searchParams.get("query")
+    searchParams.get("query"),
   );
 
   function handleSubmit() {
